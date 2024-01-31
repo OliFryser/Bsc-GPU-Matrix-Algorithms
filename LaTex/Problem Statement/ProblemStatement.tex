@@ -1,0 +1,13 @@
+\section*{Formål}
+
+Med denne bacheloropgave ønsker vi at dygtiggøre og tilegne os ny information. I denne opgave sætter vi fokus på parallelisering af matricealgoritmer ved udnyttelse af GPU'en. Vi ønsker at forstå, hvordan hardwaren virker og forstå fordele og ulemper ved at uddelegere arbejdet til GPU'en frem for at bruge CPU'en. Vi ønsker at lære at udnytte GPU'en i praksis med anvendelse af CUDA C, som er udviklet af NVIDIA. Det tekniske formål med opgaven er at opnå en hastighedsforøgelse af diverse matrice-algoritmer. 
+
+\section*{Algoritmer}
+Vi vil først udvikle en algoritme som adderer to matricer. Algoritmen skal først køre korrekt på CPU'en. Derefter vil vi udvikle en algoritme som kører på GPU'en med en enkelt core. Til sidst vil vi udnytte multicore-arkitekturen på GPU'en til at parallelisere algoritmen. For hver iteration vil vi benchmarke den tid, det tager for algoritmen at køre eksklusiv tiden brugt på bytekode-generering og I/O-operationer. Vi forventer ikke at kunne programmere en løsning, som er hurtigere end CPU implementationen grundet algoritmen kan køre i linear tid i antallet af elementer. \\
+Derefter vil vi gentage eksperimentet med matrice-multiplikation. Denne gang forventes det at opnå en forøgelse af hastigheden, da algoritmen på CPU'en kører i kubisk tid i antallet af elementer. \\
+Hvis vi har mere tid, ønsker vi at udføre samme eksperiment for algoritmen for at finde den inverse matrice. Denne algoritme forventes at være noget mere omstændig. 
+
+\section*{Kilder}
+Chapter 2, Numerical Recipes in C, William H. Press et al.\\
+Afternotes on Numerical Analysis, G. W. Stewart\\
+CUDA C PROGRAMMING GUIDE, documentation 2018\\
