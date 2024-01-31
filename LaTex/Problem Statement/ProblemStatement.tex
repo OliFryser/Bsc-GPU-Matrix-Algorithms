@@ -1,13 +1,36 @@
-\section*{Formål}
+\section*{Purpose}
 
-Med denne bacheloropgave ønsker vi at dygtiggøre og tilegne os ny information. I denne opgave sætter vi fokus på parallelisering af matricealgoritmer ved udnyttelse af GPU'en. Vi ønsker at forstå, hvordan hardwaren virker og forstå fordele og ulemper ved at uddelegere arbejdet til GPU'en frem for at bruge CPU'en. Vi ønsker at lære at udnytte GPU'en i praksis med anvendelse af CUDA C, som er udviklet af NVIDIA. Det tekniske formål med opgaven er at opnå en hastighedsforøgelse af diverse matrice-algoritmer. 
+With this Bachelor's project we wish to gain an understanding of a new tool and improve our current skill set. We wish to learn about the advantages and disadvantages of utilizing the GPU for calculations in parallel. We want to be able to use the GPU using the CUDA C language, developed by NVIDIA. The technical purpose for the project is to achieve a performance increase of matrix algorithms by utilizing the GPU.
 
-\section*{Algoritmer}
-Vi vil først udvikle en algoritme som adderer to matricer. Algoritmen skal først køre korrekt på CPU'en. Derefter vil vi udvikle en algoritme som kører på GPU'en med en enkelt core. Til sidst vil vi udnytte multicore-arkitekturen på GPU'en til at parallelisere algoritmen. For hver iteration vil vi benchmarke den tid, det tager for algoritmen at køre eksklusiv tiden brugt på bytekode-generering og I/O-operationer. Vi forventer ikke at kunne programmere en løsning, som er hurtigere end CPU implementationen grundet algoritmen kan køre i linear tid i antallet af elementer. \\
-Derefter vil vi gentage eksperimentet med matrice-multiplikation. Denne gang forventes det at opnå en forøgelse af hastigheden, da algoritmen på CPU'en kører i kubisk tid i antallet af elementer. \\
-Hvis vi har mere tid, ønsker vi at udføre samme eksperiment for algoritmen for at finde den inverse matrice. Denne algoritme forventes at være noget mere omstændig. 
+\section*{Project Plan}
 
-\section*{Kilder}
+Specifically we want to perform addition, multiplication and QR-decomposition for finding inverse matrices. For each algorithm, we will first implement a correct solution on the CPU to get a baseline for performance. Then, we will improve the performance by utilizing parallelization on the GPU. We will measure the performance gains or losses for various input sizes and plot the results on a graph. We will also benchmark various implementations of each algorithm to see what has an impact on performance. 
+We will implement a simple tool automate the process of benchmarking. 
+
+\section*{Hardware}
+
+We have two systems with different GPUs and CPUs. System 1 has an NVIDIA GeForce RTX 3060 Laptop GPU a little under 4000 cores. System 2 has an NVIDIA GeForce RTX 4070 Ti GPU with a little over 7500 cores. We will run our implementations on both to measure the performance impact of different hardware. 
+
+\section*{Limitations of scope}
+
+We will only consider rectangular, dense matrices in our implementations. 
+
+\section*{Intended Learning Outcomes}
+
+After this project, we will be able to:
+
+\begin{itemize}
+    \item Use the CUDA C programming language to perform calculations on the GPU.
+    \item Compare performance metrics of matrix algorithms using the CPU and GPU.
+    \item Compare performance metrics of different implementations of matrix algorithms on the GPU
+    \item Compare performance metrics of running the implementations on different GPUs.
+    \item Automate and structure tests and benchmarks for the performance of our implementations and visualize the results.
+    \item Reflect critically on the results of performance benchmarks.
+    \item Explain the advantages and disadvantages of writing and running algorithms on the CPU and GPU.
+\end{itemize}
+
+
+\section*{Litterature}
 Chapter 2, Numerical Recipes in C, William H. Press et al.\\
 Afternotes on Numerical Analysis, G. W. Stewart\\
 CUDA C PROGRAMMING GUIDE, documentation 2018\\
