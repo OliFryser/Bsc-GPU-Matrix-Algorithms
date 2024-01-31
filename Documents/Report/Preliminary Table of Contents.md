@@ -1,7 +1,8 @@
 # Table of Contents
 
 1. Abstract
-2. Background
+2. Real-world Application
+3. Background
    1. Linear Algebra
       1. Linear Algebraic Equations
       2. Addition
@@ -15,24 +16,25 @@
       3. GPU Cores
       4. C and Cuda C
    3. Floating Point Arithmetic
-3. Benchmarking Tools and Automization
-4. Matrix Addition
+4. Benchmarking Tools and Automization
+   1. Hardware
+5. Matrix Addition
    1. CPU Singlethreaded Implementation
    2. GPU Implementation
       1. Singlethreaded
       2. Parallelized
    3. Benchmarks
-5. Matrix Multiplication
+6. Matrix Multiplication
    1. CPU Singlethreaded Implementation
    2. GPU Implementation
       1. Singlethreaded
       2. Parallelized
    3. Benchmarks
-6. QR-Decomposition
+7. QR-Decomposition
    1. CPU Singlethreaded Implementation
    2. GPU Implementation
       1. Singlethreaded
       2. Parallelized
    3. Benchmarks
-7. Conclusion
-8. Bibliography
+8. Conclusion
+9. Bibliography
