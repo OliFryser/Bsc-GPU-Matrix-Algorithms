@@ -2,7 +2,7 @@ import subprocess
 import os
 
 directory = "MatrixAlgorithms/"
-program_name = "DataWriter"
+program_name = "ArrayAlgorithms"
 
 c_source_path = directory + program_name + ".c"
 binary_path = directory + program_name
