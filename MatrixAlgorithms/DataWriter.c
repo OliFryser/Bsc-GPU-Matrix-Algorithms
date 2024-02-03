@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "DataWriter.h"
 
 FILE *createCSV(char *csvPath) {
     FILE *csvFile;
     csvFile = fopen(csvPath, "w");
     if (csvFile == NULL) {
-        fprintf(stderr, "Unable to open file for writing\n");
-        exit(1);
+        fprintf(stderr, "Unable to open file for writing.\n");
     }
     return csvFile;
 }
@@ -21,7 +21,7 @@ void writeToCSV(FILE *file, int data[], int size_of_array) {
     fprintf(file, "\n");
 }
 
-int main() {
+int date_writer_example() {
     char *csvPath = "DummyData/RandomData.csv";
     FILE *csvFile = createCSV(csvPath);
     int data[] = { 1, 2, 3, 4, 5 };

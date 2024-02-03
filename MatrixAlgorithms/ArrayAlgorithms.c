@@ -1,5 +1,7 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "ArrayAlgorithms.h"
 
 int sum_of_array(int array[], int size_of_array) {
     int sum;
@@ -16,8 +18,10 @@ int *random_numbers(int size, int max_value) {
     if (numbers == NULL) {
         fprintf(stderr, "Could not allocate array for random numbers.");
         exit(1);
-    }
 
+    }
+    
+    srand((unsigned int)time(NULL));
     max_value += 1;
     for (int i = 0; i < size; i++)
     {
@@ -36,7 +40,7 @@ void print_numbers(int array[], int size_of_array) {
     }
 }
 
-int main(int argc, char *argv[]) {
+int array_algorithms_example(int argc, char *argv[]) {
     int size_of_array;
     if (argc > 1) size_of_array = atoi(argv[1]);
     else size_of_array = 10;

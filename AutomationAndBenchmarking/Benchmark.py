@@ -2,11 +2,9 @@ import subprocess
 import os
 
 directory = "MatrixAlgorithms/"
-program_name = "ArrayAlgorithms"
-
-c_source_path = directory + program_name + ".c"
-binary_path = directory + program_name
-compile_command = ["gcc", c_source_path, "-o", binary_path]
+source_files = [os.path.join(directory, name) for name in os.listdir(directory) if name.endswith(".c")]
+binary_path = directory + "binary"
+compile_command = ["gcc", "-o", binary_path] + source_files
 
 try:
     subprocess.run(compile_command, check=True)
