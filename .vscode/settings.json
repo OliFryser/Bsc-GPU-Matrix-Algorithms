@@ -2,6 +2,7 @@
     "files.associations": {
         "datawriter.h": "c",
         "stdio.h": "c",
-        "arrayalgorithms.h": "c"
+        "arrayalgorithms.h": "c",
+        "stdlib.h": "c"
     }
 }

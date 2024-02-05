@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "ArrayAlgorithms.h"
+#include "array_algorithms.h"
 
 int sum_of_array(int array[], int size_of_array) {
     int sum;

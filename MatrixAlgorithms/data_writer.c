@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "DataWriter.h"
+#include "data_writer.h"
 
 FILE *createCSV(char *csvPath) {
     FILE *csvFile;
@@ -11,7 +11,7 @@ FILE *createCSV(char *csvPath) {
     return csvFile;
 }
 
-void writeToCSV(FILE *file, int data[], int size_of_array) {    
+void write_to_csv(FILE *file, int data[], int size_of_array) {    
     for (int i = 0; i < size_of_array; i++)
     {
         int entry = data[i];
@@ -26,5 +26,5 @@ int date_writer_example() {
     FILE *csvFile = createCSV(csvPath);
     int data[] = { 1, 2, 3, 4, 5 };
     int size_of_array = sizeof(data) / sizeof(data[0]);
-    writeToCSV(csvFile, data, size_of_array);
+    write_to_csv(csvFile, data, size_of_array);
 }
