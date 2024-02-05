@@ -3,6 +3,7 @@ import os
 import csv
 import matplotlib.pyplot as pyplot
 import data_visualizer as visualizer
+import csv_data_structure as structure
 
 directory = "MatrixAlgorithms/"
 source_files = [os.path.join(directory, name) for name in os.listdir(directory) if name.endswith(".c")]
@@ -10,6 +11,7 @@ binary_path = directory + "binary"
 compile_command = ["gcc", "-o", binary_path] + source_files
 data_save_file = "DummyData/RandomData.csv"
 number_count = 5
+
 
 # Run C-program to generate data
 try:
@@ -25,6 +27,13 @@ except subprocess.CalledProcessError as e:
 except Exception as e:
     print(f"An unexpected error occurred: {e}")
     exit()
+
+
+data = structure.CSVDataStructure(data_save_file)
+cpu_matrix_sum_data_points = data.get_data_points("Sum of numbers")
+print(cpu_matrix_sum_data_points)
+exit()
+
 
 # # Visualize data with matplotlib
 # with open(data_save_file, 'r') as file:
@@ -45,5 +54,3 @@ pyplot.xticks(list(range(number_count)))
 pyplot.ylabel("Number Generated")
 pyplot.title(str(number_count) + " Random Numbers")
 pyplot.savefig("Diagrams/output_plot.png")
-
-visualizer.visualize_csv("some/path")

@@ -13,17 +13,16 @@ int sum_of_array(int array[], int size_of_array) {
     return sum;
 }
 
-int *random_numbers(int size, int max_value) {
-    int *numbers = malloc(size * sizeof(int));
+int *random_numbers(int number_count, int max_value) {
+    int *numbers = malloc(number_count * sizeof(int));
     if (numbers == NULL) {
         fprintf(stderr, "Could not allocate array for random numbers.");
-        exit(1);
-
+        return NULL;
     }
     
     srand((unsigned int)time(NULL));
     max_value += 1;
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < number_count; i++)
     {
         numbers[i] = rand() % max_value;
     }
@@ -38,16 +37,4 @@ void print_numbers(int array[], int size_of_array) {
         if (i < size_of_array - 1) printf(", ");
         printf("\n");
     }
-}
-
-int array_algorithms_example(int argc, char *argv[]) {
-    int size_of_array;
-    if (argc > 1) size_of_array = atoi(argv[1]);
-    else size_of_array = 10;
-
-    int max_random_value = 10;
-    int *numbers = random_numbers(size_of_array, max_random_value);
-    print_numbers(numbers, size_of_array);
-    int sum = sum_of_array(numbers, size_of_array);
-    printf("SUM: %d\n", sum);
 }

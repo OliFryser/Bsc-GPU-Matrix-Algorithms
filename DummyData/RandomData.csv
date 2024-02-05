@@ -1,1 +1,14 @@
-7,8,8,10,2
+CPU-matrix-sum,10,0.1
+CPU-matrix-sum,100,1.2
+CPU-matrix-sum,1000,9.8
+CPU-matrix-sum,10000,101.2
+GPU-matrix-sum,10,0.1
+GPU-matrix-sum,100,1.2
+GPU-matrix-sum,1000,9.8
+GPU-matrix-sum,10000,101.2
+Sum of numbers,5,0.000001
+Sum of numbers,5,0.000001
+Sum of numbers,5,0.000001
+Sum of numbers,5,0.000000
+Sum of numbers,5,0.000001
+Sum of numbers,5,0.000001
