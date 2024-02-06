@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     char elapsed_time_string[64];
 
     if (argc < 3) {
-        printf("Usage: %s <file_path.csv> <number_count>\n", argv[0]);
+        printf("Usage: %s <save_file_path.csv> <number_count>\n", argv[0]);
         return 0;
     }
 
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 
     file = get_csv(save_file_name);
     if (file == NULL) return 0;
-    write_to_csv(file, "Sum of numbers", number_count_string, elapsed_time_string);
+    write_to_csv(file, "CPU Sum of numbers", number_count_string, elapsed_time_string);
     fclose(file);
 
     return 0;

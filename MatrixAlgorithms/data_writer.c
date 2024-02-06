@@ -2,15 +2,6 @@
 #include <stdlib.h>
 #include "data_writer.h"
 
-FILE *create_csv(char *csvPath) {
-    FILE *csvFile;
-    csvFile = fopen(csvPath, "w");
-    if (csvFile == NULL) {
-        fprintf(stderr, "Unable to open file for writing.\n");
-    }
-    return csvFile;
-}
-
 FILE *get_csv(char *csvPath) {
     FILE *csvFile;
     csvFile = fopen(csvPath, "a");

@@ -10,16 +10,14 @@ directory = "MatrixAlgorithms/"
 source_files = [os.path.join(directory, name) for name in os.listdir(directory) if name.endswith(".c")]
 binary_path = directory + "binary"
 compile_command = ["gcc", "-o", binary_path] + source_files
-data_save_file = "DummyData/RandomData.csv"
-number_count = 5
+data_save_file = "DummyData/RandomData2.csv"
+input_sizes = [5, 50, 500, 5_000, 50_000, 500_000, 5_000_000, 50_000_000]
 
-
-# Run C-program to generate data
 try:
-    # subprocess.run(compile_command, check=True)
-    # subprocess.run([binary_path, data_save_file, str(number_count)], check=True)
-    # os.remove(binary_path)
-    pass
+    subprocess.run(compile_command, check=True)
+    for input_size in input_sizes:
+        subprocess.run([binary_path, data_save_file, str(input_size)], check=True)
+    os.remove(binary_path)
 except FileNotFoundError as e:
     print(f"File not found error: {e}")
     exit()
@@ -33,25 +31,3 @@ except Exception as e:
 
 data = structure.CSVDataStructure(data_save_file)
 visualize_csv(data)
-exit()
-
-
-# # Visualize data with matplotlib
-# with open(data_save_file, 'r') as file:
-#     csv_reader = csv.reader(file)
-#     for row in csv_reader:
-#         numbers = list(map(int, row))
-#         x = list(range(number_count))
-#         pyplot.plot(x, numbers)
-
-x1 = [1, 2, 3]
-y1 = [1, 2, 3]
-x2 = [3, 2, 1]
-y2 = [1.1, 2.1, 3.1]
-pyplot.plot(x1, y1)
-pyplot.plot(x2, y2)
-
-pyplot.xticks(list(range(number_count)))
-pyplot.ylabel("Number Generated")
-pyplot.title(str(number_count) + " Random Numbers")
-pyplot.savefig("Diagrams/output_plot.png")

@@ -9,14 +9,17 @@ class CSVDataStructure:
                 self.__add_line(line)
 
     def __add_line(self, line: str):
-        if len(line) == 0: return
+        if not line: return
         algorithm_name, input_size, run_time = [value.strip() for value in line.rstrip('\n').split(',')]
-        
         input_size = float(input_size)
+        run_time = float(run_time)
+        
+        if algorithm_name in self.get_algorithms() and input_size in self.get_input_sizes():
+            return
+
         if input_size not in self.__input_sizes:
             self.__input_sizes.append(input_size)
 
-        run_time = float(run_time)
         if algorithm_name in self.__run_times:
             self.__run_times[algorithm_name].append(run_time)
         else: 
