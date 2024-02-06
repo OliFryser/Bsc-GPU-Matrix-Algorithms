@@ -4,6 +4,7 @@ import csv
 import matplotlib.pyplot as pyplot
 import data_visualizer as visualizer
 import csv_data_structure as structure
+from data_visualizer import visualize_csv
 
 directory = "MatrixAlgorithms/"
 source_files = [os.path.join(directory, name) for name in os.listdir(directory) if name.endswith(".c")]
@@ -15,9 +16,10 @@ number_count = 5
 
 # Run C-program to generate data
 try:
-    subprocess.run(compile_command, check=True)
-    subprocess.run([binary_path, data_save_file, str(number_count)], check=True)
-    os.remove(binary_path)
+    # subprocess.run(compile_command, check=True)
+    # subprocess.run([binary_path, data_save_file, str(number_count)], check=True)
+    # os.remove(binary_path)
+    pass
 except FileNotFoundError as e:
     print(f"File not found error: {e}")
     exit()
@@ -30,8 +32,7 @@ except Exception as e:
 
 
 data = structure.CSVDataStructure(data_save_file)
-cpu_matrix_sum_data_points = data.get_data_points("Sum of numbers")
-print(cpu_matrix_sum_data_points)
+visualize_csv(data)
 exit()
 
 
