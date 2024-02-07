@@ -13,7 +13,6 @@ Matrix *matrix;
 int init_matrix_suite(void)
 {
     matrix = matrix_init(n, m);
-    matrix_print(matrix);
     return 0;
 }
 
@@ -56,4 +55,9 @@ void test_init_matrix_0_values(void)
 
     null_matrix = matrix_init(-1, -1);
     CU_ASSERT_PTR_NULL(null_matrix);
+}
+
+void test_init_matrix_from_csv(void)
+{
+    return;
 }

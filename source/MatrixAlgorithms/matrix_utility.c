@@ -29,6 +29,7 @@ Matrix *matrix_init(int rows, int columns)
     }
     matrix->rows = rows;
     matrix->columns = columns;
+    return matrix;
 }
 
 void matrix_free(Matrix *matrix)
@@ -65,6 +66,7 @@ void matrix_print(Matrix *matrix)
     }
 }
 
-Matrix *matrix_init_from_csv(FILE *csv_path) {
+Matrix *matrix_init_from_csv(FILE *csv_path)
+{
     return NULL;
 }
