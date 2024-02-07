@@ -61,3 +61,7 @@ Hver (algorithm,inputsize) skal mappe til en tid
     }
 
 Derefter noget kode som tager dictionariet og bruger det med matplotlib.
+
+## Fixes
+
+- Verify at CLOCKS_PER_SEC er korrekt.
