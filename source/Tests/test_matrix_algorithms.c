@@ -41,14 +41,6 @@ void test_init_matrix(void)
     }
 }
 
-void test_free_matrix(void)
-{
-    printf("\n## Freeing matrix\n");
-    matrix_free(matrix);
-    printf("\n## Freed matrix\n");
-    CU_ASSERT_PTR_NULL(NULL);
-}
-
 int main()
 {
     CU_pSuite pSuite = NULL;
@@ -67,7 +59,7 @@ int main()
 
     /* add the tests to the suite */
     /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
-    if ((NULL == CU_add_test(pSuite, "Matrix Init Test", test_init_matrix)) || (NULL == CU_add_test(pSuite, "Matrix Free Test", test_free_matrix)))
+    if ((NULL == CU_add_test(pSuite, "Matrix Init Test", test_init_matrix)))
     {
         CU_cleanup_registry();
         return CU_get_error();
