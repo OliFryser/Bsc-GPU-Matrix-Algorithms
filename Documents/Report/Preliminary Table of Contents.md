@@ -36,5 +36,6 @@
       1. Singlethreaded
       2. Parallelized
    3. Benchmarks
-8. Conclusion
-9. Bibliography
+8. Future Work / Additional Thoughts
+9. Conclusion
+10. Bibliography

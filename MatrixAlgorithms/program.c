@@ -10,7 +10,8 @@ int *random_numbers(int size, int max_value);
 FILE *get_csv(char *csvPath);
 void write_to_csv(FILE *file, char algorithm_name[], char input_size[], char run_time[]);
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     char *save_file_name;
     FILE *file;
     int number_count;
@@ -19,7 +20,8 @@ int main(int argc, char *argv[]) {
     char number_count_string[64];
     char elapsed_time_string[64];
 
-    if (argc < 3) {
+    if (argc < 3)
+    {
         printf("Usage: %s <save_file_path.csv> <number_count>\n", argv[0]);
         return 0;
     }
@@ -39,7 +41,8 @@ int main(int argc, char *argv[]) {
     printf("TIME TO CALCULATE: %f\n", elapsed_time);
 
     file = get_csv(save_file_name);
-    if (file == NULL) return 0;
+    if (file == NULL)
+        return 0;
     write_to_csv(file, "CPU Sum of numbers", number_count_string, elapsed_time_string);
     fclose(file);
 
