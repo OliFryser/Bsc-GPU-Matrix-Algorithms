@@ -1,8 +1,8 @@
 # Analyse af benchmarking-struktur
 
-- Et program kører 1 udregning på noget input data. 
+- Et program kører 1 udregning på noget input data.
 - Input data kan ligge i en fil
-- Fordel i at den samme data bliver brugt hver gang. 
+- Fordel i at den samme data bliver brugt hver gang.
 
 - Programmet outputter siden kørselstid i en fil
 - Output format-muligheder
@@ -26,8 +26,7 @@
   - algorithm-name,input-size,run-time
 - C-program med main metode, der kører 1 algortime og logger hvor lang tid kørselstiden er, og inputstørrelsen
 - C-program tager 3 argumenter: navn på metode, input-størrelse, navn på csv-fil den skal gemme i
-- Python læser csv-filen og opretter et dictionary som indeholder alt data. 
-
+- Python læser csv-filen og opretter et dictionary som indeholder alt data.
 
 Eksempel-csv:
 
@@ -39,7 +38,6 @@ Eksempel-csv:
     GPU-matrix-sum, 100,    1.2
     GPU-matrix-sum, 1000,   9.8
     GPU-matrix-sum, 10000,  101.2
-
 
 Eksempel output-datastructure:  
 Hver (algorithm,inputsize) skal mappe til en tid
