@@ -8,4 +8,5 @@ Bachelor's project
 
 ## Testing
 
-- gcc Tests/test_matrix_algorithms.c MatrixAlgorithms/matrix_utility.c -o Tests/tests -lcunit
+In the source folder, run ``make test``, then run ``./bin/tests``
+To remove all build files run ``make clean``.
