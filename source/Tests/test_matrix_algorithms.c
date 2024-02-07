@@ -1,9 +1,10 @@
 #include <CUnit/Basic.h>
+#include <CUnit/Console.h>
 #include "../MatrixAlgorithms/matrix_utility.h"
 
-float **matrix;
 int n = 4;
 int m = 4;
+Matrix *matrix;
 
 /* The suite initialization function.
  * Opens the temporary file used by the tests.
@@ -11,7 +12,8 @@ int m = 4;
  */
 int init_suite1(void)
 {
-    // matrix = matrix_init(n, m);
+    matrix = matrix_init(n, m);
+    return 0;
 }
 
 /* The suite cleanup function.
@@ -20,7 +22,8 @@ int init_suite1(void)
  */
 int clean_suite1(void)
 {
-    // matrix_free(matrix);
+    matrix_free(matrix);
+    return 0;
 }
 
 /* Simple test of fprintf().
@@ -29,13 +32,19 @@ int clean_suite1(void)
  */
 void test_init_matrix(void)
 {
-    float **actual_matrix = matrix_init(n, m);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(actual_matrix);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix->values)
     int i;
     for (i = 0; i < n; i++)
     {
-        CU_ASSERT_PTR_NOT_NULL(actual_matrix[i])
+        CU_ASSERT_PTR_NOT_NULL(matrix->values[i])
     }
+}
+
+void test_free_matrix(void)
+{
+    matrix_free(matrix);
+    CU_ASSERT_PTR_NULL(matrix);
 }
 
 int main()
@@ -43,20 +52,20 @@ int main()
     CU_pSuite pSuite = NULL;
 
     /* initialize the CUnit test registry */
-    CU_ErrorCode errorCode = CU_initialize_registry();
-    if (CUE_SUCCESS != errorCode)
+    if (CUE_SUCCESS != CU_initialize_registry())
         return CU_get_error();
 
     /* add a suite to the registry */
-    if (NULL == CU_add_suite("Init Matrix", init_suite1, clean_suite1))
+    pSuite = CU_add_suite("Matrix Tests", init_suite1, clean_suite1);
+    if (NULL == pSuite)
     {
         CU_cleanup_registry();
         return CU_get_error();
     }
 
     /* add the tests to the suite */
-    CU_pTest test = CU_add_test(pSuite, "test matrix init function", test_init_matrix);
-    if (test == NULL)
+    /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+    if ((NULL == CU_add_test(pSuite, "Matrix Init Test", test_init_matrix)) || (NULL == CU_add_test(pSuite, "Matrix Free Test", test_free_matrix)))
     {
         CU_cleanup_registry();
         return CU_get_error();
