@@ -49,6 +49,21 @@ void matrix_free(Matrix *matrix)
     free(matrix);
 }
 
+void matrix_print(Matrix *matrix)
+{
+    int i, j;
+
+    printf("# PRINTING MATRIX #\n");
+    for (i = 0; i < matrix->rows; i++)
+    {
+        for (j = 0; j < matrix->columns; j++)
+        {
+            printf("%.2f ", matrix->values[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 Matrix *matrix_init_from_csv(char csv_path[]) {
     
 }

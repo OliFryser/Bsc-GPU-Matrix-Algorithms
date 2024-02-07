@@ -13,6 +13,7 @@ Matrix *matrix;
 int init_suite1(void)
 {
     matrix = matrix_init(n, m);
+    matrix_print(matrix);
     return 0;
 }
 
@@ -41,6 +42,22 @@ void test_init_matrix(void)
     }
 }
 
+void test_init_matrix_0_values(void)
+{
+    Matrix *null_matrix;
+    null_matrix = matrix_init(0, 0);
+    CU_ASSERT_PTR_NULL(null_matrix);
+
+    null_matrix = matrix_init(0, 1);
+    CU_ASSERT_PTR_NULL(null_matrix);
+
+    null_matrix = matrix_init(1, 0);
+    CU_ASSERT_PTR_NULL(null_matrix);
+
+    null_matrix = matrix_init(-1, -1);
+    CU_ASSERT_PTR_NULL(null_matrix);
+}
+
 int main()
 {
     CU_pSuite pSuite = NULL;
@@ -59,7 +76,7 @@ int main()
 
     /* add the tests to the suite */
     /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
-    if ((NULL == CU_add_test(pSuite, "Matrix Init Test", test_init_matrix)))
+    if ((NULL == CU_add_test(pSuite, "Matrix Init Test", test_init_matrix)) || (NULL == CU_add_test(pSuite, "Matrix Init Test Bad Values", test_init_matrix_0_values)))
     {
         CU_cleanup_registry();
         return CU_get_error();
