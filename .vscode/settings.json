@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "datawriter.h": "c",
+        "stdio.h": "c",
+        "arrayalgorithms.h": "c",
+        "stdlib.h": "c",
+        "data_writer.h": "c",
+        "array_algorithms.h": "c",
+        "string.h": "c",
+        "time.h": "c"
+    }
+}
