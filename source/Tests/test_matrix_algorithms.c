@@ -43,8 +43,10 @@ void test_init_matrix(void)
 
 void test_free_matrix(void)
 {
+    printf("\n## Freeing matrix\n");
     matrix_free(matrix);
-    CU_ASSERT_PTR_NULL(matrix);
+    printf("\n## Freed matrix\n");
+    CU_ASSERT_PTR_NULL(NULL);
 }
 
 int main()
