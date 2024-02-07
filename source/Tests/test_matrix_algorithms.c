@@ -10,7 +10,7 @@ Matrix *matrix;
  * Opens the temporary file used by the tests.
  * Returns zero on success, non-zero otherwise.
  */
-int init_suite1(void)
+int init_matrix_suite(void)
 {
     matrix = matrix_init(n, m);
     matrix_print(matrix);
@@ -21,7 +21,7 @@ int init_suite1(void)
  * Closes the temporary file used by the tests.
  * Returns zero on success, non-zero otherwise.
  */
-int clean_suite1(void)
+int clean_matrix_suite(void)
 {
     matrix_free(matrix);
     return 0;
@@ -56,35 +56,4 @@ void test_init_matrix_0_values(void)
 
     null_matrix = matrix_init(-1, -1);
     CU_ASSERT_PTR_NULL(null_matrix);
-}
-
-int main()
-{
-    CU_pSuite pSuite = NULL;
-
-    /* initialize the CUnit test registry */
-    if (CUE_SUCCESS != CU_initialize_registry())
-        return CU_get_error();
-
-    /* add a suite to the registry */
-    pSuite = CU_add_suite("Matrix Tests", init_suite1, clean_suite1);
-    if (NULL == pSuite)
-    {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-    /* add the tests to the suite */
-    /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
-    if ((NULL == CU_add_test(pSuite, "Matrix Init Test", test_init_matrix)) || (NULL == CU_add_test(pSuite, "Matrix Init Test Bad Values", test_init_matrix_0_values)))
-    {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-    /* Run all tests using the CUnit Basic interface */
-    CU_basic_set_mode(CU_BRM_VERBOSE);
-    CU_basic_run_tests();
-    CU_cleanup_registry();
-    return CU_get_error();
 }

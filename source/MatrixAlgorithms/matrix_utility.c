@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "matrix_utility.h"
+#include "csv_utility.h"
 
 Matrix *matrix_init(int rows, int columns)
 {
@@ -64,6 +65,6 @@ void matrix_print(Matrix *matrix)
     }
 }
 
-Matrix *matrix_init_from_csv(char csv_path[]) {
-    
+Matrix *matrix_init_from_csv(FILE *csv_path) {
+    return NULL;
 }

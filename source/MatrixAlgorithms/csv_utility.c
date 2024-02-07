@@ -20,6 +20,10 @@ FILE *read_csv(char *csv_path) {
     return csv_file;
 }
 
+void close_file(FILE *file) {
+    fclose(file);
+}
+
 void write_to_csv(FILE *file, char algorithm_name[], char input_size[], char run_time[]) {    
     fprintf(file, "\n%s,%s,%s", algorithm_name, input_size, run_time);
 }
