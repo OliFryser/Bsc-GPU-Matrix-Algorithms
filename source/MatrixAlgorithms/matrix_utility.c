@@ -48,3 +48,7 @@ void matrix_free(Matrix *matrix)
     }
     free(matrix);
 }
+
+Matrix *matrix_init_from_csv(char csv_path[]) {
+    
+}

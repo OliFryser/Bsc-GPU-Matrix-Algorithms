@@ -3,7 +3,7 @@
 #include <time.h>
 #include <string.h>
 #include "array_algorithms.h"
-#include "data_writer.h"
+#include "csv_utility.h"
 
 int sum_of_array(int array[], int size_of_array);
 int *random_numbers(int size, int max_value);
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     sprintf(elapsed_time_string, "%f", elapsed_time);
     printf("TIME TO CALCULATE: %f\n", elapsed_time);
 
-    file = get_csv(save_file_name);
+    file = append_csv(save_file_name);
     if (file == NULL)
         return 0;
     write_to_csv(file, "CPU Sum of numbers", number_count_string, elapsed_time_string);

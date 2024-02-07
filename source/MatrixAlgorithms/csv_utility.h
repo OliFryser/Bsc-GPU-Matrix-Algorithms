@@ -1,4 +1,5 @@
 #include <stdio.h>
 
-FILE *get_csv(char *csvPath);
+FILE *append_csv(char *csvPath);
+FILE *read_csv(char *csv_path);
 void write_to_csv(FILE *file, char algorithm_name[], char input_size[], char run_time[]);
