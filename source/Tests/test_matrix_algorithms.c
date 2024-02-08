@@ -1,10 +1,11 @@
 #include <CUnit/Basic.h>
 #include <CUnit/Console.h>
 #include "../MatrixAlgorithms/matrix_utility.h"
+#include "../MatrixAlgorithms/csv_utility.h"
 
 int n = 4;
 int m = 4;
-Matrix *matrix;
+Matrix *empty_matrix;
 
 /* The suite initialization function.
  * Opens the temporary file used by the tests.
@@ -12,7 +13,7 @@ Matrix *matrix;
  */
 int init_matrix_suite(void)
 {
-    matrix = matrix_init(n, m);
+    empty_matrix = matrix_init(n, m);
     return 0;
 }
 
@@ -22,7 +23,7 @@ int init_matrix_suite(void)
  */
 int clean_matrix_suite(void)
 {
-    matrix_free(matrix);
+    matrix_free(empty_matrix);
     return 0;
 }
 
@@ -32,12 +33,12 @@ int clean_matrix_suite(void)
  */
 void test_init_matrix(void)
 {
-    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix->values)
+    CU_ASSERT_PTR_NOT_NULL_FATAL(empty_matrix);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(empty_matrix->values)
     int i;
     for (i = 0; i < n; i++)
     {
-        CU_ASSERT_PTR_NOT_NULL(matrix->values[i])
+        CU_ASSERT_PTR_NOT_NULL(empty_matrix->values[i])
     }
 }
 
@@ -57,7 +58,32 @@ void test_init_matrix_0_values(void)
     CU_ASSERT_PTR_NULL(null_matrix);
 }
 
-void test_init_matrix_from_csv(void)
+void test_init_matrix_2x2_from_csv(void)
 {
-    return;
+    char *csv_path = "./Tests/csv_test_matrix_2x2.csv";
+    FILE *csv_file = read_csv(csv_path);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(csv_file);
+    Matrix *matrix = matrix_init_from_csv(csv_file);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix);
+    CU_ASSERT_EQUAL_FATAL(matrix->rows, 2);
+    CU_ASSERT_EQUAL_FATAL(matrix->columns, 2);
+    CU_ASSERT_EQUAL(matrix->values[0][0], 0);
+    CU_ASSERT_EQUAL(matrix->values[0][1], 1);
+    CU_ASSERT_EQUAL(matrix->values[1][0], 2);
+    CU_ASSERT_EQUAL(matrix->values[1][1], 3);
+}
+
+void test_init_matrix_4x1_from_csv(void)
+{
+    char *csv_path = "./Tests/csv_test_matrix_4x1.csv";
+    FILE *csv_file = read_csv(csv_path);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(csv_file);
+    Matrix *matrix = matrix_init_from_csv(csv_file);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix);
+    CU_ASSERT_EQUAL_FATAL(matrix->rows, 4);
+    CU_ASSERT_EQUAL_FATAL(matrix->columns, 1);
+    CU_ASSERT_EQUAL(matrix->values[0][0], 0);
+    CU_ASSERT_EQUAL(matrix->values[1][0], 1);
+    CU_ASSERT_EQUAL(matrix->values[2][0], 2);
+    CU_ASSERT_EQUAL(matrix->values[3][0], 3);
 }

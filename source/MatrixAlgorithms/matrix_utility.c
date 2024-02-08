@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "matrix_utility.h"
 #include "csv_utility.h"
 
@@ -66,7 +67,58 @@ void matrix_print(Matrix *matrix)
     }
 }
 
-Matrix *matrix_init_from_csv(FILE *csv_path)
+Matrix *matrix_init_from_csv(FILE *csv_file)
 {
-    return NULL;
+    Matrix *matrix;
+    char line[100];
+    char *token;
+    float value;
+    int row_count;
+    int column_count;
+    int row = 0;
+    int column;
+
+    if (csv_file == NULL) {
+        printf("File is NULL.\n");
+        return NULL;
+    }
+
+    // read dimensions
+    fgets(line, sizeof(line), csv_file);
+    token = strtok(line, ",");
+    if (token == NULL) return NULL;
+    row_count = atoi(token);
+    token = strtok(NULL, ",");
+    if (token == NULL) return NULL;
+    column_count = atoi(token);
+
+    matrix = matrix_init(row_count, column_count);
+    if (matrix == NULL) return NULL;
+
+    // read values
+    while(fgets(line, sizeof(line), csv_file) != NULL) {
+        column = 0;
+        if (line[0] == '\n') continue;
+        
+        token = strtok(line, ",");
+        while(token != NULL) {
+            value = atof(token);
+            matrix->values[row][column] = value;
+            token = strtok(NULL, ",");
+            column++;
+        }
+        row++;
+
+        if (column != column_count) {
+            printf("Wrong column count. Expected %d but got %d", column_count, column);
+            return NULL;
+        }
+    }
+
+    if (row != row_count) {
+        printf("Wrong row count. Expected %d but got %d", row_count, row);
+        return NULL;
+    }
+
+    return matrix;
 }
