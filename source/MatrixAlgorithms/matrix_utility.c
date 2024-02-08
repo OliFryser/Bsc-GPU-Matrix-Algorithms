@@ -122,3 +122,24 @@ Matrix *matrix_init_from_csv(FILE *csv_file)
 
     return matrix;
 }
+
+bool matrix_equal(Matrix *matrix1, Matrix *matrix2) {
+    if (matrix1 == NULL) return false;
+    if (matrix2 == NULL) return false;
+    if (matrix1->rows != matrix2->rows) return false;
+    if (matrix1->columns != matrix2->columns) return false;
+
+    int rows = matrix1->rows;
+    int columns = matrix1->columns;
+    int i, j;
+
+    for (i = 0; i < rows; i++)
+    {
+        for (j = 0; j < columns; j++)
+        {
+            if (matrix1->values[i][j] != matrix2->values[i][j]) return false;
+        }
+    }
+
+    return true;
+}

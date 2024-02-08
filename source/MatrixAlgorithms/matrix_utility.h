@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 typedef struct
 {
@@ -11,3 +12,4 @@ Matrix *matrix_init(int rows, int columns);
 void matrix_free(Matrix *matrix);
 void matrix_print(Matrix *matrix);
 Matrix *matrix_init_from_csv(FILE *csv_file);
+bool matrix_equal(Matrix *matrix1, Matrix *matrix2);

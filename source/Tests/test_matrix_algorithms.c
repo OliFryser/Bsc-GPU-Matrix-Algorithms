@@ -87,3 +87,33 @@ void test_init_matrix_4x1_from_csv(void)
     CU_ASSERT_EQUAL(matrix->values[2][0], 2);
     CU_ASSERT_EQUAL(matrix->values[3][0], 3);
 }
+
+void test_matrix_equal(void) {
+    char *csv_path = "./Tests/csv_test_matrix_2x2.csv";
+    FILE *csv_file = read_csv(csv_path);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(csv_file);
+
+    Matrix *matrix1 = matrix_init_from_csv(csv_file);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix1);
+    rewind(csv_file);
+    Matrix *matrix2 = matrix_init_from_csv(csv_file);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix2);
+
+    CU_ASSERT_TRUE(matrix_equal(matrix1, matrix2));
+}
+
+void test_matrix_not_equal(void) {
+    char *csv_path1 = "./Tests/csv_test_matrix_2x2.csv";
+    FILE *csv_file1 = read_csv(csv_path1);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(csv_file1);
+    char *csv_path2 = "./Tests/csv_test_matrix_4x1.csv";
+    FILE *csv_file2 = read_csv(csv_path2);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(csv_file2);
+
+    Matrix *matrix1 = matrix_init_from_csv(csv_file1);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix1);
+    Matrix *matrix2 = matrix_init_from_csv(csv_file2);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix2);
+
+    CU_ASSERT_FALSE(matrix_equal(matrix1, matrix2));
+}
