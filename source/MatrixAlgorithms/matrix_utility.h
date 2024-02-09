@@ -14,3 +14,5 @@ void matrix_print(Matrix *matrix);
 Matrix *matrix_init_from_csv(FILE *csv_file);
 bool matrix_equal_dimensions(Matrix *matrix1, Matrix *matrix2);
 bool matrix_equal(Matrix *matrix1, Matrix *matrix2);
+Matrix *matrix_copy(Matrix *original);
+void matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result);

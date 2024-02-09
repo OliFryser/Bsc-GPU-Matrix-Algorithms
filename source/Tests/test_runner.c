@@ -37,6 +37,8 @@ int main()
         (NULL == CU_add_test(matrix_suite, "Matrix dimension inequality", test_matrix_not_equal_dimensions)) || 
         (NULL == CU_add_test(matrix_suite, "Matrix equality", test_matrix_equal)) || 
         (NULL == CU_add_test(matrix_suite, "Matrix inequality", test_matrix_not_equal)) || 
+        (NULL == CU_add_test(matrix_suite, "Matrix copy", test_matrix_copy)) || 
+        (NULL == CU_add_test(matrix_suite, "Matrix addition", test_matrix_addition)) || 
         (NULL == CU_add_test(matrix_suite, "Matrix Init Test Bad Values", test_init_matrix_0_values)))
     {
         CU_cleanup_registry();

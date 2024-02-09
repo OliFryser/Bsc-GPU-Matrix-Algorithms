@@ -147,3 +147,14 @@ bool matrix_equal(Matrix *matrix1, Matrix *matrix2) {
 
     return true;
 }
+
+Matrix *matrix_copy(Matrix *original) {
+    Matrix *copy = malloc(sizeof(Matrix));
+    if (copy == NULL) return NULL;
+    memcpy(copy, original, sizeof(Matrix));
+    return copy;
+}
+
+void matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
+
+}

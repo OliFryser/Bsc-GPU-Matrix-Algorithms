@@ -6,5 +6,7 @@ void test_matrix_equal_dimensions(void);
 void test_matrix_not_equal_dimensions(void);
 void test_matrix_equal(void);
 void test_matrix_not_equal(void);
+void test_matrix_copy(void);
+void test_matrix_addition(void);
 int init_matrix_suite(void);
 int clean_matrix_suite(void);
