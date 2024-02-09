@@ -104,9 +104,7 @@ void test_init_matrix_4x1_from_csv(void)
 }
 
 void test_matrix_equal_dimensions(void) {
-    Matrix *matrix1 = matrix_2x2;
-    Matrix *matrix2 = matrix_copy(matrix1);
-    CU_ASSERT_TRUE(matrix_equal_dimensions(matrix1, matrix2));
+    CU_ASSERT_TRUE(matrix_equal_dimensions(matrix_2x2, matrix_doubled_2x2));
 }
 
 void test_matrix_not_equal_dimensions(void) {
@@ -114,24 +112,24 @@ void test_matrix_not_equal_dimensions(void) {
 }
 
 void test_matrix_equal(void) {
-    Matrix *matrix1 = matrix_2x2;
-    Matrix *matrix2 = matrix_copy(matrix1);
-    CU_ASSERT_TRUE(matrix_equal(matrix1, matrix2));
+    CU_ASSERT_TRUE(matrix_equal(matrix_2x2, matrix_2x2));
 }
 
 void test_matrix_not_equal(void) {
     CU_ASSERT_FALSE(matrix_equal(matrix_2x2, matrix_4x1));
+    CU_ASSERT_FALSE(matrix_equal(matrix_2x2, matrix_doubled_2x2));
 }
 
 void test_matrix_copy(void) {
-    Matrix *copy;
-    copy = matrix_copy(matrix_2x2);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(copy);
-    CU_ASSERT_TRUE(matrix_equal(copy, matrix_2x2));
+    CU_ASSERT_TRUE_FATAL(matrix_copy(matrix_2x2, matrix_doubled_2x2));
+    CU_ASSERT_TRUE(matrix_equal(matrix_2x2, matrix_doubled_2x2));
 }
 
 void test_matrix_addition(void) {
     Matrix *result = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_2x2);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(result);
+    CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(matrix_2x2, result));
     CU_ASSERT_TRUE_FATAL(matrix_addition(matrix_2x2, matrix_2x2, result));
     CU_ASSERT_TRUE(matrix_equal(result, matrix_doubled_2x2));
     matrix_free(result);

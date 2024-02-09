@@ -137,18 +137,29 @@ bool matrix_equal(Matrix *matrix1, Matrix *matrix2) {
     int i, j;
 
     for (i = 0; i < rows; i++)
-    {
         for (j = 0; j < columns; j++)
-        {
             if (matrix1->values[i][j] != matrix2->values[i][j]) return false;
-        }
-    }
 
     return true;
 }
 
-void matrix_copy(Matrix *original, Matrix *copy) {
-    return;
+bool matrix_copy(Matrix *original, Matrix *copy) {
+    if (original == NULL) return false;
+    if (copy == NULL) return false;
+    if (!matrix_equal_dimensions(original, copy)) {
+        printf("Cannot copy. Matrices are of different dimensions.\n");
+        return false;
+    }
+
+    int rows = original->rows;
+    int columns = original->columns;
+    int i, j;
+
+    for (i = 0; i < rows; i++)
+        for (j = 0; j < columns; j++)
+            copy->values[i][j] = original->values[i][j];
+
+    return true;
 }
 
 bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
@@ -163,12 +174,8 @@ bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
     int columns = matrix1->columns;
     
     for (i = 0; i < rows; i++)
-    {
         for (j = 0; j < columns; j++)
-        {
             result->values[i][j] = matrix1->values[i][j] + matrix2->values[i][j];
-        }
-    }
     
     return true;
 }
