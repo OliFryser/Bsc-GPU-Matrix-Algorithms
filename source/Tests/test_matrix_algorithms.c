@@ -132,7 +132,7 @@ void test_matrix_copy(void) {
 
 void test_matrix_addition(void) {
     Matrix *result = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
-    matrix_addition(matrix_2x2, matrix_2x2, result);
+    CU_ASSERT_TRUE_FATAL(matrix_addition(matrix_2x2, matrix_2x2, result));
     CU_ASSERT_TRUE(matrix_equal(result, matrix_doubled_2x2));
     matrix_free(result);
 }
