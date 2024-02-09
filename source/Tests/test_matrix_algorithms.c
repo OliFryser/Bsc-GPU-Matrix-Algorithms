@@ -86,10 +86,10 @@ void test_init_matrix_2x2_from_csv(void)
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_2x2);
     CU_ASSERT_EQUAL_FATAL(matrix_2x2->rows, 2);
     CU_ASSERT_EQUAL_FATAL(matrix_2x2->columns, 2);
-    CU_ASSERT_EQUAL(matrix_2x2->values[0][0], 0);
-    CU_ASSERT_EQUAL(matrix_2x2->values[0][1], 1);
-    CU_ASSERT_EQUAL(matrix_2x2->values[1][0], 2);
-    CU_ASSERT_EQUAL(matrix_2x2->values[1][1], 3);
+    CU_ASSERT_EQUAL(matrix_2x2->values[0][0], 0.0F);
+    CU_ASSERT_EQUAL(matrix_2x2->values[0][1], 1.0F);
+    CU_ASSERT_EQUAL(matrix_2x2->values[1][0], 2.0F);
+    CU_ASSERT_EQUAL(matrix_2x2->values[1][1], 3.0F);
 }
 
 void test_init_matrix_4x1_from_csv(void)
@@ -97,10 +97,20 @@ void test_init_matrix_4x1_from_csv(void)
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_4x1);
     CU_ASSERT_EQUAL_FATAL(matrix_4x1->rows, 4);
     CU_ASSERT_EQUAL_FATAL(matrix_4x1->columns, 1);
-    CU_ASSERT_EQUAL(matrix_4x1->values[0][0], 0);
-    CU_ASSERT_EQUAL(matrix_4x1->values[1][0], 1);
-    CU_ASSERT_EQUAL(matrix_4x1->values[2][0], 2);
-    CU_ASSERT_EQUAL(matrix_4x1->values[3][0], 3);
+    CU_ASSERT_EQUAL(matrix_4x1->values[0][0], 0.0F);
+    CU_ASSERT_EQUAL(matrix_4x1->values[1][0], 1.0F);
+    CU_ASSERT_EQUAL(matrix_4x1->values[2][0], 2.0F);
+    CU_ASSERT_EQUAL(matrix_4x1->values[3][0], 3.0F);
+}
+
+void test_init_matrix_2x2_doubled_from_csv(void) {
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_doubled_2x2);
+    CU_ASSERT_EQUAL_FATAL(matrix_doubled_2x2->rows, 2);
+    CU_ASSERT_EQUAL_FATAL(matrix_doubled_2x2->columns, 2);
+    CU_ASSERT_EQUAL(matrix_doubled_2x2->values[0][0], 0.0F);
+    CU_ASSERT_EQUAL(matrix_doubled_2x2->values[0][1], 2.0F);
+    CU_ASSERT_EQUAL(matrix_doubled_2x2->values[1][0], 4.0F);
+    CU_ASSERT_EQUAL(matrix_doubled_2x2->values[1][1], 6.0F);
 }
 
 void test_matrix_equal_dimensions(void) {
@@ -126,11 +136,14 @@ void test_matrix_copy(void) {
 }
 
 void test_matrix_addition(void) {
-    Matrix *result = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_2x2);
+    Matrix *result = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result);
     CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(matrix_2x2, result));
     CU_ASSERT_TRUE_FATAL(matrix_addition(matrix_2x2, matrix_2x2, result));
     CU_ASSERT_TRUE(matrix_equal(result, matrix_doubled_2x2));
+    matrix_print(matrix_doubled_2x2);
+    printf("----\n");
+    matrix_print(result);
     matrix_free(result);
 }
