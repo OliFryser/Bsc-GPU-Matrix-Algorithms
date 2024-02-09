@@ -78,7 +78,7 @@ void matrix_print(Matrix *matrix)
 {
     int i, j;
 
-    printf("# PRINTING MATRIX #\n");
+    printf("\n# PRINTING MATRIX #\n");
     for (i = 0; i < matrix->rows; i++)
     {
         for (j = 0; j < matrix->columns; j++)
