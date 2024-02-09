@@ -28,11 +28,11 @@ int init_matrix_suite(void)
 
     csv_path = "./Tests/csv_test_matrix_4x1.csv";
     csv_file = read_csv(csv_path);
-    matrix_4x1= matrix_init_from_csv(csv_file);
+    matrix_4x1 = matrix_init_from_csv(csv_file);
 
     csv_path = "./Tests/csv_test_matrix_doubled_2x2.csv";
     csv_file = read_csv(csv_path);
-    matrix_doubled_2x2= matrix_init_from_csv(csv_file);
+    matrix_doubled_2x2 = matrix_init_from_csv(csv_file);
 
     return 0;
 }
@@ -103,7 +103,8 @@ void test_init_matrix_4x1_from_csv(void)
     CU_ASSERT_EQUAL(matrix_4x1->values[3][0], 3.0F);
 }
 
-void test_init_matrix_2x2_doubled_from_csv(void) {
+void test_init_matrix_2x2_doubled_from_csv(void)
+{
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_doubled_2x2);
     CU_ASSERT_EQUAL_FATAL(matrix_doubled_2x2->rows, 2);
     CU_ASSERT_EQUAL_FATAL(matrix_doubled_2x2->columns, 2);
@@ -113,30 +114,36 @@ void test_init_matrix_2x2_doubled_from_csv(void) {
     CU_ASSERT_EQUAL(matrix_doubled_2x2->values[1][1], 6.0F);
 }
 
-void test_matrix_equal_dimensions(void) {
+void test_matrix_equal_dimensions(void)
+{
     CU_ASSERT_TRUE(matrix_equal_dimensions(matrix_2x2, matrix_doubled_2x2));
 }
 
-void test_matrix_not_equal_dimensions(void) {
+void test_matrix_not_equal_dimensions(void)
+{
     CU_ASSERT_FALSE(matrix_equal_dimensions(matrix_2x2, matrix_4x1));
 }
 
-void test_matrix_equal(void) {
+void test_matrix_equal(void)
+{
     CU_ASSERT_TRUE(matrix_equal(matrix_2x2, matrix_2x2));
 }
 
-void test_matrix_not_equal(void) {
+void test_matrix_not_equal(void)
+{
     CU_ASSERT_FALSE(matrix_equal(matrix_2x2, matrix_4x1));
     CU_ASSERT_FALSE(matrix_equal(matrix_2x2, matrix_doubled_2x2));
 }
 
-void test_matrix_copy(void) {
+void test_matrix_copy(void)
+{
     Matrix *destination = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
     CU_ASSERT_TRUE_FATAL(matrix_copy(matrix_2x2, destination));
     CU_ASSERT_TRUE(matrix_equal(matrix_2x2, destination));
 }
 
-void test_matrix_addition(void) {
+void test_matrix_addition(void)
+{
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_2x2);
     Matrix *result = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result);
@@ -144,4 +151,31 @@ void test_matrix_addition(void) {
     CU_ASSERT_TRUE_FATAL(matrix_addition(matrix_2x2, matrix_2x2, result));
     CU_ASSERT_TRUE(matrix_equal(result, matrix_doubled_2x2));
     matrix_free(result);
+}
+
+bool in_range(float value, float min, float max)
+{
+    return value >= min && value <= max;
+}
+
+void test_matrix_random_fill(void)
+{
+    Matrix *random_matrix;
+    float min, max;
+    int i, j, rows, columns;
+
+    rows = 100;
+    columns = 100;
+
+    random_matrix = matrix_init(rows, columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(random_matrix);
+
+    min = -10.0f;
+    max = 10.0f;
+
+    CU_ASSERT_TRUE_FATAL(matrix_random_fill(min, max, random_matrix));
+
+    for (i = 0; i < rows; i++)
+        for (j = 0; j < columns; j++)
+            CU_ASSERT_TRUE(in_range(random_matrix->values[i][j], min, max));
 }

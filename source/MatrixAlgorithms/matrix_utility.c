@@ -39,7 +39,7 @@ float random_float(float min_value, float max_value)
     return (float)rand() / (float)(RAND_MAX * max_value) + min_value;
 }
 
-bool matrix_random(float min_value, float max_value, Matrix *matrix)
+bool matrix_random_fill(float min_value, float max_value, Matrix *matrix)
 {
     if (matrix == NULL)
         return false;
