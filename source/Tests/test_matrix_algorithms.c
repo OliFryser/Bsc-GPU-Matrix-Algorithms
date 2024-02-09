@@ -131,8 +131,9 @@ void test_matrix_not_equal(void) {
 }
 
 void test_matrix_copy(void) {
-    CU_ASSERT_TRUE_FATAL(matrix_copy(matrix_2x2, matrix_doubled_2x2));
-    CU_ASSERT_TRUE(matrix_equal(matrix_2x2, matrix_doubled_2x2));
+    Matrix *destination = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
+    CU_ASSERT_TRUE_FATAL(matrix_copy(matrix_2x2, destination));
+    CU_ASSERT_TRUE(matrix_equal(matrix_2x2, destination));
 }
 
 void test_matrix_addition(void) {
@@ -142,8 +143,5 @@ void test_matrix_addition(void) {
     CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(matrix_2x2, result));
     CU_ASSERT_TRUE_FATAL(matrix_addition(matrix_2x2, matrix_2x2, result));
     CU_ASSERT_TRUE(matrix_equal(result, matrix_doubled_2x2));
-    matrix_print(matrix_doubled_2x2);
-    printf("----\n");
-    matrix_print(result);
     matrix_free(result);
 }
