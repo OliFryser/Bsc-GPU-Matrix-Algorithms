@@ -48,8 +48,8 @@ bool matrix_random(float min_value, float max_value, Matrix *matrix)
 
     int i, j;
 
-    for (int i = 0; i < matrix->rows; i++)
-        for (int j = 0; i < matrix->columns; i++)
+    for (i = 0; i < matrix->rows; i++)
+        for (j = 0; j < matrix->columns; j++)
             matrix->values[i][j] = random_float(min_value, max_value);
 
     return true;
@@ -180,10 +180,14 @@ bool matrix_equal(Matrix *matrix1, Matrix *matrix2)
     return true;
 }
 
-bool matrix_copy(Matrix *original, Matrix *copy) {
-    if (original == NULL) return false;
-    if (copy == NULL) return false;
-    if (!matrix_equal_dimensions(original, copy)) {
+bool matrix_copy(Matrix *original, Matrix *copy)
+{
+    if (original == NULL)
+        return false;
+    if (copy == NULL)
+        return false;
+    if (!matrix_equal_dimensions(original, copy))
+    {
         printf("Cannot copy. Matrices are of different dimensions.\n");
         return false;
     }
@@ -219,6 +223,6 @@ bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result)
     for (i = 0; i < rows; i++)
         for (j = 0; j < columns; j++)
             result->values[i][j] = matrix1->values[i][j] + matrix2->values[i][j];
-    
+
     return true;
 }
