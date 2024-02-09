@@ -9,7 +9,8 @@
         "string.h": "c",
         "time.h": "c",
         "basic.h": "c",
-        "csv_utility.h": "c"
+        "csv_utility.h": "c",
+        "console.h": "c"
     },
     "makefile.makefilePath": "source/Makefile"
 }
