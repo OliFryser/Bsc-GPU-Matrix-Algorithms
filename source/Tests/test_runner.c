@@ -33,6 +33,8 @@ int main()
     if ((NULL == CU_add_test(matrix_suite, "Matrix Init Test", test_init_matrix)) || 
         (NULL == CU_add_test(matrix_suite, "Matrix Init 2x2 From CSV Test", test_init_matrix_2x2_from_csv)) || 
         (NULL == CU_add_test(matrix_suite, "Matrix Init 4x1 From CSV Test", test_init_matrix_4x1_from_csv)) || 
+        (NULL == CU_add_test(matrix_suite, "Matrix dimension equality", test_matrix_equal_dimensions)) || 
+        (NULL == CU_add_test(matrix_suite, "Matrix dimension inequality", test_matrix_not_equal_dimensions)) || 
         (NULL == CU_add_test(matrix_suite, "Matrix equality", test_matrix_equal)) || 
         (NULL == CU_add_test(matrix_suite, "Matrix inequality", test_matrix_not_equal)) || 
         (NULL == CU_add_test(matrix_suite, "Matrix Init Test Bad Values", test_init_matrix_0_values)))

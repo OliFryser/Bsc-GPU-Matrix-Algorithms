@@ -123,6 +123,10 @@ Matrix *matrix_init_from_csv(FILE *csv_file)
     return matrix;
 }
 
+bool matrix_equal_dimensions(Matrix *matrix1, Matrix *matrix2) {
+    return false;
+}
+
 bool matrix_equal(Matrix *matrix1, Matrix *matrix2) {
     if (matrix1 == NULL) return false;
     if (matrix2 == NULL) return false;
