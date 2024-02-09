@@ -124,7 +124,7 @@ Matrix *matrix_init_from_csv(FILE *csv_file)
 }
 
 bool matrix_equal_dimensions(Matrix *matrix1, Matrix *matrix2) {
-    return false;
+    return matrix1->columns == matrix2->columns && matrix1->rows == matrix2->rows;
 }
 
 bool matrix_equal(Matrix *matrix1, Matrix *matrix2) {

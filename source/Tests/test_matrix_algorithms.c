@@ -77,40 +77,36 @@ void test_init_matrix_0_values(void)
 
 void test_init_matrix_2x2_from_csv(void)
 {
-    char *csv_path = "./Tests/csv_test_matrix_2x2.csv";
-    FILE *csv_file = read_csv(csv_path);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(csv_file);
-    Matrix *matrix = matrix_init_from_csv(csv_file);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix);
-    CU_ASSERT_EQUAL_FATAL(matrix->rows, 2);
-    CU_ASSERT_EQUAL_FATAL(matrix->columns, 2);
-    CU_ASSERT_EQUAL(matrix->values[0][0], 0);
-    CU_ASSERT_EQUAL(matrix->values[0][1], 1);
-    CU_ASSERT_EQUAL(matrix->values[1][0], 2);
-    CU_ASSERT_EQUAL(matrix->values[1][1], 3);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_2x2);
+    CU_ASSERT_EQUAL_FATAL(matrix_2x2->rows, 2);
+    CU_ASSERT_EQUAL_FATAL(matrix_2x2->columns, 2);
+    CU_ASSERT_EQUAL(matrix_2x2->values[0][0], 0);
+    CU_ASSERT_EQUAL(matrix_2x2->values[0][1], 1);
+    CU_ASSERT_EQUAL(matrix_2x2->values[1][0], 2);
+    CU_ASSERT_EQUAL(matrix_2x2->values[1][1], 3);
 }
 
 void test_init_matrix_4x1_from_csv(void)
 {
-    char *csv_path = "./Tests/csv_test_matrix_4x1.csv";
-    FILE *csv_file = read_csv(csv_path);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(csv_file);
-    Matrix *matrix = matrix_init_from_csv(csv_file);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix);
-    CU_ASSERT_EQUAL_FATAL(matrix->rows, 4);
-    CU_ASSERT_EQUAL_FATAL(matrix->columns, 1);
-    CU_ASSERT_EQUAL(matrix->values[0][0], 0);
-    CU_ASSERT_EQUAL(matrix->values[1][0], 1);
-    CU_ASSERT_EQUAL(matrix->values[2][0], 2);
-    CU_ASSERT_EQUAL(matrix->values[3][0], 3);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_4x1);
+    CU_ASSERT_EQUAL_FATAL(matrix_4x1->rows, 4);
+    CU_ASSERT_EQUAL_FATAL(matrix_4x1->columns, 1);
+    CU_ASSERT_EQUAL(matrix_4x1->values[0][0], 0);
+    CU_ASSERT_EQUAL(matrix_4x1->values[1][0], 1);
+    CU_ASSERT_EQUAL(matrix_4x1->values[2][0], 2);
+    CU_ASSERT_EQUAL(matrix_4x1->values[3][0], 3);
 }
 
 void test_matrix_equal_dimensions(void) {
-
+    Matrix *matrix1 = matrix_2x2;
+    Matrix *matrix2 = malloc(sizeof(Matrix));
+    if (matrix2 == NULL) return;
+    memcpy(matrix2, matrix1, sizeof(Matrix));
+    CU_ASSERT_TRUE(matrix_equal_dimensions(matrix1, matrix2));
 }
 
 void test_matrix_not_equal_dimensions(void) {
-
+    CU_ASSERT_FALSE(matrix_equal_dimensions(matrix_2x2, matrix_4x1));
 }
 
 void test_matrix_equal(void) {
