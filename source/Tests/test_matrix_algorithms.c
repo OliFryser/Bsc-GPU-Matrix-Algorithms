@@ -131,9 +131,8 @@ void test_matrix_copy(void) {
 }
 
 void test_matrix_addition(void) {
-    Matrix *matrix1 = matrix_2x2;
-    Matrix *matrix2 = matrix_copy(matrix1);
-    Matrix *result = matrix_init(matrix1->rows, matrix1->columns);
-    matrix_addition(matrix1, matrix2, result);
+    Matrix *result = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
+    matrix_addition(matrix_2x2, matrix_2x2, result);
     CU_ASSERT_TRUE(matrix_equal(result, matrix_doubled_2x2));
+    matrix_free(result);
 }

@@ -130,8 +130,7 @@ bool matrix_equal_dimensions(Matrix *matrix1, Matrix *matrix2) {
 bool matrix_equal(Matrix *matrix1, Matrix *matrix2) {
     if (matrix1 == NULL) return false;
     if (matrix2 == NULL) return false;
-    if (matrix1->rows != matrix2->rows) return false;
-    if (matrix1->columns != matrix2->columns) return false;
+    if (!matrix_equal_dimensions(matrix1, matrix2)) return false;
 
     int rows = matrix1->rows;
     int columns = matrix1->columns;
@@ -158,12 +157,14 @@ Matrix *matrix_copy(Matrix *original) {
 void matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
     if (matrix1 == NULL) return;
     if (matrix2 == NULL) return;
-    if (matrix_equal_dimensions(matrix1, matrix2) == false) return;
+    if (result == NULL) return;
+    if (!matrix_equal_dimensions(matrix1, matrix2)) return;
+    if (!matrix_equal_dimensions(matrix1, result)) return;
     int i;
     int j;
     int rows = matrix1->rows;
     int columns = matrix1->columns;
-
+    
     for (i = 0; i < rows; i++)
     {
         for (j = 0; j < columns; j++)
