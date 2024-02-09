@@ -9,7 +9,7 @@ typedef struct
 } Matrix;
 
 Matrix *matrix_init(int rows, int columns);
-bool matrix_random(Matrix *matrix, float min_value, float max_value);
+bool matrix_random(float min_value, float max_value, Matrix *matrix);
 void matrix_free(Matrix *matrix);
 void matrix_print(Matrix *matrix);
 Matrix *matrix_init_from_csv(FILE *csv_file);

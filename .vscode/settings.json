@@ -12,5 +12,6 @@
         "csv_utility.h": "c",
         "console.h": "c"
     },
-    "makefile.makefilePath": "source/Makefile"
+    "makefile.makefilePath": "source/Makefile",
+    "C_Cpp.default.compilerPath": "/usr/bin/gcc"
 }
