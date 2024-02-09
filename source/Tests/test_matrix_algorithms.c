@@ -9,6 +9,7 @@ int m = 4;
 Matrix *empty_matrix;
 Matrix *matrix_2x2;
 Matrix *matrix_4x1;
+Matrix *matrix_doubled_2x2;
 
 /* The suite initialization function.
  * Opens the temporary file used by the tests.
@@ -29,6 +30,10 @@ int init_matrix_suite(void)
     csv_file = read_csv(csv_path);
     matrix_4x1= matrix_init_from_csv(csv_file);
 
+    csv_path = "./Tests/csv_test_matrix_doubled_2x2.csv";
+    csv_file = read_csv(csv_path);
+    matrix_doubled_2x2= matrix_init_from_csv(csv_file);
+
     return 0;
 }
 
@@ -41,6 +46,7 @@ int clean_matrix_suite(void)
     matrix_free(empty_matrix);
     matrix_free(matrix_2x2);
     matrix_free(matrix_4x1);
+    matrix_free(matrix_doubled_2x2);
     return 0;
 }
 
@@ -125,5 +131,9 @@ void test_matrix_copy(void) {
 }
 
 void test_matrix_addition(void) {
-    
+    Matrix *matrix1 = matrix_2x2;
+    Matrix *matrix2 = matrix_copy(matrix1);
+    Matrix *result = matrix_init(matrix1->rows, matrix1->columns);
+    matrix_addition(matrix1, matrix2, result);
+    CU_ASSERT_TRUE(matrix_equal(result, matrix_doubled_2x2));
 }

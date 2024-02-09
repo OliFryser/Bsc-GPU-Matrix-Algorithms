@@ -45,3 +45,8 @@ Things to consider:
 - Is the size of the resulting matrix known in advance, and can be initialized within the function?
 - Ease of use.
 - How will each approach affect benchmarking. I.e. will the allocation of memory also be measured as part of the calculation. 
+
+## Matrix utility considerations
+
+Shoud matrix_copy take as inputs the original and copy matrix and return void?
+Or should it take only the original, allocate memory for the new one, and return a pointer to the new copy?
