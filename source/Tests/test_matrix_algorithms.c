@@ -1,9 +1,10 @@
 #include <CUnit/Basic.h>
 #include <CUnit/Console.h>
-#include "../MatrixAlgorithms/csv_utility.h"
-#include "../MatrixAlgorithms/matrix_algorithms.h"
 #include <stdlib.h>
 #include <string.h>
+
+#include "../MatrixAlgorithms/csv_utility.h"
+#include "../MatrixAlgorithms/matrix_algorithms.h"
 
 int n = 4;
 int m = 4;
@@ -16,8 +17,7 @@ Matrix *matrix_doubled_2x2;
  * Opens the temporary file used by the tests.
  * Returns zero on success, non-zero otherwise.
  */
-int init_matrix_suite(void)
-{
+int init_matrix_suite(void) {
     char *csv_path;
     FILE *csv_file;
 
@@ -42,8 +42,7 @@ int init_matrix_suite(void)
  * Closes the temporary file used by the tests.
  * Returns zero on success, non-zero otherwise.
  */
-int clean_matrix_suite(void)
-{
+int clean_matrix_suite(void) {
     matrix_free(empty_matrix);
     matrix_free(matrix_2x2);
     matrix_free(matrix_4x1);
@@ -55,19 +54,16 @@ int clean_matrix_suite(void)
  * Writes test data to the temporary file and checks
  * whether the expected number of bytes were written.
  */
-void test_init_matrix(void)
-{
+void test_init_matrix(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(empty_matrix);
     CU_ASSERT_PTR_NOT_NULL_FATAL(empty_matrix->values)
     int i;
-    for (i = 0; i < n; i++)
-    {
+    for (i = 0; i < n; i++) {
         CU_ASSERT_PTR_NOT_NULL(empty_matrix->values[i])
     }
 }
 
-void test_init_matrix_0_values(void)
-{
+void test_init_matrix_0_values(void) {
     Matrix *null_matrix;
     null_matrix = matrix_init(0, 0);
     CU_ASSERT_PTR_NULL(null_matrix);
@@ -82,8 +78,7 @@ void test_init_matrix_0_values(void)
     CU_ASSERT_PTR_NULL(null_matrix);
 }
 
-void test_init_matrix_2x2_from_csv(void)
-{
+void test_init_matrix_2x2_from_csv(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_2x2);
     CU_ASSERT_EQUAL_FATAL(matrix_2x2->rows, 2);
     CU_ASSERT_EQUAL_FATAL(matrix_2x2->columns, 2);
@@ -93,8 +88,7 @@ void test_init_matrix_2x2_from_csv(void)
     CU_ASSERT_EQUAL(matrix_2x2->values[1][1], 3.0F);
 }
 
-void test_init_matrix_4x1_from_csv(void)
-{
+void test_init_matrix_4x1_from_csv(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_4x1);
     CU_ASSERT_EQUAL_FATAL(matrix_4x1->rows, 4);
     CU_ASSERT_EQUAL_FATAL(matrix_4x1->columns, 1);
@@ -104,8 +98,7 @@ void test_init_matrix_4x1_from_csv(void)
     CU_ASSERT_EQUAL(matrix_4x1->values[3][0], 3.0F);
 }
 
-void test_init_matrix_2x2_doubled_from_csv(void)
-{
+void test_init_matrix_2x2_doubled_from_csv(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_doubled_2x2);
     CU_ASSERT_EQUAL_FATAL(matrix_doubled_2x2->rows, 2);
     CU_ASSERT_EQUAL_FATAL(matrix_doubled_2x2->columns, 2);
@@ -115,36 +108,30 @@ void test_init_matrix_2x2_doubled_from_csv(void)
     CU_ASSERT_EQUAL(matrix_doubled_2x2->values[1][1], 6.0F);
 }
 
-void test_matrix_equal_dimensions(void)
-{
+void test_matrix_equal_dimensions(void) {
     CU_ASSERT_TRUE(matrix_equal_dimensions(matrix_2x2, matrix_doubled_2x2));
 }
 
-void test_matrix_not_equal_dimensions(void)
-{
+void test_matrix_not_equal_dimensions(void) {
     CU_ASSERT_FALSE(matrix_equal_dimensions(matrix_2x2, matrix_4x1));
 }
 
-void test_matrix_equal(void)
-{
+void test_matrix_equal(void) {
     CU_ASSERT_TRUE(matrix_equal(matrix_2x2, matrix_2x2));
 }
 
-void test_matrix_not_equal(void)
-{
+void test_matrix_not_equal(void) {
     CU_ASSERT_FALSE(matrix_equal(matrix_2x2, matrix_4x1));
     CU_ASSERT_FALSE(matrix_equal(matrix_2x2, matrix_doubled_2x2));
 }
 
-void test_matrix_copy(void)
-{
+void test_matrix_copy(void) {
     Matrix *destination = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
     CU_ASSERT_TRUE_FATAL(matrix_copy(matrix_2x2, destination));
     CU_ASSERT_TRUE(matrix_equal(matrix_2x2, destination));
 }
 
-void test_matrix_addition(void)
-{
+void test_matrix_addition(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_2x2);
     Matrix *result = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result);
@@ -154,13 +141,11 @@ void test_matrix_addition(void)
     matrix_free(result);
 }
 
-bool in_range(float value, float min, float max)
-{
+bool in_range(float value, float min, float max) {
     return value >= min && value <= max;
 }
 
-void test_matrix_random_fill(void)
-{
+void test_matrix_random_fill(void) {
     Matrix *random_matrix;
     float min, max;
     int i, j, rows, columns;

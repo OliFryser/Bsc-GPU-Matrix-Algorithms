@@ -1,8 +1,7 @@
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 
-typedef struct
-{
+typedef struct {
     int rows;
     int columns;
     float **values;
