@@ -4,6 +4,7 @@
 #include <string.h>
 #include "array_algorithms.h"
 #include "csv_utility.h"
+#include "matrix_utility.h"
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[], char mean_run_time[], char standard_deviation[]);
 
@@ -14,9 +15,10 @@ int main(int argc, char *argv[])
     char str_dimension[64];
     int dimension;
     char *save_file_name;
-
+    
     // Program Variables
     FILE *file;
+    int (*matrix_algorithm)(Matrix*, Matrix*, Matrix*);
 
     if (argc < 4)
     {
@@ -42,6 +44,8 @@ int main(int argc, char *argv[])
     {
         printf("Benchmarking inverse...");
     }
+
+
 
     // file = append_csv(save_file_name);
     // if (file == NULL)
