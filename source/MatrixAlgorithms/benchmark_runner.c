@@ -7,7 +7,7 @@
 #include "matrix_algorithms.h"
 #define NANOSECS_PER_SEC 1e9
 
-void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[], double mean_run_time, double standard_deviation, int iterations); 
+void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[], double mean_run_time, double standard_deviation, int iterations);
 bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result);
 bool matrix_multiplication(Matrix *matrix1, Matrix *matrix2, Matrix *result);
 bool matrix_inverse(Matrix *matrix1, Matrix *matrix2, Matrix *result);
@@ -31,6 +31,7 @@ int main(int argc, char *argv[])
     double running_times_mean, running_times_standard_deviation;
     int iterations = 2;
     double *running_times;
+    char *header;
 
     if (argc < 4)
     {
@@ -54,12 +55,15 @@ int main(int argc, char *argv[])
     matrix1 = matrix_init(dimension, dimension);
     matrix2 = matrix_init(dimension, dimension);
     result = matrix_init(dimension, dimension);
-    if (matrix1 == NULL || matrix2 == NULL || result == NULL) 
+    if (matrix1 == NULL || matrix2 == NULL || result == NULL)
         return -1;
 
     file = append_csv(save_file_name);
     if (file == NULL)
         return -1;
+
+    header = "Algorithm\tDimensions\tMean\tStandard Deviation\tIterations";
+    write_header_to_csv(file, header);
 
     do
     {
@@ -86,9 +90,9 @@ int main(int argc, char *argv[])
         iterations *= 2;
     } while (elapsed_accumulative < 0.25);
 
-        //
-        //
-        // write_to_csv(file, "CPU Sum of numbers", number_count_string, elapsed_time_string, "");
-        fclose(file);
+    //
+    //
+    // write_to_csv(file, "CPU Sum of numbers", number_count_string, elapsed_time_string, "");
+    fclose(file);
     return 0;
 }

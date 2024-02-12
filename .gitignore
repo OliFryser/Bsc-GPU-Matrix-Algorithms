@@ -565,3 +565,5 @@ pyrightconfig.json
 
 # Ignore build files
 **/bin/
+
+BenchmarkData/

@@ -10,7 +10,7 @@ binary_path = directory + "binary"
 compile_command = ["gcc", "-o", binary_path] + source_files
 data_append_file_csv = "BenchmarkData/" + datetime.now().strftime("%m-%d %H:%M:%S") + ".csv"
 algorithms = ["addition"] #, "multiplication", "inverse"]
-matrix_dimensions = [10, 100] #, 1_000, 10_000, 100_000, 1_000_000]
+matrix_dimensions = [2 ** (i+1) for i in range(4, 14)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot.png"
 
 try:
