@@ -64,3 +64,19 @@ Derefter noget kode som tager dictionariet og bruger det med matplotlib.
 ## Fixes
 
 - Verify at CLOCKS_PER_SEC er korrekt.
+
+
+# Architecture 
+
+Python står for:
+- At starte et C-program
+  - Python start mange C-programmer af gangen. For opstart af et C-program vælger python:
+  - Matrice-størrelsen
+  - Algoritmen der skal køres
+- At læse og visualisere csv-filerne med resultaterne for benchmarkingen
+
+C-program står for:
+- At køre programmet der skal måles
+- At køre algoritmen så mange gange indtil det tager 0.25 sekunder at gennemføre (og så dividere med N)
+- At beregne gennemsnit og standard-spredningen for køretiden
+- At skrive resultaterne til en csv-fil

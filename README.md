@@ -50,3 +50,15 @@ Things to consider:
 
 Shoud matrix_copy take as inputs the original and copy matrix and return void?
 Or should it take only the original, allocate memory for the new one, and return a pointer to the new copy?
+
+## TODO: Rework matrix_copy 
+
+Should be:
+
+    void matrix_copy(Matrix *original, Matrix *copy);
+
+The function should use matrix_init
+
+## Why matrix_init_from_csv does not return void and takes output matrix as parameter
+
+Usually we would want the caller to be responsible for memory management. However, because the matrix can not be dynamically allocated, we need to read from the csv in order to know its dimensions. That is why that method is also responsible for allocating memory along side populating the matrix with values. 
