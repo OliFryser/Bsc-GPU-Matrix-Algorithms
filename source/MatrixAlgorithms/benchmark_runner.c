@@ -30,13 +30,16 @@ int main(int argc, char *argv[])
     dimension = atoi(str_dimension);
     save_file_name = argv[3];
 
-    if (strcmp(algorithm, "addition") == 0) {
+    if (strcmp(algorithm, "addition") == 0)
+    {
         printf("Benchmarking addition...");
-    } 
-    else if (strcmp(algorithm, "multiplication") == 0) {
+    }
+    else if (strcmp(algorithm, "multiplication") == 0)
+    {
         printf("Benchmarking multiplication...");
     }
-    else if (strcmp(algorithm, "inverse") == 0) {
+    else if (strcmp(algorithm, "inverse") == 0)
+    {
         printf("Benchmarking inverse...");
     }
 

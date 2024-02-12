@@ -1,12 +1,9 @@
 import subprocess
 import os
-import csv
-import matplotlib.pyplot as pyplot
-import data_visualizer as visualizer
 import csv_data_structure as structure
 from data_visualizer import visualize_csv
 
-directory = "MatrixAlgorithms/"
+directory = "source/MatrixAlgorithms/"
 source_files = [os.path.join(directory, name) for name in os.listdir(directory) if name.endswith(".c")]
 binary_path = directory + "binary"
 compile_command = ["gcc", "-o", binary_path] + source_files
