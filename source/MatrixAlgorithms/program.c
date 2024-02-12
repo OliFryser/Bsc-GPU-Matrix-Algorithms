@@ -8,7 +8,7 @@
 int sum_of_array(int array[], int size_of_array);
 int *random_numbers(int size, int max_value);
 FILE *get_csv(char *csvPath);
-void write_to_csv(FILE *file, char algorithm_name[], char input_size[], char run_time[]);
+void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[], char mean_run_time[], char standard_deviation[]);
 
 int main(int argc, char *argv[])
 {
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     file = append_csv(save_file_name);
     if (file == NULL)
         return 0;
-    write_to_csv(file, "CPU Sum of numbers", number_count_string, elapsed_time_string);
+    write_to_csv(file, "CPU Sum of numbers", number_count_string, elapsed_time_string, "");
     fclose(file);
 
     return 0;

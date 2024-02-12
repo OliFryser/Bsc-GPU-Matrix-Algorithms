@@ -24,6 +24,6 @@ void close_file(FILE *file) {
     fclose(file);
 }
 
-void write_to_csv(FILE *file, char algorithm_name[], char input_size[], char run_time[]) {    
-    fprintf(file, "\n%s,%s,%s", algorithm_name, input_size, run_time);
+void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[], char mean_run_time[], char standard_deviation[]) {    
+    fprintf(file, "\n%s,%s,%s,%s", algorithm_name, matrix_dimensions, mean_run_time, standard_deviation);
 }
