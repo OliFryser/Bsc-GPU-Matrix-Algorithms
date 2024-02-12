@@ -4,7 +4,7 @@
 #include <string.h>
 #include "array_algorithms.h"
 #include "csv_utility.h"
-#include "matrix_utility.h"
+#include "matrix_algorithms.h"
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[], char mean_run_time[], char standard_deviation[]);
 
@@ -32,20 +32,12 @@ int main(int argc, char *argv[])
     dimension = atoi(str_dimension);
     save_file_name = argv[3];
 
-    if (strcmp(algorithm, "addition") == 0)
-    {
-        printf("Benchmarking addition...");
-    }
-    else if (strcmp(algorithm, "multiplication") == 0)
-    {
-        printf("Benchmarking multiplication...");
-    }
-    else if (strcmp(algorithm, "inverse") == 0)
-    {
-        printf("Benchmarking inverse...");
-    }
-
-
+    if (strcmp(algorithm, "addition") == 0) 
+        matrix_algorithm = &matrix_addition;
+    else if (strcmp(algorithm, "multiplication") == 0) 
+        matrix_algorithm = &matrix_multiplication;
+    else if (strcmp(algorithm, "inverse") == 0) 
+        matrix_algorithm = &matrix_inverse;
 
     // file = append_csv(save_file_name);
     // if (file == NULL)
