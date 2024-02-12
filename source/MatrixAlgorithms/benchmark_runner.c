@@ -7,10 +7,12 @@
 #include "matrix_algorithms.h"
 #define NANOSECS_PER_SEC 1e9
 
-void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[], char mean_run_time[], char standard_deviation[]);
+void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[], double mean_run_time, double standard_deviation, int iterations); 
 bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result);
 bool matrix_multiplication(Matrix *matrix1, Matrix *matrix2, Matrix *result);
 bool matrix_inverse(Matrix *matrix1, Matrix *matrix2, Matrix *result);
+double mean(double array[], int size_of_array);
+double standard_deviation(double array[], int size_of_array, double mean);
 
 int main(int argc, char *argv[])
 {
@@ -22,9 +24,11 @@ int main(int argc, char *argv[])
 
     // Program Variables
     FILE *file;
-    int (*matrix_algorithm)(Matrix *, Matrix *, Matrix *);
+    Matrix *matrix1, *matrix2, *result;
+    bool (*matrix_algorithm)(Matrix *, Matrix *, Matrix *);
     struct timespec start, end;
-    double elapsed;
+    double elapsed, elapsed_accumulative;
+    double running_times_mean, running_times_standard_deviation;
     int iterations = 2;
     double *running_times;
 
@@ -47,6 +51,12 @@ int main(int argc, char *argv[])
     else if (strcmp(algorithm, "inverse") == 0)
         matrix_algorithm = &matrix_inverse;
 
+    matrix1 = matrix_init(dimension, dimension);
+    matrix2 = matrix_init(dimension, dimension);
+    result = matrix_init(dimension, dimension);
+    if (matrix1 == NULL || matrix2 == NULL || result == NULL) 
+        return -1;
+
     file = append_csv(save_file_name);
     if (file == NULL)
         return -1;
@@ -57,18 +67,24 @@ int main(int argc, char *argv[])
         if (running_times == NULL)
             return -1;
 
+        elapsed_accumulative = 0.0;
+
         for (int i = 0; i < iterations; i++)
         {
             timespec_get(&start, TIME_UTC);
-
+            matrix_algorithm(matrix1, matrix2, result);
             timespec_get(&end, TIME_UTC);
 
             elapsed = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / NANOSECS_PER_SEC;
-            running_times[i] = elapsed
+            running_times[i] = elapsed;
+            elapsed_accumulative += elapsed;
         }
-        write_to_csv(file, "CPU Sum of numbers", "", "", "");
+        running_times_mean = mean(running_times, iterations);
+        running_times_standard_deviation = standard_deviation(running_times, iterations, running_times_mean);
 
-    } while ()
+        write_to_csv(file, algorithm, str_dimension, running_times_mean, running_times_standard_deviation, iterations);
+        iterations *= 2;
+    } while (elapsed_accumulative < 0.25);
 
         //
         //

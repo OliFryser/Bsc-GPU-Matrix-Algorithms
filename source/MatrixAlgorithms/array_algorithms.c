@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 #include "array_algorithms.h"
 
 int sum_of_array(int array[], int size_of_array)
@@ -42,4 +43,26 @@ void print_numbers(int array[], int size_of_array)
             printf(", ");
         printf("\n");
     }
+}
+
+double mean(double array[], int size_of_array) 
+{
+    double sum = 0.0f;
+    for (int i = 0; i < size_of_array; i++)
+    {
+        sum += array[i];
+    }
+    return sum / size_of_array;    
+}
+
+double standard_deviation(double array[], int size_of_array, double mean) 
+{
+    double accumulative_deviation = 0.0;
+    double entry_deviation;
+    for (int i = 0; i < size_of_array; i++)
+    {
+        entry_deviation = fabs(array[i] - mean);
+        accumulative_deviation += entry_deviation;
+    }
+    return accumulative_deviation / size_of_array;
 }

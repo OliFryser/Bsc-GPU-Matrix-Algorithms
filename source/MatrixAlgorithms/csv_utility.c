@@ -2,6 +2,15 @@
 #include <stdlib.h>
 #include "csv_utility.h"
 
+FILE *write_csv(char *csv_path) {
+    FILE *csv_file;
+    csv_file = fopen(csv_path, "w");
+    if (csv_file == NULL) {
+        fprintf(stderr, "Unable to open file for writing.\n");
+    }
+    return csv_file;
+}
+
 FILE *append_csv(char *csv_path) {
     FILE *csv_file;
     csv_file = fopen(csv_path, "a");
@@ -24,6 +33,6 @@ void close_file(FILE *file) {
     fclose(file);
 }
 
-void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[], char mean_run_time[], char standard_deviation[]) {    
-    fprintf(file, "\n%s,%s,%s,%s", algorithm_name, matrix_dimensions, mean_run_time, standard_deviation);
+void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[], double mean_run_time, double standard_deviation, int iterations) {    
+    fprintf(file, "\n%s,\tMatrix dimensions %s,\tmean %f,\tstandard deviation %f,\tIterations %d", algorithm_name, matrix_dimensions, mean_run_time, standard_deviation, iterations);
 }
