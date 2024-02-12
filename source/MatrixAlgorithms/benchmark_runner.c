@@ -7,6 +7,9 @@
 #include "matrix_algorithms.h"
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[], char mean_run_time[], char standard_deviation[]);
+bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result);
+bool matrix_multiplication(Matrix *matrix1, Matrix *matrix2, Matrix *result);
+bool matrix_inverse(Matrix *matrix1, Matrix *matrix2, Matrix *result);
 
 int main(int argc, char *argv[])
 {
