@@ -15,6 +15,7 @@ In C we can access a matrix like ``a[i][j]``, where i is row and j is column. Th
 Matrix multiplikations video:
 [Matrix multiplication as composition | Chapter 4, Essence of linear algebra](https://youtu.be/XkY2DOUCWMU?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab)
 
-Rigtig god visuel forklaring på QR-decomposition af chat-gpt: 
-https://chat.openai.com/share/c3d4a5bb-2d47-453d-83ab-be67e55bf617 
+[Rigtig god visuel forklaring på QR-decomposition af chat-gpt](https://chat.openai.com/share/c3d4a5bb-2d47-453d-83ab-be67e55bf617)
+
+## Cuda C
 
