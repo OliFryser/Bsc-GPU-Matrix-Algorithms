@@ -5,46 +5,46 @@
 #include "array_algorithms.h"
 #include "csv_utility.h"
 
-int sum_of_array(int array[], int size_of_array);
-int *random_numbers(int size, int max_value);
-FILE *get_csv(char *csvPath);
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[], char mean_run_time[], char standard_deviation[]);
 
 int main(int argc, char *argv[])
 {
+    // Command Line Arguments
+    char *algorithm;
+    char str_dimension[64];
+    int dimension;
     char *save_file_name;
-    FILE *file;
-    int number_count;
-    int *numbers;
-    int sum;
-    char number_count_string[64];
-    char elapsed_time_string[64];
 
-    if (argc < 3)
+    // Program Variables
+    FILE *file;
+
+    if (argc < 4)
     {
-        printf("Usage: %s <save_file_path.csv> <number_count>\n", argv[0]);
+        printf("Usage: %s <algorithm> <dimension> <save_file_path.csv>\n", argv[0]);
         return 0;
     }
 
-    save_file_name = argv[1];
-    strcpy(number_count_string, argv[2]);
-    number_count = atoi(number_count_string);
+    // Initialize Command Line Argument Variables
+    algorithm = argv[1];
+    strcpy(str_dimension, argv[2]);
+    dimension = atoi(str_dimension);
+    save_file_name = argv[3];
 
-    numbers = random_numbers(number_count, 10);
+    if (strcmp(algorithm, "addition") == 0) {
+        printf("Benchmarking addition...");
+    } 
+    else if (strcmp(algorithm, "multiplication") == 0) {
+        printf("Benchmarking multiplication...");
+    }
+    else if (strcmp(algorithm, "inverse") == 0) {
+        printf("Benchmarking inverse...");
+    }
 
-    clock_t start_time = clock();
-    sum = sum_of_array(numbers, number_count);
-    clock_t end_time = clock();
-    printf("SUM: %d\n", sum);
-    double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
-    sprintf(elapsed_time_string, "%f", elapsed_time);
-    printf("TIME TO CALCULATE: %f\n", elapsed_time);
-
-    file = append_csv(save_file_name);
-    if (file == NULL)
-        return 0;
-    write_to_csv(file, "CPU Sum of numbers", number_count_string, elapsed_time_string, "");
-    fclose(file);
+    // file = append_csv(save_file_name);
+    // if (file == NULL)
+    //     return 0;
+    // write_to_csv(file, "CPU Sum of numbers", number_count_string, elapsed_time_string, "");
+    // fclose(file);
 
     return 0;
 }

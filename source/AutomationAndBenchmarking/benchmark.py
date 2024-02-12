@@ -10,13 +10,16 @@ directory = "MatrixAlgorithms/"
 source_files = [os.path.join(directory, name) for name in os.listdir(directory) if name.endswith(".c")]
 binary_path = directory + "binary"
 compile_command = ["gcc", "-o", binary_path] + source_files
-data_save_file = "DummyData/RandomData2.csv"
-input_sizes = [5, 50, 500, 5_000, 50_000, 500_000, 5_000_000, 50_000_000]
+data_save_file_csv = "DummyData/RandomData2.csv"
+algorithms = ["addition", "multiplication", "inverse"]
+matrix_dimensions = [10, 100, 1_000, 10_000, 100_000, 1_000_000]
+diagram_save_path = "Diagrams/output_plot.png"
 
 try:
     subprocess.run(compile_command, check=True)
-    for input_size in input_sizes:
-        subprocess.run([binary_path, data_save_file, str(input_size)], check=True)
+    for algorithm in algorithms:
+        for dimension in matrix_dimensions:
+            subprocess.run([binary_path, algorithm, str(dimension), data_save_file_csv], check=True)
     os.remove(binary_path)
 except FileNotFoundError as e:
     print(f"File not found error: {e}")
@@ -28,6 +31,5 @@ except Exception as e:
     print(f"An unexpected error occurred: {e}")
     exit()
 
-
-data = structure.CSVDataStructure(data_save_file)
-visualize_csv(data)
+data = structure.CSVDataStructure(data_save_file_csv)
+visualize_csv(data, diagram_save_path)
