@@ -10,7 +10,9 @@
         "time.h": "c",
         "basic.h": "c",
         "csv_utility.h": "c",
-        "console.h": "c"
+        "console.h": "c",
+        "matrix_utility.h": "c",
+        "matrix_algorithms.h": "c"
     },
     "makefile.makefilePath": "source/Makefile",
     "C_Cpp.default.compilerPath": "/usr/bin/gcc"

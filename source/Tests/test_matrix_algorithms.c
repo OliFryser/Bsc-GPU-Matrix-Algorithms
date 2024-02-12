@@ -1,7 +1,7 @@
 #include <CUnit/Basic.h>
 #include <CUnit/Console.h>
-#include "../MatrixAlgorithms/matrix_utility.h"
 #include "../MatrixAlgorithms/csv_utility.h"
+#include "../MatrixAlgorithms/matrix_algorithms.h"
 #include <stdlib.h>
 #include <string.h>
 
