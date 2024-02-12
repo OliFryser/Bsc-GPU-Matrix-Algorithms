@@ -3,6 +3,7 @@
 #include "../MatrixAlgorithms/matrix_utility.h"
 #include "../MatrixAlgorithms/csv_utility.h"
 #include <stdlib.h>
+#include <string.h>
 
 int n = 4;
 int m = 4;
@@ -22,15 +23,15 @@ int init_matrix_suite(void)
 
     empty_matrix = matrix_init(n, m);
 
-    csv_path = "./Tests/csv_test_matrix_2x2.csv";
+    csv_path = "./source/Tests/csv_test_matrix_2x2.csv";
     csv_file = read_csv(csv_path);
     matrix_2x2 = matrix_init_from_csv(csv_file);
 
-    csv_path = "./Tests/csv_test_matrix_4x1.csv";
+    csv_path = "./source/Tests/csv_test_matrix_4x1.csv";
     csv_file = read_csv(csv_path);
     matrix_4x1 = matrix_init_from_csv(csv_file);
 
-    csv_path = "./Tests/csv_test_matrix_doubled_2x2.csv";
+    csv_path = "./source/Tests/csv_test_matrix_doubled_2x2.csv";
     csv_file = read_csv(csv_path);
     matrix_doubled_2x2 = matrix_init_from_csv(csv_file);
 
