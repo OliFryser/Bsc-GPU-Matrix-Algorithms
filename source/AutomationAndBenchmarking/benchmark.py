@@ -5,7 +5,7 @@ from data_visualizer import visualize_csv
 from datetime import datetime
 
 directory = "source/MatrixAlgorithms/"
-source_files = [os.path.join(directory, name) for name in os.listdir(directory) if name.endswith(".c")]
+source_files = [os.path.join(directory, name) for name in os.listdir(directory) if name.endswith(".cu")]
 binary_path = directory + "binary"
 compile_command = ["nvcc", "-o", binary_path] + source_files
 data_append_file_csv = "BenchmarkData/" + datetime.now().strftime("%m-%d %H:%M:%S") + ".csv"
