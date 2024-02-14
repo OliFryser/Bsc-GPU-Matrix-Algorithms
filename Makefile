@@ -1,7 +1,7 @@
-CC = gcc
+CC = nvcc
 
 # Compile-time flags
-CFLAGS = -Wall -g
+CFLAGS = -g
 
 # Loadflags
 LDFLAGS = -lcunit
