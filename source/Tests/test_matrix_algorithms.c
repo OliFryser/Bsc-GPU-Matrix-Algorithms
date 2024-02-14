@@ -123,6 +123,7 @@ void test_matrix_copy(void) {
     Matrix *destination = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
     CU_ASSERT_TRUE_FATAL(matrix_copy(matrix_2x2, destination));
     CU_ASSERT_TRUE(matrix_equal(matrix_2x2, destination));
+    matrix_free(destination);
 }
 
 void test_matrix_addition(void) {
@@ -168,4 +169,6 @@ void test_matrix_random_fill(void) {
     for (i = 0; i < rows; i++)
         for (j = 0; j < columns; j++)
             CU_ASSERT_TRUE(in_range(random_matrix->values[i][j], min, max));
+
+    matrix_free(random_matrix);
 }
