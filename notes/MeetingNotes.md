@@ -40,3 +40,17 @@ Projektbeskrivelse: Det her vil vi gøre, det her vil vi måske gøre. Kig på Q
 Vi mødes ca. en gang om ugen. (Vi har kun ca 14 uger)
 
 Læs op på: Lineær algebra, GPU hardware termer og teori, gamle specialer
+
+## Ortagonale matriser
+
+Ortogonal: Alle søjler i matrisen har længde 1.
+De står vinkelret på hinanden
+Eksempel er enhedsmatrisen
+Også ombytninger af enhedsmatrisen er ortogonal.
+
+QR: Q udtrykker spejling og rotation. R udtrykker skalering.
+Q^T: Den spejlede matrise. Byt om på kolonner og rækker.
+
+## Mutlicore CPU implementation
+
+Hvis spørgsmålet er om det kan betale sig at købe en GPU, så giver det nok ikke mening at sammenligne med en singlecore CPU implementation.
