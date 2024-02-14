@@ -3,10 +3,12 @@
 
 #include "test_csv_utility.h"
 #include "test_matrix_algorithms.h"
+#include "test_cuda_matrix_algorithms.h"
 
 int main() {
     CU_pSuite matrix_suite = NULL;
     CU_pSuite csv_suite = NULL;
+    CU_pSuite cuda_matrix_suite = NULL;
 
     /* initialize the CUnit test registry */
     if (CUE_SUCCESS != CU_initialize_registry()) return CU_get_error();
@@ -25,6 +27,14 @@ int main() {
         CU_cleanup_registry();
         return CU_get_error();
     }
+
+    /* add a suite to the registry */
+    cuda_matrix_suite = CU_add_suite("Cuda Matrix Tests", init_cuda_matrix_suite, clean_cuda_matrix_suite);
+    if (NULL == cuda_matrix_suite) {
+        CU_cleanup_registry();
+        return CU_get_error();
+    }
+
 
     /* add the tests to the suite */
     /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
@@ -53,7 +63,9 @@ int main() {
         (NULL == CU_add_test(matrix_suite, "Matrix Init Test Bad Values",
                              test_init_matrix_0_values)) ||
         (NULL == CU_add_test(matrix_suite, "Matrix Random Fill Test In Range",
-                             test_matrix_random_fill))) {
+                             test_matrix_random_fill)) || 
+                             (NULL == CU_add_test(cuda_matrix_suite, "Test cuda matrix utility", test_cuda_matrix_utility)))
+    {
         CU_cleanup_registry();
         return CU_get_error();
     }

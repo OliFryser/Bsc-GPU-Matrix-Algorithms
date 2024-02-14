@@ -16,7 +16,9 @@
         "stdbool.h": "c",
         "cuda_matrix_algorithms.h": "c",
         "test_csv_utility.h": "c",
-        "test_matrix_algorithms.h": "c"
+        "test_matrix_algorithms.h": "c",
+        "test_cuda_matrix_algorithms.h": "c",
+        "cuda_matrix_utility.h": "c"
     },
     "makefile.makefilePath": "source/Makefile",
     "C_Cpp.default.compilerPath": "/usr/bin/gcc"
