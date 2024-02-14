@@ -1,13 +1,14 @@
 extern "C" {
 #include "cuda_matrix_utility.h"
 }
+// Deep copy:
+// https://forums.developer.nvidia.com/t/clean-way-of-copying-a-struct-with-pointers-to-the-gpu/225833
 
+// Arguments for why this is bad:
+// https://stackoverflow.com/questions/6137218/how-can-i-add-up-two-2d-pitched-arrays-using-nested-for-loops/6137517#6137517
 extern "C" Matrix *cuda_matrix_init(int rows, int columns) {
     Matrix *host_matrix, *device_matrix;
-    float **device_array;
     host_matrix = matrix_init(rows, columns);
-
-    cudaMalloc(&device_matrix, sizeof(Matrix));
 
     cudaMemcpy(device_matrix, host_matrix, sizeof(Matrix),
                cudaMemcpyHostToDevice);
