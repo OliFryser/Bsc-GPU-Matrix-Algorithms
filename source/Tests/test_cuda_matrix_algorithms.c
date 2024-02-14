@@ -1,7 +1,17 @@
 #include "test_cuda_matrix_algorithms.h"
 
+int init_cuda_matrix_suite(void)
+{
+    return 0;
+}
 
-void test_cuda_matrix_utility(void) {
+int clean_cuda_matrix_suite(void)
+{
+    return 0;
+}
+
+void test_cuda_matrix_utility(void)
+{
     Matrix *src, *dst, *device_matrix;
     src = matrix_init(5, 5);
     dst = matrix_init(5, 5);

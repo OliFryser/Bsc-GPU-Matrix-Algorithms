@@ -1,10 +1,5 @@
 #include "matrix_utility.h"
 
-#include <stdlib.h>
-#include <string.h>
-
-#include "csv_utility.h"
-
 Matrix *matrix_init(int rows, int columns) {
     if (rows <= 0 || columns <= 0) return NULL;
 
