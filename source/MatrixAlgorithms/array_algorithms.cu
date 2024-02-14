@@ -10,7 +10,7 @@ int sum_of_array(int array[], int size_of_array) {
 }
 
 int *random_numbers(int number_count, int max_value) {
-    int *numbers = malloc(number_count * sizeof(int));
+    int *numbers = (int *)malloc(number_count * sizeof(int));
     if (numbers == NULL) {
         fprintf(stderr, "Could not allocate array for random numbers.");
         return NULL;

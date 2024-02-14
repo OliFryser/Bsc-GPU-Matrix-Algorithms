@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
     write_header_to_csv(file, header);
 
     do {
-        running_times = malloc(sizeof(double) * iterations);
+        running_times = (double *)malloc(sizeof(double) * iterations);
         if (running_times == NULL) return -1;
 
         elapsed_accumulative = 0.0;
