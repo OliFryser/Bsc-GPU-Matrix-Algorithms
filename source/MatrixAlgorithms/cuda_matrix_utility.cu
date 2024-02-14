@@ -3,18 +3,25 @@ extern "C" {
 }
 
 extern "C" Matrix *cuda_matrix_init(int rows, int columns) {
-    Matrix *device_matrix;
-    cudaMalloc(&device_matrix, sizeof(Matrix));
-    if (device_matrix != NULL) return NULL;
-    device_matrix->rows = rows;
-    device_matrix->columns = columns;
+    Matrix *host_matrix, *device_matrix;
+    float **device_array;
+    host_matrix = matrix_init(rows, columns);
 
-    cudaMalloc(&device_matrix->values, rows * sizeof(float *));
+    cudaMalloc(&device_matrix, sizeof(Matrix));
+
+    cudaMemcpy(device_matrix, host_matrix, sizeof(Matrix),
+               cudaMemcpyHostToDevice);
+
+    cudaMalloc(&device_array, rows * sizeof(float *));
 
     for (int i = 0; i < rows; i++) {
-        cudaMalloc(&device_matrix->values[i], sizeof(columns * sizeof(float)));
+        float *row;
+        cudaMalloc(&row, columns * sizeof(float));
+        cudaMalloc(&(device_array[i]), columns * sizeof(float));
     }
 
+    // cudaMemcpy(device_matrix->values, device_array, rows * sizeof(float *),
+    // cudaMemcpyDeviceToDevice);
     return device_matrix;
 }
 

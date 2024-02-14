@@ -1,17 +1,10 @@
 #include "test_cuda_matrix_algorithms.h"
 
-int init_cuda_matrix_suite(void)
-{
-    return 0;
-}
+int init_cuda_matrix_suite(void) { return 0; }
 
-int clean_cuda_matrix_suite(void)
-{
-    return 0;
-}
+int clean_cuda_matrix_suite(void) { return 0; }
 
-void test_cuda_matrix_utility(void)
-{
+void test_cuda_matrix_utility(void) {
     Matrix *src, *dst, *device_matrix;
     src = matrix_init(5, 5);
     dst = matrix_init(5, 5);
@@ -24,5 +17,7 @@ void test_cuda_matrix_utility(void)
     CU_ASSERT_TRUE(matrix_equal(src, dst));
     matrix_free(src);
     matrix_free(dst);
+    printf("\nHERE!\n");
     cuda_matrix_free(device_matrix);
+    printf("\nHERE!\n");
 }
