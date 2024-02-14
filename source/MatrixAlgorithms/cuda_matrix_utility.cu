@@ -3,6 +3,11 @@
 Matrix *cuda_matrix_init(int rows, int columns) {
     return NULL;
 }
+
+void cuda_matrix_free(Matrix *matrix) {
+
+}
+
 void cuda_matrix_host_to_device(Matrix *dst, Matrix* src) {
 
 }
