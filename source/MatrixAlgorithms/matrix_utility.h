@@ -1,5 +1,11 @@
+#ifndef MATRIX_UTILITY_H
+#define MATRIX_UTILITY_H
+
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "csv_utility.h"
 
 typedef struct {
     int rows;
@@ -15,3 +21,5 @@ Matrix *matrix_init_from_csv(FILE *csv_file);
 bool matrix_equal_dimensions(Matrix *matrix1, Matrix *matrix2);
 bool matrix_equal(Matrix *matrix1, Matrix *matrix2);
 bool matrix_copy(Matrix *original, Matrix *copy);
+
+#endif

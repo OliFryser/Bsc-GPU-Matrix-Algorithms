@@ -1,7 +1,4 @@
-#include <CUnit/Basic.h>
-#include <CUnit/Console.h>
-
-#include "../MatrixAlgorithms/csv_utility.h"
+#include "test_csv_utility.h"
 
 FILE *csv_file;
 

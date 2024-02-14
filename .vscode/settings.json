@@ -12,7 +12,11 @@
         "csv_utility.h": "c",
         "console.h": "c",
         "matrix_utility.h": "c",
-        "matrix_algorithms.h": "c"
+        "matrix_algorithms.h": "c",
+        "stdbool.h": "c",
+        "cuda_matrix_algorithms.h": "c",
+        "test_csv_utility.h": "c",
+        "test_matrix_algorithms.h": "c"
     },
     "makefile.makefilePath": "source/Makefile",
     "C_Cpp.default.compilerPath": "/usr/bin/gcc"

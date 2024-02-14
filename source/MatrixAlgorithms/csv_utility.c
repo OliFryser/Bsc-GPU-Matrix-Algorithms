@@ -1,7 +1,5 @@
 #include "csv_utility.h"
 
-#include <stdlib.h>
-
 FILE *write_csv(char *csv_path) {
     FILE *csv_file;
     csv_file = fopen(csv_path, "w");

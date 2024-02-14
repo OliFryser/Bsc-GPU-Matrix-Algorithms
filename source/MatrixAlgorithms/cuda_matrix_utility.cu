@@ -1,4 +1,4 @@
-#include "cuda_matrix_algorithms.h"
+#include "cuda_matrix_utility.h"
 
 Matrix *cuda_matrix_init(int rows, int columns) {
     return NULL;

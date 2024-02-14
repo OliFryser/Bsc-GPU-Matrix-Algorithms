@@ -1,10 +1,5 @@
 #include "array_algorithms.h"
 
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
 int sum_of_array(int array[], int size_of_array) {
     int sum;
     sum = 0;

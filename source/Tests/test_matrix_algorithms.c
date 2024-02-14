@@ -1,11 +1,4 @@
-#include <CUnit/Basic.h>
-#include <CUnit/Console.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "../MatrixAlgorithms/csv_utility.h"
-#include "../MatrixAlgorithms/matrix_algorithms.h"
-#include "../MatrixAlgorithms/cuda_matrix_algorithms.h"
+#include "test_matrix_algorithms.h"
 
 int n = 4;
 int m = 4;
