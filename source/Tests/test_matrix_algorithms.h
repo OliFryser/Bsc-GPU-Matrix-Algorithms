@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../MatrixAlgorithms/matrix_algorithms.h"
 #include "../MatrixAlgorithms/cuda_matrix_algorithms.h"
+#include "../MatrixAlgorithms/matrix_algorithms.h"
 
 void test_init_matrix(void);
 void test_init_matrix_0_values(void);

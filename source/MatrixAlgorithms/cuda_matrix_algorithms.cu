@@ -1,5 +1,10 @@
 #include "cuda_matrix_algorithms.h"
 
-bool matrix_addition_gpu_single_core(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
+__global__ void matrix_addition_gpu_single_core_kernel(Matrix *matrix1,
+                                                       Matrix *matrix2,
+                                                       Matrix *result) {}
 
+void matrix_addition_gpu_single_core(Matrix *matrix1, Matrix *matrix2,
+                                     Matrix *result) {
+    cudaDeviceSynchronize();
 }
