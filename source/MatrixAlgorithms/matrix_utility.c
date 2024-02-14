@@ -11,18 +11,18 @@ Matrix *matrix_init(int rows, int columns) {
     Matrix *matrix;
     int i;
 
-    matrix = malloc(sizeof(Matrix));
+    matrix = (Matrix*)malloc(sizeof(Matrix));
     if (matrix == NULL) {
         return NULL;
     }
-    matrix->values = malloc(rows * sizeof(float *));
+    matrix->values = (float **)malloc(rows * sizeof(float *));
     if (matrix->values == NULL) {
         free(matrix);
         return NULL;
     }
 
     for (i = 0; i < rows; i++) {
-        matrix->values[i] = malloc(columns * sizeof(float));
+        matrix->values[i] = (float *)malloc(columns * sizeof(float));
     }
     matrix->rows = rows;
     matrix->columns = columns;

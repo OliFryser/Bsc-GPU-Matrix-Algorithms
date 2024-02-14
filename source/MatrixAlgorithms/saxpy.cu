@@ -1,8 +1,12 @@
 #include <stdio.h>
-
+#include "matrix_utility.h"
 __global__ void saxpy(int n, float a, float *x, float *y) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i < n) y[i] = a * x[i] + y[i];
+}
+
+__global__ void add(int n, Matrix *gpu_matrix1, Matrix *gpu_matrix2, Matrix *gpu_result) {
+
 }
 
 int main(void) {
