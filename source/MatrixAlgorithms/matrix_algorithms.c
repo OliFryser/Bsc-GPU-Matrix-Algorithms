@@ -19,10 +19,6 @@ bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
     return true;
 }
 
-bool matrix_addition_gpu_single_core(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
-    return false;
-}
-
 bool matrix_multiplication(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
     return false;
 }

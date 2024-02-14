@@ -5,6 +5,7 @@
 
 #include "../MatrixAlgorithms/csv_utility.h"
 #include "../MatrixAlgorithms/matrix_algorithms.h"
+#include "../MatrixAlgorithms/cuda_matrix_algorithms.h"
 
 int n = 4;
 int m = 4;
