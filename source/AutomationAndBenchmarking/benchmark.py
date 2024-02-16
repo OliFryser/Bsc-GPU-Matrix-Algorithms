@@ -1,3 +1,4 @@
+import math
 import subprocess
 import os
 import csv_data_structure as structure
@@ -9,8 +10,8 @@ source_files = [os.path.join(directory, name) for name in os.listdir(directory) 
 binary_path = directory + "binary"
 compile_command = ["nvcc", "-o", binary_path] + source_files
 data_append_file_csv = "BenchmarkData/" + datetime.now().strftime("%m-%d %H:%M:%S") + ".csv"
-algorithms = ["addition", "addition gpu single core", "addition gpu multi core"] #, "multiplication", "inverse"]
-matrix_dimensions = [2 ** (i+1) for i in range(0, 14)] #, 1_000, 10_000, 100_000, 1_000_000]
+algorithms = ["addition"]#, "addition gpu single core", "addition gpu multi core", "multiplication", "inverse"]
+matrix_dimensions = [math.floor(1.5 ** (i+1)) for i in range(0, 20)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot.png"
 
 try:
