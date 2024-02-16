@@ -46,7 +46,7 @@ void test_matrix_addition_gpu_single_core(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(cuda_matrix_2x2);
     Matrix *result = matrix_init(cuda_matrix_2x2->rows, cuda_matrix_2x2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result);
-    matrix_addition_gpu_single_core(cuda_matrix_2x2, cuda_matrix_2x2, result);
+    CU_ASSERT_TRUE(matrix_addition_gpu_single_core(cuda_matrix_2x2, cuda_matrix_2x2, result));
     CU_ASSERT_TRUE(matrix_equal(result, cuda_matrix_doubled_2x2));
     matrix_free(result);
 }
