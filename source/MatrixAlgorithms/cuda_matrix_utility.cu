@@ -14,6 +14,7 @@ extern "C" DEVICE_MATRIX cuda_matrix_init(int rows, int columns) {
 }
 
 extern "C" void cuda_matrix_free(DEVICE_MATRIX device_matrix) {
+    if (device_matrix == NULL) return;
     cudaFree(device_matrix);
 }
 
@@ -35,6 +36,7 @@ extern "C" void cuda_matrix_host_to_device(DEVICE_MATRIX dst, Matrix *src) {
     cpu_values = (float *)malloc(size);
     cuda_matrix_2d_to_1d(cpu_values, src);
     cudaMemcpy(dst, cpu_values, size, cudaMemcpyHostToDevice);
+    free(cpu_values);
 }
 
 extern "C" void cuda_matrix_device_to_host(Matrix *dst, DEVICE_MATRIX src) {
@@ -43,4 +45,5 @@ extern "C" void cuda_matrix_device_to_host(Matrix *dst, DEVICE_MATRIX src) {
     cpu_values = (float *)malloc(size);
     cudaMemcpy(cpu_values, src, size, cudaMemcpyDeviceToHost);
     cuda_matrix_1d_to_2d(dst, cpu_values);
+    free(cpu_values);
 }
