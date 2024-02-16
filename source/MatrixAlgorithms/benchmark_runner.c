@@ -5,16 +5,19 @@
 
 #include "array_algorithms.h"
 #include "csv_utility.h"
-#include "matrix_algorithms.h"
 #include "cuda_matrix_algorithms.h"
+#include "matrix_algorithms.h"
 #define NANOSECS_PER_SEC 1e9
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[],
                   double mean_run_time, double standard_deviation,
                   int iterations);
 bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result);
-bool matrix_addition_gpu_single_core(Matrix *matrix1, Matrix *matrix2, Matrix *result);
+bool matrix_addition_gpu_single_core(Matrix *matrix1, Matrix *matrix2,
+                                     Matrix *result);
 bool matrix_multiplication(Matrix *matrix1, Matrix *matrix2, Matrix *result);
+bool matrix_addition_gpu_multi_core(Matrix *matrix1, Matrix *matrix2,
+                                    Matrix *result);
 bool matrix_inverse(Matrix *matrix1, Matrix *matrix2, Matrix *result);
 double mean(double array[], int size_of_array);
 double standard_deviation(double array[], int size_of_array, double mean);
@@ -53,6 +56,8 @@ int main(int argc, char *argv[]) {
         matrix_algorithm = &matrix_addition;
     else if (strcmp(algorithm, "addition gpu single core") == 0)
         matrix_algorithm = &matrix_addition_gpu_single_core;
+    else if (strcmp(algorithm, "addition gpu multi core") == 0)
+        matrix_algorithm = &matrix_addition_gpu_multi_core;
     else if (strcmp(algorithm, "multiplication") == 0)
         matrix_algorithm = &matrix_multiplication;
     else if (strcmp(algorithm, "inverse") == 0)
@@ -92,7 +97,7 @@ int main(int argc, char *argv[]) {
         write_to_csv(file, algorithm, str_dimension, running_times_mean,
                      running_times_standard_deviation, iterations);
         iterations *= 2;
-    } while (elapsed_accumulative < 0.25);
+    } while (elapsed_accumulative < 0.5);
 
     //
     //
