@@ -3,7 +3,7 @@
 
 #include <CUnit/Basic.h>
 #include <CUnit/Console.h>
-#include "../MatrixAlgorithms/cuda_matrix_utility.h"
+#include "../MatrixAlgorithms/cuda_matrix_algorithms.h"
 
 int init_cuda_matrix_suite(void);
 int clean_cuda_matrix_suite(void);
