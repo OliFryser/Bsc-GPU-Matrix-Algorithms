@@ -50,7 +50,7 @@ void test_matrix_addition_gpu_single_core(void) {
     DEVICE_MATRIX device_2x2 = cuda_matrix_init(cuda_matrix_2x2->rows, cuda_matrix_2x2->columns);
     DEVICE_MATRIX device_result = cuda_matrix_init(cuda_matrix_2x2->rows, cuda_matrix_2x2->columns);
     cuda_matrix_host_to_device(device_2x2, cuda_matrix_2x2);
-    matrix_addition_gpu_single_core(device_2x2, device_2x2, device_result);
+    matrix_addition_gpu_single_core(device_2x2, device_2x2, device_result, cuda_matrix_2x2->rows, cuda_matrix_2x2->columns);
     cuda_matrix_device_to_host(result, device_result);
 
     CU_ASSERT_TRUE(matrix_equal(result, cuda_matrix_doubled_2x2));
