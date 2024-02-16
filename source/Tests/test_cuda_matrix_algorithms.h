@@ -8,5 +8,7 @@
 int init_cuda_matrix_suite(void);
 int clean_cuda_matrix_suite(void);
 void test_cuda_matrix_utility(void);
+void test_matrix_addition_gpu_single_core(void);
+
 
 #endif

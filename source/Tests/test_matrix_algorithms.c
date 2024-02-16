@@ -136,16 +136,6 @@ void test_matrix_addition(void) {
     matrix_free(result);
 }
 
-void test_matrix_addition_gpu_single_core(void) {
-    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_2x2);
-    Matrix *result = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(result);
-    CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(matrix_2x2, result));
-    matrix_addition_gpu_single_core(matrix_2x2, matrix_2x2, result);
-    CU_ASSERT_TRUE(matrix_equal(result, matrix_doubled_2x2));
-    matrix_free(result);
-}
-
 bool in_range(float value, float min, float max) {
     return value >= min && value <= max;
 }

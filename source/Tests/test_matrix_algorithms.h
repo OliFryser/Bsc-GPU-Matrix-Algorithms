@@ -20,7 +20,6 @@ void test_matrix_equal(void);
 void test_matrix_not_equal(void);
 void test_matrix_copy(void);
 void test_matrix_addition(void);
-void test_matrix_addition_gpu_single_core(void);
 void test_matrix_random_fill(void);
 int init_matrix_suite(void);
 int clean_matrix_suite(void);
