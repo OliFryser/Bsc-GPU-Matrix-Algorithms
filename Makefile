@@ -23,6 +23,9 @@ TEST_SOURCES_CU=$(filter-out %/saxpy.cu, $(ALL_SOURCES_CU))
 TEST_OBJECTS_C=$(TEST_SOURCES_C:.c=.o)
 TEST_OBJECTS_CU=$(TEST_SOURCES_CU:.cu=.o)
 
+bench:
+	python3 $(SOURCE_DIR)/AutomationAndBenchmarking/benchmark.py
+
 # The first rule is the one executed when no parameters are fed into the Makefile
 test: $(TEST_OBJECTS_C) $(TEST_OBJECTS_CU)
 	$(CC) -L/usr/local/cuda/lib64 -o $(TEST_TARGET) $(CFLAGS) $^ $(LDFLAGS)
