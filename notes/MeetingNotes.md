@@ -54,3 +54,15 @@ Q^T: Den spejlede matrise. Byt om på kolonner og rækker.
 ## Mutlicore CPU implementation
 
 Hvis spørgsmålet er om det kan betale sig at købe en GPU, så giver det nok ikke mening at sammenligne med en singlecore CPU implementation.
+
+# Møde 20/2
+
+- eksperimenter om det har en signifikant indflydelse på gpu om man bruger 1d eller 2d grid, og hvilken blokstørrelse
+- det kan afhænge af version af GPU. Nogen steder kan det giver ændring, på andre gpu sker der ingen forskel
+- matrix addition har for lidt beregningsdata til at det giver mening at regne på
+- multiplikation burde man virkelig godt kunne betale sig
+- Det er rigtigt at måle den totale omkostning inkl konvertering af MatrixCPU til MatrixGPU
+
+Til denne uge: 
+- Test GPU setups
+- Multiplokation på CPU 
