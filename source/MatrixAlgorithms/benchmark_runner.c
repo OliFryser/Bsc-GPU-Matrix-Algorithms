@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
     file = append_csv(save_file_name);
     if (file == NULL) return -1;
 
-    header = "Algorithm\tDimensions\tMean\tStandard Deviation\tIterations";
+    header = "Algorithm,\tDimensions,\tMean,\tStandard Deviation,\tIterations";
     write_header_to_csv(file, header);
 
     do {
