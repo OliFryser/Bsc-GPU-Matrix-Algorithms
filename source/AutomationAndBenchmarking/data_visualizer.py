@@ -14,6 +14,7 @@ def visualize_csv(csv_data: CSVDataStructure, diagram_save_path: str, algorithms
             standard_deviations.append(data.dimension_to_standard_deviation[dimension])
 
         pyplot.plot(dimensions, run_time_means, label=algorithm)
+        pyplot.errorbar(dimensions, run_time_means, standard_deviations, linestyle='None', marker='^')
     
     pyplot.title('Run time comparison')
     pyplot.xlabel('Dimension')

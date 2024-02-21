@@ -11,7 +11,7 @@ binary_path = directory + "binary"
 compile_command = ["nvcc", "-o", binary_path] + source_files
 timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
 data_append_file_csv = "BenchmarkData/" + timestamp + ".csv"
-algorithms = ["addition"]#, "addition gpu single core", "addition gpu multi core", "multiplication", "inverse"]
+algorithms = ["addition cpu", "addition gpu single core", "addition gpu multi core"] # "multiplication", "inverse"]
 matrix_dimensions = [math.floor(2 ** (i+1)) for i in range(0, 13)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot" + timestamp + ".png"
 

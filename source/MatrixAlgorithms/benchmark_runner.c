@@ -11,7 +11,7 @@
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[],
     double mean_run_time, double standard_deviation, int iterations);
-bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result);
+bool matrix_addition_cpu(Matrix *matrix1, Matrix *matrix2, Matrix *result);
 bool matrix_addition_gpu_single_core(
     Matrix *matrix1, Matrix *matrix2, Matrix *result);
 bool matrix_multiplication(Matrix *matrix1, Matrix *matrix2, Matrix *result);
@@ -52,8 +52,8 @@ int main(int argc, char *argv[]) {
     dimension = atoi(str_dimension);
     save_file_name = argv[3];
 
-    if (strcmp(algorithm, "addition") == 0)
-        matrix_algorithm = &matrix_addition;
+    if (strcmp(algorithm, "addition cpu") == 0)
+        matrix_algorithm = &matrix_addition_cpu;
     else if (strcmp(algorithm, "addition gpu single core") == 0)
         matrix_algorithm = &matrix_addition_gpu_single_core;
     else if (strcmp(algorithm, "addition gpu multi core") == 0)
