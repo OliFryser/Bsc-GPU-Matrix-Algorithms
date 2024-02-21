@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
     double elapsed, elapsed_accumulative;
     double running_times_mean, running_times_standard_deviation;
     int iterations = 2;
+    const double minimum_accumulative = 0.25;
     double *running_times;
     char *header;
 
@@ -96,7 +97,7 @@ int main(int argc, char *argv[]) {
         write_to_csv(file, algorithm, str_dimension, running_times_mean,
             running_times_standard_deviation, iterations);
         iterations *= 2;
-    } while (elapsed_accumulative < 0.5);
+    } while (elapsed_accumulative < minimum_accumulative);
 
     //
     //
