@@ -6,19 +6,16 @@ Matrix *matrix_init(int rows, int columns) {
     Matrix *matrix;
     int i;
 
-    matrix = (Matrix*)malloc(sizeof(Matrix));
+    matrix = (Matrix *)malloc(sizeof(Matrix));
     if (matrix == NULL) {
         return NULL;
     }
-    matrix->values = (float **)malloc(rows * sizeof(float *));
+    matrix->values = (float *)malloc(rows * columns * sizeof(float *));
     if (matrix->values == NULL) {
         free(matrix);
         return NULL;
     }
 
-    for (i = 0; i < rows; i++) {
-        matrix->values[i] = (float *)malloc(columns * sizeof(float));
-    }
     matrix->rows = rows;
     matrix->columns = columns;
     return matrix;
@@ -35,24 +32,15 @@ bool matrix_random_fill(float min_value, float max_value, Matrix *matrix) {
 
     int i, j;
 
-    for (i = 0; i < matrix->rows; i++)
-        for (j = 0; j < matrix->columns; j++)
-            matrix->values[i][j] = random_float(min_value, max_value);
+    for (i = 0; i < matrix->rows * matrix->columns; i++)
+        matrix->values[i] = random_float(min_value, max_value);
 
     return true;
 }
 
 void matrix_free(Matrix *matrix) {
-    int i;
-    if (matrix == NULL) {
-        return;
-    }
-    if (matrix->values != NULL) {
-        for (i = 0; i < matrix->rows; i++) {
-            if (matrix->values[i] != NULL) free(matrix->values[i]);
-        }
-        free(matrix->values);
-    }
+    if (matrix == NULL) return;
+    if (matrix->values != NULL) free(matrix->values);
     free(matrix);
 }
 
@@ -62,7 +50,7 @@ void matrix_print(Matrix *matrix) {
     printf("\n# PRINTING MATRIX #\n");
     for (i = 0; i < matrix->rows; i++) {
         for (j = 0; j < matrix->columns; j++) {
-            printf("%.2f ", matrix->values[i][j]);
+            printf("%.2f ", matrix->values[INDEX(i, j, matrix->columns)]);
         }
         printf("\n");
     }
@@ -73,8 +61,8 @@ Matrix *matrix_init_from_csv(FILE *csv_file) {
     char line[100];
     char *token;
     float value;
-    int row_count;
-    int column_count;
+    int rows;
+    int columns;
     int row = 0;
     int column;
 
@@ -87,12 +75,12 @@ Matrix *matrix_init_from_csv(FILE *csv_file) {
     fgets(line, sizeof(line), csv_file);
     token = strtok(line, ",");
     if (token == NULL) return NULL;
-    row_count = atoi(token);
+    rows = atoi(token);
     token = strtok(NULL, ",");
     if (token == NULL) return NULL;
-    column_count = atoi(token);
+    columns = atoi(token);
 
-    matrix = matrix_init(row_count, column_count);
+    matrix = matrix_init(rows, columns);
     if (matrix == NULL) return NULL;
 
     // read values
@@ -103,21 +91,21 @@ Matrix *matrix_init_from_csv(FILE *csv_file) {
         token = strtok(line, ",");
         while (token != NULL) {
             value = atof(token);
-            matrix->values[row][column] = value;
+            matrix->values[INDEX(row, column, columns)] = value;
             token = strtok(NULL, ",");
             column++;
         }
         row++;
 
-        if (column != column_count) {
-            printf("Wrong column count. Expected %d but got %d", column_count,
-                   column);
+        if (column != columns) {
+            printf(
+                "Wrong column count. Expected %d but got %d", columns, column);
             return NULL;
         }
     }
 
-    if (row != row_count) {
-        printf("Wrong row count. Expected %d but got %d", row_count, row);
+    if (row != rows) {
+        printf("Wrong row count. Expected %d but got %d", rows, row);
         return NULL;
     }
 
@@ -138,9 +126,8 @@ bool matrix_equal(Matrix *matrix1, Matrix *matrix2) {
     int columns = matrix1->columns;
     int i, j;
 
-    for (i = 0; i < rows; i++)
-        for (j = 0; j < columns; j++)
-            if (matrix1->values[i][j] != matrix2->values[i][j]) return false;
+    for (i = 0; i < rows * columns; i++)
+        if (matrix1->values[i] != matrix2->values[i]) return false;
 
     return true;
 }
@@ -157,9 +144,7 @@ bool matrix_copy(Matrix *original, Matrix *copy) {
     int columns = original->columns;
     int i, j;
 
-    for (i = 0; i < rows; i++)
-        for (j = 0; j < columns; j++)
-            copy->values[i][j] = original->values[i][j];
+    for (i = 0; i < rows * columns; i++) copy->values[i] = original->values[i];
 
     return true;
 }

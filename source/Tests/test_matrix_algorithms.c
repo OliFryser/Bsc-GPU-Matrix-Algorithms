@@ -51,10 +51,6 @@ int clean_matrix_suite(void) {
 void test_init_matrix(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(empty_matrix);
     CU_ASSERT_PTR_NOT_NULL_FATAL(empty_matrix->values)
-    int i;
-    for (i = 0; i < n; i++) {
-        CU_ASSERT_PTR_NOT_NULL(empty_matrix->values[i])
-    }
 }
 
 void test_init_matrix_0_values(void) {
@@ -76,30 +72,33 @@ void test_init_matrix_2x2_from_csv(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_2x2);
     CU_ASSERT_EQUAL_FATAL(matrix_2x2->rows, 2);
     CU_ASSERT_EQUAL_FATAL(matrix_2x2->columns, 2);
-    CU_ASSERT_EQUAL(matrix_2x2->values[0][0], 0.0F);
-    CU_ASSERT_EQUAL(matrix_2x2->values[0][1], 1.0F);
-    CU_ASSERT_EQUAL(matrix_2x2->values[1][0], 2.0F);
-    CU_ASSERT_EQUAL(matrix_2x2->values[1][1], 3.0F);
+    int columns = matrix_2x2->columns;
+    CU_ASSERT_EQUAL(matrix_2x2->values[(INDEX(0, 0, columns))], 0.0F);
+    CU_ASSERT_EQUAL(matrix_2x2->values[(INDEX(0, 1, columns))], 1.0F);
+    CU_ASSERT_EQUAL(matrix_2x2->values[(INDEX(1, 0, columns))], 2.0F);
+    CU_ASSERT_EQUAL(matrix_2x2->values[(INDEX(1, 1, columns))], 3.0F);
 }
 
 void test_init_matrix_4x1_from_csv(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_4x1);
     CU_ASSERT_EQUAL_FATAL(matrix_4x1->rows, 4);
     CU_ASSERT_EQUAL_FATAL(matrix_4x1->columns, 1);
-    CU_ASSERT_EQUAL(matrix_4x1->values[0][0], 0.0F);
-    CU_ASSERT_EQUAL(matrix_4x1->values[1][0], 1.0F);
-    CU_ASSERT_EQUAL(matrix_4x1->values[2][0], 2.0F);
-    CU_ASSERT_EQUAL(matrix_4x1->values[3][0], 3.0F);
+    int columns = matrix_4x1->columns;
+    CU_ASSERT_EQUAL(matrix_4x1->values[(INDEX(0, 0, columns))], 0.0F);
+    CU_ASSERT_EQUAL(matrix_4x1->values[(INDEX(1, 0, columns))], 1.0F);
+    CU_ASSERT_EQUAL(matrix_4x1->values[(INDEX(2, 0, columns))], 2.0F);
+    CU_ASSERT_EQUAL(matrix_4x1->values[(INDEX(3, 0, columns))], 3.0F);
 }
 
 void test_init_matrix_2x2_doubled_from_csv(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_doubled_2x2);
     CU_ASSERT_EQUAL_FATAL(matrix_doubled_2x2->rows, 2);
     CU_ASSERT_EQUAL_FATAL(matrix_doubled_2x2->columns, 2);
-    CU_ASSERT_EQUAL(matrix_doubled_2x2->values[0][0], 0.0F);
-    CU_ASSERT_EQUAL(matrix_doubled_2x2->values[0][1], 2.0F);
-    CU_ASSERT_EQUAL(matrix_doubled_2x2->values[1][0], 4.0F);
-    CU_ASSERT_EQUAL(matrix_doubled_2x2->values[1][1], 6.0F);
+    int columns = matrix_doubled_2x2->columns;
+    CU_ASSERT_EQUAL(matrix_doubled_2x2->values[(INDEX(0, 0, columns))], 0.0F);
+    CU_ASSERT_EQUAL(matrix_doubled_2x2->values[(INDEX(0, 1, columns))], 2.0F);
+    CU_ASSERT_EQUAL(matrix_doubled_2x2->values[(INDEX(1, 0, columns))], 4.0F);
+    CU_ASSERT_EQUAL(matrix_doubled_2x2->values[(INDEX(1, 1, columns))], 6.0F);
 }
 
 void test_matrix_equal_dimensions(void) {
@@ -156,9 +155,8 @@ void test_matrix_random_fill(void) {
 
     CU_ASSERT_TRUE_FATAL(matrix_random_fill(min, max, random_matrix));
 
-    for (i = 0; i < rows; i++)
-        for (j = 0; j < columns; j++)
-            CU_ASSERT_TRUE(in_range(random_matrix->values[i][j], min, max));
+    for (i = 0; i < rows * columns; i++)
+        CU_ASSERT_TRUE(in_range(random_matrix->values[i], min, max));
 
     matrix_free(random_matrix);
 }

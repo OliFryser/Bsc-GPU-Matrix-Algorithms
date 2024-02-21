@@ -10,14 +10,13 @@
 #define NANOSECS_PER_SEC 1e9
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[],
-                  double mean_run_time, double standard_deviation,
-                  int iterations);
+    double mean_run_time, double standard_deviation, int iterations);
 bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result);
-bool matrix_addition_gpu_single_core(Matrix *matrix1, Matrix *matrix2,
-                                     Matrix *result);
+bool matrix_addition_gpu_single_core(
+    Matrix *matrix1, Matrix *matrix2, Matrix *result);
 bool matrix_multiplication(Matrix *matrix1, Matrix *matrix2, Matrix *result);
-bool matrix_addition_gpu_multi_core(Matrix *matrix1, Matrix *matrix2,
-                                    Matrix *result);
+bool matrix_addition_gpu_multi_core(
+    Matrix *matrix1, Matrix *matrix2, Matrix *result);
 bool matrix_inverse(Matrix *matrix1, Matrix *matrix2, Matrix *result);
 double mean(double array[], int size_of_array);
 double standard_deviation(double array[], int size_of_array, double mean);
@@ -42,7 +41,7 @@ int main(int argc, char *argv[]) {
 
     if (argc < 4) {
         printf("Usage: %s <algorithm> <dimension> <save_file_path.csv>\n",
-               argv[0]);
+            argv[0]);
         return 0;
     }
 
@@ -95,7 +94,7 @@ int main(int argc, char *argv[]) {
             standard_deviation(running_times, iterations, running_times_mean);
 
         write_to_csv(file, algorithm, str_dimension, running_times_mean,
-                     running_times_standard_deviation, iterations);
+            running_times_standard_deviation, iterations);
         iterations *= 2;
     } while (elapsed_accumulative < 0.5);
 

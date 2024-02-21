@@ -11,10 +11,8 @@ bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
     int rows = matrix1->rows;
     int columns = matrix1->columns;
 
-    for (i = 0; i < rows; i++)
-        for (j = 0; j < columns; j++)
-            result->values[i][j] =
-                matrix1->values[i][j] + matrix2->values[i][j];
+    for (i = 0; i < rows * columns; i++)
+        result->values[i] = matrix1->values[i] + matrix2->values[i];
 
     return true;
 }
