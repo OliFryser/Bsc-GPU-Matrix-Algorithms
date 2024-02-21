@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     double elapsed, elapsed_accumulative;
     double running_times_mean, running_times_standard_deviation;
     int iterations = 2;
-    const double minimum_accumulative = 0.25;
+    const double minimum_accumulative = 0.5;
     double *running_times;
     char *header;
 
@@ -58,6 +58,8 @@ int main(int argc, char *argv[]) {
         matrix_algorithm = &matrix_addition_gpu_single_core;
     else if (strcmp(algorithm, "addition gpu multi core") == 0)
         matrix_algorithm = &matrix_addition_gpu_multi_core;
+    else if (strcmp(algorithm, "addition gpu multi core 2") == 0)
+        matrix_algorithm = &matrix_addition_gpu_multi_core2;
     else if (strcmp(algorithm, "multiplication") == 0)
         matrix_algorithm = &matrix_multiplication;
     else if (strcmp(algorithm, "inverse") == 0)

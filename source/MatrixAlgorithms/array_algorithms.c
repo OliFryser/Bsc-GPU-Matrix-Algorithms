@@ -33,7 +33,7 @@ void print_numbers(int array[], int size_of_array) {
     }
 }
 
-double mean(double array[], int size_of_array) {
+long mean(long array[], int size_of_array) {
     double sum = 0.0f;
     for (int i = 0; i < size_of_array; i++) {
         sum += array[i];
@@ -41,7 +41,7 @@ double mean(double array[], int size_of_array) {
     return sum / size_of_array;
 }
 
-double standard_deviation(double array[], int size_of_array, double mean) {
+long standard_deviation(long array[], int size_of_array, double mean) {
     double accumulative_deviation = 0.0;
     double entry_deviation;
     for (int i = 0; i < size_of_array; i++) {

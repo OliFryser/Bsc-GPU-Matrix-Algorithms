@@ -22,8 +22,9 @@ Matrix *matrix_init(int rows, int columns) {
 }
 
 float random_float(float min_value, float max_value) {
+    srand(time(NULL));
     max_value -= min_value;
-    return (float)rand() / (float)(RAND_MAX * max_value) + min_value;
+    return (float)(((float)rand() / (float)RAND_MAX) * max_value) + min_value;
 }
 
 bool matrix_random_fill(float min_value, float max_value, Matrix *matrix) {
@@ -127,7 +128,14 @@ bool matrix_equal(Matrix *matrix1, Matrix *matrix2) {
     int i, j;
 
     for (i = 0; i < rows * columns; i++)
-        if (matrix1->values[i] != matrix2->values[i]) return false;
+        if (matrix1->values[i] != matrix2->values[i]) {
+            printf("\nFOUND ERROR AT %d,%d\n", i / columns, i % columns);
+            printf("\nPrinting matrix 1:\n");
+            matrix_print(matrix1);
+            printf("\nPrinting matrix 2:\n");
+            matrix_print(matrix2);
+            return false;
+        }
 
     return true;
 }
