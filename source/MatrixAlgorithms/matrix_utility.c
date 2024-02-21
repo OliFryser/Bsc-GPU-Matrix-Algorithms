@@ -22,7 +22,6 @@ Matrix *matrix_init(int rows, int columns) {
 }
 
 float random_float(float min_value, float max_value) {
-    srand(time(NULL));
     max_value -= min_value;
     return (float)(((float)rand() / (float)RAND_MAX) * max_value) + min_value;
 }

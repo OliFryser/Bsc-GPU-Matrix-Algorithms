@@ -24,6 +24,7 @@ __global__ void matrix_addition_gpu_multi_core_kernel2(DEVICE_MATRIX matrix1,
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     int j = blockIdx.y * blockDim.y + threadIdx.y;
     if (i >= rows || j >= columns) return;
+
     result[INDEX(i, j, columns)] =
         matrix1[INDEX(i, j, columns)] + matrix2[INDEX(i, j, columns)];
 }
@@ -92,7 +93,7 @@ bool matrix_addition_gpu_multi_core2(
         (matrix1->columns + block_size.y - 1) / block_size.y);
 
     success = gpu_matrix_algorithm_runner(matrix1, matrix2, result,
-        &(matrix_addition_gpu_multi_core_kernel), grid_size, block_size);
+        &(matrix_addition_gpu_multi_core_kernel2), grid_size, block_size);
 
     return success;
 }

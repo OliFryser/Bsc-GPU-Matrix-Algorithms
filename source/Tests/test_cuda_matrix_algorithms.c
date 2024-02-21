@@ -77,8 +77,8 @@ void test_matrix_addition_gpu_multi_core2(void) {
 
 void test_matrix_addition_gpu_multi_core2_larger_matrices(void) {
     Matrix *matrix1, *matrix2, *cpu_result, *gpu_result;
-    int rows = 10;
-    int cols = 10;
+    int rows = 100;
+    int cols = 100;
 
     matrix1 = matrix_init(rows, cols);
     matrix2 = matrix_init(rows, cols);
@@ -92,9 +92,6 @@ void test_matrix_addition_gpu_multi_core2_larger_matrices(void) {
 
     CU_ASSERT_TRUE(matrix_random_fill(10.0f, 100.0f, matrix1));
     CU_ASSERT_TRUE(matrix_random_fill(10.0f, 100.0f, matrix2));
-
-    matrix_print(matrix1);
-    matrix_print(matrix2);
 
     matrix_addition_cpu(matrix1, matrix2, cpu_result);
 

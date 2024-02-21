@@ -22,5 +22,6 @@
         "*.tcc": "cpp"
     },
     "makefile.makefilePath": "source/Makefile",
-    "C_Cpp.default.compilerPath": "/usr/bin/gcc"
+    "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+    "C_Cpp.dimInactiveRegions": false
 }
