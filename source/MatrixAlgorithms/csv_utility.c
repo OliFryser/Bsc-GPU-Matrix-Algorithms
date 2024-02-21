@@ -30,10 +30,9 @@ FILE *read_csv(char *csv_path) {
 void close_file(FILE *file) { fclose(file); }
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[],
-                  double mean_run_time, double standard_deviation,
-                  int iterations) {
-    fprintf(file, "%s,\t%s,\t%f,\t%f,\t%d\n", algorithm_name, matrix_dimensions,
-            mean_run_time, standard_deviation, iterations);
+    double mean_run_time, double standard_deviation, int iterations) {
+    fprintf(file, "%s,\t%s,\t%lf,\t%lf,\t%d\n", algorithm_name,
+        matrix_dimensions, mean_run_time, standard_deviation, iterations);
 }
 
 void write_header_to_csv(FILE *file, char *header) {
