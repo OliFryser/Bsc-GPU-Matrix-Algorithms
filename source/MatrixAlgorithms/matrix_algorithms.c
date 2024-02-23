@@ -27,22 +27,19 @@ bool matrix_multiplication_cpu(Matrix *matrix1, Matrix *matrix2, Matrix *result)
     int result_rows = matrix1->rows;
     int result_columns = matrix2->columns;
 
-    float product;
+    int matrix1_columns = matrix1->columns;
+    int matrix2_columns = matrix2->columns;
+
     float sum_of_products;
 
     for (int i = 0; i < result_rows; i++)
-    {
         for (int j = 0; j < result_columns; j++)
         {
             sum_of_products = 0.0f;
             for (int k = 0; k < common_dimension_length; k++)
-            {
-                product = matrix1->values[INDEX(i,k,matrix1->columns)] * matrix2->values[INDEX(k,j,matrix2->columns)];
-                sum_of_products += product;
-            }
+                sum_of_products += matrix1->values[INDEX(i,k,matrix1_columns)] * matrix2->values[INDEX(k,j,matrix2_columns)];
             result->values[INDEX(i, j, result_columns)] = sum_of_products;
         }
-    }
     return true;
 }
 
