@@ -44,6 +44,7 @@ int init_matrix_suite(void) {
     csv_path = "./source/Tests/csv_test_matrix_multiplication_expected_result.csv";
     csv_file = read_csv(csv_path);
     matrix_multiplication_expected_result = matrix_init_from_csv(csv_file);
+    printf("\nINIT SIZES: %d, %d\n", matrix_multiplication_expected_result->rows, matrix_multiplication_expected_result->columns);
     return 0;
 }
 
@@ -156,10 +157,13 @@ void test_matrix_addition(void) {
 void test_matrix_multiplication(void){
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_multiplication1);
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_multiplication2);
+    // matrix_multiplication_expected_result = matrix_init(2,2);
+    // matrix_random_fill(0.0f, 100.0f, matrix_multiplication_expected_result);
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_multiplication_expected_result);
     Matrix *actual_result = matrix_init(matrix_multiplication1->rows, matrix_multiplication2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
-
+    printf("\nActual rows, columns: %d, %d\n", actual_result->rows, actual_result->columns);
+    printf("\nExpected rows, columns: %d, %d\n", matrix_multiplication_expected_result->rows, matrix_multiplication_expected_result->columns);
     CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(matrix_multiplication_expected_result, actual_result));
     CU_ASSERT_TRUE_FATAL(matrix_multiplication_cpu(matrix_multiplication1, matrix_multiplication2, actual_result));
     CU_ASSERT_TRUE(matrix_equal(matrix_multiplication_expected_result, actual_result));
