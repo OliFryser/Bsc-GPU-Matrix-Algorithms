@@ -6,6 +6,9 @@ Matrix *empty_matrix;
 Matrix *matrix_2x2;
 Matrix *matrix_4x1;
 Matrix *matrix_doubled_2x2;
+Matrix *matrix_multiplication1;
+Matrix *matrix_multiplication2;
+Matrix *matrix_multiplication_expected_result;
 
 /* The suite initialization function.
  * Opens the temporary file used by the tests.
@@ -29,6 +32,18 @@ int init_matrix_suite(void) {
     csv_file = read_csv(csv_path);
     matrix_doubled_2x2 = matrix_init_from_csv(csv_file);
 
+    // Multiplication matrices
+    csv_path = "./source/Tests/csv_test_matrix_multiplication_1.csv";
+    csv_file = read_csv(csv_path);
+    matrix_multiplication1 = matrix_init_from_csv(csv_file);
+
+    csv_path = "./source/Tests/csv_test_matrix_multiplication_2.csv";
+    csv_file = read_csv(csv_path);
+    matrix_multiplication2 = matrix_init_from_csv(csv_file);
+
+    csv_path = "./source/Tests/csv_test_matrix_multiplication_expected_result.csv";
+    csv_file = read_csv(csv_path);
+    matrix_multiplication_expected_result = matrix_init_from_csv(csv_file);
     return 0;
 }
 
@@ -41,6 +56,9 @@ int clean_matrix_suite(void) {
     matrix_free(matrix_2x2);
     matrix_free(matrix_4x1);
     matrix_free(matrix_doubled_2x2);
+    matrix_free(matrix_multiplication1);
+    matrix_free(matrix_multiplication2);
+    matrix_free(matrix_multiplication_expected_result);
     return 0;
 }
 
@@ -133,6 +151,19 @@ void test_matrix_addition(void) {
     CU_ASSERT_TRUE_FATAL(matrix_addition_cpu(matrix_2x2, matrix_2x2, result));
     CU_ASSERT_TRUE(matrix_equal(result, matrix_doubled_2x2));
     matrix_free(result);
+}
+
+void test_matrix_multiplication(void){
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_multiplication1);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_multiplication2);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_multiplication_expected_result);
+    Matrix *actual_result = matrix_init(matrix_multiplication1->rows, matrix_multiplication2->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
+
+    CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(matrix_multiplication_expected_result, actual_result));
+    CU_ASSERT_TRUE_FATAL(matrix_multiplication_cpu(matrix_multiplication1, matrix_multiplication2, actual_result));
+    CU_ASSERT_TRUE(matrix_equal(matrix_multiplication_expected_result, actual_result));
+    matrix_free(actual_result);
 }
 
 bool in_range(float value, float min, float max) {

@@ -14,7 +14,7 @@ void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[],
 bool matrix_addition_cpu(Matrix *matrix1, Matrix *matrix2, Matrix *result);
 bool matrix_addition_gpu_single_core(
     Matrix *matrix1, Matrix *matrix2, Matrix *result);
-bool matrix_multiplication(Matrix *matrix1, Matrix *matrix2, Matrix *result);
+bool matrix_multiplication_cpu(Matrix *matrix1, Matrix *matrix2, Matrix *result);
 bool matrix_addition_gpu_multi_core(
     Matrix *matrix1, Matrix *matrix2, Matrix *result);
 bool matrix_inverse(Matrix *matrix1, Matrix *matrix2, Matrix *result);
@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
     else if (strcmp(algorithm, "addition gpu multi core") == 0)
         matrix_algorithm = &matrix_addition_gpu_multi_core;
     else if (strcmp(algorithm, "multiplication") == 0)
-        matrix_algorithm = &matrix_multiplication;
+        matrix_algorithm = &matrix_multiplication_cpu;
     else if (strcmp(algorithm, "inverse") == 0)
         matrix_algorithm = &matrix_inverse;
 
