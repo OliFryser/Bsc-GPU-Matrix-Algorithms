@@ -15,8 +15,7 @@ int init_cuda_matrix_suite(void) {
     csv_file = read_csv(csv_path);
     cuda_matrix_doubled_2x2 = matrix_init_from_csv(csv_file);
 
-    if (cuda_matrix_2x2 == NULL || cuda_matrix_doubled_2x2 == NULL)
-        return -1;
+    if (cuda_matrix_2x2 == NULL || cuda_matrix_doubled_2x2 == NULL) return -1;
     return 0;
 }
 
@@ -32,8 +31,7 @@ void test_cuda_matrix_utility(void) {
     src = matrix_init(5, 5);
     dst = matrix_init(5, 5);
     device_matrix = cuda_matrix_init(5, 5);
-    if (src == NULL || dst == NULL)
-        return;
+    if (src == NULL || dst == NULL) return;
     CU_ASSERT_PTR_NOT_NULL_FATAL(device_matrix);
     matrix_random_fill(0.0F, 10.0F, src);
     cuda_matrix_host_to_device(device_matrix, src);
@@ -64,4 +62,45 @@ void test_matrix_addition_gpu_multi_core(void) {
         cuda_matrix_2x2, cuda_matrix_2x2, result));
     CU_ASSERT_TRUE(matrix_equal(result, cuda_matrix_doubled_2x2));
     matrix_free(result);
+}
+
+void test_matrix_addition_gpu_multi_core2(void) {
+    CU_ASSERT_PTR_NOT_NULL_FATAL(cuda_matrix_2x2);
+    Matrix *result =
+        matrix_init(cuda_matrix_2x2->rows, cuda_matrix_2x2->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(result);
+    CU_ASSERT_TRUE(matrix_addition_gpu_multi_core2(
+        cuda_matrix_2x2, cuda_matrix_2x2, result));
+    CU_ASSERT_TRUE(matrix_equal(result, cuda_matrix_doubled_2x2));
+    matrix_free(result);
+}
+
+void test_matrix_addition_gpu_multi_core2_larger_matrices(void) {
+    Matrix *matrix1, *matrix2, *cpu_result, *gpu_result;
+    int rows = 100;
+    int cols = 100;
+
+    matrix1 = matrix_init(rows, cols);
+    matrix2 = matrix_init(rows, cols);
+    cpu_result = matrix_init(rows, cols);
+    gpu_result = matrix_init(rows, cols);
+
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix1);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix2);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(cpu_result);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(gpu_result);
+
+    CU_ASSERT_TRUE(matrix_random_fill(10.0f, 100.0f, matrix1));
+    CU_ASSERT_TRUE(matrix_random_fill(10.0f, 100.0f, matrix2));
+
+    matrix_addition_cpu(matrix1, matrix2, cpu_result);
+
+    CU_ASSERT_TRUE(
+        matrix_addition_gpu_multi_core2(matrix1, matrix2, gpu_result));
+
+    CU_ASSERT_TRUE(matrix_equal(gpu_result, cpu_result));
+    matrix_free(matrix1);
+    matrix_free(matrix2);
+    matrix_free(cpu_result);
+    matrix_free(gpu_result);
 }
