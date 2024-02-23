@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
         matrix_algorithm = &matrix_addition_gpu_multi_core;
     else if (strcmp(algorithm, "addition gpu multi core 2") == 0)
         matrix_algorithm = &matrix_addition_gpu_multi_core2;
-    else if (strcmp(algorithm, "multiplication") == 0)
+    else if (strcmp(algorithm, "multiplication cpu") == 0)
         matrix_algorithm = &matrix_multiplication_cpu;
     else if (strcmp(algorithm, "inverse") == 0)
         matrix_algorithm = &matrix_inverse;
