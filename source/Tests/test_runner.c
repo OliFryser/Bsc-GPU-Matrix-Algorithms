@@ -76,7 +76,11 @@ int main() {
                      test_matrix_addition_gpu_multi_core2)) ||
         (NULL == CU_add_test(cuda_matrix_suite,
                      "Matrix addition gpu multi core 2 larger matrices",
-                     test_matrix_addition_gpu_multi_core2_larger_matrices))) {
+                     test_matrix_addition_gpu_multi_core2_larger_matrices)) ||
+        (NULL == CU_add_test(cuda_matrix_suite, 
+                     "Matrix multiplication gpu single core",
+                     test_matrix_multiplication_gpu_single_core))
+                     ) {
         CU_cleanup_registry();
         return CU_get_error();
     }

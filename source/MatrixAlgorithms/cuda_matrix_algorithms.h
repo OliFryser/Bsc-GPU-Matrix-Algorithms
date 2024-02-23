@@ -13,4 +13,7 @@ bool matrix_addition_gpu_multi_core(
 bool matrix_addition_gpu_multi_core2(
     Matrix *matrix1, Matrix *matrix2, Matrix *result);
 
+bool matrix_multiplication_gpu_single_core(
+    Matrix *matrix1, Matrix *matrix2, Matrix *result);
+
 #endif

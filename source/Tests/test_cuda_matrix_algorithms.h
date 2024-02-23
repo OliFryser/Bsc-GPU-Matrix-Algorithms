@@ -14,5 +14,6 @@ void test_matrix_addition_gpu_single_core(void);
 void test_matrix_addition_gpu_multi_core(void);
 void test_matrix_addition_gpu_multi_core2(void);
 void test_matrix_addition_gpu_multi_core2_larger_matrices(void);
+void test_matrix_multiplication_gpu_single_core(void);
 
 #endif
