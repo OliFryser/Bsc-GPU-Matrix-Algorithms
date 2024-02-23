@@ -45,6 +45,7 @@ int init_matrix_suite(void) {
     csv_file = read_csv(csv_path);
     matrix_multiplication_expected_result = matrix_init_from_csv(csv_file);
     printf("\nINIT SIZES: %d, %d\n", matrix_multiplication_expected_result->rows, matrix_multiplication_expected_result->columns);
+    matrix_print(matrix_multiplication_expected_result);
     return 0;
 }
 

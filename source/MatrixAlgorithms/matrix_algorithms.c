@@ -23,7 +23,7 @@ bool matrix_multiplication_cpu(Matrix *matrix1, Matrix *matrix2, Matrix *result)
     if (result == NULL) return false;
 
     if (matrix1->columns != matrix2->rows) return false;
-    int commen_dimension_length = matrix1->columns;
+    int common_dimension_length = matrix1->columns;
     int result_rows = matrix1->rows;
     int result_columns = matrix2->columns;
 
@@ -35,9 +35,9 @@ bool matrix_multiplication_cpu(Matrix *matrix1, Matrix *matrix2, Matrix *result)
         for (int j = 0; j < result_columns; j++)
         {
             sum_of_products = 0.0f;
-            for (int k = 0; k < commen_dimension_length; k++)
+            for (int k = 0; k < common_dimension_length; k++)
             {
-                product = matrix1->values[INDEX(i,k,commen_dimension_length)] * matrix2->values[INDEX(k,j,commen_dimension_length)];
+                product = matrix1->values[INDEX(i,k,matrix1->columns)] * matrix2->values[INDEX(k,j,matrix2->columns)];
                 sum_of_products += product;
             }
             result->values[INDEX(i, j, result_columns)] = sum_of_products;

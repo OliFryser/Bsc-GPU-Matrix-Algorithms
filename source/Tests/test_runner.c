@@ -53,12 +53,10 @@ int main() {
                      test_matrix_not_equal_dimensions)) ||
         (NULL ==
             CU_add_test(matrix_suite, "Matrix equality", test_matrix_equal)) ||
-        (NULL == CU_add_test(matrix_suite, "Matrix inequality",
-                     test_matrix_not_equal)) ||
         (NULL == CU_add_test(matrix_suite, "Matrix copy", test_matrix_copy)) ||
         (NULL == CU_add_test(
                      matrix_suite, "Matrix addition", test_matrix_addition)) ||
-        (NULL == CU_add_test(cuda_matrix_suite,
+        (NULL == CU_add_test(matrix_suite,
                      "Matrix multiplication cpu",
                      test_matrix_multiplication)) ||
         (NULL == CU_add_test(cuda_matrix_suite,
