@@ -59,6 +59,9 @@ int main() {
         (NULL == CU_add_test(
                      matrix_suite, "Matrix addition", test_matrix_addition)) ||
         (NULL == CU_add_test(cuda_matrix_suite,
+                     "Matrix multiplication cpu",
+                     test_matrix_multiplication)) ||
+        (NULL == CU_add_test(cuda_matrix_suite,
                      "Matrix addition gpu single core",
                      test_matrix_addition_gpu_single_core)) ||
         (NULL == CU_add_test(matrix_suite, "Matrix Init Test Bad Values",
