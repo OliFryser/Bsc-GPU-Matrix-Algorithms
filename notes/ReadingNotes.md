@@ -23,5 +23,4 @@ Matrix multiplikations video:
 
 [Deep copy](https://forums.developer.nvidia.com/t/clean-way-of-copying-a-struct-with-pointers-to-the-gpu/225833/2)
 
-
 [The CUDA Programming Model](https://developer.nvidia.com/blog/cuda-refresher-cuda-programming-model/)
