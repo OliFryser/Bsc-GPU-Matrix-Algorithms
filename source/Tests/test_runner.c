@@ -56,8 +56,7 @@ int main() {
         (NULL == CU_add_test(matrix_suite, "Matrix copy", test_matrix_copy)) ||
         (NULL == CU_add_test(
                      matrix_suite, "Matrix addition", test_matrix_addition)) ||
-        (NULL == CU_add_test(matrix_suite,
-                     "Matrix multiplication cpu",
+        (NULL == CU_add_test(matrix_suite, "Matrix multiplication cpu",
                      test_matrix_multiplication)) ||
         (NULL == CU_add_test(cuda_matrix_suite,
                      "Matrix addition gpu single core",
@@ -77,13 +76,21 @@ int main() {
         (NULL == CU_add_test(cuda_matrix_suite,
                      "Matrix addition gpu multi core 2 larger matrices",
                      test_matrix_addition_gpu_multi_core2_larger_matrices)) ||
-        (NULL == CU_add_test(cuda_matrix_suite, 
+        (NULL == CU_add_test(cuda_matrix_suite,
                      "Matrix multiplication gpu single core",
-                     test_matrix_multiplication_gpu_single_core)) || 
-        (NULL == CU_add_test(cuda_matrix_suite, 
+                     test_matrix_multiplication_gpu_single_core)) ||
+        (NULL == CU_add_test(cuda_matrix_suite,
                      "Matrix multiplication gpu multi core: unwrapping i",
-                     test_matrix_multiplication_gpu_multi_core_unwrapping_i))
-                     ) {
+                     test_matrix_multiplication_gpu_multi_core_unwrapping_i)) ||
+        (NULL ==
+            CU_add_test(cuda_matrix_suite,
+                "Matrix multiplication gpu multi core: unwrapping i and j",
+                test_matrix_multiplication_gpu_multi_core_unwrapping_i_and_j)) ||
+        (NULL ==
+            CU_add_test(cuda_matrix_suite,
+                "Matrix multiplication gpu multi core: unwrapping i and j for "
+                "larger matrices",
+                test_matrix_multiplication_gpu_multi_core_unwrapping_i_and_j_larger_matrices))) {
         CU_cleanup_registry();
         return CU_get_error();
     }

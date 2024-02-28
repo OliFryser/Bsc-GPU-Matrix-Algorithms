@@ -29,35 +29,48 @@ __global__ void matrix_addition_gpu_multi_core_kernel2(DEVICE_MATRIX matrix1,
         matrix1[INDEX(i, j, columns)] + matrix2[INDEX(i, j, columns)];
 }
 
-__global__ void matrix_multiplication_gpu_single_core_kernel(DEVICE_MATRIX matrix1,
-    DEVICE_MATRIX matrix2, DEVICE_MATRIX result, int l, int n, int m) {
-
+__global__ void matrix_multiplication_gpu_single_core_kernel(
+    DEVICE_MATRIX matrix1, DEVICE_MATRIX matrix2, DEVICE_MATRIX result, int l,
+    int n, int m) {
     float sum_of_products;
 
     for (int i = 0; i < l; i++)
-        for (int j = 0; j < n; j++)
-        {
+        for (int j = 0; j < n; j++) {
             sum_of_products = 0.0f;
             for (int k = 0; k < m; k++)
-                sum_of_products += matrix1[INDEX(i,k,m)] * matrix2[INDEX(k,j,n)];
+                sum_of_products +=
+                    matrix1[INDEX(i, k, m)] * matrix2[INDEX(k, j, n)];
             result[INDEX(i, j, n)] = sum_of_products;
         }
 }
 
-__global__ void matrix_multiplication_gpu_multicore_unwrapping_i(DEVICE_MATRIX matrix1,
-    DEVICE_MATRIX matrix2, DEVICE_MATRIX result, int l, int n, int m) {
-
+__global__ void matrix_multiplication_gpu_multicore_unwrapping_i_kernel(
+    DEVICE_MATRIX matrix1, DEVICE_MATRIX matrix2, DEVICE_MATRIX result, int l,
+    int n, int m) {
     int i = blockIdx.x;
 
     float sum_of_products;
 
-    for (int j = 0; j < n; j++)
-    {
+    for (int j = 0; j < n; j++) {
         sum_of_products = 0.0f;
         for (int k = 0; k < m; k++)
-            sum_of_products += matrix1[INDEX(i,k,m)] * matrix2[INDEX(k,j,n)];
+            sum_of_products +=
+                matrix1[INDEX(i, k, m)] * matrix2[INDEX(k, j, n)];
         result[INDEX(i, j, n)] = sum_of_products;
     }
+}
+
+__global__ void matrix_multiplication_gpu_multicore_unwrapping_i_and_j_kernel(
+    DEVICE_MATRIX matrix1, DEVICE_MATRIX matrix2, DEVICE_MATRIX result, int l,
+    int n, int m) {
+    int i = blockIdx.x;
+    int j = threadIdx.x;
+    float sum_of_products = 0.0f;
+
+    for (int k = 0; k < m; k++)
+        sum_of_products += matrix1[INDEX(i, k, m)] * matrix2[INDEX(k, j, n)];
+
+    result[INDEX(i, j, n)] = sum_of_products;
 }
 
 bool gpu_matrix_algorithm_runner(Matrix* matrix1, Matrix* matrix2,
@@ -95,8 +108,8 @@ bool gpu_matrix_algorithm_runner(Matrix* matrix1, Matrix* matrix2,
 
 extern "C" bool matrix_addition_gpu_single_core(
     Matrix* matrix1, Matrix* matrix2, Matrix* result) {
-    return gpu_matrix_algorithm_runner(matrix1, matrix2, result, result->rows * result->columns, result->rows,
-        result->columns,
+    return gpu_matrix_algorithm_runner(matrix1, matrix2, result,
+        result->rows * result->columns, result->rows, result->columns,
         &(matrix_addition_gpu_single_core_kernel), dim3(1), dim3(1));
 }
 
@@ -107,8 +120,8 @@ bool matrix_addition_gpu_multi_core(
     grid_size = dim3(matrix1->rows);
     block_size = dim3(matrix1->columns);
 
-    success = gpu_matrix_algorithm_runner(matrix1, matrix2, result, result->rows * result->columns, result->rows,
-        result->columns, 
+    success = gpu_matrix_algorithm_runner(matrix1, matrix2, result,
+        result->rows * result->columns, result->rows, result->columns,
         &(matrix_addition_gpu_multi_core_kernel), grid_size, block_size);
 
     return success;
@@ -124,19 +137,32 @@ bool matrix_addition_gpu_multi_core2(
     grid_size = dim3((matrix1->rows + block_size.x - 1) / block_size.x,
         (matrix1->columns + block_size.y - 1) / block_size.y);
 
-    success = gpu_matrix_algorithm_runner(matrix1, matrix2, result, result->rows * result->columns, result->rows,
-        result->columns, 
+    success = gpu_matrix_algorithm_runner(matrix1, matrix2, result,
+        result->rows * result->columns, result->rows, result->columns,
         &(matrix_addition_gpu_multi_core_kernel2), grid_size, block_size);
 
     return success;
 }
 
-bool matrix_multiplication_gpu_single_core(Matrix *matrix1, Matrix *matrix2, Matrix *result)
-{
-    return gpu_matrix_algorithm_runner(matrix1, matrix2, result, matrix1->rows, matrix2->columns, matrix1->columns, &matrix_multiplication_gpu_single_core_kernel, dim3(1), dim3(1));
+bool matrix_multiplication_gpu_single_core(
+    Matrix* matrix1, Matrix* matrix2, Matrix* result) {
+    return gpu_matrix_algorithm_runner(matrix1, matrix2, result, matrix1->rows,
+        matrix2->columns, matrix1->columns,
+        &matrix_multiplication_gpu_single_core_kernel, dim3(1), dim3(1));
 }
 
-bool matrix_multiplication_gpu_multi_core_unwrapping_i(Matrix *matrix1, Matrix *matrix2, Matrix *result)
-{
-    return gpu_matrix_algorithm_runner(matrix1, matrix2, result, matrix1->rows, matrix2->columns, matrix1->columns, &matrix_multiplication_gpu_multicore_unwrapping_i, dim3(matrix1->rows), dim3(1));
+bool matrix_multiplication_gpu_multi_core_unwrapping_i(
+    Matrix* matrix1, Matrix* matrix2, Matrix* result) {
+    return gpu_matrix_algorithm_runner(matrix1, matrix2, result, matrix1->rows,
+        matrix2->columns, matrix1->columns,
+        &matrix_multiplication_gpu_multicore_unwrapping_i_kernel,
+        dim3(matrix1->rows), dim3(1));
+}
+
+bool matrix_multiplication_gpu_multi_core_unwrapping_i_and_j(
+    Matrix* matrix1, Matrix* matrix2, Matrix* result) {
+    return gpu_matrix_algorithm_runner(matrix1, matrix2, result, matrix1->rows,
+        matrix2->columns, matrix1->columns,
+        &matrix_multiplication_gpu_multicore_unwrapping_i_and_j_kernel,
+        dim3(matrix1->rows), dim3(matrix2->columns));
 }
