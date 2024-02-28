@@ -133,3 +133,13 @@ void test_matrix_multiplication_gpu_single_core(void)
     CU_ASSERT_TRUE(matrix_equal(cuda_matrix_multiplication_expected_result, actual_result));
     matrix_free(actual_result);
 }
+
+void test_matrix_multiplication_gpu_multi_core_unwrapping_i(void)
+{
+    Matrix *actual_result = matrix_init(cuda_matrix_multiplication1->rows, cuda_matrix_multiplication2->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
+    CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(cuda_matrix_multiplication_expected_result, actual_result));
+    CU_ASSERT_TRUE_FATAL(matrix_multiplication_gpu_multi_core_unwrapping_i(cuda_matrix_multiplication1, cuda_matrix_multiplication2, actual_result));
+    CU_ASSERT_TRUE(matrix_equal(cuda_matrix_multiplication_expected_result, actual_result));
+    matrix_free(actual_result);
+}

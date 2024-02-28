@@ -119,3 +119,8 @@ bool matrix_multiplication_gpu_single_core(Matrix *matrix1, Matrix *matrix2, Mat
 {
     return gpu_matrix_algorithm_runner(matrix1, matrix2, result, matrix1->rows, matrix2->columns, matrix1->columns, &matrix_multiplication_gpu_single_core_kernel, dim3(1), dim3(1));
 }
+
+bool matrix_multiplication_gpu_multi_core_unwrapping_i(Matrix *matrix1, Matrix *matrix2, Matrix *result)
+{
+    return false;
+}
