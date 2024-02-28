@@ -1,0 +1,27 @@
+\section{Matrix addition}
+
+The first algorithm we want to implement is the matrix addition algorithm. The algorithm itself is quite simple. Assume 3 \(n * m\) matrices \(\mathbf{A}, \mathbf{B}\) and \(\mathbf{C}\). To add matrix \(A\) and \(B\) and get the output matrix \(C\), we see:
+
+\[a_{ij} + b_{ij} = c_{ij}\]
+
+where \(i\) and \(j\) are indices for the elements of the matrices, and \(a, b\) and \(c\) are the elements indexed by \(i\) and \(j\).\cite{wiki:matrixAddition}
+
+\subsection{Data structure}
+
+In order to represent a matrix in C, one has two options. One option is to represent the matrix as a two dimensional array. In C, this is a \texttt{float **}, where an array of pointers, each point to an array of floats. This enables us to use convenient indexing (see listing \ref{lst:2d_array_indexing}).
+
+\begin{lstlisting}[language=C, caption={Indexing of a float **}, label={lst:2d_array_indexing}]
+// Matrix dimensions (
+int n, m;
+float **matrix;
+
+
+// Memory allocation
+matrix = malloc(sizeof
+
+// assign i and j to be values within bounds of matrix
+
+// Convenient indexing
+a = matrix[i][j]
+\end{lstlisting}
+
