@@ -66,3 +66,20 @@ Hvis spørgsmålet er om det kan betale sig at købe en GPU, så giver det nok i
 Til denne uge: 
 - Test GPU setups
 - Multiplokation på CPU 
+
+
+
+# Møde 28/2
+
+Addition er så simpelt eller data flytning er så meget dyrere end addition, at det er lige meget hvordan vi strukturerer vores bloks og grids
+
+Tænk vores målgruppe som medstuderende. De skal kunne læse teksten og kunne forstå den. Ikke assume at de har dyb forforståelse for meget teknisk felt som fx linear algebra. Forklar det kort og godt. 
+Det vigtige er at få det kloge pointer med. (tidskompleksistet, data transport, parallelisering.
+Billede med at de tekniske forklaringer. 
+Hvis figur er fra et andet sted, så citer. Vi kan også lave vores egne. 
+
+Hvis en forvetning er forkert så skriv det. Og så skriv gerne hvorfor det var forkert med teori vi har lært. Giver gode point. Hvis man ikke kan indse hvorfor, så er det bedre at skrive at det er ikke som vi forventer, og vi forstår endnu ikke hvorfor. Evt. finder man frem til det senere. Det er højt akademisk niveau. 
+Når der sker noget som man ikke troede burde ske, så sker der fremskridt i videnskab. 
+
+For multicore multiplication, kan man evt. tage den yderste for loop og gøre til et blok index, og så køre j k loops i en kernal. Yderligere kunne vi trække j ud af løkken og også få den fra blog index.
+Man kan også lave om på lykkerne så man har bedre lokalitet. Der der skal skrive til samme adresse kan lægges i samme blok. 
