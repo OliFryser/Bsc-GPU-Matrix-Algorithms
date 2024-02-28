@@ -1,0 +1,39 @@
+\section{Background}
+
+\subsection{Linear Algebra}
+
+This section will outline the mathematical formulas that we will implement as algorithms. 
+
+\subsubsection{Matrix addition}
+
+The first algorithm we want to implement is the matrix addition formula. Assume two \(m * n\) matrices \(\mathbf{A}\) and \(\mathbf{B}\). Computing the sum of the matrices is done by adding each element \(i,j\) pairwise. 
+
+\[A + B = (a_{ij} + b_{ij})\]
+
+where \(i\) and \(j\) are indices for the elements of the matrices, and \(a\) and \(b\) are the elements indexed by \(i\) and \(j\). 
+
+For this study it is important to note the simplicity of the algorithm. Calculating the matrix sum can be done in linear time complexity in the count of matrix elements equal to $O(m * n)$. 
+
+% cite notes on numerical analysis
+
+\subsubsection{Matrix multiplication}
+
+Next we want to implement the matrix multiplication formula. Matrix multiplication A * B requires matrix A to have dimensions l * m and matrix B to have dimensions m * n. The means the column length of matrix A must be equal to the row length of matrix B. \\
+In matrix multiplication, element \(i,j\) is calculated from the ith row of matrix A, call it R, and the jth column of matrix B, call it C. To calculate element i,j, pair up the kth entry from R with the kth entry from C and calculate their product. Finally, sum these products to calculate element i,j. 
+
+\[AB = \sum_{k=1}^m a_{ik} b_{kj}\]
+
+
+
+
+\subsection{CPU and GPU Architecture}
+
+Executing code is typically done using a chip in the computer called the central processing unit (CPU). On modern computers a CPU will contain a limited number of cores like 4 or 8. Each core can efficiently execute a series of instructions sequentially. To access memory, the CPU has access to a layered cache as well main memory. The cache is a place for the CPU to store recently accessed memory in anticipation that it will soon need it again. The cache is a lot faster to access because it is located physically on the CPU. However, it is limited in size. \\
+
+Another chip capable of executing code is called the graphics processing unit (GPU). Likewise, it has a set of cores capable of executing instructions. However, the GPU was built to process a massive amount of data in parallel. Therefor it has a different architectural structure. (Add "consumer-level GPU) Instead of a few cores, it has ranging from a few hundreds to a few thousand cores. This comes at the cost of cache size, meaning that each core has access to a much smaller amount of memory. On the GPU, memory is referred to as video random access memory (VRAM). 
+
+
+% Afsnit om vores hypoteser. Hvorfor vi skriver denne rapport. 
+% Altså at addition ikke vil få en speedup, og hvorfor vi tror det
+% at multiplication vil få en speedup, og hvorfor vi tror det
+% og nogle ord om qr-decomposition 
