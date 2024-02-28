@@ -44,6 +44,22 @@ __global__ void matrix_multiplication_gpu_single_core_kernel(DEVICE_MATRIX matri
         }
 }
 
+__global__ void matrix_multiplication_gpu_multicore_unwrapping_i(DEVICE_MATRIX matrix1,
+    DEVICE_MATRIX matrix2, DEVICE_MATRIX result, int l, int n, int m) {
+
+    int i = blockIdx.x;
+
+    float sum_of_products;
+
+    for (int j = 0; j < n; j++)
+    {
+        sum_of_products = 0.0f;
+        for (int k = 0; k < m; k++)
+            sum_of_products += matrix1[INDEX(i,k,m)] * matrix2[INDEX(k,j,n)];
+        result[INDEX(i, j, n)] = sum_of_products;
+    }
+}
+
 bool gpu_matrix_algorithm_runner(Matrix* matrix1, Matrix* matrix2,
     Matrix* result, int kernel_param1, int kernel_param2, int kernel_param3,
     void (*kernel)(DEVICE_MATRIX, DEVICE_MATRIX, DEVICE_MATRIX, int, int, int),
@@ -122,5 +138,5 @@ bool matrix_multiplication_gpu_single_core(Matrix *matrix1, Matrix *matrix2, Mat
 
 bool matrix_multiplication_gpu_multi_core_unwrapping_i(Matrix *matrix1, Matrix *matrix2, Matrix *result)
 {
-    return false;
+    return gpu_matrix_algorithm_runner(matrix1, matrix2, result, matrix1->rows, matrix2->columns, matrix1->columns, &matrix_multiplication_gpu_multicore_unwrapping_i, dim3(matrix1->rows), dim3(1));
 }
