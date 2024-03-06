@@ -1,27 +1,61 @@
-\section{Matrix addition}
-
-The first algorithm we want to implement is the matrix addition algorithm. The algorithm itself is quite simple. Assume 3 \(n * m\) matrices \(\mathbf{A}, \mathbf{B}\) and \(\mathbf{C}\). To add matrix \(A\) and \(B\) and get the output matrix \(C\), we see:
-
-\[a_{ij} + b_{ij} = c_{ij}\]
-
-where \(i\) and \(j\) are indices for the elements of the matrices, and \(a, b\) and \(c\) are the elements indexed by \(i\) and \(j\).\cite{wiki:matrixAddition}
+\section{Matrix Addition Implementation}
 
 \subsection{Data structure}
 
-In order to represent a matrix in C, one has two options. One option is to represent the matrix as a two dimensional array. In C, this is a \texttt{float **}, where an array of pointers, each point to an array of floats. This enables us to use convenient indexing (see listing \ref{lst:2d_array_indexing}).
+In order to represent a matrix in C, one has two options. One option is to represent the matrix as a two-dimensional array. In C, this is a \texttt{float **}, where an array of pointers, each point to an array of floats. This enables one to use convenient indexing as seen in line 10-14 of listing \ref{lst:2d_array_indexing}.
 
-\begin{lstlisting}[language=C, caption={Indexing of a float **}, label={lst:2d_array_indexing}]
-// Matrix dimensions (
+\begin{lstlisting}[language=C, caption={Allocation and indexing of a float **}, label={lst:2d_array_indexing}]
+// Matrix dimensions (n is rows and m is columns)
 int n, m;
 float **matrix;
 
-
 // Memory allocation
-matrix = malloc(sizeof
-
-// assign i and j to be values within bounds of matrix
+matrix_2d = malloc(n * sizeof(float *));
+for (int i = 0; i < n; i++)
+    matrix[i] = malloc(m * sizeof(float));
 
 // Convenient indexing
-a = matrix[i][j]
+float a;
+for (int i = 0; i < n; i++)
+    for (int j = 0; j < m; j++)
+        a = matrix[i][j]
 \end{lstlisting}
 
+The other approach is to have a one-dimensional array, and index it in such a way so that it appears as two-dimensional. In C, this is represented as a \texttt{float *}. To index it, one can use the following formula: 
+
+\[row\_index * column\_count + column\_index\]
+
+This essentially enables us to move forward the amount of rows we want, then add the amount of columns we want.
+
+As described in chapter 1.2 \cite{numericalrecipes}, if one were to declare the array as \texttt{float[n][m]} (assuming n and m are constants known at compile-time), the underlying machine code for accessing the array, would be the same as the indexing formula above.\\
+
+\noindent In the implementation in listing \ref{lst:1d_array_indexing}, however, one does not need to know the sizes of the 2d-array at run-time, since \texttt{n} is multiplied by \texttt{m} when calling \texttt{malloc}, and therefore, the memory requirements are calculated at run-time.
+
+The caveat to this approach, is that the indexing requires two additions and one multiplication, whereas the indexing in the 2d array from listing \ref{lst:2d_array_indexing}, simply requires two additions.\cite{numericalrecipes}. On most modern hardware with pipelining and instruction-level-parallelism, the CPU uses the same number of clock cycles for both indexing methods.%INSERT CITATION
+
+\begin{lstlisting}[language=C, caption={Allocation and indexing of a float *}, label={lst:1d_array_indexing}]
+// Matrix dimensions (
+int n, m;
+float *matrix;
+
+// Memory allocation
+matrix_1d = malloc(n * m * sizeof(float));
+
+// Convenient indexing
+float a;
+for (int i = 0; i < n; i++)
+    for (int j = 0; j < m; j++)
+        a = matrix[i * m + j]
+\end{lstlisting}
+
+\noindent As can be seen in listing \ref{lst:first_data_structure}, we first implemented our matrix as the 2-dimensional array, allured by the benefits of convenient indexing. We also stored the rows and columns directly in the data structure.
+
+\begin{lstlisting}[language=C, caption={First implementation of the matrix data structure.}, label={lst:first_data_structure}]
+typedef struct {
+    int rows;
+    int columns;
+    float **values;
+} Matrix;
+\end{lstlisting}
+
+\noindent When transferring this data structure to the GPU, however, we had to make a \textit{deep copy}, meaning we have to copy each row independently, so n many calls to cudaMalloc and copy.

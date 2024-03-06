@@ -10,6 +10,7 @@ def visualize_csv(csv_data: CSVDataStructure, diagram_save_path: str, algorithms
         run_time_means: list[float] = []
         standard_deviations: list[float] = []
         for dimension in dimensions:
+            if dimension not in data.dimension_to_mean_run_time.keys(): continue
             run_time_means.append(data.dimension_to_mean_run_time[dimension])
             standard_deviations.append(data.dimension_to_standard_deviation[dimension])
 
