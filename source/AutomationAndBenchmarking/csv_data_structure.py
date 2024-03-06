@@ -15,13 +15,16 @@ class CSVDataStructure:
     data: dict[str, AlgorithmData]
     dimensions: list[int]
 
-    def __init__(self, csv_path: str) -> None:
+    def __init__(self, csv_paths: list[str]) -> None:
         self.data = {}
         self.dimensions = []
-        with open(csv_path, 'r') as file:
-            lines = file.readlines()
-            for line in lines:
-                self.__add_line(line)
+
+        for csv in csv_paths:
+            with open(csv, 'r') as file:
+                lines = file.readlines()
+                for line in lines:
+                    self.__add_line(line)
+            print(len(self.data.keys()))
 
     def __add_line(self, line: str):
         if not line: return

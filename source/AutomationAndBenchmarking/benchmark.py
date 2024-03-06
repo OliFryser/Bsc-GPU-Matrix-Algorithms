@@ -10,16 +10,17 @@ source_files = [os.path.join(directory, name) for name in os.listdir(directory) 
 binary_path = directory + "binary"
 compile_command = ["nvcc", "-o", binary_path] + source_files
 timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
-data_append_file_csv = "BenchmarkData/" + timestamp + ".csv"
-algorithms = ["multiplication cpu", "multiplication gpu single core", "multiplication gpu multi core unwrapping i", "multiplication gpu multi core unwrapping i and j"] #["addition cpu", "addition gpu single core", "addition gpu multi core", "addition gpu multi core 2"] #] # "multiplication", "inverse"]
-matrix_dimensions = [math.floor(2 ** (i+1)) for i in range(0, 10)] #, 1_000, 10_000, 100_000, 1_000_000]
+csv_path = "BenchmarkData/" + timestamp + ".csv"
+algorithms_to_run = ["multiplication cpu"] #, "multiplication cpu", "multiplication gpu single core", "multiplication gpu multi core unwrapping i", "multiplication gpu multi core unwrapping i and j"] #["addition cpu", "addition gpu single core", "addition gpu multi core", "addition gpu multi core 2"] #] # "multiplication", "inverse"]
+additional_csv_files_to_include = ["BenchmarkData/03-01 11:52:51.csv"]
+matrix_dimensions = [math.floor(2 ** (i+1)) for i in range(3, 6)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot" + timestamp + ".png"
 
 try:
     subprocess.run(compile_command, check=True)
-    for algorithm in algorithms:
+    for algorithm in algorithms_to_run:
         for dimension in matrix_dimensions:
-            subprocess.run([binary_path, algorithm, str(dimension), data_append_file_csv], check=True)
+            subprocess.run([binary_path, algorithm, str(dimension), csv_path], check=True)
     os.remove(binary_path)
 except FileNotFoundError as e:
     print(f"File not found error: {e}")
@@ -31,5 +32,5 @@ except Exception as e:
     print(f"An unexpected error occurred: {e}")
     exit()
 
-data = structure.CSVDataStructure(data_append_file_csv)
-visualize_csv(data, diagram_save_path, algorithms)
+data = structure.CSVDataStructure([csv_path] + additional_csv_files_to_include)
+visualize_csv(data, diagram_save_path, algorithms_to_run)
