@@ -41,7 +41,8 @@ int init_matrix_suite(void) {
     csv_file = read_csv(csv_path);
     matrix_multiplication2 = matrix_init_from_csv(csv_file);
 
-    csv_path = "./source/Tests/csv_test_matrix_multiplication_expected_result.csv";
+    csv_path =
+        "./source/Tests/csv_test_matrix_multiplication_expected_result.csv";
     csv_file = read_csv(csv_path);
     matrix_multiplication_expected_result = matrix_init_from_csv(csv_file);
     return 0;
@@ -153,15 +154,19 @@ void test_matrix_addition(void) {
     matrix_free(result);
 }
 
-void test_matrix_multiplication(void){
+void test_matrix_multiplication(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_multiplication1);
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_multiplication2);
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_multiplication_expected_result);
-    Matrix *actual_result = matrix_init(matrix_multiplication1->rows, matrix_multiplication2->columns);
+    Matrix *actual_result = matrix_init(
+        matrix_multiplication1->rows, matrix_multiplication2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
-    CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(matrix_multiplication_expected_result, actual_result));
-    CU_ASSERT_TRUE_FATAL(matrix_multiplication_cpu(matrix_multiplication1, matrix_multiplication2, actual_result));
-    CU_ASSERT_TRUE(matrix_equal(matrix_multiplication_expected_result, actual_result));
+    CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(
+        matrix_multiplication_expected_result, actual_result));
+    CU_ASSERT_TRUE_FATAL(matrix_multiplication_cpu(
+        matrix_multiplication1, matrix_multiplication2, actual_result));
+    CU_ASSERT_TRUE(
+        matrix_equal(matrix_multiplication_expected_result, actual_result));
     matrix_free(actual_result);
 }
 
@@ -172,7 +177,7 @@ bool in_range(float value, float min, float max) {
 void test_matrix_random_fill(void) {
     Matrix *random_matrix;
     float min, max;
-    int i, j, rows, columns;
+    int rows, columns;
 
     rows = 100;
     columns = 100;
@@ -185,7 +190,7 @@ void test_matrix_random_fill(void) {
 
     CU_ASSERT_TRUE_FATAL(matrix_random_fill(min, max, random_matrix));
 
-    for (i = 0; i < rows * columns; i++)
+    for (int i = 0; i < rows * columns; i++)
         CU_ASSERT_TRUE(in_range(random_matrix->values[i], min, max));
 
     matrix_free(random_matrix);

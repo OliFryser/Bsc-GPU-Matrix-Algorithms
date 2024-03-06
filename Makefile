@@ -1,8 +1,10 @@
 CC = gcc
 NVCC = nvcc
 
+CUFLAGS = -g
+
 # Compile-time flags
-CFLAGS = -g
+CFLAGS = -Wall -g
 
 # Loadflags
 LDFLAGS = -lcunit -lcudart
@@ -40,4 +42,4 @@ clean:
 
 #compile .c files to .o files
 %.o: %.cu
-	$(NVCC) $(CFLAGS) -c $< -o $@
+	$(NVCC) $(CUFLAGS) -c $< -o $@

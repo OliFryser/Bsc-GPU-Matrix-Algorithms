@@ -4,7 +4,6 @@ Matrix *matrix_init(int rows, int columns) {
     if (rows <= 0 || columns <= 0) return NULL;
 
     Matrix *matrix;
-    int i;
 
     matrix = (Matrix *)malloc(sizeof(Matrix));
     if (matrix == NULL) {
@@ -30,9 +29,7 @@ bool matrix_random_fill(float min_value, float max_value, Matrix *matrix) {
     if (matrix == NULL) return false;
     if (matrix->values == NULL) return false;
 
-    int i, j;
-
-    for (i = 0; i < matrix->rows * matrix->columns; i++)
+    for (int i = 0; i < matrix->rows * matrix->columns; i++)
         matrix->values[i] = random_float(min_value, max_value);
 
     return true;
@@ -124,9 +121,8 @@ bool matrix_equal(Matrix *matrix1, Matrix *matrix2) {
 
     int rows = matrix1->rows;
     int columns = matrix1->columns;
-    int i, j;
 
-    for (i = 0; i < rows * columns; i++)
+    for (int i = 0; i < rows * columns; i++)
         if (matrix1->values[i] != matrix2->values[i]) {
             printf("\nFOUND ERROR AT %d,%d\n", i / columns, i % columns);
             printf("\nPrinting matrix 1:\n");
@@ -149,9 +145,9 @@ bool matrix_copy(Matrix *original, Matrix *copy) {
 
     int rows = original->rows;
     int columns = original->columns;
-    int i, j;
 
-    for (i = 0; i < rows * columns; i++) copy->values[i] = original->values[i];
+    for (int i = 0; i < rows * columns; i++)
+        copy->values[i] = original->values[i];
 
     return true;
 }
