@@ -12,7 +12,7 @@ compile_command = ["nvcc", "-o", binary_path] + source_files
 timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
 csv_path = "BenchmarkData/" + timestamp + ".csv"
 algorithms_to_run = ["multiplication cpu"] #, "multiplication cpu", "multiplication gpu single core", "multiplication gpu multi core unwrapping i", "multiplication gpu multi core unwrapping i and j"] #["addition cpu", "addition gpu single core", "addition gpu multi core", "addition gpu multi core 2"] #] # "multiplication", "inverse"]
-additional_csv_files_to_include = ["BenchmarkData/03-01 11:52:51.csv"]
+additional_csv_files_to_include = ["BenchmarkData/03-01 11:47:22.csv"]
 matrix_dimensions = [math.floor(2 ** (i+1)) for i in range(3, 6)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot" + timestamp + ".png"
 

@@ -9,9 +9,6 @@ class AlgorithmData:
             self.name = name
 
 class CSVDataStructure:
-    # algorithm_name1: [(dimension, mean, stadard_deviation), (dimension, mean, stadard_deviation)]
-    # algorithm_name2: [(dimension, mean, stadard_deviation), (dimension, mean, stadard_deviation)]
-    # ...
     data: dict[str, AlgorithmData]
     dimensions: list[int]
 
