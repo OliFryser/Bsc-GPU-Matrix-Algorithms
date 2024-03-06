@@ -83,3 +83,26 @@ Når der sker noget som man ikke troede burde ske, så sker der fremskridt i vid
 
 For multicore multiplication, kan man evt. tage den yderste for loop og gøre til et blok index, og så køre j k loops i en kernal. Yderligere kunne vi trække j ud af løkken og også få den fra blog index.
 Man kan også lave om på lykkerne så man har bedre lokalitet. Der der skal skrive til samme adresse kan lægges i samme blok. 
+
+
+# Møde 6/3
+
+Hav kode fragmenter i report
+sidelange-tekster i bilag
+null tjeks fx kan være "..."
+Hele tiden tænke "hvad har læseren brug for at vide"
+
+ptx kode bliver genereret på runtime for cuda, som jvm bliver for java
+Hvad er overhead: ptx generering? Memory transfer med cuda_memcopy?
+Opstil eksperiment, hvor vi kalder en kernal uden at kopiere data over. Og en anden hvor vi kopiere en minimal mængde med cudacopy. 
+
+Tilføj enheder til diagram
+
+Kort afsnit om IEEE og rounding errors i raporten. 
+Kahan sum (måde at addere så man ikke taber præcision). Det er ikke så vigtigt for opgaven. Det er bare vigtigt at vide at svaret kan være forskelligt. 
+Mest oplagte at CPUen og GPUen afrunder på en anden måde. 
+
+"almost_equals" metode. "unit in the last place"
+Vores forlæsning havde metoden i java, med en reference til metoden i C.
+
+Måske kan man regne cycle count ud vha gigaherz. herz = 1/sekund. Emperisk arbejde. Hvad koster addition / multiplikation / division. Formegentlig er division meget langsommere. Seperat cudaprogram. 
