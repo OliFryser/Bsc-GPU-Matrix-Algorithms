@@ -149,7 +149,7 @@ void test_matrix_addition(void) {
     Matrix *result = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result);
     CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(matrix_2x2, result));
-    CU_ASSERT_TRUE_FATAL(matrix_addition_cpu(matrix_2x2, matrix_2x2, result));
+    CU_ASSERT_TRUE_FATAL(matrix_addition(matrix_2x2, matrix_2x2, result));
     CU_ASSERT_TRUE(matrix_equal(result, matrix_doubled_2x2));
     matrix_free(result);
 }
@@ -163,7 +163,7 @@ void test_matrix_multiplication(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
     CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(
         matrix_multiplication_expected_result, actual_result));
-    CU_ASSERT_TRUE_FATAL(matrix_multiplication_cpu(
+    CU_ASSERT_TRUE_FATAL(matrix_multiplication(
         matrix_multiplication1, matrix_multiplication2, actual_result));
     CU_ASSERT_TRUE(
         matrix_equal(matrix_multiplication_expected_result, actual_result));

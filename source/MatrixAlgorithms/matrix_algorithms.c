@@ -1,6 +1,6 @@
 #include "matrix_algorithms.h"
 
-bool matrix_addition_cpu(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
+bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
     if (matrix1 == NULL) return false;
     if (matrix2 == NULL) return false;
     if (result == NULL) return false;
@@ -16,8 +16,7 @@ bool matrix_addition_cpu(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
     return true;
 }
 
-bool matrix_multiplication_cpu(
-    Matrix *matrix1, Matrix *matrix2, Matrix *result) {
+bool matrix_multiplication(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
     if (matrix1 == NULL) return false;
     if (matrix2 == NULL) return false;
     if (result == NULL) return false;

@@ -70,7 +70,7 @@ void test_matrix_addition_gpu_single_core(void) {
     Matrix *result =
         matrix_init(cuda_matrix_2x2->rows, cuda_matrix_2x2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result);
-    CU_ASSERT_TRUE(matrix_addition_gpu_single_core(
+    CU_ASSERT_TRUE(cuda_matrix_addition_single_core(
         cuda_matrix_2x2, cuda_matrix_2x2, result));
     CU_ASSERT_TRUE(matrix_equal(result, cuda_matrix_doubled_2x2));
     matrix_free(result);
@@ -81,7 +81,7 @@ void test_matrix_addition_gpu_multi_core(void) {
     Matrix *result =
         matrix_init(cuda_matrix_2x2->rows, cuda_matrix_2x2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result);
-    CU_ASSERT_TRUE(matrix_addition_gpu_multi_core(
+    CU_ASSERT_TRUE(cuda_matrix_addition_multi_core(
         cuda_matrix_2x2, cuda_matrix_2x2, result));
     CU_ASSERT_TRUE(matrix_equal(result, cuda_matrix_doubled_2x2));
     matrix_free(result);
@@ -92,7 +92,7 @@ void test_matrix_addition_gpu_multi_core2(void) {
     Matrix *result =
         matrix_init(cuda_matrix_2x2->rows, cuda_matrix_2x2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result);
-    CU_ASSERT_TRUE(matrix_addition_gpu_multi_core2(
+    CU_ASSERT_TRUE(cuda_matrix_addition_multi_core2(
         cuda_matrix_2x2, cuda_matrix_2x2, result));
     CU_ASSERT_TRUE(matrix_equal(result, cuda_matrix_doubled_2x2));
     matrix_free(result);
@@ -116,10 +116,10 @@ void test_matrix_addition_gpu_multi_core2_larger_matrices(void) {
     CU_ASSERT_TRUE(matrix_random_fill(10.0f, 100.0f, matrix1));
     CU_ASSERT_TRUE(matrix_random_fill(10.0f, 100.0f, matrix2));
 
-    matrix_addition_cpu(matrix1, matrix2, cpu_result);
+    matrix_addition(matrix1, matrix2, cpu_result);
 
     CU_ASSERT_TRUE(
-        matrix_addition_gpu_multi_core2(matrix1, matrix2, gpu_result));
+        cuda_matrix_addition_multi_core2(matrix1, matrix2, gpu_result));
 
     CU_ASSERT_TRUE(matrix_equal(gpu_result, cpu_result));
     matrix_free(matrix1);
@@ -135,7 +135,7 @@ void test_matrix_multiplication_gpu_single_core(void) {
     CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(
         cuda_matrix_multiplication_expected_result, actual_result));
     CU_ASSERT_TRUE_FATAL(
-        matrix_multiplication_gpu_single_core(cuda_matrix_multiplication1,
+        cuda_matrix_multiplication_single_core(cuda_matrix_multiplication1,
             cuda_matrix_multiplication2, actual_result));
     CU_ASSERT_TRUE(matrix_equal(
         cuda_matrix_multiplication_expected_result, actual_result));
@@ -148,7 +148,7 @@ void test_matrix_multiplication_gpu_multi_core_unwrapping_i(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
     CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(
         cuda_matrix_multiplication_expected_result, actual_result));
-    CU_ASSERT_TRUE_FATAL(matrix_multiplication_gpu_multi_core_unwrapping_i(
+    CU_ASSERT_TRUE_FATAL(cuda_matrix_multiplication_multi_core_unwrapping_i(
         cuda_matrix_multiplication1, cuda_matrix_multiplication2,
         actual_result));
     CU_ASSERT_TRUE(matrix_equal(
@@ -163,7 +163,7 @@ void test_matrix_multiplication_gpu_multi_core_unwrapping_i_and_j(void) {
     CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(
         cuda_matrix_multiplication_expected_result, actual_result));
     CU_ASSERT_TRUE_FATAL(
-        matrix_multiplication_gpu_multi_core_unwrapping_i_and_j(
+        cuda_matrix_multiplication_multi_core_unwrapping_i_and_j(
             cuda_matrix_multiplication1, cuda_matrix_multiplication2,
             actual_result));
     CU_ASSERT_TRUE(matrix_equal(
@@ -191,9 +191,9 @@ void test_matrix_multiplication_gpu_multi_core_unwrapping_i_and_j_larger_matrice
     CU_ASSERT_TRUE(matrix_random_fill(10.0f, 20.0f, matrix1));
     CU_ASSERT_TRUE(matrix_random_fill(10.0f, 20.0f, matrix2));
 
-    matrix_multiplication_cpu(matrix1, matrix2, cpu_result);
+    matrix_multiplication(matrix1, matrix2, cpu_result);
 
-    CU_ASSERT_TRUE(matrix_multiplication_gpu_multi_core_unwrapping_i_and_j(
+    CU_ASSERT_TRUE(cuda_matrix_multiplication_multi_core_unwrapping_i_and_j(
         matrix1, matrix2, gpu_result));
 
     CU_ASSERT_TRUE(matrix_equal(gpu_result, cpu_result));

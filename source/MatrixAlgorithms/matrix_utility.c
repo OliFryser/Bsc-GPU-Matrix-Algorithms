@@ -47,7 +47,7 @@ void matrix_print(Matrix *matrix) {
     printf("\n# PRINTING MATRIX #\n");
     for (i = 0; i < matrix->rows; i++) {
         for (j = 0; j < matrix->columns; j++) {
-            printf("%.2f ", matrix->values[INDEX(i, j, matrix->columns)]);
+            printf("%.6f ", matrix->values[INDEX(i, j, matrix->columns)]);
         }
         printf("\n");
     }

@@ -11,12 +11,11 @@
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[],
     double mean_run_time, double standard_deviation, int iterations);
-bool matrix_addition_cpu(Matrix *matrix1, Matrix *matrix2, Matrix *result);
-bool matrix_addition_gpu_single_core(
+bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result);
+bool cuda_matrix_addition_single_core(
     Matrix *matrix1, Matrix *matrix2, Matrix *result);
-bool matrix_multiplication_cpu(
-    Matrix *matrix1, Matrix *matrix2, Matrix *result);
-bool matrix_addition_gpu_multi_core(
+bool matrix_multiplication(Matrix *matrix1, Matrix *matrix2, Matrix *result);
+bool cuda_matrix_addition_multi_core(
     Matrix *matrix1, Matrix *matrix2, Matrix *result);
 bool matrix_inverse(Matrix *matrix1, Matrix *matrix2, Matrix *result);
 double mean(double array[], int size_of_array);
@@ -54,24 +53,24 @@ int main(int argc, char *argv[]) {
     save_file_name = argv[3];
 
     if (strcmp(algorithm, "addition cpu") == 0)
-        matrix_algorithm = &matrix_addition_cpu;
+        matrix_algorithm = &matrix_addition;
     else if (strcmp(algorithm, "addition gpu single core") == 0)
-        matrix_algorithm = &matrix_addition_gpu_single_core;
+        matrix_algorithm = &cuda_matrix_addition_single_core;
     else if (strcmp(algorithm, "addition gpu multi core") == 0)
-        matrix_algorithm = &matrix_addition_gpu_multi_core;
+        matrix_algorithm = &cuda_matrix_addition_multi_core;
     else if (strcmp(algorithm, "addition gpu multi core 2") == 0)
-        matrix_algorithm = &matrix_addition_gpu_multi_core2;
+        matrix_algorithm = &cuda_matrix_addition_multi_core2;
     else if (strcmp(algorithm, "multiplication cpu") == 0)
-        matrix_algorithm = &matrix_multiplication_cpu;
+        matrix_algorithm = &matrix_multiplication;
     else if (strcmp(algorithm, "multiplication gpu single core") == 0)
-        matrix_algorithm = &matrix_multiplication_gpu_single_core;
+        matrix_algorithm = &cuda_matrix_multiplication_single_core;
     else if (strcmp(algorithm, "multiplication gpu multi core unwrapping i") ==
              0)
-        matrix_algorithm = &matrix_multiplication_gpu_multi_core_unwrapping_i;
+        matrix_algorithm = &cuda_matrix_multiplication_multi_core_unwrapping_i;
     else if (strcmp(algorithm,
                  "multiplication gpu multi core unwrapping i and j") == 0)
         matrix_algorithm =
-            &matrix_multiplication_gpu_multi_core_unwrapping_i_and_j;
+            &cuda_matrix_multiplication_multi_core_unwrapping_i_and_j;
     else if (strcmp(algorithm, "inverse") == 0)
         matrix_algorithm = &matrix_inverse;
 
