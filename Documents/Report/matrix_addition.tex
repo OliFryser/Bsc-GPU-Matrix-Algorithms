@@ -36,7 +36,7 @@ The caveat to this approach, is that the indexing requires two additions and one
 \begin{lstlisting}[language=C, caption={Allocation and indexing of a float *}, label={lst:1d_array_indexing}]
 // Matrix dimensions (
 int n, m;
-float *matrix;
+float *matrix_1d;
 
 // Memory allocation
 matrix_1d = malloc(n * m * sizeof(float));
@@ -45,7 +45,7 @@ matrix_1d = malloc(n * m * sizeof(float));
 float a;
 for (int i = 0; i < n; i++)
     for (int j = 0; j < m; j++)
-        a = matrix[i * m + j]
+        a = matrix_1d[i * m + j]
 \end{lstlisting}
 
 \noindent As can be seen in listing \ref{lst:first_data_structure}, we first implemented our matrix as the 2-dimensional array, allured by the benefits of convenient indexing. We also stored the rows and columns directly in the data structure.
@@ -58,4 +58,42 @@ typedef struct {
 } Matrix;
 \end{lstlisting}
 
-\noindent When transferring this data structure to the GPU, however, we had to make a \textit{deep copy}, meaning we have to copy each row independently, so n many calls to cudaMalloc and copy.
+\noindent When transferring this data structure to the GPU, however, we had to make a \textit{deep copy}[Insert stackoverflow post here], meaning we have to copy each row independently, so \(n\) many calls to \texttt{cudaMalloc} and \(2n\) \texttt{cudaMemcpy} in order to get the data from the CPU to the GPU and back. As discussed earlier, copying data from the CPU to the GPU and from the GPU to the CPU introduces a large amount of overhead.\footnote{This is further substantiated by our results later in this chapter.} Therefore, transferring data \(2n\) times is less than ideal.[WE SHOULD TEST THIS!]
+
+The 1-dimensional approach requires only a single \texttt{cudaMalloc} and 2 \texttt{cudaMemcpy} calls, although the amount of data to transfer with each copy call is naturally the same as with the 2-dimensional approach.
+
+We initially implemented the CPU-addition with a 2-dimensional data structure. Realizing the code complexity and overhead of transferring the 2-dimensional data structure to the GPU, we rewrote the CPU side to use a 1-dimensional data structure, as can be seen in listing \ref{lst:second_data_structure}.
+
+\begin{lstlisting}[language=C, caption={Second implementation of the matrix data structure.}, label={lst:second_data_structure}]
+typedef struct {
+    int rows;
+    int columns;
+    float *values;
+} Matrix;
+\end{lstlisting}
+
+On the GPU side, we simply represent the matrix as a \texttt{float *}, and provide the necessary size information in each kernel. We have made a macro to hide this low-level implementation layer like this: 
+
+\texttt{\#define DEVICE\_MATRIX float *}
+
+\subsection{CPU implementation}
+
+Our implementation can be seen in listing \ref{lst:cpu_addition}.
+
+\begin{lstlisting}[language=C, caption={Second implementation of the matrix data structure.}, label={lst:cpu_addition}]
+bool matrix_addition_cpu(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
+    if (matrix1 == NULL) return false;
+    if (matrix2 == NULL) return false;
+    if (result == NULL) return false;
+    if (!matrix_equal_dimensions(matrix1, matrix2)) return false;
+    if (!matrix_equal_dimensions(matrix1, result)) return false;
+
+    int rows = matrix1->rows;
+    int columns = matrix1->columns;
+
+    for (int i = 0; i < rows * columns; i++)
+        result->values[i] = matrix1->values[i] + matrix2->values[i];
+
+    return true;
+}
+\end{lstlisting}
