@@ -2,17 +2,15 @@
 
 void cpu_integer_addition(int a, int b, int iterations) {
     int c;
-
     for (int i = 0; i < iterations; i++) {
-        c = a + i;
+        c = a + b;
     }
 }
 
 void cpu_integer_multiplication(int a, int b, int iterations) {
     int c;
-
     for (int i = 0; i < iterations; i++) {
-        c = a * i;
+        c = a * b;
     }
 }
 
@@ -20,7 +18,7 @@ void cpu_integer_division(int a, int b, int iterations) {
     int c;
 
     for (int i = 0; i < iterations; i++) {
-        c = i / a;
+        c = a / b;
     }
 }
 
