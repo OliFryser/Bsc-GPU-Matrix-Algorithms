@@ -8,7 +8,7 @@
 | 3      | 17-18 | Feb 23th | Multiplication CPU | &check; |
 | 4      | 19-22 | March 1st | Report and multiplication GPU | &check; |
 | 5      |  | March 8th | *Report every week from now.* 1d vs 2d matrices. Read/write access on GPU. | |
-| 6      | | March 15th | Further multiplication optimizations | |
+| 6      | | March 15th | Further multiplication optimizations. Read recipes p. 470-475 | |
 | 7      | | March 22th | QR-decomposition CPU with testing. We need to verify the algorithm. | |
 | 8      | Easter Break | March 29th | | |
 | 9      | | April 5th | QR-decomposition GPU. Parallelized and non-parallelized. | |
