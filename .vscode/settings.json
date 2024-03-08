@@ -19,7 +19,8 @@
         "test_matrix_algorithms.h": "c",
         "test_cuda_matrix_algorithms.h": "c",
         "cuda_matrix_utility.h": "c",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "random": "c"
     },
     "makefile.makefilePath": "source/Makefile",
     "C_Cpp.default.compilerPath": "/usr/bin/gcc",
