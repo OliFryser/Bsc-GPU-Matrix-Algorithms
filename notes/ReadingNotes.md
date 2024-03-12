@@ -25,6 +25,7 @@ Matrix multiplikations video:
 
 [The CUDA Programming Model](https://developer.nvidia.com/blog/cuda-refresher-cuda-programming-model/)
 
+[Karl Rupp papers](https://www.karlrupp.net/publications/journal-articles/)
 
 ## QR-Decomposition
 
