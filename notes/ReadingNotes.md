@@ -30,6 +30,8 @@ Matrix multiplikations video:
 
 Page 98 and 99 in the book Numerical Recipes in C
 
+Householder method page 470- in the same book
+
 Decompose en matrice til en orthogonal matrice og en upper triangular matrice. 
 
 En orthogonal matrice er defineret ved at dens transpose er identitetsmatricen. Det vil også sige at dens transpose også er dens inverse. Den fortæller om rotation og reflection.
