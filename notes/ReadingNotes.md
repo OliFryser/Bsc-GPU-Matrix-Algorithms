@@ -27,6 +27,8 @@ Matrix multiplikations video:
 
 [Karl Rupp papers](https://www.karlrupp.net/publications/journal-articles/)
 
+[Floating point standards](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#floating-point-standard)
+
 ## QR-Decomposition
 
 Page 98 and 99 in the book Numerical Recipes in C
