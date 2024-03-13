@@ -2,24 +2,24 @@ extern "C" {
 #include "cuda_matrix_algorithms.h"
 }
 
-__global__ void cuda_matrix_addition_single_core_kernel(DEVICE_MATRIX matrix1,
-    DEVICE_MATRIX matrix2, DEVICE_MATRIX result, int size, int rows,
+__global__ void cuda_matrix_addition_single_core_kernel(device_matrix_t matrix1,
+    device_matrix_t matrix2, device_matrix_t result, int size, int rows,
     int columns) {
     for (int i = 0; i < size; i++) {
         result[i] = matrix1[i] + matrix2[i];
     }
 }
 
-__global__ void cuda_matrix_addition_multi_core_kernel(DEVICE_MATRIX matrix1,
-    DEVICE_MATRIX matrix2, DEVICE_MATRIX result, int size, int rows,
+__global__ void cuda_matrix_addition_multi_core_kernel(device_matrix_t matrix1,
+    device_matrix_t matrix2, device_matrix_t result, int size, int rows,
     int columns) {
     int index = blockIdx.x * blockDim.x + threadIdx.x;
     if (index >= size) return;
     result[index] = matrix1[index] + matrix2[index];
 }
 
-__global__ void cuda_matrix_addition_multi_core_kernel2(DEVICE_MATRIX matrix1,
-    DEVICE_MATRIX matrix2, DEVICE_MATRIX result, int size, int rows,
+__global__ void cuda_matrix_addition_multi_core_kernel2(device_matrix_t matrix1,
+    device_matrix_t matrix2, device_matrix_t result, int size, int rows,
     int columns) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     int j = blockIdx.y * blockDim.y + threadIdx.y;
@@ -30,8 +30,8 @@ __global__ void cuda_matrix_addition_multi_core_kernel2(DEVICE_MATRIX matrix1,
 }
 
 __global__ void cuda_matrix_multiplication_single_core_kernel(
-    DEVICE_MATRIX matrix1, DEVICE_MATRIX matrix2, DEVICE_MATRIX result, int l,
-    int n, int m) {
+    device_matrix_t matrix1, device_matrix_t matrix2, device_matrix_t result,
+    int l, int n, int m) {
     float sum_of_products;
 
     for (int i = 0; i < l; i++)
@@ -45,8 +45,8 @@ __global__ void cuda_matrix_multiplication_single_core_kernel(
 }
 
 __global__ void cuda_matrix_multiplication_multicore_unwrapping_i_kernel(
-    DEVICE_MATRIX matrix1, DEVICE_MATRIX matrix2, DEVICE_MATRIX result, int l,
-    int n, int m) {
+    device_matrix_t matrix1, device_matrix_t matrix2, device_matrix_t result,
+    int l, int n, int m) {
     int i = blockIdx.x;
 
     float sum_of_products;
@@ -61,8 +61,8 @@ __global__ void cuda_matrix_multiplication_multicore_unwrapping_i_kernel(
 }
 
 __global__ void cuda_matrix_multiplication_multicore_unwrapping_i_and_j_kernel(
-    DEVICE_MATRIX matrix1, DEVICE_MATRIX matrix2, DEVICE_MATRIX result, int l,
-    int n, int m) {
+    device_matrix_t matrix1, device_matrix_t matrix2, device_matrix_t result,
+    int l, int n, int m) {
     int i = blockIdx.x;
     int j = threadIdx.x;
     float sum_of_products = 0.0f;
@@ -75,15 +75,16 @@ __global__ void cuda_matrix_multiplication_multicore_unwrapping_i_and_j_kernel(
 
 bool cuda_matrix_algorithm_runner(Matrix* matrix1, Matrix* matrix2,
     Matrix* result, int kernel_param1, int kernel_param2, int kernel_param3,
-    void (*kernel)(DEVICE_MATRIX, DEVICE_MATRIX, DEVICE_MATRIX, int, int, int),
+    void (*kernel)(
+        device_matrix_t, device_matrix_t, device_matrix_t, int, int, int),
     dim3 grid_size, dim3 block_size) {
     if (matrix1 == NULL || matrix2 == NULL || result == NULL) return false;
 
-    DEVICE_MATRIX device_matrix1 =
+    device_matrix_t device_matrix1 =
         cuda_matrix_init(matrix1->rows, matrix1->columns);
-    DEVICE_MATRIX device_matrix2 =
+    device_matrix_t device_matrix2 =
         cuda_matrix_init(matrix2->rows, matrix2->columns);
-    DEVICE_MATRIX device_result =
+    device_matrix_t device_result =
         cuda_matrix_init(result->rows, result->columns);
 
     if (device_matrix1 == NULL || device_matrix2 == NULL ||

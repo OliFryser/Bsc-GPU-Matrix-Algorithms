@@ -6,22 +6,60 @@ from data_visualizer import visualize_csv
 from datetime import datetime
 
 directory = "source/MatrixAlgorithms/"
-source_files = [os.path.join(directory, name) for name in os.listdir(directory) if name.endswith(".cu") or name.endswith(".c")]
+directory_2d = "source/2DMatrixAlgorithms/"
+
+cu_source_files = [os.path.join(directory, name) for name in os.listdir(directory) if name.endswith(".cu")]
+cu_object_files = list(map(lambda file: file[:-len("cu")] + "o", cu_source_files))
+
+c_source_files = [os.path.join(directory, name) for name in os.listdir(directory) if name.endswith(".c")]
+c_object_files = list(map(lambda file: file[:-len("c")] + "o", c_source_files))
+
+cu_source_files_2d = [os.path.join(directory_2d, name) for name in os.listdir(directory_2d) if name.endswith(".cu")]
+cu_object_files_2d = list(map(lambda file: file[:-len("cu")] + "o", cu_source_files_2d))
+
+c_source_files_2d = [os.path.join(directory_2d, name) for name in os.listdir(directory_2d) if name.endswith(".c")]
+c_object_files_2d = list(map(lambda file: file[:-len("c")] + "o", c_source_files_2d))
+
+
 binary_path = directory + "binary"
-compile_command = ["nvcc", "-o", binary_path] + source_files
+binary_path_2d = directory_2d + "binary"
+compile_command = ["gcc", "-L/usr/local/cuda/lib64", "-o", binary_path] + c_object_files + cu_object_files + ["-lcunit", "-lcudart"]
+compile_command_2d = ["gcc", "-L/usr/local/cuda/lib64", "-o", binary_path_2d] + c_object_files_2d + cu_object_files_2d + ["-lcunit", "-lcudart"]
+
 timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
 csv_path = "BenchmarkData/" + timestamp + ".csv"
 algorithms_to_run = ["multiplication cpu"] #, "multiplication cpu", "multiplication gpu single core", "multiplication gpu multi core unwrapping i", "multiplication gpu multi core unwrapping i and j"] #["addition cpu", "addition gpu single core", "addition gpu multi core", "addition gpu multi core 2"] #] # "multiplication", "inverse"]
-additional_csv_files_to_include = ["BenchmarkData/03-01 11:47:22.csv"]
+additional_csv_files_to_include = []#["BenchmarkData/03-01 11:47:22.csv"]
 matrix_dimensions = [math.floor(2 ** (i+1)) for i in range(3, 6)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot" + timestamp + ".png"
 
 try:
+    # Compile all c and cu files individually
+    for (c_file, o_file) in zip(c_source_files, c_object_files):
+        subprocess.run(["gcc", "-c", c_file, "-o", o_file])
+    for (cu_file, o_file) in zip(cu_source_files, cu_object_files):
+        subprocess.run(["nvcc", "-c", cu_file, "-o", o_file])
+
+    #compile them all together
     subprocess.run(compile_command, check=True)
+
+    #compile 2d
+    for (c_file, o_file) in zip(c_source_files_2d, c_object_files_2d):
+        subprocess.run(["gcc", "-c", c_file, "-o", o_file])
+    for (cu_file, o_file) in zip(cu_source_files_2d, cu_object_files_2d):
+        subprocess.run(["nvcc", "-c", cu_file, "-o", o_file])
+
+    #compile them all together
+    subprocess.run(compile_command_2d, check=True)
+
     for algorithm in algorithms_to_run:
         for dimension in matrix_dimensions:
             subprocess.run([binary_path, algorithm, str(dimension), csv_path], check=True)
     os.remove(binary_path)
+    os.remove(binary_path_2d)
+    for o_file in (c_object_files + cu_object_files + cu_object_files_2d + c_object_files_2d):
+        os.remove(o_file)
+
 except FileNotFoundError as e:
     print(f"File not found error: {e}")
     exit()
