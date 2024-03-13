@@ -1,4 +1,4 @@
-#include "matrix_utility.h"
+#include "2d_matrix_utility.h"
 
 Matrix *matrix_init(int rows, int columns) {
     if (rows <= 0 || columns <= 0) return NULL;
@@ -6,7 +6,7 @@ Matrix *matrix_init(int rows, int columns) {
     Matrix *matrix;
     int i;
 
-    matrix = (Matrix*)malloc(sizeof(Matrix));
+    matrix = (Matrix *)malloc(sizeof(Matrix));
     if (matrix == NULL) {
         return NULL;
     }
@@ -111,7 +111,7 @@ Matrix *matrix_init_from_csv(FILE *csv_file) {
 
         if (column != column_count) {
             printf("Wrong column count. Expected %d but got %d", column_count,
-                   column);
+                column);
             return NULL;
         }
     }

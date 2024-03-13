@@ -1,9 +1,9 @@
-#ifndef CUDA_MATRIX_UTILITY_H
-#define CUDA_MATRIX_UTILITY_H
+#ifndef CUDA_MATRIX_UTILITY_H_2D
+#define CUDA_MATRIX_UTILITY_H_2D
 #define INDEX(row_index, column_index, columns) \
     ((row_index) * (columns) + (column_index))
 
-#include "matrix_utility.h"
+#include "2d_matrix_utility.h"
 
 typedef float *device_matrix_t;
 

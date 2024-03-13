@@ -1,4 +1,4 @@
-#include "matrix_algorithms.h"
+#include "2d_matrix_algorithms.h"
 
 bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
     if (matrix1 == NULL) return false;

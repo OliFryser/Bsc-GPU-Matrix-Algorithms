@@ -1,11 +1,12 @@
-#ifndef MATRIX_UTILITY_H
-#define MATRIX_UTILITY_H
+#ifndef MATRIX_UTILITY_H_2D
+#define MATRIX_UTILITY_H_2D
 
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "csv_utility.h"
+
+#include "2d_csv_utility.h"
 
 typedef struct {
     int rows;

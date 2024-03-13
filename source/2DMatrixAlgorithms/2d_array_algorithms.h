@@ -1,5 +1,5 @@
-#ifndef ARRAY_ALGORITHMS_H
-#define ARRAY_ALGORITHMS_H
+#ifndef ARRAY_ALGORITHMS_H_2D
+#define ARRAY_ALGORITHMS_H_2D
 
 #include <math.h>
 #include <stdio.h>

@@ -1,4 +1,4 @@
-#include "array_algorithms.h"
+#include "2d_array_algorithms.h"
 
 int sum_of_array(int array[], int size_of_array) {
     int sum;

@@ -1,5 +1,5 @@
 extern "C" {
-#include "cuda_matrix_algorithms.h"
+#include "2d_cuda_matrix_algorithms.h"
 }
 
 __global__ void matrix_addition_gpu_single_core_kernel(device_matrix_t matrix1,

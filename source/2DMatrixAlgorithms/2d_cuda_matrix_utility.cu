@@ -1,5 +1,5 @@
 extern "C" {
-#include "cuda_matrix_utility.h"
+#include "2d_cuda_matrix_utility.h"
 }
 
 // Deep copy:

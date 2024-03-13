@@ -1,4 +1,4 @@
-#include "csv_utility.h"
+#include "2d_csv_utility.h"
 
 FILE *write_csv(char *csv_path) {
     FILE *csv_file;
@@ -30,10 +30,9 @@ FILE *read_csv(char *csv_path) {
 void close_file(FILE *file) { fclose(file); }
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[],
-                  double mean_run_time, double standard_deviation,
-                  int iterations) {
+    double mean_run_time, double standard_deviation, int iterations) {
     fprintf(file, "%s,\t%s,\t%f,\t%f,\t%d\n", algorithm_name, matrix_dimensions,
-            mean_run_time, standard_deviation, iterations);
+        mean_run_time, standard_deviation, iterations);
 }
 
 void write_header_to_csv(FILE *file, char *header) {
