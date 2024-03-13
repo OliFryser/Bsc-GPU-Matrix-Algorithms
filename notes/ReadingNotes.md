@@ -76,3 +76,5 @@ En upper diagonal er diagonalen lige over main diagonalen. En lower diagonal er 
 
 Householder alogitmen reducerer en symmetrisk matrice til en tridiagonal matrice ved at lave n-2 othogonale transformationer (rotation + reflection) hvor n = dimensionsstørrelsen. 
 
+
+[Very simple explanation of QR-decomposition using the Gram-Schmidt algorithm](https://www.codingdrills.com/tutorial/matrix-data-structure/qr-decomposition)
