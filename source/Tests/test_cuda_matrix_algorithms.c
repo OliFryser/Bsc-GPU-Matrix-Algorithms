@@ -50,7 +50,7 @@ int clean_cuda_matrix_suite(void) {
 
 void test_cuda_matrix_utility(void) {
     Matrix *src, *dst;
-    DEVICE_MATRIX device_matrix;
+    device_matrix_t device_matrix;
     src = matrix_init(5, 5);
     dst = matrix_init(5, 5);
     device_matrix = cuda_matrix_init(5, 5);

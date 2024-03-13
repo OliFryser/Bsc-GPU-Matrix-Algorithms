@@ -7,8 +7,8 @@ extern "C" {
 
 // Arguments for why this is bad:
 // https://stackoverflow.com/questions/6137218/how-can-i-add-up-two-2d-pitched-arrays-using-nested-for-loops/6137517#6137517
-extern "C" DEVICE_MATRIX cuda_matrix_init(int rows, int columns) {
-    DEVICE_MATRIX device_array;
+extern "C" device_matrix_t cuda_matrix_init(int rows, int columns) {
+    device_matrix_t device_array;
     cudaError_t error =
         cudaMalloc(&device_array, rows * columns * sizeof(float));
     if (error != cudaSuccess) {
@@ -18,7 +18,7 @@ extern "C" DEVICE_MATRIX cuda_matrix_init(int rows, int columns) {
     return device_array;
 }
 
-extern "C" bool cuda_matrix_free(DEVICE_MATRIX device_matrix) {
+extern "C" bool cuda_matrix_free(device_matrix_t device_matrix) {
     if (device_matrix == NULL) return false;
     cudaError_t error = cudaFree(device_matrix);
     if (error != cudaSuccess) {
@@ -28,7 +28,7 @@ extern "C" bool cuda_matrix_free(DEVICE_MATRIX device_matrix) {
     return true;
 }
 
-extern "C" bool cuda_matrix_host_to_device(DEVICE_MATRIX dst, Matrix *src) {
+extern "C" bool cuda_matrix_host_to_device(device_matrix_t dst, Matrix *src) {
     size_t size;
     size = src->rows * src->columns * sizeof(float);
     cudaError_t error =
@@ -42,7 +42,7 @@ extern "C" bool cuda_matrix_host_to_device(DEVICE_MATRIX dst, Matrix *src) {
     return true;
 }
 
-extern "C" bool cuda_matrix_device_to_host(Matrix *dst, DEVICE_MATRIX src) {
+extern "C" bool cuda_matrix_device_to_host(Matrix *dst, device_matrix_t src) {
     size_t size;
     size = dst->rows * dst->columns * sizeof(float);
     cudaError_t error =

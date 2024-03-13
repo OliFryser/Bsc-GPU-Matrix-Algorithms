@@ -18,7 +18,7 @@ TEST_TARGET=./bin/test
 ALL_SOURCES_C = $(shell find "$(SOURCE_DIR)" -type f -name '*.c')
 ALL_SOURCES_CU = $(shell find "$(SOURCE_DIR)" -type f -name '*.cu')
 
-TEST_SOURCES_C=$(filter-out %/benchmark_runner.c %/benchmark_sanity_check.c, cpu_diagnostic.c, $(ALL_SOURCES_C))
+TEST_SOURCES_C=$(filter-out %/benchmark_runner.c %/benchmark_sanity_check.c %/cpu_diagnostic.c, $(ALL_SOURCES_C))
 TEST_SOURCES_CU=$(filter-out %/saxpy.cu, $(ALL_SOURCES_CU))
 
 # Convert the .c files filenames to .o to give a list of object to build and clean
