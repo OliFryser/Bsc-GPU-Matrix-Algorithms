@@ -11,13 +11,14 @@
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[],
     double mean_run_time, double standard_deviation, int iterations);
-bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result);
+bool matrix_addition(matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
 bool matrix_addition_gpu_single_core(
-    Matrix *matrix1, Matrix *matrix2, Matrix *result);
-bool matrix_multiplication(Matrix *matrix1, Matrix *matrix2, Matrix *result);
+    matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
+bool matrix_multiplication(
+    matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
 bool matrix_addition_gpu_multi_core(
-    Matrix *matrix1, Matrix *matrix2, Matrix *result);
-bool matrix_inverse(Matrix *matrix1, Matrix *matrix2, Matrix *result);
+    matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
+bool matrix_inverse(matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
 double mean(double array[], int size_of_array);
 double standard_deviation(double array[], int size_of_array, double mean);
 
@@ -30,8 +31,8 @@ int main(int argc, char *argv[]) {
 
     // Program Variables
     FILE *file;
-    Matrix *matrix1, *matrix2, *result;
-    bool (*matrix_algorithm)(Matrix *, Matrix *, Matrix *);
+    matrix_t *matrix1, *matrix2, *result;
+    bool (*matrix_algorithm)(matrix_t *, matrix_t *, matrix_t *);
     struct timespec start, end;
     double elapsed, elapsed_accumulative;
     double running_times_mean, running_times_standard_deviation;

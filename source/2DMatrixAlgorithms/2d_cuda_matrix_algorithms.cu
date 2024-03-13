@@ -16,8 +16,8 @@ __global__ void matrix_addition_gpu_multi_core_kernel(device_matrix_t matrix1,
     result[index] = matrix1[index] + matrix2[index];
 }
 
-bool gpu_matrix_algorithm_runner(Matrix *matrix1, Matrix *matrix2,
-    Matrix *result,
+bool gpu_matrix_algorithm_runner(matrix_t *matrix1, matrix_t *matrix2,
+    matrix_t *result,
     void (*kernel)(device_matrix_t, device_matrix_t, device_matrix_t, int),
     int grid_size, int block_size) {
     if (matrix1 == NULL || matrix2 == NULL || result == NULL) return false;
@@ -50,13 +50,13 @@ bool gpu_matrix_algorithm_runner(Matrix *matrix1, Matrix *matrix2,
 }
 
 extern "C" bool matrix_addition_gpu_single_core(
-    Matrix *matrix1, Matrix *matrix2, Matrix *result) {
+    matrix_t *matrix1, matrix_t *matrix2, matrix_t *result) {
     return gpu_matrix_algorithm_runner(matrix1, matrix2, result,
         &(matrix_addition_gpu_single_core_kernel), 1, 1);
 }
 
 bool matrix_addition_gpu_multi_core(
-    Matrix *matrix1, Matrix *matrix2, Matrix *result) {
+    matrix_t *matrix1, matrix_t *matrix2, matrix_t *result) {
     bool success;
     int grid_size, block_size;
     grid_size = matrix1->rows;

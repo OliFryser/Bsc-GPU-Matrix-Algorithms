@@ -1,11 +1,11 @@
 #include "matrix_utility.h"
 
-Matrix *matrix_init(int rows, int columns) {
+matrix_t *matrix_init(int rows, int columns) {
     if (rows <= 0 || columns <= 0) return NULL;
 
-    Matrix *matrix;
+    matrix_t *matrix;
 
-    matrix = (Matrix *)malloc(sizeof(Matrix));
+    matrix = (matrix_t *)malloc(sizeof(matrix_t));
     if (matrix == NULL) {
         return NULL;
     }
@@ -25,7 +25,7 @@ float random_float(float min_value, float max_value) {
     return (float)(((float)rand() / (float)RAND_MAX) * max_value) + min_value;
 }
 
-bool matrix_random_fill(float min_value, float max_value, Matrix *matrix) {
+bool matrix_random_fill(float min_value, float max_value, matrix_t *matrix) {
     if (matrix == NULL) return false;
     if (matrix->values == NULL) return false;
 
@@ -35,13 +35,13 @@ bool matrix_random_fill(float min_value, float max_value, Matrix *matrix) {
     return true;
 }
 
-void matrix_free(Matrix *matrix) {
+void matrix_free(matrix_t *matrix) {
     if (matrix == NULL) return;
     if (matrix->values != NULL) free(matrix->values);
     free(matrix);
 }
 
-void matrix_print(Matrix *matrix) {
+void matrix_print(matrix_t *matrix) {
     int i, j;
 
     printf("\n# PRINTING MATRIX #\n");
@@ -53,8 +53,8 @@ void matrix_print(Matrix *matrix) {
     }
 }
 
-Matrix *matrix_init_from_csv(FILE *csv_file) {
-    Matrix *matrix;
+matrix_t *matrix_init_from_csv(FILE *csv_file) {
+    matrix_t *matrix;
     char line[100];
     char *token;
     float value;
@@ -109,12 +109,12 @@ Matrix *matrix_init_from_csv(FILE *csv_file) {
     return matrix;
 }
 
-bool matrix_equal_dimensions(Matrix *matrix1, Matrix *matrix2) {
+bool matrix_equal_dimensions(matrix_t *matrix1, matrix_t *matrix2) {
     return matrix1->columns == matrix2->columns &&
            matrix1->rows == matrix2->rows;
 }
 
-bool matrix_equal(Matrix *matrix1, Matrix *matrix2) {
+bool matrix_equal(matrix_t *matrix1, matrix_t *matrix2) {
     if (matrix1 == NULL) return false;
     if (matrix2 == NULL) return false;
     if (!matrix_equal_dimensions(matrix1, matrix2)) return false;
@@ -135,7 +135,7 @@ bool matrix_equal(Matrix *matrix1, Matrix *matrix2) {
     return true;
 }
 
-bool matrix_copy(Matrix *original, Matrix *copy) {
+bool matrix_copy(matrix_t *original, matrix_t *copy) {
     if (original == NULL) return false;
     if (copy == NULL) return false;
     if (!matrix_equal_dimensions(original, copy)) {

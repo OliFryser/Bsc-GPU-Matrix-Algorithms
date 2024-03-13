@@ -5,9 +5,9 @@
 #include "2d_matrix_utility.h"
 
 bool matrix_addition_gpu_single_core(
-    Matrix *matrix1, Matrix *matrix2, Matrix *result);
+    matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
 
 bool matrix_addition_gpu_multi_core(
-    Matrix *matrix1, Matrix *matrix2, Matrix *result);
+    matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
 
 #endif

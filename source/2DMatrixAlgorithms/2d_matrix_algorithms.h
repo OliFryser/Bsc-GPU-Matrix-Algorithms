@@ -5,8 +5,9 @@
 
 #include "2d_matrix_utility.h"
 
-bool matrix_addition(Matrix *matrix1, Matrix *matrix2, Matrix *result);
-bool matrix_multiplication(Matrix *matrix1, Matrix *matrix2, Matrix *result);
-bool matrix_inverse(Matrix *matrix1, Matrix *matrix2, Matrix *result);
+bool matrix_addition(matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
+bool matrix_multiplication(
+    matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
+bool matrix_inverse(matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
 
 #endif

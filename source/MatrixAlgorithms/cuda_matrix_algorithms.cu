@@ -73,8 +73,8 @@ __global__ void cuda_matrix_multiplication_multicore_unwrapping_i_and_j_kernel(
     result[INDEX(i, j, n)] = sum_of_products;
 }
 
-bool cuda_matrix_algorithm_runner(Matrix* matrix1, Matrix* matrix2,
-    Matrix* result, int kernel_param1, int kernel_param2, int kernel_param3,
+bool cuda_matrix_algorithm_runner(matrix_t* matrix1, matrix_t* matrix2,
+    matrix_t* result, int kernel_param1, int kernel_param2, int kernel_param3,
     void (*kernel)(
         device_matrix_t, device_matrix_t, device_matrix_t, int, int, int),
     dim3 grid_size, dim3 block_size) {
@@ -108,14 +108,14 @@ bool cuda_matrix_algorithm_runner(Matrix* matrix1, Matrix* matrix2,
 }
 
 bool cuda_matrix_addition_single_core(
-    Matrix* matrix1, Matrix* matrix2, Matrix* result) {
+    matrix_t* matrix1, matrix_t* matrix2, matrix_t* result) {
     return cuda_matrix_algorithm_runner(matrix1, matrix2, result,
         result->rows * result->columns, result->rows, result->columns,
         &(cuda_matrix_addition_single_core_kernel), dim3(1), dim3(1));
 }
 
 bool cuda_matrix_addition_multi_core(
-    Matrix* matrix1, Matrix* matrix2, Matrix* result) {
+    matrix_t* matrix1, matrix_t* matrix2, matrix_t* result) {
     bool success;
     dim3 grid_size, block_size;
     grid_size = dim3(matrix1->rows);
@@ -129,7 +129,7 @@ bool cuda_matrix_addition_multi_core(
 }
 
 bool cuda_matrix_addition_multi_core2(
-    Matrix* matrix1, Matrix* matrix2, Matrix* result) {
+    matrix_t* matrix1, matrix_t* matrix2, matrix_t* result) {
     bool success;
     dim3 grid_size, block_size;
     int threads_per_block_dim = 16;
@@ -146,14 +146,14 @@ bool cuda_matrix_addition_multi_core2(
 }
 
 bool cuda_matrix_multiplication_single_core(
-    Matrix* matrix1, Matrix* matrix2, Matrix* result) {
+    matrix_t* matrix1, matrix_t* matrix2, matrix_t* result) {
     return cuda_matrix_algorithm_runner(matrix1, matrix2, result, matrix1->rows,
         matrix2->columns, matrix1->columns,
         &cuda_matrix_multiplication_single_core_kernel, dim3(1), dim3(1));
 }
 
 bool cuda_matrix_multiplication_multi_core_unwrapping_i(
-    Matrix* matrix1, Matrix* matrix2, Matrix* result) {
+    matrix_t* matrix1, matrix_t* matrix2, matrix_t* result) {
     return cuda_matrix_algorithm_runner(matrix1, matrix2, result, matrix1->rows,
         matrix2->columns, matrix1->columns,
         &cuda_matrix_multiplication_multicore_unwrapping_i_kernel,
@@ -161,7 +161,7 @@ bool cuda_matrix_multiplication_multi_core_unwrapping_i(
 }
 
 bool cuda_matrix_multiplication_multi_core_unwrapping_i_and_j(
-    Matrix* matrix1, Matrix* matrix2, Matrix* result) {
+    matrix_t* matrix1, matrix_t* matrix2, matrix_t* result) {
     return cuda_matrix_algorithm_runner(matrix1, matrix2, result, matrix1->rows,
         matrix2->columns, matrix1->columns,
         &cuda_matrix_multiplication_multicore_unwrapping_i_and_j_kernel,

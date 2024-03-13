@@ -18,19 +18,19 @@ extern "C" void cuda_matrix_free(device_matrix_t device_matrix) {
     cudaFree(device_matrix);
 }
 
-void cuda_matrix_2d_to_1d(float *dst, Matrix *src) {
+void cuda_matrix_2d_to_1d(float *dst, matrix_t *src) {
     for (int i = 0; i < src->rows; i++)
         for (int j = 0; j < src->columns; j++)
             dst[INDEX(i, j, src->columns)] = src->values[i][j];
 }
 
-void cuda_matrix_1d_to_2d(Matrix *dst, float *src) {
+void cuda_matrix_1d_to_2d(matrix_t *dst, float *src) {
     for (int i = 0; i < dst->rows; i++)
         for (int j = 0; j < dst->columns; j++)
             dst->values[i][j] = src[INDEX(i, j, dst->columns)];
 }
 
-extern "C" void cuda_matrix_host_to_device(device_matrix_t dst, Matrix *src) {
+extern "C" void cuda_matrix_host_to_device(device_matrix_t dst, matrix_t *src) {
     float *cpu_values;
     size_t size = src->rows * src->columns * sizeof(float);
     cpu_values = (float *)malloc(size);
@@ -39,7 +39,7 @@ extern "C" void cuda_matrix_host_to_device(device_matrix_t dst, Matrix *src) {
     free(cpu_values);
 }
 
-extern "C" void cuda_matrix_device_to_host(Matrix *dst, device_matrix_t src) {
+extern "C" void cuda_matrix_device_to_host(matrix_t *dst, device_matrix_t src) {
     float *cpu_values;
     size_t size = dst->rows * dst->columns * sizeof(float);
     cpu_values = (float *)malloc(size);

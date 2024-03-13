@@ -28,7 +28,7 @@ extern "C" bool cuda_matrix_free(device_matrix_t device_matrix) {
     return true;
 }
 
-extern "C" bool cuda_matrix_host_to_device(device_matrix_t dst, Matrix *src) {
+extern "C" bool cuda_matrix_host_to_device(device_matrix_t dst, matrix_t *src) {
     size_t size;
     size = src->rows * src->columns * sizeof(float);
     cudaError_t error =
@@ -42,7 +42,7 @@ extern "C" bool cuda_matrix_host_to_device(device_matrix_t dst, Matrix *src) {
     return true;
 }
 
-extern "C" bool cuda_matrix_device_to_host(Matrix *dst, device_matrix_t src) {
+extern "C" bool cuda_matrix_device_to_host(matrix_t *dst, device_matrix_t src) {
     size_t size;
     size = dst->rows * dst->columns * sizeof(float);
     cudaError_t error =
