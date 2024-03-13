@@ -51,15 +51,15 @@ int main(int argc, char *argv[]) {
     dimension = atoi(str_dimension);
     save_file_name = argv[3];
 
-    if (strcmp(algorithm, "addition") == 0)
+    if (strcmp(algorithm, "2d addition cpu") == 0)
         matrix_algorithm = &matrix_addition;
-    else if (strcmp(algorithm, "addition gpu single core") == 0)
+    else if (strcmp(algorithm, "2d addition gpu single core") == 0)
         matrix_algorithm = &matrix_addition_gpu_single_core;
-    else if (strcmp(algorithm, "addition gpu multi core") == 0)
+    else if (strcmp(algorithm, "2d addition gpu multi core") == 0)
         matrix_algorithm = &matrix_addition_gpu_multi_core;
-    else if (strcmp(algorithm, "multiplication") == 0)
+    else if (strcmp(algorithm, "2d multiplication") == 0)
         matrix_algorithm = &matrix_multiplication;
-    else if (strcmp(algorithm, "inverse") == 0)
+    else if (strcmp(algorithm, "2d inverse") == 0)
         matrix_algorithm = &matrix_inverse;
 
     matrix1 = matrix_init(dimension, dimension);

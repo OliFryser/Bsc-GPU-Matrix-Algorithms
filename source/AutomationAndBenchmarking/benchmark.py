@@ -28,9 +28,9 @@ compile_command_2d = ["gcc", "-L/usr/local/cuda/lib64", "-o", binary_path_2d] + 
 
 timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
 csv_path = "BenchmarkData/" + timestamp + ".csv"
-algorithms_to_run = ["multiplication cpu"] #, "multiplication cpu", "multiplication gpu single core", "multiplication gpu multi core unwrapping i", "multiplication gpu multi core unwrapping i and j"] #["addition cpu", "addition gpu single core", "addition gpu multi core", "addition gpu multi core 2"] #] # "multiplication", "inverse"]
+algorithms_to_run = ["addition cpu", "addition gpu single core", "addition gpu multi core", "2d addition cpu", "2d addition gpu single core", "2d addition gpu multi core" ] #, "multiplication cpu", "multiplication gpu single core", "multiplication gpu multi core unwrapping i", "multiplication gpu multi core unwrapping i and j"] #["addition cpu", "addition gpu single core", "addition gpu multi core", "addition gpu multi core 2"] #] # "multiplication", "inverse"]
 additional_csv_files_to_include = []#["BenchmarkData/03-01 11:47:22.csv"]
-matrix_dimensions = [math.floor(2 ** (i+1)) for i in range(3, 6)] #, 1_000, 10_000, 100_000, 1_000_000]
+matrix_dimensions = [math.floor(2 ** (i+1)) for i in range(0, 10)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot" + timestamp + ".png"
 
 try:
@@ -51,10 +51,11 @@ try:
 
     #compile them all together
     subprocess.run(compile_command_2d, check=True)
-
+    
     for algorithm in algorithms_to_run:
+        algorithm_is_2d = algorithm.startswith("2d")
         for dimension in matrix_dimensions:
-            subprocess.run([binary_path, algorithm, str(dimension), csv_path], check=True)
+            subprocess.run([binary_path_2d if algorithm_is_2d else binary_path, algorithm, str(dimension), csv_path], check=True)
     os.remove(binary_path)
     os.remove(binary_path_2d)
     for o_file in (c_object_files + cu_object_files + cu_object_files_2d + c_object_files_2d):
