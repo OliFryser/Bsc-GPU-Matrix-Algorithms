@@ -3,20 +3,20 @@
 #include <string.h>
 #include <time.h>
 
-#include "array_algorithms.h"
-#include "csv_utility.h"
-#include "cuda_matrix_algorithms.h"
-#include "matrix_algorithms.h"
+#include "2d_array_algorithms.h"
+#include "2d_csv_utility.h"
+#include "2d_cuda_matrix_algorithms.h"
+#include "2d_matrix_algorithms.h"
 #define NANOSECS_PER_SEC 1e9
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[],
     double mean_run_time, double standard_deviation, int iterations);
 bool matrix_addition(matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
-bool cuda_matrix_addition_single_core(
+bool matrix_addition_gpu_single_core(
     matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
 bool matrix_multiplication(
     matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
-bool cuda_matrix_addition_multi_core(
+bool matrix_addition_gpu_multi_core(
     matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
 bool matrix_inverse(matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
 double mean(double array[], int size_of_array);
@@ -37,7 +37,6 @@ int main(int argc, char *argv[]) {
     double elapsed, elapsed_accumulative;
     double running_times_mean, running_times_standard_deviation;
     int iterations = 2;
-    const double minimum_accumulative = 0.5;
     double *running_times;
     char *header;
 
@@ -53,34 +52,21 @@ int main(int argc, char *argv[]) {
     dimension = atoi(str_dimension);
     save_file_name = argv[3];
 
-    if (strcmp(algorithm, "addition cpu") == 0)
+    if (strcmp(algorithm, "2d addition cpu") == 0)
         matrix_algorithm = &matrix_addition;
-    else if (strcmp(algorithm, "addition gpu single core") == 0)
-        matrix_algorithm = &cuda_matrix_addition_single_core;
-    else if (strcmp(algorithm, "addition gpu multi core") == 0)
-        matrix_algorithm = &cuda_matrix_addition_multi_core;
-    else if (strcmp(algorithm, "addition gpu multi core 2") == 0)
-        matrix_algorithm = &cuda_matrix_addition_multi_core2;
-    else if (strcmp(algorithm, "multiplication cpu") == 0)
+    else if (strcmp(algorithm, "2d addition gpu single core") == 0)
+        matrix_algorithm = &matrix_addition_gpu_single_core;
+    else if (strcmp(algorithm, "2d addition gpu multi core") == 0)
+        matrix_algorithm = &matrix_addition_gpu_multi_core;
+    else if (strcmp(algorithm, "2d multiplication") == 0)
         matrix_algorithm = &matrix_multiplication;
-    else if (strcmp(algorithm, "multiplication gpu single core") == 0)
-        matrix_algorithm = &cuda_matrix_multiplication_single_core;
-    else if (strcmp(algorithm, "multiplication gpu multi core unwrapping i") ==
-             0)
-        matrix_algorithm = &cuda_matrix_multiplication_multi_core_unwrapping_i;
-    else if (strcmp(algorithm,
-                 "multiplication gpu multi core unwrapping i and j") == 0)
-        matrix_algorithm =
-            &cuda_matrix_multiplication_multi_core_unwrapping_i_and_j;
-    else if (strcmp(algorithm, "inverse") == 0)
+    else if (strcmp(algorithm, "2d inverse") == 0)
         matrix_algorithm = &matrix_inverse;
 
     matrix1 = matrix_init(dimension, dimension);
     matrix2 = matrix_init(dimension, dimension);
     result = matrix_init(dimension, dimension);
     if (matrix1 == NULL || matrix2 == NULL || result == NULL) return -1;
-
-    matrix_random_fill(0.0f, 3.0f, matrix1);
 
     file = append_csv(save_file_name);
     if (file == NULL) return -1;
@@ -111,7 +97,7 @@ int main(int argc, char *argv[]) {
         write_to_csv(file, algorithm, str_dimension, running_times_mean,
             running_times_standard_deviation, iterations);
         iterations *= 2;
-    } while (elapsed_accumulative < minimum_accumulative);
+    } while (elapsed_accumulative < 0.5);
 
     //
     //

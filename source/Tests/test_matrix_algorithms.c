@@ -2,13 +2,13 @@
 
 int n = 4;
 int m = 4;
-Matrix *empty_matrix;
-Matrix *matrix_2x2;
-Matrix *matrix_4x1;
-Matrix *matrix_doubled_2x2;
-Matrix *matrix_multiplication1;
-Matrix *matrix_multiplication2;
-Matrix *matrix_multiplication_expected_result;
+matrix_t *empty_matrix;
+matrix_t *matrix_2x2;
+matrix_t *matrix_4x1;
+matrix_t *matrix_doubled_2x2;
+matrix_t *matrix_multiplication1;
+matrix_t *matrix_multiplication2;
+matrix_t *matrix_multiplication_expected_result;
 
 /* The suite initialization function.
  * Opens the temporary file used by the tests.
@@ -73,7 +73,7 @@ void test_init_matrix(void) {
 }
 
 void test_init_matrix_0_values(void) {
-    Matrix *null_matrix;
+    matrix_t *null_matrix;
     null_matrix = matrix_init(0, 0);
     CU_ASSERT_PTR_NULL(null_matrix);
 
@@ -138,7 +138,7 @@ void test_matrix_not_equal(void) {
 }
 
 void test_matrix_copy(void) {
-    Matrix *destination = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
+    matrix_t *destination = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
     CU_ASSERT_TRUE_FATAL(matrix_copy(matrix_2x2, destination));
     CU_ASSERT_TRUE(matrix_equal(matrix_2x2, destination));
     matrix_free(destination);
@@ -146,7 +146,7 @@ void test_matrix_copy(void) {
 
 void test_matrix_addition(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_2x2);
-    Matrix *result = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
+    matrix_t *result = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result);
     CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(matrix_2x2, result));
     CU_ASSERT_TRUE_FATAL(matrix_addition(matrix_2x2, matrix_2x2, result));
@@ -158,7 +158,7 @@ void test_matrix_multiplication(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_multiplication1);
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_multiplication2);
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_multiplication_expected_result);
-    Matrix *actual_result = matrix_init(
+    matrix_t *actual_result = matrix_init(
         matrix_multiplication1->rows, matrix_multiplication2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
     CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(
@@ -175,7 +175,7 @@ bool in_range(float value, float min, float max) {
 }
 
 void test_matrix_random_fill(void) {
-    Matrix *random_matrix;
+    matrix_t *random_matrix;
     float min, max;
     int rows, columns;
 

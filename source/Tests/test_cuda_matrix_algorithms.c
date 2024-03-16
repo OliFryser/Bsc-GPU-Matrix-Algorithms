@@ -1,10 +1,10 @@
 #include "test_cuda_matrix_algorithms.h"
 
-Matrix *cuda_matrix_2x2;
-Matrix *cuda_matrix_doubled_2x2;
-Matrix *cuda_matrix_multiplication1;
-Matrix *cuda_matrix_multiplication2;
-Matrix *cuda_matrix_multiplication_expected_result;
+matrix_t *cuda_matrix_2x2;
+matrix_t *cuda_matrix_doubled_2x2;
+matrix_t *cuda_matrix_multiplication1;
+matrix_t *cuda_matrix_multiplication2;
+matrix_t *cuda_matrix_multiplication_expected_result;
 
 int init_cuda_matrix_suite(void) {
     char *csv_path;
@@ -49,8 +49,8 @@ int clean_cuda_matrix_suite(void) {
 }
 
 void test_cuda_matrix_utility(void) {
-    Matrix *src, *dst;
-    DEVICE_MATRIX device_matrix;
+    matrix_t *src, *dst;
+    device_matrix_t device_matrix;
     src = matrix_init(5, 5);
     dst = matrix_init(5, 5);
     device_matrix = cuda_matrix_init(5, 5);
@@ -67,7 +67,7 @@ void test_cuda_matrix_utility(void) {
 
 void test_matrix_addition_gpu_single_core(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(cuda_matrix_2x2);
-    Matrix *result =
+    matrix_t *result =
         matrix_init(cuda_matrix_2x2->rows, cuda_matrix_2x2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result);
     CU_ASSERT_TRUE(cuda_matrix_addition_single_core(
@@ -78,7 +78,7 @@ void test_matrix_addition_gpu_single_core(void) {
 
 void test_matrix_addition_gpu_multi_core(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(cuda_matrix_2x2);
-    Matrix *result =
+    matrix_t *result =
         matrix_init(cuda_matrix_2x2->rows, cuda_matrix_2x2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result);
     CU_ASSERT_TRUE(cuda_matrix_addition_multi_core(
@@ -89,7 +89,7 @@ void test_matrix_addition_gpu_multi_core(void) {
 
 void test_matrix_addition_gpu_multi_core2(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(cuda_matrix_2x2);
-    Matrix *result =
+    matrix_t *result =
         matrix_init(cuda_matrix_2x2->rows, cuda_matrix_2x2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result);
     CU_ASSERT_TRUE(cuda_matrix_addition_multi_core2(
@@ -99,7 +99,7 @@ void test_matrix_addition_gpu_multi_core2(void) {
 }
 
 void test_matrix_addition_gpu_multi_core2_larger_matrices(void) {
-    Matrix *matrix1, *matrix2, *cpu_result, *gpu_result;
+    matrix_t *matrix1, *matrix2, *cpu_result, *gpu_result;
     int rows = 100;
     int cols = 100;
 
@@ -129,7 +129,7 @@ void test_matrix_addition_gpu_multi_core2_larger_matrices(void) {
 }
 
 void test_matrix_multiplication_gpu_single_core(void) {
-    Matrix *actual_result = matrix_init(cuda_matrix_multiplication1->rows,
+    matrix_t *actual_result = matrix_init(cuda_matrix_multiplication1->rows,
         cuda_matrix_multiplication2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
     CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(
@@ -143,7 +143,7 @@ void test_matrix_multiplication_gpu_single_core(void) {
 }
 
 void test_matrix_multiplication_gpu_multi_core_unwrapping_i(void) {
-    Matrix *actual_result = matrix_init(cuda_matrix_multiplication1->rows,
+    matrix_t *actual_result = matrix_init(cuda_matrix_multiplication1->rows,
         cuda_matrix_multiplication2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
     CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(
@@ -157,7 +157,7 @@ void test_matrix_multiplication_gpu_multi_core_unwrapping_i(void) {
 }
 
 void test_matrix_multiplication_gpu_multi_core_unwrapping_i_and_j(void) {
-    Matrix *actual_result = matrix_init(cuda_matrix_multiplication1->rows,
+    matrix_t *actual_result = matrix_init(cuda_matrix_multiplication1->rows,
         cuda_matrix_multiplication2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
     CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(
@@ -173,7 +173,7 @@ void test_matrix_multiplication_gpu_multi_core_unwrapping_i_and_j(void) {
 
 void test_matrix_multiplication_gpu_multi_core_unwrapping_i_and_j_larger_matrices(
     void) {
-    Matrix *matrix1, *matrix2, *cpu_result, *gpu_result;
+    matrix_t *matrix1, *matrix2, *cpu_result, *gpu_result;
     int m = 10;
     int l = 5;
     int n = 6;
