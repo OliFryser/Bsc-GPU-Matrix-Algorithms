@@ -1,5 +1,14 @@
 extern "C" {
-#include "cuda_matrix_utility.h"
+    #include "cuda_matrix_utility.h"
+}
+
+extern "C" inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort=true)
+{
+   if (code != cudaSuccess) 
+   {
+      fprintf(stderr,"GPUassert: %s %s %d\n", cudaGetErrorString(code), file, line);
+      if (abort) exit(code);
+   }
 }
 
 // Deep copy:
@@ -7,6 +16,7 @@ extern "C" {
 
 // Arguments for why this is bad:
 // https://stackoverflow.com/questions/6137218/how-can-i-add-up-two-2d-pitched-arrays-using-nested-for-loops/6137517#6137517
+
 extern "C" device_matrix_t cuda_matrix_init(int rows, int columns) {
     device_matrix_t device_array;
     cudaError_t error =
