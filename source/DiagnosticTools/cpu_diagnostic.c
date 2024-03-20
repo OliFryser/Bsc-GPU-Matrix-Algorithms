@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
     double no_operation_time;
 
     double minimum_elapsed = 0.5 * 1e9 * 2;
-    int operation_count = 3;
+    int operation_count = 5;
 
     char *operation_names[operation_count];
     void (*operations[operation_count])(int, int, int);
@@ -42,6 +42,12 @@ int main(int argc, char *argv[]) {
 
     operations[2] = &cpu_integer_division;
     operation_names[2] = "CPU Integer Division";
+
+    operations[3] = &cpu_indexing_1d;
+    operation_names[3] = "CPU Indexing 1d";
+
+    operations[4] = &cpu_indexing_2d;
+    operation_names[4] = "CPU Indexing 2d";
 
     iterations = 1048576;
     do {
