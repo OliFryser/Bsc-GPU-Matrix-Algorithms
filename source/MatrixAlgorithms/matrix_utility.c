@@ -109,26 +109,26 @@ matrix_t *matrix_init_from_csv(FILE *csv_file) {
     return matrix;
 }
 
-bool matrix_equal_dimensions(matrix_t *matrix1, matrix_t *matrix2) {
-    return matrix1->columns == matrix2->columns &&
-           matrix1->rows == matrix2->rows;
+bool matrix_equal_dimensions(matrix_t *matrix_a, matrix_t *matrix_b) {
+    return matrix_a->columns == matrix_b->columns &&
+           matrix_a->rows == matrix_b->rows;
 }
 
-bool matrix_equal(matrix_t *matrix1, matrix_t *matrix2) {
-    if (matrix1 == NULL) return false;
-    if (matrix2 == NULL) return false;
-    if (!matrix_equal_dimensions(matrix1, matrix2)) return false;
+bool matrix_equal(matrix_t *matrix_a, matrix_t *matrix_b) {
+    if (matrix_a == NULL) return false;
+    if (matrix_b == NULL) return false;
+    if (!matrix_equal_dimensions(matrix_a, matrix_b)) return false;
 
-    int rows = matrix1->rows;
-    int columns = matrix1->columns;
+    int rows = matrix_a->rows;
+    int columns = matrix_a->columns;
 
     for (int i = 0; i < rows * columns; i++)
-        if (matrix1->values[i] != matrix2->values[i]) {
+        if (matrix_a->values[i] != matrix_b->values[i]) {
             printf("\nFOUND ERROR AT %d,%d\n", i / columns, i % columns);
             printf("\nPrinting matrix 1:\n");
-            matrix_print(matrix1);
+            matrix_print(matrix_a);
             printf("\nPrinting matrix 2:\n");
-            matrix_print(matrix2);
+            matrix_print(matrix_b);
             return false;
         }
 

@@ -2,6 +2,7 @@ extern "C" {
     #include "cuda_matrix_utility.h"
 }
 
+#define gpuErrorcheck(function) { gpuAssert((function), __FILE__, __LINE__); }
 extern "C" inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort=true)
 {
    if (code != cudaSuccess) 

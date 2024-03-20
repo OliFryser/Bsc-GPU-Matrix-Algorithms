@@ -11,14 +11,14 @@
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[],
     double mean_run_time, double standard_deviation, int iterations);
-bool matrix_addition(matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
+bool matrix_addition(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
 bool cuda_matrix_addition_single_core(
-    matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
 bool matrix_multiplication(
-    matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
 bool cuda_matrix_addition_multi_core(
-    matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
-bool matrix_inverse(matrix_t *matrix1, matrix_t *matrix2, matrix_t *result);
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
+bool matrix_inverse(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
 double mean(double array[], int size_of_array);
 double standard_deviation(double array[], int size_of_array, double mean);
 
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
 
     // Program Variables
     FILE *file;
-    matrix_t *matrix1, *matrix2, *result;
+    matrix_t *matrix_a, *matrix_b, *matrix_c;
     bool (*matrix_algorithm)(matrix_t *, matrix_t *, matrix_t *);
     struct timespec start, end;
     double elapsed, elapsed_accumulative;
@@ -75,12 +75,12 @@ int main(int argc, char *argv[]) {
     else if (strcmp(algorithm, "inverse") == 0)
         matrix_algorithm = &matrix_inverse;
 
-    matrix1 = matrix_init(dimension, dimension);
-    matrix2 = matrix_init(dimension, dimension);
-    result = matrix_init(dimension, dimension);
-    if (matrix1 == NULL || matrix2 == NULL || result == NULL) return -1;
+    matrix_a = matrix_init(dimension, dimension);
+    matrix_b = matrix_init(dimension, dimension);
+    matrix_c = matrix_init(dimension, dimension);
+    if (matrix_a == NULL || matrix_b == NULL || matrix_c == NULL) return -1;
 
-    matrix_random_fill(0.0f, 3.0f, matrix1);
+    matrix_random_fill(0.0f, 3.0f, matrix_a);
 
     file = append_csv(save_file_name);
     if (file == NULL) return -1;
@@ -96,7 +96,7 @@ int main(int argc, char *argv[]) {
 
         for (int i = 0; i < iterations; i++) {
             timespec_get(&start, TIME_UTC);
-            matrix_algorithm(matrix1, matrix2, result);
+            matrix_algorithm(matrix_a, matrix_b, matrix_c);
             timespec_get(&end, TIME_UTC);
 
             elapsed = (end.tv_sec - start.tv_sec) +
