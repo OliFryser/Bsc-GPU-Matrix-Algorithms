@@ -99,31 +99,31 @@ void test_matrix_addition_gpu_multi_core2(void) {
 }
 
 void test_matrix_addition_gpu_multi_core2_larger_matrices(void) {
-    matrix_t *matrix1, *matrix2, *cpu_result, *gpu_result;
+    matrix_t *matrixA, *matrix_b, *cpu_result, *gpu_result;
     int rows = 100;
     int cols = 100;
 
-    matrix1 = matrix_init(rows, cols);
-    matrix2 = matrix_init(rows, cols);
+    matrixA = matrix_init(rows, cols);
+    matrix_b = matrix_init(rows, cols);
     cpu_result = matrix_init(rows, cols);
     gpu_result = matrix_init(rows, cols);
 
-    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix1);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix2);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrixA);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_b);
     CU_ASSERT_PTR_NOT_NULL_FATAL(cpu_result);
     CU_ASSERT_PTR_NOT_NULL_FATAL(gpu_result);
 
-    CU_ASSERT_TRUE(matrix_random_fill(10.0f, 100.0f, matrix1));
-    CU_ASSERT_TRUE(matrix_random_fill(10.0f, 100.0f, matrix2));
+    CU_ASSERT_TRUE(matrix_random_fill(10.0f, 100.0f, matrixA));
+    CU_ASSERT_TRUE(matrix_random_fill(10.0f, 100.0f, matrix_b));
 
-    matrix_addition(matrix1, matrix2, cpu_result);
+    matrix_addition(matrixA, matrix_b, cpu_result);
 
     CU_ASSERT_TRUE(
-        cuda_matrix_addition_multi_core2(matrix1, matrix2, gpu_result));
+        cuda_matrix_addition_multi_core2(matrixA, matrix_b, gpu_result));
 
     CU_ASSERT_TRUE(matrix_equal(gpu_result, cpu_result));
-    matrix_free(matrix1);
-    matrix_free(matrix2);
+    matrix_free(matrixA);
+    matrix_free(matrix_b);
     matrix_free(cpu_result);
     matrix_free(gpu_result);
 }
@@ -173,32 +173,32 @@ void test_matrix_multiplication_gpu_multi_core_unwrapping_i_and_j(void) {
 
 void test_matrix_multiplication_gpu_multi_core_unwrapping_i_and_j_larger_matrices(
     void) {
-    matrix_t *matrix1, *matrix2, *cpu_result, *gpu_result;
+    matrix_t *matrix_a, *matrix_b, *cpu_result, *gpu_result;
     int m = 10;
     int l = 5;
     int n = 6;
 
-    matrix1 = matrix_init(l, m);
-    matrix2 = matrix_init(m, n);
+    matrix_a = matrix_init(l, m);
+    matrix_b = matrix_init(m, n);
     cpu_result = matrix_init(l, n);
     gpu_result = matrix_init(l, n);
 
-    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix1);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix2);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_a);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_b);
     CU_ASSERT_PTR_NOT_NULL_FATAL(cpu_result);
     CU_ASSERT_PTR_NOT_NULL_FATAL(gpu_result);
 
-    CU_ASSERT_TRUE(matrix_random_fill(10.0f, 20.0f, matrix1));
-    CU_ASSERT_TRUE(matrix_random_fill(10.0f, 20.0f, matrix2));
+    CU_ASSERT_TRUE(matrix_random_fill(10.0f, 20.0f, matrix_a));
+    CU_ASSERT_TRUE(matrix_random_fill(10.0f, 20.0f, matrix_b));
 
-    matrix_multiplication(matrix1, matrix2, cpu_result);
+    matrix_multiplication(matrix_a, matrix_b, cpu_result);
 
     CU_ASSERT_TRUE(cuda_matrix_multiplication_multi_core_unwrapping_i_and_j(
-        matrix1, matrix2, gpu_result));
+        matrix_a, matrix_b, gpu_result));
 
     CU_ASSERT_TRUE(matrix_equal(gpu_result, cpu_result));
-    matrix_free(matrix1);
-    matrix_free(matrix2);
+    matrix_free(matrix_a);
+    matrix_free(matrix_b);
     matrix_free(cpu_result);
     matrix_free(gpu_result);
 }

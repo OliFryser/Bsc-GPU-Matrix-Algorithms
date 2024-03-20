@@ -1,33 +1,33 @@
 #include "matrix_algorithms.h"
 
-bool matrix_addition(matrix_t *matrix1, matrix_t *matrix2, matrix_t *result) {
-    if (matrix1 == NULL) return false;
-    if (matrix2 == NULL) return false;
-    if (result == NULL) return false;
-    if (!matrix_equal_dimensions(matrix1, matrix2)) return false;
-    if (!matrix_equal_dimensions(matrix1, result)) return false;
+bool matrix_addition(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
+    if (matrix_a == NULL) return false;
+    if (matrix_b == NULL) return false;
+    if (matrix_c == NULL) return false;
+    if (!matrix_equal_dimensions(matrix_a, matrix_b)) return false;
+    if (!matrix_equal_dimensions(matrix_a, matrix_c)) return false;
 
-    int rows = matrix1->rows;
-    int columns = matrix1->columns;
+    int rows = matrix_a->rows;
+    int columns = matrix_a->columns;
 
     for (int i = 0; i < rows * columns; i++)
-        result->values[i] = matrix1->values[i] + matrix2->values[i];
+        matrix_c->values[i] = matrix_a->values[i] + matrix_b->values[i];
 
     return true;
 }
 
-bool matrix_multiplication(matrix_t *matrix1, matrix_t *matrix2, matrix_t *result) {
-    if (matrix1 == NULL) return false;
-    if (matrix2 == NULL) return false;
-    if (result == NULL) return false;
+bool matrix_multiplication(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
+    if (matrix_a == NULL) return false;
+    if (matrix_b == NULL) return false;
+    if (matrix_c == NULL) return false;
 
-    if (matrix1->columns != matrix2->rows) return false;
-    int common_dimension_length = matrix1->columns;
-    int result_rows = matrix1->rows;
-    int result_columns = matrix2->columns;
+    if (matrix_a->columns != matrix_b->rows) return false;
+    int common_dimension_length = matrix_a->columns;
+    int result_rows = matrix_a->rows;
+    int result_columns = matrix_b->columns;
 
-    int matrix1_columns = matrix1->columns;
-    int matrix2_columns = matrix2->columns;
+    int matrix_a_columns = matrix_a->columns;
+    int matrix_b_columns = matrix_b->columns;
 
     float sum_of_products;
 
@@ -36,13 +36,13 @@ bool matrix_multiplication(matrix_t *matrix1, matrix_t *matrix2, matrix_t *resul
             sum_of_products = 0.0f;
             for (int k = 0; k < common_dimension_length; k++)
                 sum_of_products +=
-                    matrix1->values[INDEX(i, k, matrix1_columns)] *
-                    matrix2->values[INDEX(k, j, matrix2_columns)];
-            result->values[INDEX(i, j, result_columns)] = sum_of_products;
+                    matrix_a->values[INDEX(i, k, matrix_a_columns)] *
+                    matrix_b->values[INDEX(k, j, matrix_b_columns)];
+            matrix_c->values[INDEX(i, j, result_columns)] = sum_of_products;
         }
     return true;
 }
 
-bool matrix_inverse(matrix_t *matrix1, matrix_t *matrix2, matrix_t *result) {
+bool matrix_inverse(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     return false;
 }
