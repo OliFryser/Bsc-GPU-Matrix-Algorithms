@@ -7,7 +7,7 @@ CUFLAGS = -g
 CFLAGS = -Wall -g
 
 # Loadflags
-LDFLAGS = -lcunit -lcudart
+LDFLAGS = -lcunit -lcudart -lm
 
 SOURCE_DIR=source
 

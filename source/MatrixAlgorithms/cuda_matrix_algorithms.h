@@ -22,4 +22,7 @@ bool cuda_matrix_multiplication_multi_core_unwrapping_i(
 bool cuda_matrix_multiplication_multi_core_unwrapping_i_and_j(
     matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
 
+bool cuda_matrix_multiplication_multi_core_shared_memory(
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
+
 #endif

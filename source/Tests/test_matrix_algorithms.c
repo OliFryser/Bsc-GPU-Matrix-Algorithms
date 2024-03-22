@@ -137,6 +137,10 @@ void test_matrix_not_equal(void) {
     CU_ASSERT_FALSE(matrix_equal(matrix_2x2, matrix_doubled_2x2));
 }
 
+void test_matrix_almost_equal(void) {
+    CU_ASSERT_TRUE(matrix_almost_equal(matrix_2x2, matrix_2x2));
+}
+
 void test_matrix_copy(void) {
     matrix_t *destination = matrix_init(matrix_2x2->rows, matrix_2x2->columns);
     CU_ASSERT_TRUE_FATAL(matrix_copy(matrix_2x2, destination));

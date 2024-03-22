@@ -167,3 +167,8 @@ bool cuda_matrix_multiplication_multi_core_unwrapping_i_and_j(
         &cuda_matrix_multiplication_multicore_unwrapping_i_and_j_kernel,
         dim3(matrix_a->rows), dim3(matrix_b->columns));
 }
+
+bool cuda_matrix_multiplication_multi_core_shared_memory(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c)
+{
+    return false;
+}

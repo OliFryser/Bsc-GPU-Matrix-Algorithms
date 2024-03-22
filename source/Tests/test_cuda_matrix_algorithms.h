@@ -19,5 +19,5 @@ void test_matrix_multiplication_gpu_multi_core_unwrapping_i(void);
 void test_matrix_multiplication_gpu_multi_core_unwrapping_i_and_j(void);
 void test_matrix_multiplication_gpu_multi_core_unwrapping_i_and_j_larger_matrices(
     void);
-
+void test_matrix_multiplication_gpu_multi_core_shared_memory(void);
 #endif
