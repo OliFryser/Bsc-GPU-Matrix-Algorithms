@@ -53,8 +53,8 @@ int main() {
                      test_matrix_not_equal_dimensions)) ||
         (NULL == CU_add_test(
                      matrix_suite, "matrix_t equality", test_matrix_equal)) ||
-        (NULL == CU_add_test(
-                     matrix_suite, "matrix_t almost equal", test_matrix_almost_equal)) ||
+        (NULL == CU_add_test(matrix_suite, "matrix_t almost equal",
+                     test_matrix_almost_equal)) ||
         (NULL ==
             CU_add_test(matrix_suite, "matrix_t copy", test_matrix_copy)) ||
         (NULL == CU_add_test(matrix_suite, "matrix_t addition",
@@ -95,10 +95,15 @@ int main() {
                 "for "
                 "larger matrices",
                 test_matrix_multiplication_gpu_multi_core_unwrapping_i_and_j_larger_matrices)) ||
-        (NULL == 
+        (NULL ==
             CU_add_test(cuda_matrix_suite,
                 "matrix_t multiplication gpu multi core: shared memory",
-                test_matrix_multiplication_gpu_multi_core_shared_memory))) {
+                test_matrix_multiplication_gpu_multi_core_shared_memory)) ||
+        (NULL ==
+            CU_add_test(cuda_matrix_suite,
+                "matrix_t multiplication gpu multi core: shared memory for "
+                "larger matrices",
+                test_matrix_multiplication_gpu_multi_core_shared_memory_larger_matrices))) {
         CU_cleanup_registry();
         return CU_get_error();
     }
