@@ -29,6 +29,15 @@ Matrix multiplikations video:
 
 [Floating point standards](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#floating-point-standard)
 
+### Shared Memory
+
+``__shared__`` in front of a variable indicates that the variable lives in shared memory, that is
+
+- Memory that is only accessible from threads within the same block.
+- The variable has lifetime of the block.
+- Has a distinct object per block.
+- Does not have a constant address.
+
 ## QR-Decomposition
 
 Page 98 and 99 in the book Numerical Recipes in C
