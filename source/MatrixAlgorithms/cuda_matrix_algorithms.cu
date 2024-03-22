@@ -107,8 +107,6 @@ __global__ void cuda_matrix_multiplication_multi_core_shared_memory_kernel(
     int column = threadIdx.x;
 
     for (int k = 0; k < (m + BLOCK_SIZE - 1) / BLOCK_SIZE; k++) {
-        if (k > m) continue;
-
         device_matrix_t a_sub = get_sub_matrix(matrix_a, block_row, k, m);
         __shared__ float shared_a_sub[BLOCK_SIZE][BLOCK_SIZE];
 
