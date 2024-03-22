@@ -221,9 +221,9 @@ void test_matrix_multiplication_gpu_multi_core_shared_memory(void) {
 void test_matrix_multiplication_gpu_multi_core_shared_memory_larger_matrices(
     void) {
     matrix_t *matrix_a, *matrix_b, *cpu_result, *gpu_result;
-    int m = 3;
-    int l = 2;
-    int n = 2;
+    int m = 2;
+    int l = 3;
+    int n = 4;
 
     matrix_a = matrix_init(l, m);
     matrix_b = matrix_init(m, n);
@@ -240,8 +240,8 @@ void test_matrix_multiplication_gpu_multi_core_shared_memory_larger_matrices(
 
     matrix_multiplication(matrix_a, matrix_b, cpu_result);
 
-    CU_ASSERT_TRUE(
-        cuda_matrix_addition_single_core(matrix_a, matrix_b, gpu_result));
+    CU_ASSERT_TRUE(cuda_matrix_multiplication_multi_core_shared_memory(
+        matrix_a, matrix_b, gpu_result));
 
     // CU_ASSERT_TRUE(matrix_equal(gpu_result, cpu_result));
     CU_ASSERT_TRUE(matrix_almost_equal(gpu_result, cpu_result));
