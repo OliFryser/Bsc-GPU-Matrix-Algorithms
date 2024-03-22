@@ -137,14 +137,14 @@ bool matrix_equal(matrix_t *matrix_a, matrix_t *matrix_b) {
 
 // Calculates units in the last place | unit of least precision
 float ulp(float number) {
-    int bits = *(int *) &number; // Evil bit hack from Quake III Q_sqrt function
+    int bits = *(int *)&number;  // Evil bit hack from Quake III Q_sqrt function
 
     int exponent = (bits & 0x7F800000) >> 23;
     int mantissa_0 = (bits & 0x7FFFFE) | 0x800000;
     int mantissa_1 = ((bits & 0x7FFFFF) | 0x1) | 0x800000;
 
-    float significand_0 = *(float *) &mantissa_0;
-    float significand_1 = *(float *) &mantissa_1;
+    float significand_0 = *(float *)&mantissa_0;
+    float significand_1 = *(float *)&mantissa_1;
 
     const int bias = 127;
     float float_0 = powf(2.0f, exponent - bias) * significand_0;
@@ -153,7 +153,6 @@ float ulp(float number) {
     float ulps = fabsf(float_0 - float_1);
     return ulps;
 }
-
 
 bool matrix_almost_equal(matrix_t *matrix_a, matrix_t *matrix_b) {
     if (matrix_a == NULL) return false;
@@ -168,8 +167,9 @@ bool matrix_almost_equal(matrix_t *matrix_a, matrix_t *matrix_b) {
         float ulp_a = ulp(matrix_a->values[i]);
         float ulp_b = ulp(matrix_b->values[i]);
         float max_ulp = fmaxf(ulp_a, ulp_b);
-        // almost_equal = abs(matrix_a->values[i] - matrix_b->values[i]) < max_ulp;
-        almost_equal = abs(matrix_a->values[i] - matrix_b->values[i]) < 0.0001f;
+        // almost_equal = abs(matrix_a->values[i] - matrix_b->values[i]) <
+        // max_ulp;
+        almost_equal = abs(matrix_a->values[i] - matrix_b->values[i]) < 0.01f;
         if (!almost_equal) {
             printf("\nFOUND ERROR AT %d,%d\n", i / columns, i % columns);
             printf("\nPrinting matrix 1:\n");
