@@ -23,7 +23,8 @@
         "random": "c",
         "2d_array_algorithms.h": "c",
         "2d_csv_utility.h": "c",
-        "functional": "cpp"
+        "functional": "cpp",
+        "math.h": "c"
     },
     "makefile.makefilePath": "source/Makefile",
     "C_Cpp.default.compilerPath": "/usr/bin/gcc",
