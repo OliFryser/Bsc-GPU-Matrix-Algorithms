@@ -106,6 +106,9 @@ __global__ void cuda_matrix_multiplication_multi_core_shared_memory_kernel(
     int row = threadIdx.y;
     int column = threadIdx.x;
 
+    printf("Thread: (%d, %d), Block (%d, %d):\n", row, column, block_row,
+        block_column);
+
     for (int k = 0; k < (m + BLOCK_SIZE - 1) / BLOCK_SIZE; k++) {
         device_matrix_t a_sub = get_sub_matrix(matrix_a, block_row, k, m);
         __shared__ float shared_a_sub[BLOCK_SIZE][BLOCK_SIZE];
@@ -130,6 +133,7 @@ __global__ void cuda_matrix_multiplication_multi_core_shared_memory_kernel(
         }
         __syncthreads();
     }
+
     if (row < l && column < n) {
         c_sub[INDEX(row, column, n)] = c_value;
     }
