@@ -74,6 +74,8 @@ int main(int argc, char *argv[]) {
             &cuda_matrix_multiplication_multi_core_unwrapping_i_and_j;
     else if (strcmp(algorithm, "inverse") == 0)
         matrix_algorithm = &matrix_inverse;
+    else if (strcmp(algorithm, "shared memory multiplication") == 0)
+        matrix_algorithm = &cuda_matrix_multiplication_multi_core_shared_memory;
 
     matrix_a = matrix_init(dimension, dimension);
     matrix_b = matrix_init(dimension, dimension);
@@ -113,10 +115,6 @@ int main(int argc, char *argv[]) {
         iterations *= 2;
     } while (elapsed_accumulative < minimum_accumulative);
 
-    //
-    //
-    // write_to_csv(file, "CPU Sum of numbers", number_count_string,
-    // elapsed_time_string, "");
     fclose(file);
     return 0;
 }
