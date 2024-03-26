@@ -110,31 +110,28 @@ __global__ void cuda_matrix_multiplication_multi_core_shared_memory_kernel(
     
     int block_row = blockIdx.y;
     int block_column = blockIdx.x;
-    device_matrix_t c_sub = get_sub_matrix(matrix_c, block_row, block_column, n);
-    float c_value = .0f;
     int row = threadIdx.y;
     int column = threadIdx.x;
+    float c_value = .0f;
 
-    for (int k = 0; k < (m + BLOCK_SIZE - 1) / BLOCK_SIZE; k++) {
+    int subs_in_m = (m + BLOCK_SIZE - 1) / BLOCK_SIZE;
+    for (int k = 0; k < subs_in_m; k++) {
         device_matrix_t a_sub = get_sub_matrix(matrix_a, block_row, k, m);
         __shared__ float shared_a_sub[BLOCK_SIZE][BLOCK_SIZE];
-        if (row < l && column < m) 
-            shared_a_sub[row][column] = a_sub[INDEX(row, column, m)];
+        shared_a_sub[row][column] = a_sub[INDEX(row, column, m)];
 
         device_matrix_t b_sub = get_sub_matrix(matrix_b, k, block_column, n);
         __shared__ float shared_b_sub[BLOCK_SIZE][BLOCK_SIZE];
-        if (row < m && column < n) 
-            shared_b_sub[row][column] = b_sub[INDEX(row, column, n)];
+        shared_b_sub[row][column] = b_sub[INDEX(row, column, n)];
         __syncthreads();
 
-        for (int i = 0; i < BLOCK_SIZE; i++) {
-            if (i < m && row < l && column < n)
-                c_value += shared_a_sub[row][i] * shared_b_sub[i][column];
-        }
+        for (int i = 0; i < BLOCK_SIZE; i++) 
+            c_value += shared_a_sub[row][i] * shared_b_sub[i][column];
         __syncthreads();
     }
 
     if (row + BLOCK_SIZE * block_row < l && column + BLOCK_SIZE * block_column  < n) {
+        device_matrix_t c_sub = get_sub_matrix(matrix_c, block_row, block_column, n);
         c_sub[INDEX(row, column, n)] = c_value;
     } 
 }
