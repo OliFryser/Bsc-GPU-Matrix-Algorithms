@@ -134,7 +134,7 @@ __global__ void cuda_matrix_multiplication_multi_core_shared_memory_kernel(
         __syncthreads();
     }
 
-    if (row < l && column < n && c_value != 0.0f) {
+    if (row + BLOCK_SIZE * block_row < l && column + BLOCK_SIZE * block_column  < n) {
         c_sub[INDEX(row, column, n)] = c_value;
     } 
 }

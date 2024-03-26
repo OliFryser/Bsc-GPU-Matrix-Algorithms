@@ -220,9 +220,9 @@ void test_matrix_multiplication_gpu_multi_core_shared_memory(void) {
 void test_matrix_multiplication_gpu_multi_core_shared_memory_larger_matrices(
     void) {
     matrix_t *matrix_a, *matrix_b, *cpu_result, *gpu_result;
-    int m = 1;
-    int l = 20;
-    int n = 20;
+    int m = 5;
+    int l = 199;
+    int n = 73;
 
     matrix_a = matrix_init(l, m);
     matrix_b = matrix_init(m, n);
