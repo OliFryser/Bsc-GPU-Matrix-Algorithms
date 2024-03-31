@@ -48,9 +48,8 @@ __global__ void cuda_matrix_multiplication_multicore_unwrapping_i_kernel(
     device_matrix_t matrix_a, device_matrix_t matrix_b,
     device_matrix_t matrix_c, int l, int n, int m) {
     int i = blockIdx.x;
-
     float sum_of_products;
-
+    
     for (int j = 0; j < n; j++) {
         sum_of_products = 0.0f;
         for (int k = 0; k < m; k++)
