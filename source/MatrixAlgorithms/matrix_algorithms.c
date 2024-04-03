@@ -50,34 +50,38 @@ bool matrix_inverse(
     return false;
 }
 
-
 // returns true if the matrix is singular
 bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
     float column_length;  // sigma in book
+    float column_length_squared, element;
     int n = matrix->columns;
 
     // for every column
     for (int k = 0; k < n; k++) {
         // column length below diagonal
-        float column_length_squared;  // sum in book. 
+        column_length_squared = 0.0f;  // sum in book.
         for (int i = k; i < n; i++) {
-            float element = matrix->values[INDEX(i, k, n)];
+            element = matrix->values[INDEX(i, k, n)];
+            printf("\nElement: %f with k: %d and i: %d\n", element, k, i);
             column_length_squared += element * element;
         }
+        // printf("\nColumn Length Squared: %f\n", column_length_squared);
 
         // column length below diagonal, with the sign of diagonal k
         column_length =
-            SIGN(sqrtf(column_length_squared), matrix->values[INDEX(k, k, n)]); 
+            SIGN(sqrtf(column_length_squared), matrix->values[INDEX(k, k, n)]);
+
+        // printf("\nColumn Length: %f\n", column_length);
 
         // add column length to diagonal k
         matrix->values[INDEX(k, k, n)] += column_length;
 
         c[k] = matrix->values[INDEX(k, k, n)] * column_length;
 
-        diagonal[k] = column_length;
+        diagonal[k] = -column_length;
 
         // Calculate Q[k] = I - (u[k] (x) u[k]) / c[k]
-        float outer_product;
+        float outer_product = 0.0f;
         for (int j = k + 1; j < n; j++) {
             // outer product for column j below diagonal
             for (int i = k; i < n; i++) {

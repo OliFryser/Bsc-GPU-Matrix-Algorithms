@@ -197,7 +197,7 @@ void test_matrix_qr_decomposition(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_qr_input);
     matrix_t *actual_result =
         matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
-
+    matrix_copy(matrix_qr_input, actual_result);
     CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
 
     float *diagonal, *c;
@@ -206,7 +206,10 @@ void test_matrix_qr_decomposition(void) {
     c = malloc(sizeof(float) * matrix_qr_input->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(c);
 
-    CU_ASSERT_TRUE_FATAL(matrix_qr_decomposition(actual_result, diagonal, c));
+    printf("\nPrinting actual result before: \n");
+    matrix_print(actual_result);
+
+    CU_ASSERT_FALSE_FATAL(matrix_qr_decomposition(actual_result, diagonal, c));
     CU_ASSERT_TRUE(
         matrix_r_equal(qr_expected_result_r, actual_result, diagonal));
 
@@ -231,6 +234,7 @@ void test_matrix_qr_decomposition(void) {
             matrix_copy(q, temp);
             matrix_extract_q_j(actual_result, c, j, q_j);
             matrix_multiplication(temp, q_j, q);
+            matrix_free(temp);
         }
     }
 
@@ -239,6 +243,9 @@ void test_matrix_qr_decomposition(void) {
 
     printf("\nPrinting matrix Q: \n");
     matrix_print(q);
+
+    printf("\nPrinting R: \n");
+    matrix_print(r);
 
     printf("\nPrinting Diagonal:\n1: %f\n2: %f\n", diagonal[0], diagonal[1]);
     printf("\nPrinting c:\n1: %f\n2: %f\n", c[0], c[1]);
@@ -251,7 +258,11 @@ void test_matrix_qr_decomposition(void) {
     matrix_multiplication(q, r, multiplication_result);
 
     CU_ASSERT_TRUE(matrix_almost_equal(multiplication_result, matrix_qr_input));
-
+    free(c);
+    free(diagonal);
+    matrix_free(r);
+    matrix_free(q);
+    matrix_free(q_j);
     matrix_free(actual_result);
 }
 
