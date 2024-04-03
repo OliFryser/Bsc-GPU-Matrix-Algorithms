@@ -48,7 +48,6 @@ bool matrix_inverse(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) 
 }
 
 bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
-    bool singular; // *sing in book
     float column_length; // sigma in book
     
     for (int k = 0; k < matrix->columns; k++)
@@ -59,13 +58,29 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
             float element = matrix->values[INDEX(i, k, matrix->columns)];
             column_length_squared += element * element;
         }
-        
+
+        column_length = SIGN(sqrtf(column_length_squared), matrix->values[INDEX(k, k, matrix->columns)]);
+        matrix->values[INDEX(k, k, matrix->columns)] += column_length;
+        c[k] = matrix->values[INDEX(k, k, matrix->columns)] * column_length;
+        diagonal[k] = column_length;
+
+        float outer_product;
+        for (int j = k + 1; j < matrix->columns; j++)
+        {
+            for (int i = k; i < matrix->columns; i++)
+            {
+                outer_product += matrix->values[(INDEX(i, k, matrix->columns))] * matrix->values[(INDEX(i, j, matrix->columns))];
+            }
+
+            float tau = outer_product / c[k];
+            for (int i = k; i < matrix->columns; i++)
+            {
+                matrix->values[(INDEX(i, j, matrix->columns))] -= tau * matrix->values[(INDEX(i, k, matrix->columns))];
+            }            
+        }
     }
 
-    diagonal[0] = -7.211103f;
-    diagonal[1] = 1.38675f;
-    
-    matrix->values[1] = -3.328201f;
+    diagonal[matrix->columns - 1] = matrix->values[(INDEX(matrix->columns - 1, matrix->columns - 1, matrix->columns))];
 
-    return true;
+    return diagonal[matrix->columns - 1] != 0.0f; // Not Singular ?
 }
