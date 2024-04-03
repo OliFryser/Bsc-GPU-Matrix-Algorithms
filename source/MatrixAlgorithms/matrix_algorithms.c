@@ -1,6 +1,7 @@
 #include "matrix_algorithms.h"
 
-bool matrix_addition(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
+bool matrix_addition(
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     if (matrix_a == NULL) return false;
     if (matrix_b == NULL) return false;
     if (matrix_c == NULL) return false;
@@ -16,7 +17,8 @@ bool matrix_addition(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c)
     return true;
 }
 
-bool matrix_multiplication(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
+bool matrix_multiplication(
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     if (matrix_a == NULL) return false;
     if (matrix_b == NULL) return false;
     if (matrix_c == NULL) return false;
@@ -43,44 +45,43 @@ bool matrix_multiplication(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *mat
     return true;
 }
 
-bool matrix_inverse(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
+bool matrix_inverse(
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     return false;
 }
 
 bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
-    float column_length; // sigma in book
-    
-    for (int k = 0; k < matrix->columns; k++)
-    {
-        float column_length_squared; // sum in book
-        for (int i = 0; i < matrix->rows; i++)
-        {
-            float element = matrix->values[INDEX(i, k, matrix->columns)];
+    float column_length;  // sigma in book
+    int n = matrix->columns;
+    for (int k = 0; k < n; k++) {
+        float column_length_squared;  // sum in book
+        for (int i = 0; i < n; i++) {
+            float element = matrix->values[INDEX(i, k, n)];
             column_length_squared += element * element;
         }
 
-        column_length = SIGN(sqrtf(column_length_squared), matrix->values[INDEX(k, k, matrix->columns)]);
-        matrix->values[INDEX(k, k, matrix->columns)] += column_length;
-        c[k] = matrix->values[INDEX(k, k, matrix->columns)] * column_length;
+        column_length =
+            SIGN(sqrtf(column_length_squared), matrix->values[INDEX(k, k, n)]);
+        matrix->values[INDEX(k, k, n)] += column_length;
+        c[k] = matrix->values[INDEX(k, k, n)] * column_length;
         diagonal[k] = column_length;
 
         float outer_product;
-        for (int j = k + 1; j < matrix->columns; j++)
-        {
-            for (int i = k; i < matrix->columns; i++)
-            {
-                outer_product += matrix->values[(INDEX(i, k, matrix->columns))] * matrix->values[(INDEX(i, j, matrix->columns))];
+        for (int j = k + 1; j < n; j++) {
+            for (int i = k; i < n; i++) {
+                outer_product += matrix->values[(INDEX(i, k, n))] *
+                                 matrix->values[(INDEX(i, j, n))];
             }
 
             float tau = outer_product / c[k];
-            for (int i = k; i < matrix->columns; i++)
-            {
-                matrix->values[(INDEX(i, j, matrix->columns))] -= tau * matrix->values[(INDEX(i, k, matrix->columns))];
-            }            
+            for (int i = k; i < n; i++) {
+                matrix->values[(INDEX(i, j, n))] -=
+                    tau * matrix->values[(INDEX(i, k, n))];
+            }
         }
     }
 
-    diagonal[matrix->columns - 1] = matrix->values[(INDEX(matrix->columns - 1, matrix->columns - 1, matrix->columns))];
+    diagonal[n - 1] = matrix->values[(INDEX(n - 1, n - 1, n))];
 
-    return diagonal[matrix->columns - 1] != 0.0f; // Not Singular ?
+    return diagonal[n - 1] != 0.0f;  // Not Singular ?
 }
