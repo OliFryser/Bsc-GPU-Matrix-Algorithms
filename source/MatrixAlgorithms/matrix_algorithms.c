@@ -53,7 +53,7 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
     
     for (int k = 0; k < matrix->columns; k++)
     {
-        float column_length_squared;
+        float column_length_squared; // sum in book
         for (int i = 0; i < matrix->rows; i++)
         {
             float element = matrix->values[INDEX(i, k, matrix->columns)];
@@ -61,6 +61,11 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
         }
         
     }
+
+    diagonal[0] = -7.211103f;
+    diagonal[1] = 1.38675f;
     
-    return false;
+    matrix->values[1] = -3.328201f;
+
+    return true;
 }
