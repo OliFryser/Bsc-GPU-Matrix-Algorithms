@@ -28,6 +28,8 @@ bool matrix_equal(matrix_t *matrix_a, matrix_t *matrix_b);
 bool matrix_almost_equal(matrix_t *matrix_a, matrix_t *matrix_b);
 bool matrix_copy(matrix_t *original, matrix_t *copy);
 bool matrix_r_equal(matrix_t *r, matrix_t *composite, float *diagonal);
-void extract_r(matrix_t *composite, float *d, matrix_t *r_result);
+void matrix_extract_r(matrix_t *composite, float *d, matrix_t *r_result);
+bool matrix_extract_q_j(
+    matrix_t *composite, float *c, int j, matrix_t *q_result);
 
 #endif

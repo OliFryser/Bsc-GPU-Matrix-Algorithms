@@ -202,7 +202,7 @@ bool matrix_r_equal(matrix_t *r, matrix_t *composite, float *diagonal) {
     return true;
 }
 
-void extract_r(matrix_t *composite, float *d, matrix_t *r_result) {
+void matrix_extract_r(matrix_t *composite, float *d, matrix_t *r_result) {
     for (int i = 0; i < composite->rows; i++)
         for (int j = 0; j < composite->columns; j++) {
             float value;
@@ -215,6 +215,64 @@ void extract_r(matrix_t *composite, float *d, matrix_t *r_result) {
 
             r_result->values[INDEX(i, j, r_result->columns)] = value;
         }
+}
+
+bool matrix_extract_u_j(matrix_t *composite, int j, float *u) {
+    if (composite == NULL || u == NULL) return false;
+    if (j > composite->columns) return false;
+    for (int i = 0; i < composite->rows; i++) {
+        float value;
+        if (i < j)
+            value = 0.0f;
+        else
+            value = composite->values[INDEX(i, j, composite->columns)];
+        u[i] = value;
+    }
+    return true;
+}
+
+bool vector_outer_product(
+    float *vector1, float *vector2, int n, matrix_t *result) {
+    if (vector1 == NULL || vector2 == NULL || result == NULL) return false;
+    if (result->rows != n || result->columns != n) return false;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            result->values[INDEX(i, j, n)] = vector1[i] * vector2[j];
+
+    return true;
+}
+
+bool matrix_subtract_from_identity(matrix_t *matrix) {
+    if (matrix == NULL) return false;
+    for (int i = 0; i < matrix->rows; i++)
+        for (int j = 0; i < matrix->columns; i++) {
+            if (i == j)
+                matrix->values[INDEX(i, j, matrix->columns)] =
+                    1 - matrix->values[INDEX(i, j, matrix->columns)];
+            else
+                matrix->values[INDEX(i, j, matrix->columns)] =
+                    -matrix->values[INDEX(i, j, matrix->columns)];
+        }
+    return true;
+}
+
+bool matrix_extract_q_j(
+    matrix_t *composite, float *c, int j, matrix_t *q_result) {
+    if (composite == NULL || c == NULL || q_result == NULL) return false;
+    float *u_j = malloc(sizeof(float) * composite->rows);
+    if (u_j == NULL) return false;
+
+    if (!matrix_extract_u_j(composite, j, u_j)) return false;
+
+    if (!vector_outer_product(u_j, u_j, composite->columns, q_result))
+        return false;
+
+    for (int i = 0; i < q_result->rows * q_result->columns; i++)
+        q_result->values[i] /= c[j];
+
+    if (!matrix_subtract_from_identity(q_result)) return false;
+
+    return true;
 }
 
 bool matrix_copy(matrix_t *original, matrix_t *copy) {

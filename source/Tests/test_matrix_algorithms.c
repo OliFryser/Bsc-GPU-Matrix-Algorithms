@@ -212,12 +212,43 @@ void test_matrix_qr_decomposition(void) {
 
     matrix_t *r = matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(r);
-    extract_r(actual_result, diagonal, r);
+    matrix_extract_r(actual_result, diagonal, r);
+
+    matrix_t *q = matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(q);
+
+    matrix_t *q_j =
+        matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(q);
+
+    for (int j = 0; j < q->columns - 1; j++) {
+        if (j == 0)
+            matrix_extract_q_j(actual_result, c, j, q);
+        else {
+            matrix_t *temp =
+                matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
+            CU_ASSERT_PTR_NOT_NULL_FATAL(temp);
+            matrix_copy(q, temp);
+            matrix_extract_q_j(actual_result, c, j, q_j);
+            matrix_multiplication(temp, q_j, q);
+        }
+    }
+
+    printf("\nPrinting actual result: \n");
+    matrix_print(actual_result);
+
+    printf("\nPrinting matrix Q: \n");
+    matrix_print(q);
+
+    printf("\nPrinting Diagonal:\n1: %f\n2: %f\n", diagonal[0], diagonal[1]);
+    printf("\nPrinting c:\n1: %f\n2: %f\n", c[0], c[1]);
 
     matrix_t *multiplication_result =
         matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(multiplication_result);
-    matrix_multiplication(qr_expected_result_q, r, multiplication_result);
+    CU_ASSERT_TRUE(matrix_almost_equal(q, qr_expected_result_q));
+    CU_ASSERT_TRUE(matrix_almost_equal(r, qr_expected_result_r));
+    matrix_multiplication(q, r, multiplication_result);
 
     CU_ASSERT_TRUE(matrix_almost_equal(multiplication_result, matrix_qr_input));
 
