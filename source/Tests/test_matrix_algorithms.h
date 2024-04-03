@@ -22,6 +22,7 @@ void test_matrix_almost_equal(void);
 void test_matrix_copy(void);
 void test_matrix_addition(void);
 void test_matrix_multiplication(void);
+void test_matrix_qr_decomposition(void);
 void test_matrix_random_fill(void);
 int init_matrix_suite(void);
 int clean_matrix_suite(void);

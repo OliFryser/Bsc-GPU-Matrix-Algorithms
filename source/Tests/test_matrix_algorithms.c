@@ -9,6 +9,8 @@ matrix_t *matrix_doubled_2x2;
 matrix_t *matrix_multiplication1;
 matrix_t *matrix_multiplication2;
 matrix_t *matrix_multiplication_expected_result;
+matrix_t *matrix_qr_input;
+matrix_t *qr_expected_result;
 
 /* The suite initialization function.
  * Opens the temporary file used by the tests.
@@ -45,6 +47,15 @@ int init_matrix_suite(void) {
         "./source/Tests/csv_test_matrix_multiplication_expected_result.csv";
     csv_file = read_csv(csv_path);
     matrix_multiplication_expected_result = matrix_init_from_csv(csv_file);
+
+    csv_path = "./source/Tests/csv_test_matrix_qr_input.csv";
+    csv_file = read_csv(csv_path);
+    matrix_qr_input = matrix_init_from_csv(csv_file);
+
+    csv_path = "./source/Tests/csv_test_matrix_qr_expected_result.csv";
+    csv_file = read_csv(csv_path);
+    qr_expected_result = matrix_init_from_csv(csv_file);
+
     return 0;
 }
 
@@ -60,6 +71,8 @@ int clean_matrix_suite(void) {
     matrix_free(matrix_multiplication1);
     matrix_free(matrix_multiplication2);
     matrix_free(matrix_multiplication_expected_result);
+    matrix_free(matrix_qr_input);
+    matrix_free(qr_expected_result);
     return 0;
 }
 
@@ -171,6 +184,17 @@ void test_matrix_multiplication(void) {
         matrix_multiplication1, matrix_multiplication2, actual_result));
     CU_ASSERT_TRUE(
         matrix_equal(matrix_multiplication_expected_result, actual_result));
+    matrix_free(actual_result);
+}
+
+void test_matrix_qr_decomposition(void)
+{
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_qr_input);
+    matrix_t *actual_result = matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
+    float *diagonal, *c;
+    CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
+    CU_ASSERT_TRUE_FATAL(matrix_qr_decomposition(actual_result, diagonal, c));
+    CU_ASSERT_TRUE(matrix_equal(actual_result, qr_expected_result));
     matrix_free(actual_result);
 }
 
