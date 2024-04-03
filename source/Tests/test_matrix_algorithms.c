@@ -10,7 +10,8 @@ matrix_t *matrix_multiplication1;
 matrix_t *matrix_multiplication2;
 matrix_t *matrix_multiplication_expected_result;
 matrix_t *matrix_qr_input;
-matrix_t *qr_expected_result;
+matrix_t *qr_expected_result_r;
+matrix_t *qr_expected_result_q;
 
 /* The suite initialization function.
  * Opens the temporary file used by the tests.
@@ -52,9 +53,13 @@ int init_matrix_suite(void) {
     csv_file = read_csv(csv_path);
     matrix_qr_input = matrix_init_from_csv(csv_file);
 
-    csv_path = "./source/Tests/csv_test_matrix_qr_expected_result.csv";
+    csv_path = "./source/Tests/csv_test_matrix_qr_expected_result_r.csv";
     csv_file = read_csv(csv_path);
-    qr_expected_result = matrix_init_from_csv(csv_file);
+    qr_expected_result_r = matrix_init_from_csv(csv_file);
+
+    csv_path = "./source/Tests/csv_test_matrix_qr_expected_result_q.csv";
+    csv_file = read_csv(csv_path);
+    qr_expected_result_q = matrix_init_from_csv(csv_file);
 
     return 0;
 }
@@ -72,7 +77,8 @@ int clean_matrix_suite(void) {
     matrix_free(matrix_multiplication2);
     matrix_free(matrix_multiplication_expected_result);
     matrix_free(matrix_qr_input);
-    matrix_free(qr_expected_result);
+    matrix_free(qr_expected_result_r);
+    matrix_free(qr_expected_result_q);
     return 0;
 }
 
@@ -187,14 +193,34 @@ void test_matrix_multiplication(void) {
     matrix_free(actual_result);
 }
 
-void test_matrix_qr_decomposition(void)
-{
+void test_matrix_qr_decomposition(void) {
     CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_qr_input);
-    matrix_t *actual_result = matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
-    float *diagonal, *c;
+    matrix_t *actual_result =
+        matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
+
     CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
+
+    float *diagonal, *c;
+    diagonal = malloc(sizeof(float) * matrix_qr_input->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(diagonal);
+    c = malloc(sizeof(float) * matrix_qr_input->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(c);
+
     CU_ASSERT_TRUE_FATAL(matrix_qr_decomposition(actual_result, diagonal, c));
-    CU_ASSERT_TRUE(matrix_equal(actual_result, qr_expected_result));
+    CU_ASSERT_TRUE(
+        matrix_r_equal(qr_expected_result_r, actual_result, diagonal));
+
+    matrix_t *r = matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(r);
+    extract_r(actual_result, diagonal, r);
+
+    matrix_t *multiplication_result =
+        matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(multiplication_result);
+    matrix_multiplication(r, qr_expected_result_q, multiplication_result);
+
+    CU_ASSERT_TRUE(matrix_almost_equal(multiplication_result, matrix_qr_input));
+
     matrix_free(actual_result);
 }
 

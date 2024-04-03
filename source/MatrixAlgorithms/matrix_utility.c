@@ -137,7 +137,8 @@ bool matrix_equal(matrix_t *matrix_a, matrix_t *matrix_b) {
 
 // Calculates units in the last place | unit of least precision
 // float ulp(float number) {
-//     int bits = *(int *)&number;  // Evil bit hack from Quake III Q_sqrt function
+//     int bits = *(int *)&number;  // Evil bit hack from Quake III Q_sqrt
+//     function
 
 //     int exponent = (bits & 0x7F800000) >> 23;
 //     int mantissa_0 = (bits & 0x7FFFFE) | 0x800000;
@@ -180,6 +181,39 @@ bool matrix_almost_equal(matrix_t *matrix_a, matrix_t *matrix_b) {
         }
     }
     return true;
+}
+
+bool matrix_r_equal(matrix_t *r, matrix_t *composite, float *diagonal) {
+    bool almost_equal;
+    float threshold = 0.01f;
+    for (int i = 0; i < r->rows; i++) {
+        for (int j = 0; j <= i; j++) {
+            if (i == j) {
+                almost_equal = abs(r->values[INDEX(i, j, r->columns)] -
+                                   diagonal[i]) < threshold;
+            } else {
+                almost_equal =
+                    abs(r->values[INDEX(i, j, r->columns)] -
+                        composite->values[INDEX(i, j, r->columns)]) < threshold;
+            }
+            if (!almost_equal) return false;
+        }
+    }
+    return true;
+}
+
+void extract_r(matrix_t *composite, float *d, matrix_t *r_result) {
+    for (int i = 0; i < composite->rows; i++)
+        for (int j = 0; j < composite->columns; j++) {
+            float value;
+            if (i == j) value = d[i];
+            if (j > i)
+                value = 0.0f;
+            else
+                value = composite->values[INDEX(i, j, composite->columns)];
+
+            r_result->values[INDEX(i, j, r_result->columns)] = value;
+        }
 }
 
 bool matrix_copy(matrix_t *original, matrix_t *copy) {
