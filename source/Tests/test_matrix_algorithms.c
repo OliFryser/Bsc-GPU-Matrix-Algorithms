@@ -217,7 +217,7 @@ void test_matrix_qr_decomposition(void) {
     matrix_t *multiplication_result =
         matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(multiplication_result);
-    matrix_multiplication(r, qr_expected_result_q, multiplication_result);
+    matrix_multiplication(qr_expected_result_q, r, multiplication_result);
 
     CU_ASSERT_TRUE(matrix_almost_equal(multiplication_result, matrix_qr_input));
 

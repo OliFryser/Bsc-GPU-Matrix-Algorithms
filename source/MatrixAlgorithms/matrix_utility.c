@@ -206,8 +206,9 @@ void extract_r(matrix_t *composite, float *d, matrix_t *r_result) {
     for (int i = 0; i < composite->rows; i++)
         for (int j = 0; j < composite->columns; j++) {
             float value;
-            if (i == j) value = d[i];
-            if (j > i)
+            if (i == j)
+                value = d[i];
+            else if (i > j)
                 value = 0.0f;
             else
                 value = composite->values[INDEX(i, j, composite->columns)];
