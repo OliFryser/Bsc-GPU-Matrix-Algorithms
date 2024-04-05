@@ -246,12 +246,19 @@ bool matrix_subtract_from_identity(matrix_t *matrix) {
     if (matrix == NULL) return false;
     for (int i = 0; i < matrix->rows; i++)
         for (int j = 0; j < matrix->columns; j++) {
-            if (i == j)
-                matrix->values[INDEX(i, j, matrix->columns)] =
-                    1 - matrix->values[INDEX(i, j, matrix->columns)];
-            else
-                matrix->values[INDEX(i, j, matrix->columns)] =
-                    -matrix->values[INDEX(i, j, matrix->columns)];
+            float element = matrix->values[INDEX(i,j, matrix->columns)];
+
+            if (i == j) {
+                element =
+                    1 - element;
+                // if (i == matrix->rows - 1) {
+                //     matrix->values[INDEX(i, j, matrix->columns)] *= -1;
+                // }
+            }
+            else {
+                element *= -1;
+            }
+            matrix->values[INDEX(i,j, matrix->columns)] = element;
         }
     return true;
 }

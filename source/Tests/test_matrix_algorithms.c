@@ -320,8 +320,6 @@ void test_matrix_qr_2_decomposition(void) {
     for (int j = 0; j < q->columns - 1; j++) {
         if (j == 0) {
             matrix_extract_q_j(actual_result, c, j, q);
-            printf("\nPrinting iteration %d of extracting q\n", j);
-            matrix_print(q);
         }
         else {
             matrix_t *temp = matrix_init(
@@ -331,8 +329,12 @@ void test_matrix_qr_2_decomposition(void) {
             matrix_extract_q_j(actual_result, c, j, q_j);
             matrix_multiplication(temp, q_j, q);
             matrix_free(temp);
-
+            printf("\nPrinting iteration %d of extracting q_j\n", j);
+            matrix_print(q_j);
         }
+
+        printf("\nPrinting iteration %d of extracting q\n", j);
+        matrix_print(q);
     }
 
     printf("\nPrinting actual result: \n");
