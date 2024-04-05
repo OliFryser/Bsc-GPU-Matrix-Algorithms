@@ -60,6 +60,7 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
     // for every column
     for (int k = 0; k < n - 1; k++) {
         scale = 0.0f;
+        // scale is the max absolute value of the column
         for (int i = k; i < n; i++)
             scale = fmaxf(scale, fabsf(matrix->values[INDEX(i, k, n)]));
 
@@ -67,7 +68,9 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
             is_singular = true;
             c[k] = diagonal[k] = 0.0f;
         } else {
+            // Normalize column
             for (int i = k; i < n; i++) matrix->values[INDEX(i, k, n)] /= scale;
+
             // column length below diagonal
             column_length_squared = 0.0f;  // sum in book.
             for (int i = k; i < n; i++) {

@@ -255,13 +255,13 @@ void test_matrix_qr_decomposition(void) {
         matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(multiplication_result);
 
-    printf("Testing if Q is correct... \n");
+    printf("\nTesting if Q is correct... \n");
     CU_ASSERT_TRUE(matrix_almost_equal(q, qr_expected_result_q));
-    printf("Testing if R is correct... \n");
+    printf("\nTesting if R is correct... \n");
     CU_ASSERT_TRUE(matrix_almost_equal(r, qr_expected_result_r));
     matrix_multiplication(q, r, multiplication_result);
 
-    printf("Testing if QR is correct... \n");
+    printf("\nTesting if QR is correct... \n");
     CU_ASSERT_TRUE(matrix_almost_equal(multiplication_result, matrix_qr_input));
     free(c);
     free(diagonal);
