@@ -58,7 +58,7 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
     float scale;
     bool is_singular = false;
     // for every column
-    for (int k = 0; k < n - 1; k++) {
+    for (int k = 0; k < n; k++) {
         scale = 0.0f;
         // scale is the max absolute value of the column
         for (int i = k; i < n; i++)
@@ -115,7 +115,7 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
     }
 
     // last element already computed
-    diagonal[n - 1] = matrix->values[(INDEX(n - 1, n - 1, n))];
+    // diagonal[n - 1] = matrix->values[(INDEX(n - 1, n - 1, n))];
 
     if (!is_singular) is_singular = diagonal[n - 1] == 0.0f;
     return is_singular;

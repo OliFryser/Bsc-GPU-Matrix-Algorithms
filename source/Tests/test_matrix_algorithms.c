@@ -237,7 +237,7 @@ void test_matrix_qr_decomposition(void) {
         matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(q);
 
-    for (int j = 0; j < q->columns - 1; j++) {
+    for (int j = 0; j < q->columns; j++) {
         if (j == 0)
             matrix_extract_q_j(actual_result, c, j, q);
         else {
@@ -317,7 +317,7 @@ void test_matrix_qr_2_decomposition(void) {
         matrix_init(matrix_qr_2_input->rows, matrix_qr_2_input->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(q);
 
-    for (int j = 0; j < q->columns - 1; j++) {
+    for (int j = 0; j < q->columns; j++) {
         if (j == 0) {
             matrix_extract_q_j(actual_result, c, j, q);
         }
