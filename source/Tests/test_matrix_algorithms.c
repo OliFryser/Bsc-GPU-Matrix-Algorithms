@@ -221,9 +221,6 @@ void test_matrix_qr_decomposition(void) {
     c = malloc(sizeof(float) * matrix_qr_input->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(c);
 
-    printf("\nPrinting actual result before: \n");
-    matrix_print(actual_result);
-
     CU_ASSERT_FALSE_FATAL(matrix_qr_decomposition(actual_result, diagonal, c));
 
     matrix_t *r = matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
@@ -251,32 +248,14 @@ void test_matrix_qr_decomposition(void) {
         }
     }
 
-    printf("\nPrinting actual result: \n");
-    matrix_print(actual_result);
-
-    printf("\nPrinting matrix Q: \n");
-    matrix_print(q);
-
-    printf("\nPrinting matrix Q expected result: \n");
-    matrix_print(qr_expected_result_q);
-
-    printf("\nPrinting R: \n");
-    matrix_print(r);
-
-    printf("\nPrinting Diagonal:\n1: %f\n2: %f\n", diagonal[0], diagonal[1]);
-    printf("\nPrinting c:\n1: %f\n2: %f\n", c[0], c[1]);
-
     matrix_t *multiplication_result =
         matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(multiplication_result);
 
-    printf("\nTesting if Q is correct... \n");
     CU_ASSERT_TRUE(matrix_almost_equal(q, qr_expected_result_q));
-    printf("\nTesting if R is correct... \n");
     CU_ASSERT_TRUE(matrix_almost_equal(r, qr_expected_result_r));
     matrix_multiplication(q, r, multiplication_result);
 
-    printf("\nTesting if QR is correct... \n");
     CU_ASSERT_TRUE(matrix_almost_equal(multiplication_result, matrix_qr_input));
     free(c);
     free(diagonal);
@@ -299,9 +278,6 @@ void test_matrix_qr_2_decomposition(void) {
     c = malloc(sizeof(float) * matrix_qr_2_input->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(c);
 
-    printf("\nPrinting actual result before: \n");
-    matrix_print(actual_result);
-
     CU_ASSERT_FALSE_FATAL(matrix_qr_decomposition(actual_result, diagonal, c));
 
     matrix_t *r =
@@ -320,8 +296,7 @@ void test_matrix_qr_2_decomposition(void) {
     for (int j = 0; j < q->columns; j++) {
         if (j == 0) {
             matrix_extract_q_j(actual_result, c, j, q);
-        }
-        else {
+        } else {
             matrix_t *temp = matrix_init(
                 matrix_qr_2_input->rows, matrix_qr_2_input->columns);
             CU_ASSERT_PTR_NOT_NULL_FATAL(temp);
@@ -329,40 +304,17 @@ void test_matrix_qr_2_decomposition(void) {
             matrix_extract_q_j(actual_result, c, j, q_j);
             matrix_multiplication(temp, q_j, q);
             matrix_free(temp);
-            printf("\nPrinting iteration %d of extracting q_j\n", j);
-            matrix_print(q_j);
         }
-
-        printf("\nPrinting iteration %d of extracting q\n", j);
-        matrix_print(q);
     }
-
-    printf("\nPrinting actual result: \n");
-    matrix_print(actual_result);
-
-    printf("\nPrinting matrix Q: \n");
-    matrix_print(q);
-
-    printf("\nPrinting matrix Q expected result: \n");
-    matrix_print(qr_2_q);
-
-    printf("\nPrinting R: \n");
-    matrix_print(r);
-
-    printf("\nPrinting Diagonal:\n1: %f\n2: %f\n", diagonal[0], diagonal[1]);
-    printf("\nPrinting c:\n1: %f\n2: %f\n", c[0], c[1]);
 
     matrix_t *multiplication_result =
         matrix_init(matrix_qr_2_input->rows, matrix_qr_2_input->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(multiplication_result);
 
-    printf("\nTesting if Q is correct... \n");
     CU_ASSERT_TRUE(matrix_almost_equal(q, qr_2_q));
-    printf("\nTesting if R is correct... \n");
     CU_ASSERT_TRUE(matrix_almost_equal(r, qr_2_r));
     matrix_multiplication(q, r, multiplication_result);
 
-    printf("\nTesting if QR is correct... \n");
     CU_ASSERT_TRUE(
         matrix_almost_equal(multiplication_result, matrix_qr_2_input));
     free(c);

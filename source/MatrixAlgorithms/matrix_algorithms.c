@@ -68,7 +68,7 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
             is_singular = true;
             c[k] = diagonal[k] = 0.0f;
             continue;
-        } 
+        }
         // Normalize column
         for (int i = k; i < n; i++) matrix->values[INDEX(i, k, n)] /= scale;
 
@@ -76,17 +76,12 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
         column_length_squared = 0.0f;  // sum in book.
         for (int i = k; i < n; i++) {
             element = matrix->values[INDEX(i, k, n)];
-            // printf("\nElement: %f with k: %d and i: %d\n", element, k,
-            // i);
             column_length_squared += element * element;
         }
-        // printf("\nColumn Length Squared: %f\n", column_length_squared);
 
         // column length below diagonal, with the sign of diagonal k
-        column_length = SIGN(
-            sqrtf(column_length_squared), matrix->values[INDEX(k, k, n)]);
-
-        // printf("\nColumn Length: %f\n", column_length);
+        column_length =
+            SIGN(sqrtf(column_length_squared), matrix->values[INDEX(k, k, n)]);
 
         // add column length to diagonal k
         matrix->values[INDEX(k, k, n)] += column_length;
@@ -101,7 +96,7 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
             float inner_product = 0.0f;
             for (int i = k; i < n; i++) {
                 inner_product += matrix->values[(INDEX(i, k, n))] *
-                                    matrix->values[(INDEX(i, j, n))];
+                                 matrix->values[(INDEX(i, j, n))];
             }
 
             // division
@@ -113,9 +108,6 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
             }
         }
     }
-
-    // last element already computed
-    // diagonal[n - 1] = matrix->values[(INDEX(n - 1, n - 1, n))];
 
     if (!is_singular) is_singular = diagonal[n - 1] == 0.0f;
     return is_singular;
