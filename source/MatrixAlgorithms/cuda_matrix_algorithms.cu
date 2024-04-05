@@ -168,11 +168,19 @@ bool cuda_matrix_algorithm_runner(matrix_t* matrix_a, matrix_t* matrix_b,
     return true;
 }
 
+bool cuda_matrix_addition_single_core_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_addition_single_core(arg_a->matrix, arg_b->matrix, arg_c->matrix);
+}
+
 bool cuda_matrix_addition_single_core(
     matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c) {
     return cuda_matrix_algorithm_runner(matrix_a, matrix_b, matrix_c,
         matrix_c->rows * matrix_c->columns, matrix_c->rows, matrix_c->columns,
         &(cuda_matrix_addition_single_core_kernel), dim3(1), dim3(1));
+}
+
+bool cuda_matrix_addition_multi_core_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_addition_multi_core(arg_a->matrix, arg_b->matrix, arg_c->matrix);
 }
 
 bool cuda_matrix_addition_multi_core(
@@ -187,6 +195,10 @@ bool cuda_matrix_addition_multi_core(
         &(cuda_matrix_addition_multi_core_kernel), grid_size, block_size);
 
     return success;
+}
+
+bool cuda_matrix_addition_multi_core2_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_addition_multi_core2(arg_a->matrix, arg_b->matrix, arg_c->matrix);
 }
 
 bool cuda_matrix_addition_multi_core2(
@@ -206,11 +218,19 @@ bool cuda_matrix_addition_multi_core2(
     return success;
 }
 
+bool cuda_matrix_multiplication_single_core_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_multiplication_single_core(arg_a->matrix, arg_b->matrix, arg_c->matrix);
+}
+
 bool cuda_matrix_multiplication_single_core(
     matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c) {
     return cuda_matrix_algorithm_runner(matrix_a, matrix_b, matrix_c,
         matrix_a->rows, matrix_b->columns, matrix_a->columns,
         &cuda_matrix_multiplication_single_core_kernel, dim3(1), dim3(1));
+}
+
+bool cuda_matrix_multiplication_multi_core_unwrapping_i_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_multiplication_multi_core_unwrapping_i(arg_a->matrix, arg_b->matrix, arg_c->matrix);
 }
 
 bool cuda_matrix_multiplication_multi_core_unwrapping_i(
@@ -221,12 +241,20 @@ bool cuda_matrix_multiplication_multi_core_unwrapping_i(
         dim3(matrix_a->rows), dim3(1));
 }
 
+bool cuda_matrix_multiplication_multi_core_unwrapping_i_and_j_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_multiplication_multi_core_unwrapping_i_and_j(arg_a->matrix, arg_b->matrix, arg_c->matrix);
+}
+
 bool cuda_matrix_multiplication_multi_core_unwrapping_i_and_j(
     matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c) {
     return cuda_matrix_algorithm_runner(matrix_a, matrix_b, matrix_c,
         matrix_a->rows, matrix_b->columns, matrix_a->columns,
         &cuda_matrix_multiplication_multicore_unwrapping_i_and_j_kernel,
         dim3(matrix_a->rows), dim3(matrix_b->columns));
+}
+
+bool cuda_matrix_multiplication_multi_core_shared_memory_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_multiplication_multi_core_shared_memory(arg_a->matrix, arg_b->matrix, arg_c->matrix);
 }
 
 bool cuda_matrix_multiplication_multi_core_shared_memory(

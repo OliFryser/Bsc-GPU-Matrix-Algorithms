@@ -25,7 +25,9 @@
         "2d_csv_utility.h": "c",
         "functional": "cpp",
         "math.h": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "string": "c",
+        "string_view": "c"
     },
     "makefile.makefilePath": "source/Makefile",
     "C_Cpp.default.compilerPath": "/usr/bin/gcc",

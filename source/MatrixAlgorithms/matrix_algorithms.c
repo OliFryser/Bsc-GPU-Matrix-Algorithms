@@ -21,6 +21,10 @@ bool matrix_addition(
     return true;
 }
 
+bool matrix_multiplication_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return matrix_multiplication(arg_a->matrix, arg_b->matrix, arg_c->matrix);
+}
+
 bool matrix_multiplication(
     matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     if (matrix_a == NULL) return false;
@@ -49,9 +53,8 @@ bool matrix_multiplication(
     return true;
 }
 
-bool matrix_inverse(
-    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
-    return false;
+bool matrix_qr_decomposition_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return matrix_qr_decomposition(arg_a->matrix, arg_b->vector, arg_c->vector);
 }
 
 // returns true if the matrix is singular
