@@ -170,7 +170,7 @@ bool matrix_almost_equal(matrix_t *matrix_a, matrix_t *matrix_b) {
         // float max_ulp = fmaxf(ulp_a, ulp_b);
         // almost_equal = abs(matrix_a->values[i] - matrix_b->values[i]) <
         // max_ulp;
-        almost_equal = abs(matrix_a->values[i] - matrix_b->values[i]) < 0.01f;
+        almost_equal = fabsf(matrix_a->values[i] - matrix_b->values[i]) < 0.01f;
         if (!almost_equal) {
             printf("\nFOUND ERROR AT %d,%d\n", i / columns, i % columns);
             printf("\nPrinting matrix 1:\n");
