@@ -245,7 +245,7 @@ bool vector_outer_product(
 bool matrix_subtract_from_identity(matrix_t *matrix) {
     if (matrix == NULL) return false;
     for (int i = 0; i < matrix->rows; i++)
-        for (int j = 0; i < matrix->columns; i++) {
+        for (int j = 0; j < matrix->columns; j++) {
             if (i == j)
                 matrix->values[INDEX(i, j, matrix->columns)] =
                     1 - matrix->values[INDEX(i, j, matrix->columns)];
