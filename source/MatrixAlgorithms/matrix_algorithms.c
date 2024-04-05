@@ -55,46 +55,59 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
     float column_length;  // sigma in book
     float column_length_squared, element;
     int n = matrix->columns;
-
+    float scale;
+    bool is_singular = false;
     // for every column
     for (int k = 0; k < n - 1; k++) {
-        // column length below diagonal
-        column_length_squared = 0.0f;  // sum in book.
-        for (int i = k; i < n; i++) {
-            element = matrix->values[INDEX(i, k, n)];
-            // printf("\nElement: %f with k: %d and i: %d\n", element, k, i);
-            column_length_squared += element * element;
-        }
-        // printf("\nColumn Length Squared: %f\n", column_length_squared);
+        scale = 0.0f;
+        for (int i = k; i < n; i++)
+            scale = fmaxf(scale, fabsf(matrix->values[INDEX(i, k, n)]));
 
-        // column length below diagonal, with the sign of diagonal k
-        column_length = SIGN(sqrtf(column_length_squared), matrix->values[INDEX(k, k, n)]);
-
-        // printf("\nColumn Length: %f\n", column_length);
-
-        // add column length to diagonal k
-        matrix->values[INDEX(k, k, n)] += column_length;
-
-        c[k] = matrix->values[INDEX(k, k, n)] * column_length;
-
-        diagonal[k] = -column_length;
-
-        // Calculate Q[k] = I - (u[k] (x) u[k]) / c[k]
-        for (int j = k + 1; j < n; j++) {
-            // inner product for column j below diagonal
-            float inner_product = 0.0f;
+        if (scale == 0.0) {
+            is_singular = true;
+            c[k] = diagonal[k] = 0.0f;
+        } else {
+            for (int i = k; i < n; i++) matrix->values[INDEX(i, k, n)] /= scale;
+            // column length below diagonal
+            column_length_squared = 0.0f;  // sum in book.
             for (int i = k; i < n; i++) {
-                inner_product += matrix->values[(INDEX(i, k, n))] *
-                                 matrix->values[(INDEX(i, j, n))];
+                element = matrix->values[INDEX(i, k, n)];
+                // printf("\nElement: %f with k: %d and i: %d\n", element, k,
+                // i);
+                column_length_squared += element * element;
             }
+            // printf("\nColumn Length Squared: %f\n", column_length_squared);
 
-            // division
-            float tau = inner_product / c[k];
+            // column length below diagonal, with the sign of diagonal k
+            column_length = SIGN(
+                sqrtf(column_length_squared), matrix->values[INDEX(k, k, n)]);
 
-            // subtract from identity matrix
-            for (int i = k; i < n; i++) {
-                matrix->values[(INDEX(i, j, n))] -=
-                    tau * matrix->values[(INDEX(i, k, n))];
+            // printf("\nColumn Length: %f\n", column_length);
+
+            // add column length to diagonal k
+            matrix->values[INDEX(k, k, n)] += column_length;
+
+            c[k] = matrix->values[INDEX(k, k, n)] * column_length;
+
+            diagonal[k] = -scale * column_length;
+
+            // Calculate Q[k] = I - (u[k] (x) u[k]) / c[k]
+            for (int j = k + 1; j < n; j++) {
+                // inner product for column j below diagonal
+                float inner_product = 0.0f;
+                for (int i = k; i < n; i++) {
+                    inner_product += matrix->values[(INDEX(i, k, n))] *
+                                     matrix->values[(INDEX(i, j, n))];
+                }
+
+                // division
+                float tau = inner_product / c[k];
+
+                // subtract from identity matrix
+                for (int i = k; i < n; i++) {
+                    matrix->values[(INDEX(i, j, n))] -=
+                        tau * matrix->values[(INDEX(i, k, n))];
+                }
             }
         }
     }
@@ -102,6 +115,6 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
     // last element already computed
     diagonal[n - 1] = matrix->values[(INDEX(n - 1, n - 1, n))];
 
-    bool is_singular = diagonal[n - 1] == 0.0f;
+    if (!is_singular) is_singular = diagonal[n - 1] == 0.0f;
     return is_singular;
 }
