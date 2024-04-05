@@ -11,7 +11,8 @@
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[],
     double mean_run_time, double standard_deviation, int iterations);
-bool matrix_addition(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
+bool matrix_addition(
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
 bool cuda_matrix_addition_single_core(
     matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
 bool matrix_multiplication(
@@ -83,6 +84,7 @@ int main(int argc, char *argv[]) {
     if (matrix_a == NULL || matrix_b == NULL || matrix_c == NULL) return -1;
 
     matrix_random_fill(0.0f, 3.0f, matrix_a);
+    matrix_random_fill(0.0f, 3.0f, matrix_b);
 
     file = append_csv(save_file_name);
     if (file == NULL) return -1;

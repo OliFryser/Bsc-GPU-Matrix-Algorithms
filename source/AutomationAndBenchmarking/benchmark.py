@@ -23,12 +23,12 @@ c_object_files_2d = list(map(lambda file: file[:-len("c")] + "o", c_source_files
 
 binary_path = directory + "binary"
 binary_path_2d = directory_2d + "binary"
-compile_command = ["gcc", "-L/usr/local/cuda/lib64", "-o", binary_path] + c_object_files + cu_object_files + ["-lcunit", "-lcudart"]
+compile_command = ["gcc", "-L/usr/local/cuda/lib64", "-o", binary_path] + c_object_files + cu_object_files + ["-lcunit", "-lcudart", "-lm"]
 compile_command_2d = ["gcc", "-L/usr/local/cuda/lib64", "-o", binary_path_2d] + c_object_files_2d + cu_object_files_2d + ["-lcunit", "-lcudart"]
 
 timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
 csv_path = "BenchmarkData/" + timestamp + ".csv"
-algorithms_to_run = ["multiplication cpu", "multiplication gpu single core", "multiplication gpu multi core unwrapping i", "multiplication gpu multi core unwrapping i and j", "shared memory multiplication"] #["addition cpu", "addition gpu single core", "addition gpu multi core", "2d addition cpu", "2d addition gpu single core", "2d addition gpu multi core" ] #] #["addition cpu", "addition gpu single core", "addition gpu multi core", "addition gpu multi core 2"] #] # "multiplication", "inverse"]
+algorithms_to_run = ["multiplication gpu multi core unwrapping i", "multiplication gpu multi core unwrapping i and j", "shared memory multiplication"] #["addition cpu", "addition gpu single core", "addition gpu multi core", "2d addition cpu", "2d addition gpu single core", "2d addition gpu multi core" ] #] #["addition cpu", "addition gpu single core", "addition gpu multi core", "addition gpu multi core 2"] #] # "multiplication", "inverse"]
 additional_csv_files_to_include = []#["BenchmarkData/03-01 11:47:22.csv"]
 matrix_dimensions = [math.floor(2 ** (i+1)) for i in range(0, 10)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot" + timestamp + ".png"
