@@ -234,19 +234,7 @@ void test_matrix_qr_decomposition(void) {
         matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(q);
 
-    for (int j = 0; j < q->columns; j++) {
-        if (j == 0)
-            matrix_extract_q_j(actual_result, c, j, q);
-        else {
-            matrix_t *temp =
-                matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
-            CU_ASSERT_PTR_NOT_NULL_FATAL(temp);
-            matrix_copy(q, temp);
-            matrix_extract_q_j(actual_result, c, j, q_j);
-            matrix_multiplication(temp, q_j, q);
-            matrix_free(temp);
-        }
-    }
+    extract_q(q, actual_result, c, q_j);
 
     matrix_t *multiplication_result =
         matrix_init(matrix_qr_input->rows, matrix_qr_input->columns);
@@ -293,19 +281,7 @@ void test_matrix_qr_2_decomposition(void) {
         matrix_init(matrix_qr_2_input->rows, matrix_qr_2_input->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(q);
 
-    for (int j = 0; j < q->columns; j++) {
-        if (j == 0) {
-            matrix_extract_q_j(actual_result, c, j, q);
-        } else {
-            matrix_t *temp = matrix_init(
-                matrix_qr_2_input->rows, matrix_qr_2_input->columns);
-            CU_ASSERT_PTR_NOT_NULL_FATAL(temp);
-            matrix_copy(q, temp);
-            matrix_extract_q_j(actual_result, c, j, q_j);
-            matrix_multiplication(temp, q_j, q);
-            matrix_free(temp);
-        }
-    }
+    extract_q(q, actual_result, c, q_j);
 
     matrix_t *multiplication_result =
         matrix_init(matrix_qr_2_input->rows, matrix_qr_2_input->columns);
@@ -323,6 +299,21 @@ void test_matrix_qr_2_decomposition(void) {
     matrix_free(q);
     matrix_free(q_j);
     matrix_free(actual_result);
+}
+
+void extract_q(matrix_t *q, matrix_t *actual_result, float *c, matrix_t *q_j) {
+    for (int j = 0; j < q->columns; j++) {
+        if (j == 0) {
+            matrix_extract_q_j(actual_result, c, j, q);
+        } else {
+            matrix_t *temp = matrix_init(q->rows, q->columns);
+            CU_ASSERT_PTR_NOT_NULL_FATAL(temp);
+            matrix_copy(q, temp);
+            matrix_extract_q_j(actual_result, c, j, q_j);
+            matrix_multiplication(temp, q_j, q);
+            matrix_free(temp);
+        }
+    }
 }
 
 bool in_range(float value, float min, float max) {
