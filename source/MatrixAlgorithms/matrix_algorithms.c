@@ -1,5 +1,9 @@
 #include "matrix_algorithms.h"
 
+bool matrix_addition_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return matrix_addition(arg_a->matrix, arg_b->matrix, arg_c->matrix);
+}
+
 bool matrix_addition(
     matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     if (matrix_a == NULL) return false;
