@@ -107,7 +107,6 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
             // division
             float tau = inner_product / c[k];
 
-            // subtract from identity matrix
             for (int i = k; i < n; i++) {
                 matrix->values[(INDEX(i, j, n))] -=
                     tau * matrix->values[(INDEX(i, k, n))];
