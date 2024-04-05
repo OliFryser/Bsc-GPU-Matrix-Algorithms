@@ -67,50 +67,50 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
         if (scale == 0.0) {
             is_singular = true;
             c[k] = diagonal[k] = 0.0f;
-        } else {
-            // Normalize column
-            for (int i = k; i < n; i++) matrix->values[INDEX(i, k, n)] /= scale;
+            continue;
+        } 
+        // Normalize column
+        for (int i = k; i < n; i++) matrix->values[INDEX(i, k, n)] /= scale;
 
-            // column length below diagonal
-            column_length_squared = 0.0f;  // sum in book.
+        // column length below diagonal
+        column_length_squared = 0.0f;  // sum in book.
+        for (int i = k; i < n; i++) {
+            element = matrix->values[INDEX(i, k, n)];
+            // printf("\nElement: %f with k: %d and i: %d\n", element, k,
+            // i);
+            column_length_squared += element * element;
+        }
+        // printf("\nColumn Length Squared: %f\n", column_length_squared);
+
+        // column length below diagonal, with the sign of diagonal k
+        column_length = SIGN(
+            sqrtf(column_length_squared), matrix->values[INDEX(k, k, n)]);
+
+        // printf("\nColumn Length: %f\n", column_length);
+
+        // add column length to diagonal k
+        matrix->values[INDEX(k, k, n)] += column_length;
+
+        c[k] = matrix->values[INDEX(k, k, n)] * column_length;
+
+        diagonal[k] = -scale * column_length;
+
+        // Calculate Q[k] = I - (u[k] (x) u[k]) / c[k]
+        for (int j = k + 1; j < n; j++) {
+            // inner product for column j below diagonal
+            float inner_product = 0.0f;
             for (int i = k; i < n; i++) {
-                element = matrix->values[INDEX(i, k, n)];
-                // printf("\nElement: %f with k: %d and i: %d\n", element, k,
-                // i);
-                column_length_squared += element * element;
+                inner_product += matrix->values[(INDEX(i, k, n))] *
+                                    matrix->values[(INDEX(i, j, n))];
             }
-            // printf("\nColumn Length Squared: %f\n", column_length_squared);
 
-            // column length below diagonal, with the sign of diagonal k
-            column_length = SIGN(
-                sqrtf(column_length_squared), matrix->values[INDEX(k, k, n)]);
+            // division
+            float tau = inner_product / c[k];
 
-            // printf("\nColumn Length: %f\n", column_length);
-
-            // add column length to diagonal k
-            matrix->values[INDEX(k, k, n)] += column_length;
-
-            c[k] = matrix->values[INDEX(k, k, n)] * column_length;
-
-            diagonal[k] = -scale * column_length;
-
-            // Calculate Q[k] = I - (u[k] (x) u[k]) / c[k]
-            for (int j = k + 1; j < n; j++) {
-                // inner product for column j below diagonal
-                float inner_product = 0.0f;
-                for (int i = k; i < n; i++) {
-                    inner_product += matrix->values[(INDEX(i, k, n))] *
-                                     matrix->values[(INDEX(i, j, n))];
-                }
-
-                // division
-                float tau = inner_product / c[k];
-
-                // subtract from identity matrix
-                for (int i = k; i < n; i++) {
-                    matrix->values[(INDEX(i, j, n))] -=
-                        tau * matrix->values[(INDEX(i, k, n))];
-                }
+            // subtract from identity matrix
+            for (int i = k; i < n; i++) {
+                matrix->values[(INDEX(i, j, n))] -=
+                    tau * matrix->values[(INDEX(i, k, n))];
             }
         }
     }
