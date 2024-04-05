@@ -57,19 +57,18 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
     int n = matrix->columns;
 
     // for every column
-    for (int k = 0; k < n; k++) {
+    for (int k = 0; k < n - 1; k++) {
         // column length below diagonal
         column_length_squared = 0.0f;  // sum in book.
         for (int i = k; i < n; i++) {
             element = matrix->values[INDEX(i, k, n)];
-            printf("\nElement: %f with k: %d and i: %d\n", element, k, i);
+            // printf("\nElement: %f with k: %d and i: %d\n", element, k, i);
             column_length_squared += element * element;
         }
         // printf("\nColumn Length Squared: %f\n", column_length_squared);
 
         // column length below diagonal, with the sign of diagonal k
-        column_length =
-            SIGN(sqrtf(column_length_squared), matrix->values[INDEX(k, k, n)]);
+        column_length = SIGN(sqrtf(column_length_squared), matrix->values[INDEX(k, k, n)]);
 
         // printf("\nColumn Length: %f\n", column_length);
 
@@ -81,16 +80,16 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
         diagonal[k] = -column_length;
 
         // Calculate Q[k] = I - (u[k] (x) u[k]) / c[k]
-        float outer_product = 0.0f;
         for (int j = k + 1; j < n; j++) {
-            // outer product for column j below diagonal
+            // inner product for column j below diagonal
+            float inner_product = 0.0f;
             for (int i = k; i < n; i++) {
-                outer_product += matrix->values[(INDEX(i, k, n))] *
+                inner_product += matrix->values[(INDEX(i, k, n))] *
                                  matrix->values[(INDEX(i, j, n))];
             }
 
             // division
-            float tau = outer_product / c[k];
+            float tau = inner_product / c[k];
 
             // subtract from identity matrix
             for (int i = k; i < n; i++) {
