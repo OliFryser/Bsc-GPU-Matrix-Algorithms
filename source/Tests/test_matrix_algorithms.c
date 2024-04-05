@@ -12,6 +12,9 @@ matrix_t *matrix_multiplication_expected_result;
 matrix_t *matrix_qr_input;
 matrix_t *qr_expected_result_r;
 matrix_t *qr_expected_result_q;
+matrix_t *matrix_qr_2_input;
+matrix_t *qr_2_r;
+matrix_t *qr_2_q;
 
 /* The suite initialization function.
  * Opens the temporary file used by the tests.
@@ -60,6 +63,18 @@ int init_matrix_suite(void) {
     csv_path = "./source/Tests/csv_test_matrix_qr_expected_result_q.csv";
     csv_file = read_csv(csv_path);
     qr_expected_result_q = matrix_init_from_csv(csv_file);
+
+    csv_path = "./source/Tests/csv_test_matrix_qr_2_input.csv";
+    csv_file = read_csv(csv_path);
+    matrix_qr_2_input = matrix_init_from_csv(csv_file);
+
+    csv_path = "./source/Tests/csv_test_matrix_qr_2_r.csv";
+    csv_file = read_csv(csv_path);
+    qr_2_r = matrix_init_from_csv(csv_file);
+
+    csv_path = "./source/Tests/csv_test_matrix_qr_2_q.csv";
+    csv_file = read_csv(csv_path);
+    qr_2_q = matrix_init_from_csv(csv_file);
 
     return 0;
 }
@@ -263,6 +278,87 @@ void test_matrix_qr_decomposition(void) {
 
     printf("\nTesting if QR is correct... \n");
     CU_ASSERT_TRUE(matrix_almost_equal(multiplication_result, matrix_qr_input));
+    free(c);
+    free(diagonal);
+    matrix_free(r);
+    matrix_free(q);
+    matrix_free(q_j);
+    matrix_free(actual_result);
+}
+
+void test_matrix_qr_2_decomposition(void) {
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_qr_2_input);
+    matrix_t *actual_result =
+        matrix_init(matrix_qr_2_input->rows, matrix_qr_2_input->columns);
+    matrix_copy(matrix_qr_2_input, actual_result);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
+
+    float *diagonal, *c;
+    diagonal = malloc(sizeof(float) * matrix_qr_2_input->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(diagonal);
+    c = malloc(sizeof(float) * matrix_qr_2_input->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(c);
+
+    printf("\nPrinting actual result before: \n");
+    matrix_print(actual_result);
+
+    CU_ASSERT_FALSE_FATAL(matrix_qr_decomposition(actual_result, diagonal, c));
+
+    matrix_t *r =
+        matrix_init(matrix_qr_2_input->rows, matrix_qr_2_input->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(r);
+    matrix_extract_r(actual_result, diagonal, r);
+
+    matrix_t *q =
+        matrix_init(matrix_qr_2_input->rows, matrix_qr_2_input->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(q);
+
+    matrix_t *q_j =
+        matrix_init(matrix_qr_2_input->rows, matrix_qr_2_input->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(q);
+
+    for (int j = 0; j < q->columns - 1; j++) {
+        if (j == 0)
+            matrix_extract_q_j(actual_result, c, j, q);
+        else {
+            matrix_t *temp = matrix_init(
+                matrix_qr_2_input->rows, matrix_qr_2_input->columns);
+            CU_ASSERT_PTR_NOT_NULL_FATAL(temp);
+            matrix_copy(q, temp);
+            matrix_extract_q_j(actual_result, c, j, q_j);
+            matrix_multiplication(temp, q_j, q);
+            matrix_free(temp);
+        }
+    }
+
+    printf("\nPrinting actual result: \n");
+    matrix_print(actual_result);
+
+    printf("\nPrinting matrix Q: \n");
+    matrix_print(q);
+
+    printf("\nPrinting matrix Q expected result: \n");
+    matrix_print(qr_2_q);
+
+    printf("\nPrinting R: \n");
+    matrix_print(r);
+
+    printf("\nPrinting Diagonal:\n1: %f\n2: %f\n", diagonal[0], diagonal[1]);
+    printf("\nPrinting c:\n1: %f\n2: %f\n", c[0], c[1]);
+
+    matrix_t *multiplication_result =
+        matrix_init(matrix_qr_2_input->rows, matrix_qr_2_input->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(multiplication_result);
+
+    printf("\nTesting if Q is correct... \n");
+    CU_ASSERT_TRUE(matrix_almost_equal(q, qr_2_q));
+    printf("\nTesting if R is correct... \n");
+    CU_ASSERT_TRUE(matrix_almost_equal(r, qr_2_r));
+    matrix_multiplication(q, r, multiplication_result);
+
+    printf("\nTesting if QR is correct... \n");
+    CU_ASSERT_TRUE(
+        matrix_almost_equal(multiplication_result, matrix_qr_2_input));
     free(c);
     free(diagonal);
     matrix_free(r);

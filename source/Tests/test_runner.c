@@ -63,6 +63,8 @@ int main() {
                      test_matrix_multiplication)) ||
         (NULL == CU_add_test(matrix_suite, "matrix_t qr decomposition cpu",
                      test_matrix_qr_decomposition)) ||
+        (NULL == CU_add_test(matrix_suite, "matrix_t qr 2 decomposition cpu",
+                     test_matrix_qr_2_decomposition)) ||
         (NULL == CU_add_test(cuda_matrix_suite,
                      "matrix_t addition gpu single core",
                      test_matrix_addition_gpu_single_core)) ||
