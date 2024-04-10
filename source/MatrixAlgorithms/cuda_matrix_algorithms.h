@@ -19,6 +19,7 @@ bool cuda_matrix_multiplication_multi_core_unwrapping_i_and_j_adapter(algorithm_
 
 bool cuda_matrix_multiplication_multi_core_shared_memory_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
 
+bool cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
 
 bool cuda_matrix_addition_single_core(
     matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
@@ -40,5 +41,8 @@ bool cuda_matrix_multiplication_multi_core_unwrapping_i_and_j(
 
 bool cuda_matrix_multiplication_multi_core_shared_memory(
     matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
+
+bool cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses(
+    matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c);
 
 #endif

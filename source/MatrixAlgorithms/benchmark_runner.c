@@ -66,6 +66,8 @@ int main(int argc, char *argv[]) {
             &cuda_matrix_multiplication_multi_core_unwrapping_i_and_j_adapter;
     else if (strcmp(algorithm, "shared memory multiplication") == 0)
         matrix_algorithm = &cuda_matrix_multiplication_multi_core_shared_memory_adapter;
+    else if (strcmp(algorithm, "shared memory fewer accesses") == 0)
+        matrix_algorithm = &cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_adapter;
     else if (strcmp(algorithm, "qr cpu") == 0)
         matrix_algorithm = &matrix_qr_decomposition_adapter;
 

@@ -135,6 +135,41 @@ __global__ void cuda_matrix_multiplication_multi_core_shared_memory_kernel(
     } 
 }
 
+__global__ void cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_kernel(
+    device_matrix_t matrix_a, device_matrix_t matrix_b, device_matrix_t matrix_c, int l, int n, int m) {
+    
+    int block_row = blockIdx.y;
+    int block_column = blockIdx.x;
+    int row = threadIdx.y;
+    int column = threadIdx.x;
+    float c_value = .0f;
+
+    // Find the top left corner of the sub matrix
+    // Then find the row inside the sub matrix
+    // Then find the column inside the sub matrix
+    device_matrix_t a_sub = &matrix_a[block_row * BLOCK_SIZE * m + row * m + column];
+    device_matrix_t b_sub = &matrix_b[block_column * BLOCK_SIZE + row * n + column];
+
+    int subs_in_m = m + BLOCK_SIZE - 1;
+    for (int k = 0; k < subs_in_m; k += BLOCK_SIZE) {
+        __shared__ float shared_a_sub[BLOCK_SIZE][BLOCK_SIZE];
+        shared_a_sub[row][column] = a_sub[k];
+
+        __shared__ float shared_b_sub[BLOCK_SIZE][BLOCK_SIZE];
+        shared_b_sub[row][column] = b_sub[k * n];
+        __syncthreads();
+
+        for (int i = 0; i < BLOCK_SIZE; i++) 
+            c_value += shared_a_sub[row][i] * shared_b_sub[i][column];
+        __syncthreads();
+    }
+
+    if (row + BLOCK_SIZE * block_row < l && column + BLOCK_SIZE * block_column  < n) {
+        device_matrix_t c_sub = get_sub_matrix(matrix_c, block_row, block_column, n);
+        c_sub[INDEX(row, column, n)] = c_value;
+    } 
+}
+
 bool cuda_matrix_algorithm_runner(matrix_t* matrix_a, matrix_t* matrix_b,
     matrix_t* matrix_c, int kernel_param1, int kernel_param2, int kernel_param3,
     void (*kernel)(
@@ -257,6 +292,10 @@ bool cuda_matrix_multiplication_multi_core_shared_memory_adapter(algorithm_arg_t
     return cuda_matrix_multiplication_multi_core_shared_memory(arg_a->matrix, arg_b->matrix, arg_c->matrix);
 }
 
+bool cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses(arg_a->matrix, arg_b->matrix, arg_c->matrix);
+}
+
 bool cuda_matrix_multiplication_multi_core_shared_memory(
     matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c) {
     bool success;
@@ -270,6 +309,24 @@ bool cuda_matrix_multiplication_multi_core_shared_memory(
     success = cuda_matrix_algorithm_runner(matrix_a, matrix_b, matrix_c,
         matrix_a->rows, matrix_b->columns, matrix_a->columns,
         &(cuda_matrix_multiplication_multi_core_shared_memory_kernel), grid_dim,
+        block_dim);
+
+    return success;
+}
+
+bool cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses(
+    matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c) {
+    bool success;
+    dim3 block_dim, grid_dim;
+
+    block_dim = dim3(BLOCK_SIZE, BLOCK_SIZE);
+
+    grid_dim = dim3((matrix_b->columns + BLOCK_SIZE - 1) / BLOCK_SIZE,
+        (matrix_a->rows + BLOCK_SIZE - 1) / BLOCK_SIZE);
+
+    success = cuda_matrix_algorithm_runner(matrix_a, matrix_b, matrix_c,
+        matrix_a->rows, matrix_b->columns, matrix_a->columns,
+        &(cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_kernel), grid_dim,
         block_dim);
 
     return success;

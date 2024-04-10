@@ -107,7 +107,15 @@ int main() {
             CU_add_test(cuda_matrix_suite,
                 "matrix_t multiplication gpu multi core: shared memory for "
                 "larger matrices",
-                test_matrix_multiplication_gpu_multi_core_shared_memory_larger_matrices))) {
+                test_matrix_multiplication_gpu_multi_core_shared_memory_larger_matrices)) ||
+        (NULL ==
+            CU_add_test(cuda_matrix_suite,
+                "matrix_t multiplication gpu multi core: shared memory fewer accesses",
+                test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses)) || 
+        (NULL ==
+            CU_add_test(cuda_matrix_suite,
+                "matrix_t multiplication gpu multi core: shared memory fewer accesses larger matrices",
+                test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses_larger_matrices))) {
         CU_cleanup_registry();
         return CU_get_error();
     }
