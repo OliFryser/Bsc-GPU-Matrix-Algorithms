@@ -27,7 +27,10 @@
         "math.h": "c",
         "algorithm": "c",
         "string": "c",
-        "string_view": "c"
+        "string_view": "c",
+        "array": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp"
     },
     "makefile.makefilePath": "source/Makefile",
     "C_Cpp.default.compilerPath": "/usr/bin/gcc",
