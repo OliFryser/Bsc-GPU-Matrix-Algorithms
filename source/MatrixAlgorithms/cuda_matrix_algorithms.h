@@ -45,4 +45,6 @@ bool cuda_matrix_multiplication_multi_core_shared_memory(
 bool cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses(
     matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c);
 
+bool cuda_matrix_qr_decomposition_single_core(matrix_t* matrix, float* diagonal, float* c);
+
 #endif

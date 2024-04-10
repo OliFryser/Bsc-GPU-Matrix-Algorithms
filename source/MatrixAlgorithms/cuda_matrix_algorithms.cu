@@ -331,3 +331,8 @@ bool cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses(
 
     return success;
 }
+
+bool cuda_matrix_qr_decomposition_single_core(matrix_t *matrix, float *diagonal, float *c)
+{
+    return false;
+}

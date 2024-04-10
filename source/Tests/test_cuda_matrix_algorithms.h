@@ -24,4 +24,5 @@ void test_matrix_multiplication_gpu_multi_core_shared_memory_larger_matrices(
     void);
 void test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses(void);
 void test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses_larger_matrices(void);
+void test_matrix_qr_single_core(void);
 #endif

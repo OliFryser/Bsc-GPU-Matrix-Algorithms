@@ -119,3 +119,17 @@ bool matrix_qr_decomposition(matrix_t *matrix, float *diagonal, float *c) {
     if (!is_singular) is_singular = diagonal[n - 1] == 0.0f;
     return is_singular;
 }
+
+void extract_q(matrix_t *q, matrix_t *actual_result, float *c, matrix_t *q_j) {
+    for (int j = 0; j < q->columns; j++) {
+        if (j == 0) {
+            matrix_extract_q_j(actual_result, c, j, q);
+        } else {
+            matrix_t *temp = matrix_init(q->rows, q->columns);
+            matrix_copy(q, temp);
+            matrix_extract_q_j(actual_result, c, j, q_j);
+            matrix_multiplication(temp, q_j, q);
+            matrix_free(temp);
+        }
+    }
+}

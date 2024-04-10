@@ -52,6 +52,7 @@ int init_matrix_suite(void) {
     csv_file = read_csv(csv_path);
     matrix_multiplication_expected_result = matrix_init_from_csv(csv_file);
 
+    // QR
     csv_path = "./source/Tests/csv_test_matrix_qr_input.csv";
     csv_file = read_csv(csv_path);
     matrix_qr_input = matrix_init_from_csv(csv_file);
@@ -206,21 +207,6 @@ void test_matrix_multiplication(void) {
     CU_ASSERT_TRUE(
         matrix_equal(matrix_multiplication_expected_result, actual_result));
     matrix_free(actual_result);
-}
-
-void extract_q(matrix_t *q, matrix_t *actual_result, float *c, matrix_t *q_j) {
-    for (int j = 0; j < q->columns; j++) {
-        if (j == 0) {
-            matrix_extract_q_j(actual_result, c, j, q);
-        } else {
-            matrix_t *temp = matrix_init(q->rows, q->columns);
-            CU_ASSERT_PTR_NOT_NULL_FATAL(temp);
-            matrix_copy(q, temp);
-            matrix_extract_q_j(actual_result, c, j, q_j);
-            matrix_multiplication(temp, q_j, q);
-            matrix_free(temp);
-        }
-    }
 }
 
 void test_matrix_qr_decomposition(void) {
