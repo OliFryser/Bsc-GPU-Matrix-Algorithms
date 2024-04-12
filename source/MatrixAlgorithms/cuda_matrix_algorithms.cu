@@ -14,7 +14,6 @@ __global__ void cuda_matrix_addition_multi_core_kernel(device_matrix_t matrix_a,
     device_matrix_t matrix_b, device_matrix_t matrix_c, int size, int rows,
     int columns) {
     int index = blockIdx.x * blockDim.x + threadIdx.x;
-    if (index >= size) return;
     matrix_c[index] = matrix_a[index] + matrix_b[index];
 }
 
@@ -49,7 +48,7 @@ __global__ void cuda_matrix_multiplication_multicore_unwrapping_i_kernel(
     device_matrix_t matrix_c, int l, int n, int m) {
     int i = blockIdx.x;
     float sum_of_products;
-    
+
     for (int j = 0; j < n; j++) {
         sum_of_products = 0.0f;
         for (int k = 0; k < m; k++)
@@ -91,12 +90,11 @@ __device__ void print_device_matrix(
     printf("Done");
 }
 
-__device__ void print_shared_matrix(float shared_matrix[BLOCK_SIZE][BLOCK_SIZE]) {
+__device__ void print_shared_matrix(
+    float shared_matrix[BLOCK_SIZE][BLOCK_SIZE]) {
     printf("\n");
-    for (int i = 0; i < BLOCK_SIZE; i++)
-    {
-        for (int j = 0; j < BLOCK_SIZE; j++)
-        {
+    for (int i = 0; i < BLOCK_SIZE; i++) {
+        for (int j = 0; j < BLOCK_SIZE; j++) {
             printf("%f ", shared_matrix[j][i]);
         }
         printf("\n");
@@ -106,7 +104,6 @@ __device__ void print_shared_matrix(float shared_matrix[BLOCK_SIZE][BLOCK_SIZE])
 __global__ void cuda_matrix_multiplication_multi_core_shared_memory_kernel(
     device_matrix_t matrix_a, device_matrix_t matrix_b,
     device_matrix_t matrix_c, int l, int n, int m) {
-    
     int block_row = blockIdx.y;
     int block_column = blockIdx.x;
     int row = threadIdx.y;
@@ -124,20 +121,23 @@ __global__ void cuda_matrix_multiplication_multi_core_shared_memory_kernel(
         shared_b_sub[row][column] = b_sub[INDEX(row, column, n)];
         __syncthreads();
 
-        for (int i = 0; i < BLOCK_SIZE; i++) 
+        for (int i = 0; i < BLOCK_SIZE; i++)
             c_value += shared_a_sub[row][i] * shared_b_sub[i][column];
         __syncthreads();
     }
 
-    if (row + BLOCK_SIZE * block_row < l && column + BLOCK_SIZE * block_column  < n) {
-        device_matrix_t c_sub = get_sub_matrix(matrix_c, block_row, block_column, n);
+    if (row + BLOCK_SIZE * block_row < l &&
+        column + BLOCK_SIZE * block_column < n) {
+        device_matrix_t c_sub =
+            get_sub_matrix(matrix_c, block_row, block_column, n);
         c_sub[INDEX(row, column, n)] = c_value;
-    } 
+    }
 }
 
-__global__ void cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_kernel(
-    device_matrix_t matrix_a, device_matrix_t matrix_b, device_matrix_t matrix_c, int l, int n, int m) {
-    
+__global__ void
+cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_kernel(
+    device_matrix_t matrix_a, device_matrix_t matrix_b,
+    device_matrix_t matrix_c, int l, int n, int m) {
     int block_row = blockIdx.y;
     int block_column = blockIdx.x;
     int row = threadIdx.y;
@@ -147,8 +147,10 @@ __global__ void cuda_matrix_multiplication_multi_core_shared_memory_fewer_access
     // Find the top left corner of the sub matrix
     // Then find the row inside the sub matrix
     // Then find the column inside the sub matrix
-    device_matrix_t a_sub = &matrix_a[block_row * BLOCK_SIZE * m + row * m + column];
-    device_matrix_t b_sub = &matrix_b[block_column * BLOCK_SIZE + row * n + column];
+    device_matrix_t a_sub =
+        &matrix_a[block_row * BLOCK_SIZE * m + row * m + column];
+    device_matrix_t b_sub =
+        &matrix_b[block_column * BLOCK_SIZE + row * n + column];
 
     int subs_in_m = m + BLOCK_SIZE - 1;
     for (int k = 0; k < subs_in_m; k += BLOCK_SIZE) {
@@ -159,20 +161,22 @@ __global__ void cuda_matrix_multiplication_multi_core_shared_memory_fewer_access
         shared_b_sub[row][column] = b_sub[k * n];
         __syncthreads();
 
-        for (int i = 0; i < BLOCK_SIZE; i++) 
+        for (int i = 0; i < BLOCK_SIZE; i++)
             c_value += shared_a_sub[row][i] * shared_b_sub[i][column];
         __syncthreads();
     }
 
-    if (row + BLOCK_SIZE * block_row < l && column + BLOCK_SIZE * block_column  < n) {
-        device_matrix_t c_sub = get_sub_matrix(matrix_c, block_row, block_column, n);
+    if (row + BLOCK_SIZE * block_row < l &&
+        column + BLOCK_SIZE * block_column < n) {
+        device_matrix_t c_sub =
+            get_sub_matrix(matrix_c, block_row, block_column, n);
         c_sub[INDEX(row, column, n)] = c_value;
-    } 
+    }
 }
 
-__global__ void cuda_matrix_qr_decomposition_single_core_kernel(device_matrix_t matrix, float *diagonal, float *c, 
-    int dimension, bool *is_singular) {
-
+__global__ void cuda_matrix_qr_decomposition_single_core_kernel(
+    device_matrix_t matrix, float *diagonal, float *c, int dimension,
+    bool *is_singular) {
     float column_length;  // sigma in book
     float column_length_squared, element;
     int n = dimension;
@@ -217,16 +221,15 @@ __global__ void cuda_matrix_qr_decomposition_single_core_kernel(device_matrix_t 
             // inner product for column j below diagonal
             float inner_product = 0.0f;
             for (int i = k; i < n; i++) {
-                inner_product += matrix[(INDEX(i, k, n))] *
-                                 matrix[(INDEX(i, j, n))];
+                inner_product +=
+                    matrix[(INDEX(i, k, n))] * matrix[(INDEX(i, j, n))];
             }
 
             // division
             float tau = inner_product / c[k];
 
             for (int i = k; i < n; i++) {
-                matrix[(INDEX(i, j, n))] -=
-                    tau * matrix[(INDEX(i, k, n))];
+                matrix[(INDEX(i, j, n))] -= tau * matrix[(INDEX(i, k, n))];
             }
         }
     }
@@ -234,14 +237,15 @@ __global__ void cuda_matrix_qr_decomposition_single_core_kernel(device_matrix_t 
     if (!*is_singular) *is_singular = diagonal[n - 1] == 0.0f;
 }
 
-bool cuda_qr_decomposition_runner(matrix_t *matrix, float *diagonal, float *c, 
-    void (*kernel)(device_matrix_t, float *, float *, int, bool *), dim3 grid_size, dim3 block_size) {
-
-    device_matrix_t device_matrix = cuda_matrix_init(matrix->rows, matrix->columns);
+bool cuda_qr_decomposition_runner(matrix_t *matrix, float *diagonal, float *c,
+    void (*kernel)(device_matrix_t, float *, float *, int, bool *),
+    dim3 grid_size, dim3 block_size) {
+    device_matrix_t device_matrix =
+        cuda_matrix_init(matrix->rows, matrix->columns);
     cuda_matrix_host_to_device(device_matrix, matrix);
 
     size_t diagonal_size = sizeof(float) * matrix->columns;
-    
+
     float *device_diagonal;
     cudaMalloc(&device_diagonal, diagonal_size);
 
@@ -251,12 +255,15 @@ bool cuda_qr_decomposition_runner(matrix_t *matrix, float *diagonal, float *c,
     bool *device_is_singular;
     cudaMalloc(&device_is_singular, sizeof(bool));
 
-    kernel<<<grid_size, block_size>>>(device_matrix, device_diagonal, device_c, matrix->columns, device_is_singular);
+    kernel<<<grid_size, block_size>>>(device_matrix, device_diagonal, device_c,
+        matrix->columns, device_is_singular);
 
     bool is_singular;
-    cudaMemcpy(&is_singular, device_is_singular, sizeof(bool), cudaMemcpyDeviceToHost);
+    cudaMemcpy(
+        &is_singular, device_is_singular, sizeof(bool), cudaMemcpyDeviceToHost);
     cuda_matrix_device_to_host(matrix, device_matrix);
-    cudaMemcpy(diagonal, device_diagonal, diagonal_size, cudaMemcpyDeviceToHost);
+    cudaMemcpy(
+        diagonal, device_diagonal, diagonal_size, cudaMemcpyDeviceToHost);
     cudaMemcpy(c, device_c, diagonal_size, cudaMemcpyDeviceToHost);
 
     cuda_matrix_free(device_matrix);
@@ -267,13 +274,15 @@ bool cuda_qr_decomposition_runner(matrix_t *matrix, float *diagonal, float *c,
     return is_singular;
 }
 
-bool cuda_matrix_algorithm_runner(matrix_t* matrix_a, matrix_t* matrix_b,
-    matrix_t* matrix_c, int kernel_param1, int kernel_param2, int kernel_param3,
+bool cuda_matrix_algorithm_runner(matrix_t *matrix_a, matrix_t *matrix_b,
+    matrix_t *matrix_c, int kernel_param1, int kernel_param2, int kernel_param3,
     void (*kernel)(
         device_matrix_t, device_matrix_t, device_matrix_t, int, int, int),
     dim3 grid_size, dim3 block_size) {
+    // null checks
     if (matrix_a == NULL || matrix_b == NULL || matrix_c == NULL) return false;
 
+    // init matrices on device
     device_matrix_t device_matrix_a =
         cuda_matrix_init(matrix_a->rows, matrix_a->columns);
     device_matrix_t device_matrix_b =
@@ -281,18 +290,23 @@ bool cuda_matrix_algorithm_runner(matrix_t* matrix_a, matrix_t* matrix_b,
     device_matrix_t device_matrix_c =
         cuda_matrix_init(matrix_c->rows, matrix_c->columns);
 
+    // null check matrix initialization
     if (device_matrix_a == NULL || device_matrix_b == NULL ||
         device_matrix_c == NULL)
         return false;
 
+    // copy matrix from host to device
     cuda_matrix_host_to_device(device_matrix_a, matrix_a);
     cuda_matrix_host_to_device(device_matrix_b, matrix_b);
 
+    // launch kernel
     kernel<<<grid_size, block_size>>>(device_matrix_a, device_matrix_b,
         device_matrix_c, kernel_param1, kernel_param2, kernel_param3);
 
+    // cuda result matrix from device to host
     cuda_matrix_device_to_host(matrix_c, device_matrix_c);
 
+    // free matrices from device
     cuda_matrix_free(device_matrix_a);
     cuda_matrix_free(device_matrix_b);
     cuda_matrix_free(device_matrix_c);
@@ -300,23 +314,27 @@ bool cuda_matrix_algorithm_runner(matrix_t* matrix_a, matrix_t* matrix_b,
     return true;
 }
 
-bool cuda_matrix_addition_single_core_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
-    return cuda_matrix_addition_single_core(arg_a->matrix, arg_b->matrix, arg_c->matrix);
+bool cuda_matrix_addition_single_core_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_addition_single_core(
+        arg_a->matrix, arg_b->matrix, arg_c->matrix);
 }
 
 bool cuda_matrix_addition_single_core(
-    matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c) {
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     return cuda_matrix_algorithm_runner(matrix_a, matrix_b, matrix_c,
         matrix_c->rows * matrix_c->columns, matrix_c->rows, matrix_c->columns,
         &(cuda_matrix_addition_single_core_kernel), dim3(1), dim3(1));
 }
 
-bool cuda_matrix_addition_multi_core_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
-    return cuda_matrix_addition_multi_core(arg_a->matrix, arg_b->matrix, arg_c->matrix);
+bool cuda_matrix_addition_multi_core_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_addition_multi_core(
+        arg_a->matrix, arg_b->matrix, arg_c->matrix);
 }
 
 bool cuda_matrix_addition_multi_core(
-    matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c) {
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     bool success;
     dim3 grid_size, block_size;
     grid_size = dim3(matrix_a->rows);
@@ -329,12 +347,14 @@ bool cuda_matrix_addition_multi_core(
     return success;
 }
 
-bool cuda_matrix_addition_multi_core2_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
-    return cuda_matrix_addition_multi_core2(arg_a->matrix, arg_b->matrix, arg_c->matrix);
+bool cuda_matrix_addition_multi_core2_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_addition_multi_core2(
+        arg_a->matrix, arg_b->matrix, arg_c->matrix);
 }
 
 bool cuda_matrix_addition_multi_core2(
-    matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c) {
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     bool success;
     dim3 grid_size, block_size;
     int threads_per_block_dim = 16;
@@ -350,51 +370,61 @@ bool cuda_matrix_addition_multi_core2(
     return success;
 }
 
-bool cuda_matrix_multiplication_single_core_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
-    return cuda_matrix_multiplication_single_core(arg_a->matrix, arg_b->matrix, arg_c->matrix);
+bool cuda_matrix_multiplication_single_core_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_multiplication_single_core(
+        arg_a->matrix, arg_b->matrix, arg_c->matrix);
 }
 
 bool cuda_matrix_multiplication_single_core(
-    matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c) {
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     return cuda_matrix_algorithm_runner(matrix_a, matrix_b, matrix_c,
         matrix_a->rows, matrix_b->columns, matrix_a->columns,
         &cuda_matrix_multiplication_single_core_kernel, dim3(1), dim3(1));
 }
 
-bool cuda_matrix_multiplication_multi_core_unwrapping_i_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
-    return cuda_matrix_multiplication_multi_core_unwrapping_i(arg_a->matrix, arg_b->matrix, arg_c->matrix);
+bool cuda_matrix_multiplication_multi_core_unwrapping_i_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_multiplication_multi_core_unwrapping_i(
+        arg_a->matrix, arg_b->matrix, arg_c->matrix);
 }
 
 bool cuda_matrix_multiplication_multi_core_unwrapping_i(
-    matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c) {
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     return cuda_matrix_algorithm_runner(matrix_a, matrix_b, matrix_c,
         matrix_a->rows, matrix_b->columns, matrix_a->columns,
         &cuda_matrix_multiplication_multicore_unwrapping_i_kernel,
         dim3(matrix_a->rows), dim3(1));
 }
 
-bool cuda_matrix_multiplication_multi_core_unwrapping_i_and_j_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
-    return cuda_matrix_multiplication_multi_core_unwrapping_i_and_j(arg_a->matrix, arg_b->matrix, arg_c->matrix);
+bool cuda_matrix_multiplication_multi_core_unwrapping_i_and_j_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_multiplication_multi_core_unwrapping_i_and_j(
+        arg_a->matrix, arg_b->matrix, arg_c->matrix);
 }
 
 bool cuda_matrix_multiplication_multi_core_unwrapping_i_and_j(
-    matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c) {
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     return cuda_matrix_algorithm_runner(matrix_a, matrix_b, matrix_c,
         matrix_a->rows, matrix_b->columns, matrix_a->columns,
         &cuda_matrix_multiplication_multicore_unwrapping_i_and_j_kernel,
         dim3(matrix_a->rows), dim3(matrix_b->columns));
 }
 
-bool cuda_matrix_multiplication_multi_core_shared_memory_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
-    return cuda_matrix_multiplication_multi_core_shared_memory(arg_a->matrix, arg_b->matrix, arg_c->matrix);
+bool cuda_matrix_multiplication_multi_core_shared_memory_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_multiplication_multi_core_shared_memory(
+        arg_a->matrix, arg_b->matrix, arg_c->matrix);
 }
 
-bool cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
-    return cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses(arg_a->matrix, arg_b->matrix, arg_c->matrix);
+bool cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses(
+        arg_a->matrix, arg_b->matrix, arg_c->matrix);
 }
 
 bool cuda_matrix_multiplication_multi_core_shared_memory(
-    matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c) {
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     bool success;
     dim3 block_dim, grid_dim;
 
@@ -412,7 +442,7 @@ bool cuda_matrix_multiplication_multi_core_shared_memory(
 }
 
 bool cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses(
-    matrix_t* matrix_a, matrix_t* matrix_b, matrix_t* matrix_c) {
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     bool success;
     dim3 block_dim, grid_dim;
 
@@ -423,14 +453,14 @@ bool cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses(
 
     success = cuda_matrix_algorithm_runner(matrix_a, matrix_b, matrix_c,
         matrix_a->rows, matrix_b->columns, matrix_a->columns,
-        &(cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_kernel), grid_dim,
-        block_dim);
+        &(cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_kernel),
+        grid_dim, block_dim);
 
     return success;
 }
 
-bool cuda_matrix_qr_decomposition_single_core(matrix_t *matrix, float *diagonal, float *c)
-{
-    return cuda_qr_decomposition_runner(matrix, diagonal, c, 
-    &(cuda_matrix_qr_decomposition_single_core_kernel), dim3(1), dim3(1));
+bool cuda_matrix_qr_decomposition_single_core(
+    matrix_t *matrix, float *diagonal, float *c) {
+    return cuda_qr_decomposition_runner(matrix, diagonal, c,
+        &(cuda_matrix_qr_decomposition_single_core_kernel), dim3(1), dim3(1));
 }
