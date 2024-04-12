@@ -30,7 +30,8 @@ int main(int argc, char *argv[]) {
     // Program Variables
     FILE *file;
     matrix_t *matrix_a, *matrix_b, *matrix_c;
-    bool (*matrix_algorithm)(algorithm_arg_t *, algorithm_arg_t *, algorithm_arg_t *);
+    bool (*matrix_algorithm)(
+        algorithm_arg_t *, algorithm_arg_t *, algorithm_arg_t *);
     struct timespec start, end;
     double elapsed, elapsed_accumulative;
     double running_times_mean, running_times_standard_deviation;
@@ -65,15 +66,18 @@ int main(int argc, char *argv[]) {
         matrix_algorithm = &cuda_matrix_multiplication_single_core_adapter;
     else if (strcmp(algorithm, "multiplication gpu multi core unwrapping i") ==
              0)
-        matrix_algorithm = &cuda_matrix_multiplication_multi_core_unwrapping_i_adapter;
+        matrix_algorithm =
+            &cuda_matrix_multiplication_multi_core_unwrapping_i_adapter;
     else if (strcmp(algorithm,
                  "multiplication gpu multi core unwrapping i and j") == 0)
         matrix_algorithm =
             &cuda_matrix_multiplication_multi_core_unwrapping_i_and_j_adapter;
     else if (strcmp(algorithm, "shared memory multiplication") == 0)
-        matrix_algorithm = &cuda_matrix_multiplication_multi_core_shared_memory_adapter;
+        matrix_algorithm =
+            &cuda_matrix_multiplication_multi_core_shared_memory_adapter;
     else if (strcmp(algorithm, "shared memory fewer accesses") == 0)
-        matrix_algorithm = &cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_adapter;
+        matrix_algorithm =
+            &cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_adapter;
     else if (strcmp(algorithm, "qr cpu") == 0)
         matrix_algorithm = &matrix_qr_decomposition_adapter;
     else if (strcmp(algorithm, "diagnostic: launch kernel without memcpy") == 0)
@@ -119,6 +123,7 @@ int main(int argc, char *argv[]) {
     header = "Algorithm,\tDimensions,\tMean,\tStandard Deviation,\tIterations";
     write_header_to_csv(file, header);
 
+    // Actual benchmarkings
     do {
         running_times = (double *)malloc(sizeof(double) * iterations);
         if (running_times == NULL) return -1;
