@@ -7,12 +7,18 @@
 #include "csv_utility.h"
 #include "cuda_matrix_algorithms.h"
 #include "matrix_algorithms.h"
+#include "cuda_diagnostic.h"
 #define NANOSECS_PER_SEC 1e9
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[],
     double mean_run_time, double standard_deviation, int iterations);
 double mean(double array[], int size_of_array);
 double standard_deviation(double array[], int size_of_array, double mean);
+bool launch_kernel_without_memcpy_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool launch_kernel_with_memcpy_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool only_memcpy_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool launch_kernel_scaling_with_dimension_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool memcpy_scaling_with_dimension_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
 
 int main(int argc, char *argv[]) {
     // Command Line Arguments
@@ -70,6 +76,16 @@ int main(int argc, char *argv[]) {
         matrix_algorithm = &cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_adapter;
     else if (strcmp(algorithm, "qr cpu") == 0)
         matrix_algorithm = &matrix_qr_decomposition_adapter;
+    else if (strcmp(algorithm, "diagnostic: launch kernel without memcpy") == 0)
+        matrix_algorithm = &launch_kernel_without_memcpy_adapter;
+    else if (strcmp(algorithm, "diagnostic: launch kernel with memcpy") == 0)
+        matrix_algorithm = &launch_kernel_with_memcpy_adapter;
+    else if (strcmp(algorithm, "diagnostic: only memcpy") == 0)
+        matrix_algorithm = &only_memcpy_adapter;
+    else if (strcmp(algorithm, "diagnostic: launch kernel scaling with dimension") == 0)
+        matrix_algorithm = &launch_kernel_scaling_with_dimension_adapter;
+    else if (strcmp(algorithm, "diagnostic: memcpy scaling with dimension") == 0)
+        matrix_algorithm = &memcpy_scaling_with_dimension_adapter;
 
     matrix_a = matrix_init(dimension, dimension);
     matrix_b = matrix_init(dimension, dimension);
@@ -83,12 +99,16 @@ int main(int argc, char *argv[]) {
     algorithm_arg_t *arg_b = (algorithm_arg_t *)malloc(sizeof(algorithm_arg_t));
     algorithm_arg_t *arg_c = (algorithm_arg_t *)malloc(sizeof(algorithm_arg_t));
 
-    arg_a->matrix = matrix_a;
-
-    if (strstr(algorithm, "qr") != NULL) { 
+    if (strstr(algorithm, "diagnostic") != NULL) { 
+        arg_a->matrix = matrix_a;
+    } 
+    else if (strstr(algorithm, "qr") != NULL) { 
+        arg_a->matrix = matrix_a;
         arg_b->vector = (float *)malloc(sizeof(float) * dimension);
         arg_c->vector = (float *)malloc(sizeof(float) * dimension);
-    } else {
+    } 
+    else {
+        arg_a->matrix = matrix_a;
         arg_b->matrix = matrix_b;
         arg_c->matrix = matrix_c;
     }

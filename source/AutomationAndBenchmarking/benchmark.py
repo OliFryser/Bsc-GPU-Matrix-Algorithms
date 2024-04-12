@@ -28,8 +28,8 @@ compile_command_2d = ["gcc", "-L/usr/local/cuda/lib64", "-o", binary_path_2d] + 
 
 timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
 csv_path = "BenchmarkData/" + timestamp + ".csv"
-algorithms_to_run = ["shared memory multiplication", "shared memory fewer accesses"] #["qr cpu"] # ["multiplication gpu multi core unwrapping i", "multiplication gpu multi core unwrapping i and j", "shared memory multiplication"] #["addition cpu", "addition gpu single core", "addition gpu multi core", "2d addition cpu", "2d addition gpu single core", "2d addition gpu multi core" ] #] #["addition cpu", "addition gpu single core", "addition gpu multi core", "addition gpu multi core 2"] #] # "multiplication", "inverse"]
-additional_csv_files_to_include = []#["BenchmarkData/03-01 11:47:22.csv"]
+algorithms_to_run = ["diagnostic: memcpy scaling with dimension"] # ["diagnostic: launch kernel scaling with dimension", "diagnostic: launch kernel without memcpy", "diagnostic: launch kernel with memcpy", "diagnostic: only memcpy"] #["shared memory multiplication", "shared memory fewer accesses"] #["qr cpu"] # ["multiplication gpu multi core unwrapping i", "multiplication gpu multi core unwrapping i and j", "shared memory multiplication"] #["addition cpu", "addition gpu single core", "addition gpu multi core", "2d addition cpu", "2d addition gpu single core", "2d addition gpu multi core" ] #] #["addition cpu", "addition gpu single core", "addition gpu multi core", "addition gpu multi core 2"] #] # "multiplication", "inverse"]
+additional_csv_files_to_include = [] #["04-12 14:31:18 diagonstic 2.csv"] #["04-12 14:00:47 diagnostic1..csv"] #["BenchmarkData/03-01 11:47:22.csv"]
 matrix_dimensions = [math.floor(2 ** (i+1)) for i in range(0, 12)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot" + timestamp + ".png"
 
