@@ -45,8 +45,8 @@ double standard_deviation(double array[], int size_of_array, double mean) {
     double accumulative_deviation = 0.0;
     double entry_deviation;
     for (int i = 0; i < size_of_array; i++) {
-        entry_deviation = fabs(array[i] - mean);
+        entry_deviation = pow(array[i] - mean, 2.0f);
         accumulative_deviation += entry_deviation;
     }
-    return accumulative_deviation / size_of_array;
+    return sqrt(accumulative_deviation / size_of_array);
 }
