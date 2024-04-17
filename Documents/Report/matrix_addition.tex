@@ -1,99 +1,95 @@
 \section{Matrix Addition Implementation}
 
-\subsection{Data structure}
+\subsection{Addition: CPU Implementation}
 
-In order to represent a matrix in C, one has two options. One option is to represent the matrix as a two-dimensional array. In C, this is a \texttt{float **}, where an array of pointers, each point to an array of floats. This enables one to use convenient indexing as seen in line 10-14 of listing \ref{lst:2d_array_indexing}.
+We started by implementing addition implementation on the CPU as a baseline for our GPU benchmarks. It uses a single for-loop to iterate over every entry of the input matrices, and stores the result in the result matrix. The implementation can be seen in listing \ref{lst:cpu_addition_short}. For the full implementation, see listing \ref{lst:cpu_addition} in appendix A. 
 
-\begin{lstlisting}[language=C, caption={Allocation and indexing of a float **}, label={lst:2d_array_indexing}]
-// Matrix dimensions (n is rows and m is columns)
-int n, m;
-float **matrix;
 
-// Memory allocation
-matrix_2d = malloc(n * sizeof(float *));
-for (int i = 0; i < n; i++)
-    matrix[i] = malloc(m * sizeof(float));
-
-// Convenient indexing
-float a;
-for (int i = 0; i < n; i++)
-    for (int j = 0; j < m; j++)
-        a = matrix[i][j]
-\end{lstlisting}
-
-The other approach is to have a one-dimensional array, and index it in such a way so that it appears as two-dimensional. In C, this is represented as a \texttt{float *}. To index it, one can use the following formula: 
-
-\[row\_index * column\_count + column\_index\]
-
-This essentially enables us to move forward the amount of rows we want, then add the amount of columns we want.
-
-As described in chapter 1.2 \cite{numericalrecipes}, if one were to declare the array as \texttt{float[n][m]} (assuming n and m are constants known at compile-time), the underlying machine code for accessing the array, would be the same as the indexing formula above.\\
-
-\noindent In the implementation in listing \ref{lst:1d_array_indexing}, however, one does not need to know the sizes of the 2d-array at run-time, since \texttt{n} is multiplied by \texttt{m} when calling \texttt{malloc}, and therefore, the memory requirements are calculated at run-time.
-
-The caveat to this approach, is that the indexing requires two additions and one multiplication, whereas the indexing in the 2d array from listing \ref{lst:2d_array_indexing}, simply requires two additions.\cite{numericalrecipes}. On most modern hardware with pipelining and instruction-level-parallelism, the CPU uses the same number of clock cycles for both indexing methods.%INSERT CITATION
-
-\begin{lstlisting}[language=C, caption={Allocation and indexing of a float *}, label={lst:1d_array_indexing}]
-// Matrix dimensions (
-int n, m;
-float *matrix_1d;
-
-// Memory allocation
-matrix_1d = malloc(n * m * sizeof(float));
-
-// Convenient indexing
-float a;
-for (int i = 0; i < n; i++)
-    for (int j = 0; j < m; j++)
-        a = matrix_1d[i * m + j]
-\end{lstlisting}
-
-\noindent As can be seen in listing \ref{lst:first_data_structure}, we first implemented our matrix as the 2-dimensional array, allured by the benefits of convenient indexing. We also stored the rows and columns directly in the data structure.
-
-\begin{lstlisting}[language=C, caption={First implementation of the matrix data structure.}, label={lst:first_data_structure}]
-typedef struct {
-    int rows;
-    int columns;
-    float **values;
-} Matrix;
-\end{lstlisting}
-
-\noindent When transferring this data structure to the GPU, however, we had to make a \textit{deep copy}[Insert stackoverflow post here], meaning we have to copy each row independently, so \(n\) many calls to \texttt{cudaMalloc} and \(2n\) \texttt{cudaMemcpy} in order to get the data from the CPU to the GPU and back. As discussed earlier, copying data from the CPU to the GPU and from the GPU to the CPU introduces a large amount of overhead.\footnote{This is further substantiated by our results later in this chapter.} Therefore, transferring data \(2n\) times is less than ideal.[WE SHOULD TEST THIS!]
-
-The 1-dimensional approach requires only a single \texttt{cudaMalloc} and 2 \texttt{cudaMemcpy} calls, although the amount of data to transfer with each copy call is naturally the same as with the 2-dimensional approach.
-
-We initially implemented the CPU-addition with a 2-dimensional data structure. Realizing the code complexity and overhead of transferring the 2-dimensional data structure to the GPU, we rewrote the CPU side to use a 1-dimensional data structure, as can be seen in listing \ref{lst:second_data_structure}.
-
-\begin{lstlisting}[language=C, caption={Second implementation of the matrix data structure.}, label={lst:second_data_structure}]
-typedef struct {
-    int rows;
-    int columns;
-    float *values;
-} Matrix;
-\end{lstlisting}
-
-On the GPU side, we simply represent the matrix as a \texttt{float *}, and provide the necessary size information in each kernel. We have made a macro to hide this low-level implementation layer like this: 
-
-\texttt{\#define DEVICE\_MATRIX float *}
-
-\subsection{CPU implementation}
-
-Our implementation can be seen in listing \ref{lst:cpu_addition}.
-
-\begin{lstlisting}[language=C, caption={Second implementation of the matrix data structure.}, label={lst:cpu_addition}]
-bool matrix_addition_cpu(Matrix *matrix1, Matrix *matrix2, Matrix *result) {
-    if (matrix1 == NULL) return false;
-    if (matrix2 == NULL) return false;
-    if (result == NULL) return false;
-    if (!matrix_equal_dimensions(matrix1, matrix2)) return false;
-    if (!matrix_equal_dimensions(matrix1, result)) return false;
-
-    int rows = matrix1->rows;
-    int columns = matrix1->columns;
+\begin{lstlisting}[language=C, caption={CPU addition algorithm}, label={lst:cpu_addition_short}]
+bool matrix_addition(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
+    // Input validations ...
+    int rows = matrix_a->rows;
+    int columns = matrix_a->columns;
 
     for (int i = 0; i < rows * columns; i++)
-        result->values[i] = matrix1->values[i] + matrix2->values[i];
+        matrix_c->values[i] = matrix_a->values[i] + matrix_b->values[i];
 
     return true;
 }
 \end{lstlisting}
+
+This implementation breaks the abstraction that the \texttt{float *} represents a matrix, since we iterate over it as an array. This is possible, because the addition algorithm adds the elements from $\mathbf{A}$ and $\mathbf{B}$ pairwise. Therefore we can linearly go through the array.
+
+Calculating the matrix sum can be done in linear time complexity in the count of matrix elements equal to $O(m * n)$. For square matrices this can be expressed as $O(n^2)$ for $n^2$ data. 
+
+ As can be seen in benchmark [INSERT CPU ADDITION BENCHMARK HERE], our running time has a slope of 2. This is expected, since the algorithm is a $O(n^2)$ and we are using a logarithmic axes in our diagram (see sect. \ref{subsect:benchmark}).
+
+Note that for each \texttt{element}, only 1 operation have to be performed. The overhead of running this on GPU might outweigh the benefits of parallelization, simply because of the relatively little work each core on the GPU will have to do. Keep this in mind as we dive into the world of GPU programming.
+
+\subsection{Addition: GPU Implementation Single Core}
+The first GPU is essentially running our CPU implementation on a single core on the GPU. Again, it runs a single for-loop iterating over every element in the input matrices, adding them, and storing the result in the result matrix (see listing \ref{lst:gpu_addition_single_core}).
+
+\begin{lstlisting}[language=C, caption={GPU addition single core}, label={lst:gpu_addition_single_core}]
+__global__ void cuda_matrix_addition_single_core_kernel(
+    device_matrix_t matrix_a, device_matrix_t matrix_b,
+    device_matrix_t matrix_c, int size, int rows, int columns) {
+    for (int i = 0; i < size; i++) {
+        matrix_c[i] = matrix_a[i] + matrix_b[i];
+    }
+}
+\end{lstlisting}
+
+For launching kernels we wrote an algorithm runner, which can run any algorithm, which takes three matrices as parameters, as well as three integers (used differently in many algorithms. We did this because much of the code, when running code on the GPU, is essentially "boilerplate". All addition- and multiplication algorithms requires us to allocate the matrices on the device, copy the matrices over from host to device, run the kernel, and then copy it back. This "boilerplate" code can be found in listing \ref{lst:algorithm_runner} in appendix A.
+
+Launching a kernel requires a grid size and block size. For this implementation both are 1, since we only run code on a single core.
+
+In benchmark (INSERT GPU VS CPU SINGLECORE BENCHMARK), it can be seen that the GPU implementation is a lot slower than the CPU implementation. In fact, it seems that the launching of the kernel is very slow, since there is no real difference in running time between matrix side length $2^1$ and matrix side length $2^5$. To further substantiate this we have % TODO: INSERT CUDA_DIAGNOSTIC PART
+
+\subsection{Addition: GPU Implementation Multi Core 1}
+The following implementation will utilize the architecture of the GPU and the CUDA-specific utilities discussed previously to run the algorithm on multiple cores. Instead of calculating all $n$ elements on one kernel, we will initiate n many kernels to do the job in parallel. Conceptually, the matrix is split up such that each row of the matrix is contained in its own CUDA-block. Further, each entry of a row is sent to each individual CUDA-thread of the CUDA-block. In programming terms, the i'th block and the j'th thread will be responsible for calculating element \texttt{matrix\_c[i][j]} and this element only. 
+
+In listing \ref{lst:gpu_addition_multi_core}, we use the blockIdx.x, blockDim.x and threadIdx.x to calculate which element we currently at. These values are available in any kernel, provided by the CUDA library. Note this calculation is essentially the same we used for the INDEX macro, described in section \ref{sect:datastructure}. 
+
+\begin{lstlisting}[language=C, caption={GPU addition multi core}, label={lst:gpu_addition_multi_core}]
+__global__ void cuda_matrix_addition_multi_core_kernel(
+    device_matrix_t matrix_a, device_matrix_t matrix_b, 
+    device_matrix_t matrix_c, 
+    int size, int rows, int columns) {
+    
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
+    matrix_c[index] = matrix_a[index] + matrix_b[index];
+}
+\end{lstlisting}
+
+There is one major limitation to this, which is that NVIDIA only allows block sizes up to 1024. This implementation only works for matrices with a column count of up to 1024.
+
+INSERT BENCHMARK
+
+\subsection{Addition: GPU Implementation Multi Core 2}
+We experimented with another way to utilize the CUDA-architecture, to see if it would improve our performance. This time, we would hard code the number of threads in each block to be 16. This way, we hope to better take advantage of each multiprocessor. 
+
+Because each multiprocessor is responsible for scheduling the execution of thread-blocks, it would not make sense for each block to have hundreds of threads that all have to finish before the multiprocessor can schedule a new block. To make this possible, we access our thread-blocks in two dimensions. 
+
+Each block will consist of 16 by 16 threads. Each grid will consist of $rows / 16$ by $columns / 16$ blocks. To allow for arbitrarily sized matrices, we also included some padding, so the actual grid size is $(rows + 15) / 16$ by $(columns + 15) / 16$. Because of the padding we also need to have a check, so we do not get out of bounds. The implementation can be seen in listing \ref{lst:gpu_addition_multi_core_2}.
+
+\begin{lstlisting}[language=C, caption={GPU addition multi core 2}, label={lst:gpu_addition_multi_core_2}]
+__global__ void cuda_matrix_addition_multi_core_kernel2(
+    device_matrix_t matrix_a, device_matrix_t matrix_b,
+    device_matrix_t matrix_c, 
+    int size, int rows, int columns) {
+    
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    int j = blockIdx.y * blockDim.y + threadIdx.y;
+    if (i >= rows || j >= columns) return;
+
+    matrix_c[INDEX(i, j, columns)] =
+        matrix_a[INDEX(i, j, columns)] 
+            + matrix_b[INDEX(i, j, columns)];
+}
+\end{lstlisting}
+
+Because of the fixed block size, this implementation also fixes the previous problem of only allowing matrices with a column count of up to 1024.
+
+INSERT BENCHMARK
+
+\subsection{Benchmark Analysis}
