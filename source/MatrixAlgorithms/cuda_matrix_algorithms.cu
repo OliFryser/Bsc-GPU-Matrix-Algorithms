@@ -390,7 +390,7 @@ bool cuda_matrix_addition_multi_core2(
 }
 
 bool cuda_matrix_addition_blocks_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
-    return cuda_matrix_multiplication_single_core(
+    return cuda_matrix_addition_blocks(
         arg_a->matrix, arg_b->matrix, arg_c->matrix);
 }
 
