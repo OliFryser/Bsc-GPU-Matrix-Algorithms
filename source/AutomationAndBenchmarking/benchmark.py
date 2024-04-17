@@ -8,6 +8,7 @@ from datetime import datetime
 # Algorithms
 addition_cpu = "addition cpu"
 addition_gpu_single_core = "addition gpu single core"
+diagnostic_no_op = "diagnostic: launch kernel 1 block 1 thread"
 
 directory = "source/MatrixAlgorithms/"
 directory_2d = "source/2DMatrixAlgorithms/"
@@ -24,7 +25,6 @@ cu_object_files_2d = list(map(lambda file: file[:-len("cu")] + "o", cu_source_fi
 c_source_files_2d = [os.path.join(directory_2d, name) for name in os.listdir(directory_2d) if name.endswith(".c")]
 c_object_files_2d = list(map(lambda file: file[:-len("c")] + "o", c_source_files_2d))
 
-
 binary_path = directory + "binary"
 binary_path_2d = directory_2d + "binary"
 compile_command = ["gcc", "-L/usr/local/cuda/lib64", "-o", binary_path] + c_object_files + cu_object_files + ["-lcunit", "-lcudart", "-lm"]
@@ -32,9 +32,9 @@ compile_command_2d = ["gcc", "-L/usr/local/cuda/lib64", "-o", binary_path_2d] + 
 
 timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
 csv_path = "BenchmarkData/" + timestamp + ".csv"
-algorithms_to_run = [addition_gpu_single_core] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
-additional_algorithms_to_compare = [addition_cpu]
-additional_csv_files_to_include = ["SavedBenchmarksAndDiagrams/Machine 2/Addition CPU.csv"] #["BenchmarkData/04-13 11:01:43 tampered.csv"] #["04-12 14:31:18 diagonstic 2.csv"] #["04-12 14:00:47 diagnostic1..csv"] #["BenchmarkData/03-01 11:47:22.csv"]
+algorithms_to_run = [diagnostic_no_op] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
+additional_algorithms_to_compare = []
+additional_csv_files_to_include = [] #["BenchmarkData/04-13 11:01:43 tampered.csv"] #["04-12 14:31:18 diagonstic 2.csv"] #["04-12 14:00:47 diagnostic1..csv"] #["BenchmarkData/03-01 11:47:22.csv"]
 matrix_dimensions = [math.floor(2 ** (i+1)) for i in range(0, 12)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot" + timestamp + ".png"
 
