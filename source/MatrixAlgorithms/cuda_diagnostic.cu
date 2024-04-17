@@ -100,22 +100,30 @@ __global__ void write_managed_vector_kernel(device_matrix_t matrix, int size) {
     matrix[blockIdx.x] = 4.0f;
 }
 
-
-
 void write_managed_vector(matrix_t *matrix) {
     device_matrix_t vector;
     int size = matrix->columns * matrix->rows;
     cudaMallocManaged(&vector, size * sizeof(float));
     write_managed_vector_kernel<<<size, 1>>>(vector, size);
     cudaDeviceSynchronize();
-    for (int i = 0; i < size; i++)
-    {
-        printf("\n%f", vector[i]);
-    }
+    cudaFree(vector);
 }
 
 bool write_managed_vector_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
     write_managed_vector(arg_a->matrix);
+    return true;
+}
+
+void write_vector(matrix_t *matrix) {
+    device_matrix_t vector = cuda_matrix_init(matrix->rows, matrix->columns);
+    int size = matrix->columns * matrix->rows;
+    write_managed_vector_kernel<<<size, 1>>>(vector, size);
+    cuda_matrix_device_to_host(matrix, vector);
+    cuda_matrix_free(vector);
+}
+
+bool write_vector_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    write_vector(arg_a->matrix);
     return true;
 }
 
