@@ -5,21 +5,21 @@ extern "C" {
 __global__ void noop_kernel() {}
 
 void launch_kernel_1_block_1_thread() {
-    cudaDeviceProp result;
-    int device;
-    cudaGetDevice(&device);
-    cudaGetDeviceProperties(&result, device);
-    printf(
-        "pageableMemoryAccess: %d, hostNativeAtomicSupported: %d, "
-        "pageableMemoryAccessUsesHostPageTables: %d, "
-        "directManagedMemAccessFromHost: %d\n",
-        result.pageableMemoryAccess, result.hostNativeAtomicSupported,
-        result.pageableMemoryAccessUsesHostPageTables,
-        result.directManagedMemAccessFromHost);
-    printf("concurrentManagedAccess: %d, pageableMemoryAccess: %d\n",
-        result.concurrentManagedAccess, result.pageableMemoryAccess);
-    printf("managedMemory: %d, concurrentManagedAccess: %d\n",
-        result.managedMemory, result.concurrentManagedAccess);
+    // cudaDeviceProp result;
+    // int device;
+    // cudaGetDevice(&device);
+    // cudaGetDeviceProperties(&result, device);
+    // printf(
+    //     "pageableMemoryAccess: %d, hostNativeAtomicSupported: %d, "
+    //     "pageableMemoryAccessUsesHostPageTables: %d, "
+    //     "directManagedMemAccessFromHost: %d\n",
+    //     result.pageableMemoryAccess, result.hostNativeAtomicSupported,
+    //     result.pageableMemoryAccessUsesHostPageTables,
+    //     result.directManagedMemAccessFromHost);
+    // printf("concurrentManagedAccess: %d, pageableMemoryAccess: %d\n",
+    //     result.concurrentManagedAccess, result.pageableMemoryAccess);
+    // printf("managedMemory: %d, concurrentManagedAccess: %d\n",
+    //     result.managedMemory, result.concurrentManagedAccess);
 
     noop_kernel<<<1, 1>>>();
 }
@@ -96,9 +96,7 @@ bool memcpy_and_larger_kernel_launch_adapter(
     return true;
 }
 
-__device__ void write_managed_vector_kernel(int size) {
-
-}
+__device__ void write_managed_vector_kernel(int size) {}
 
 __managed__ float *vector;
 
@@ -107,8 +105,8 @@ void write_managed_vector(matrix_t *matrix) {
     write_managed_vector_kernel<<<size, 1>>>(size);
 }
 
-bool write_managed_vector_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c)
-{
+bool write_managed_vector_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
     write_managed_vector(arg_a->matrix);
     return true;
 }
