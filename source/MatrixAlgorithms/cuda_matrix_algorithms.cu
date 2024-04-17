@@ -398,7 +398,7 @@ bool cuda_matrix_addition_blocks(matrix_t *matrix_a, matrix_t *matrix_b, matrix_
     int block_size = 16;
     int matrix_size = matrix_a->columns * matrix_a->rows;
     int elements_pr_block = (SUB_SIZE * block_size);
-    int grid_size = matrix_size + elements_pr_block - 1 / elements_pr_block;
+    int grid_size = (matrix_size + elements_pr_block - 1) / elements_pr_block;
 
     return cuda_matrix_algorithm_runner(matrix_a, matrix_b, matrix_c, 
         matrix_size, 2, 3, cuda_matrix_addition_blocks_kernel, dim3(grid_size), dim3(block_size));
