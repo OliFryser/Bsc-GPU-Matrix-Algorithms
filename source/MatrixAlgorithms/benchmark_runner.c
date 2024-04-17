@@ -20,6 +20,7 @@ bool malloc_scaling_with_dimension_adapter(algorithm_arg_t *arg_a, algorithm_arg
 bool memcpy_scaling_with_dimension_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
 bool memcpy_and_kernel_launch_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
 bool memcpy_and_larger_kernel_launch_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool write_managed_vector_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
 
 int main(int argc, char *argv[]) {
     // Command Line Arguments
@@ -95,6 +96,8 @@ int main(int argc, char *argv[]) {
         matrix_algorithm = &memcpy_and_kernel_launch_adapter;
     else if (strcmp(algorithm, "diagnostic: cudaMemcpy & launch larger kernel") == 0)
         matrix_algorithm = &memcpy_and_larger_kernel_launch_adapter;
+    else if (strcmp(algorithm, "diagnostic: write managed") == 0)
+        matrix_algorithm = &write_managed_vector_adapter;
 
     matrix_a = matrix_init(dimension, dimension);
     matrix_b = matrix_init(dimension, dimension);
