@@ -75,6 +75,22 @@ bool memcpy_and_larger_kernel_launch_adapter(algorithm_arg_t *arg_a, algorithm_a
     return true;
 }
 
+__device__ void write_managed_vector_kernel(int size) {
+
+}
+
+__managed__ float *vector;
+
+void write_managed_vector(matrix_t *matrix) {
+    int size = matrix->columns * matrix->rows;
+    write_managed_vector_kernel<<<size, 1>>>(size);
+}
+
+bool write_managed_vector_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c)
+{
+    write_managed_vector(arg_a->matrix);
+    return true;
+}
 
 // only memcpy, dont launch kernel
 // memcpy more and more data and launch kernel
