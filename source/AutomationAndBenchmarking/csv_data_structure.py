@@ -21,7 +21,6 @@ class CSVDataStructure:
                 lines = file.readlines()
                 for line in lines:
                     self.__add_line(line)
-            print(len(self.data.keys()))
 
     def __add_line(self, line: str):
         if not line: return

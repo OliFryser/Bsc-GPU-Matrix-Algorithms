@@ -1,0 +1,119 @@
+\section{Data Structure Implementation} \label{sect:datastructure}
+
+When representing a matrix in C, there are two main approaches. One option is to represent the matrix as a two-dimensional array. In C, this is a \texttt{float **}, where an array of pointers each point to an array of floats. This leads to convenient indexing as seen in line 10-14 of listing \ref{lst:2d_array_indexing}.
+
+In the this implementation, one does not need to know the sizes of the 2d-array at run-time, since \texttt{n} is multiplied by \texttt{m} when calling \texttt{malloc}, and therefore, the memory requirements are calculated at run-time.
+
+\begin{lstlisting}[language=C, caption={Allocation and indexing of a float **}, label={lst:2d_array_indexing}]
+// Matrix dimensions (n is rows and m is columns)
+int n, m;
+float **matrix;
+
+// Memory allocation
+matrix_2d = malloc(n * sizeof(float *));
+for (int i = 0; i < n; i++)
+    matrix[i] = malloc(m * sizeof(float));
+
+// Convenient indexing
+float a;
+for (int i = 0; i < n; i++)
+    for (int j = 0; j < m; j++)
+        a = matrix[i][j]
+\end{lstlisting}
+
+\noindent The other approach is to have a one-dimensional array, and index it in such a way so that it appears as two-dimensional (see listing \ref{lst:1d_array_indexing}). In C, this is represented as a \texttt{float *}. To index it, one can use the following formula: 
+
+\[row\_index * column\_count + column\_index\]
+
+This first calculates an offset in the rows, then jumps forward the amount of columns, landing at the desired address.
+
+\begin{lstlisting}[language=C, caption={Allocation and indexing of a float *}, label={lst:1d_array_indexing}]
+// Matrix dimensions (
+int n, m;
+float *matrix_1d;
+
+// Memory allocation
+matrix_1d = malloc(n * m * sizeof(float));
+
+// Less convenient indexing
+float a;
+for (int i = 0; i < n; i++)
+    for (int j = 0; j < m; j++)
+        a = matrix_1d[i * m + j]
+\end{lstlisting}
+
+If one was to declare the array as \texttt{float[n][m]} (assuming \texttt{n} and \texttt{m} are constants known at compile-time), the underlying machine code for accessing the array, would be the same as the indexing formula above.\cite[Ch. 1.2]{numericalrecipes}
+
+The caveat to the one-dimensional approach, is that the indexing requires two additions and one multiplication, whereas the indexing in the 2d array from listing \ref{lst:2d_array_indexing}, simply requires two additions.\cite{numericalrecipes}. On most modern hardware with pipelining and instruction-level-parallelism, the CPU uses the same number of clock cycles for both indexing methods.
+
+To confirm this, we wrote as small program in C to measure the amount of cycles it takes for the CPU to perform a given operation on our hardware. It takes in an operation, runs it in a number of times, then divides the cycles it took for all the iterations with the amount of iterations, giving an average. It is worth noting that it also measures the additions and comparisons in the for loop. However, since these additions and comparisons appear in all running times, and it can simply be treated as an offset.
+
+After running this tool for the two indexing methods on Machine 2 (see section \ref{sect:hardware}), we get the result seen in listing \ref{lst:cpu_diagnostic_indexing}. Our conclusion is that the difference is so small that it would not significantly impact performance.
+
+\begin{lstlisting}[caption={CPU Diagnostic for indexing methods.}, label={lst:cpu_diagnostic_indexing}]
+Cycles per <CPU Indexing 1d>: 1.395017
+Cycles per <CPU Indexing 2d>: 1.306896
+\end{lstlisting}
+
+Something that \textit{can} impact performance, however, is locality. As mentioned in \ref{background_gpu}, the CPU stores nearby data in the cache, and this enables us to get better performance in a program, since cache access 10x faster than main memory access. With a \texttt{float **} each row may be allocated in completely different places in memory, meaning when we access a new row, that row is likely not in the cache.
+
+With a \texttt{float *}, each row is allocated in continuation of the last, enabling us to utilize optimal spatial locality.\\
+
+\noindent As can be seen in listing \ref{lst:first_data_structure}, we first implemented our matrix as the 2-dimensional array, allured by the benefits of convenient indexing. We also stored the rows and columns directly in the data structure.
+
+\begin{lstlisting}[language=C, caption={First implementation of the matrix data structure.}, label={lst:first_data_structure}]
+typedef struct {
+    int rows;
+    int columns;
+    float **values;
+} matrix_t;
+\end{lstlisting}
+
+\noindent When transferring this data structure to the GPU, however, we had to make a \textit{deep copy}\cite{nvidia:deepcopy}, meaning we have to copy each row independently. This results in \(n\) many calls to \texttt{cudaMalloc} and \(n\) calls \texttt{cudaMemcpy} in order to get the data from the CPU to the GPU and another \(n\) calls to get it back from the GPU. As discussed earlier, copying data from the CPU to the GPU and back introduces a large amount of overhead. In NVIDIA's CUDA documentation it says: \textit{"[...] because of the overhead associated with each transfer, batching many small transfers into a single large transfer always performs better than making each transfer separately."}\cite[Sect. 5.3.1]{nvidia:cudadoc}
+
+The 1-dimensional approach requires only a single \texttt{cudaMalloc} and 2 \texttt{cudaMemcpy} calls and thus much preferable.
+
+Quite late into the project, we discovered the functions \texttt{cudaMallocPitch} and \texttt{cudaMemcpy2D}, which may have yielded better performance in some cases, where a matrix's dimension is not a multiple of \textit{the alignment requirements}. The alignment requirements are the size that each thread will read from global memory at once. These are either 32-, 64- or 128-bytes, depending on the specific GPU-architecture.\cite[Sect. 5.3.2.]{nvidia:cudadoc} Adhering to these sizes means better memory access, and \texttt{cudaMallocPitch} pads the rows of the matrix to be aligned correctly with the alignment requirements. \texttt{cudaMemcpy2D} copies to and from an array allocated with that padding, so that the data is layed out properly.
+
+In our benchmarks, however, we only use matrix dimensions that are exponents of 2, so we always meet the alignment requirements. If we were to use other dimensions, we could consider allocating and copying memory using \texttt{cudaMallocPitch} and \texttt{cudaMemcpy2D}. In the interest of time, we decided not to.\\
+
+\noindent We initially implemented the CPU-addition with a 2-dimensional data structure. Realizing the overhead of transferring the 2-dimensional data structure to the GPU, we rewrote the CPU side to use a 1-dimensional data structure, as can be seen in listing \ref{lst:second_data_structure}.
+
+\begin{lstlisting}[language=C, caption={Second implementation of the matrix data structure.}, label={lst:second_data_structure}]
+typedef struct {
+    int rows;
+    int columns;
+    float *values;
+} matrix_t;
+\end{lstlisting}
+
+\noindent We have written a utility library for matrices to make them easier to work with. This library is tested with our cUnit tests. Listing \ref{lst:utility_library} shows a selection of the header file for our utility library. The library handles allocation and deallocation of matrices, as well as initialization from comma-separated files (CSV). It also has utility functions for testing equality etc.
+
+\begin{lstlisting}[language=C, caption={Utility library for the CPU data structure.}, label={lst:utility_library}]
+#define INDEX(row_index, column_index, columns) \
+    ((row_index) * (columns) + (column_index))
+...
+matrix_t *matrix_init(int rows, int columns);
+bool matrix_random_fill(float min_value, float max_value, matrix_t *matrix);
+void matrix_free(matrix_t *matrix);
+void matrix_print(matrix_t *matrix);
+matrix_t *matrix_init_from_csv(FILE *csv_file);
+bool matrix_equal_dimensions(matrix_t *matrix_a, matrix_t *matrix_b);
+bool matrix_equal(matrix_t *matrix_a, matrix_t *matrix_b);
+bool matrix_almost_equal(matrix_t *matrix_a, matrix_t *matrix_b);
+bool matrix_copy(matrix_t *original, matrix_t *copy);
+...
+\end{lstlisting}
+
+\noindent On the GPU side, we simply represent the matrix as a \texttt{float *}, and provide the necessary size information in each kernel.
+
+Similarly we have written a utility library for the GPU data structure. Listing \ref{lst:gpu_utility_library} shows a selection of the header file from that library. Notice the type \texttt{device\_matrix\_t} is simply an alias for \texttt{float *}. The prefix \texttt{cuda} is applied to any function written in Cuda C. 
+
+\begin{lstlisting}[language=C, caption={Utility library for the GPU data structure.}, label={lst:gpu_utility_library}]
+typedef float *device_matrix_t;
+
+device_matrix_t cuda_matrix_init(int rows, int columns);
+bool cuda_matrix_free(device_matrix_t device_matrix);
+bool cuda_matrix_host_to_device(device_matrix_t dst, matrix_t *src);
+bool cuda_matrix_device_to_host(matrix_t *dst, device_matrix_t src);
+\end{lstlisting}

@@ -24,3 +24,67 @@ Matrix multiplikations video:
 [Deep copy](https://forums.developer.nvidia.com/t/clean-way-of-copying-a-struct-with-pointers-to-the-gpu/225833/2)
 
 [The CUDA Programming Model](https://developer.nvidia.com/blog/cuda-refresher-cuda-programming-model/)
+
+[Karl Rupp papers](https://www.karlrupp.net/publications/journal-articles/)
+
+[Floating point standards](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#floating-point-standard)
+
+### Shared Memory
+
+``__shared__`` in front of a variable indicates that the variable lives in shared memory, that is
+
+- Memory that is only accessible from threads within the same block.
+- The variable has lifetime of the block.
+- Has a distinct object per block.
+- Does not have a constant address.
+
+## QR-Decomposition
+
+Page 98 and 99 in the book Numerical Recipes in C
+
+Householder method page 470- in the same book
+
+Decompose en matrice til en orthogonal matrice og en upper triangular matrice.
+
+En orthogonal matrice er defineret ved at dens transpose er identitetsmatricen. Det vil også sige at dens transpose også er dens inverse. Den fortæller om rotation og reflection.
+
+En upper triangular matrix er en matrice hvor alle elementer under diagonalen er 0. Den fortæller om sheering og scaling.
+
+QR decomposition består af en række Householder Transformations på hinanden følgende.
+
+Bogens QR-decomposition har signaturen:
+
+    void qrdcmp(float **a, int n, float *c, float *d, int *sing)
+
+- n er dimensionen på matricen
+- a vil blive lavet om til den upper triangular matrix, dog uden diagonalen
+- d bliver alle elementerne i diagonalen
+- sing er en boolean (1 eller 0) som fortæller om matricen (transformationen) er singular. Singular betyder at matricen går fra n dimensioner til mindre end n-dimensioner. Dvs. den ikke kan have en inverse. Selvom det viser sig at matricen er singular vil QR-decompositionen stadig blive færdigudregnet.
+
+Algoritmen looper over matricens n rækker.
+For hver række starter den med at udregne om den Qi'te orthogonale matrice er singular, for hvilket vil betyde at hele matricen vil blive singular.
+
+    scale=0.0;
+    for (i=k;i<=n;i++) 
+        scale=FMAX(scale,fabs([i][k]));
+    if (scale == 0.0) {
+        *sing=1;
+        c[k]=d[k]=0.0;
+    }
+
+Hvis ikke den er singular, vil Qk og Qk * A blive udregnet
+
+### Symetric matrix
+
+En symetrisk matrice er en matrice hvor hvert element A(i,j) = A(j,i). Dvs. at dens transpose er den selv. Dette kræver at matricen er kvadratisk.
+
+### Tridiagonal matrix
+
+En matrice vis diagonal, upper diagonal og lower diagonal vis entries er de eneste entries i matricen som er non-zero.
+En upper diagonal er diagonalen lige over main diagonalen. En lower diagonal er diagonalen lige under main diagonalen.
+
+### Householder algorithm
+
+Householder alogitmen reducerer en symmetrisk matrice til en tridiagonal matrice ved at lave n-2 othogonale transformationer (rotation + reflection) hvor n = dimensionsstørrelsen.
+
+[Very simple explanation of QR-decomposition using the Gram-Schmidt algorithm](https://www.codingdrills.com/tutorial/matrix-data-structure/qr-decomposition)

@@ -568,3 +568,5 @@ pyrightconfig.json
 
 BenchmarkData/
 Diagrams/
+
+**/binary
