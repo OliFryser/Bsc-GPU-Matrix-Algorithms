@@ -14,11 +14,12 @@ void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[],
     double mean_run_time, double standard_deviation, int iterations);
 double mean(double array[], int size_of_array);
 double standard_deviation(double array[], int size_of_array, double mean);
-bool launch_kernel_without_memcpy_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
-bool launch_kernel_with_memcpy_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
-bool only_memcpy_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool launch_kernel_1_block_1_thread_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
 bool launch_kernel_scaling_with_dimension_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool malloc_scaling_with_dimension_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
 bool memcpy_scaling_with_dimension_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool memcpy_and_kernel_launch_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool memcpy_and_larger_kernel_launch_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
 
 int main(int argc, char *argv[]) {
     // Command Line Arguments
@@ -36,7 +37,7 @@ int main(int argc, char *argv[]) {
     double elapsed, elapsed_accumulative;
     double running_times_mean, running_times_standard_deviation;
     int iterations = 2;
-    const double minimum_accumulative = 0.5;
+    const double minimum_accumulative = 2.0;
     double *running_times;
     char *header;
 
@@ -80,16 +81,18 @@ int main(int argc, char *argv[]) {
             &cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_adapter;
     else if (strcmp(algorithm, "qr cpu") == 0)
         matrix_algorithm = &matrix_qr_decomposition_adapter;
-    else if (strcmp(algorithm, "diagnostic: launch kernel without memcpy") == 0)
-        matrix_algorithm = &launch_kernel_without_memcpy_adapter;
-    else if (strcmp(algorithm, "diagnostic: launch kernel with memcpy") == 0)
-        matrix_algorithm = &launch_kernel_with_memcpy_adapter;
-    else if (strcmp(algorithm, "diagnostic: only memcpy") == 0)
-        matrix_algorithm = &only_memcpy_adapter;
-    else if (strcmp(algorithm, "diagnostic: launch kernel scaling with dimension") == 0)
+    else if (strcmp(algorithm, "diagnostic: launch kernel 1 block 1 thread") == 0)
+        matrix_algorithm = &launch_kernel_1_block_1_thread_adapter;
+    else if (strcmp(algorithm, "diagnostic: launch kernel scaling grid and blocks") == 0)
         matrix_algorithm = &launch_kernel_scaling_with_dimension_adapter;
-    else if (strcmp(algorithm, "diagnostic: memcpy scaling with dimension") == 0)
+    else if (strcmp(algorithm, "diagnostic: cudaMalloc") == 0)
+        matrix_algorithm = &malloc_scaling_with_dimension_adapter;
+    else if (strcmp(algorithm, "diagnostic: cudaMemcpy") == 0)
         matrix_algorithm = &memcpy_scaling_with_dimension_adapter;
+    else if (strcmp(algorithm, "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread") == 0)
+        matrix_algorithm = &memcpy_and_kernel_launch_adapter;
+    else if (strcmp(algorithm, "diagnostic: cudaMemcpy & launch larger kernel") == 0)
+        matrix_algorithm = &memcpy_and_larger_kernel_launch_adapter;
 
     matrix_a = matrix_init(dimension, dimension);
     matrix_b = matrix_init(dimension, dimension);
