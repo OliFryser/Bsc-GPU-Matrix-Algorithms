@@ -28,7 +28,7 @@ compile_command_2d = ["gcc", "-L/usr/local/cuda/lib64", "-o", binary_path_2d] + 
 
 timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
 csv_path = "BenchmarkData/" + timestamp + ".csv"
-algorithms_to_run = ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
+algorithms_to_run = ["addition cpu", "addition gpu single core", "addition gpu multi core", "addition gpu multi core 2", "addition gpu blocks"] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
 additional_csv_files_to_include = [] #["BenchmarkData/04-13 11:01:43 tampered.csv"] #["04-12 14:31:18 diagonstic 2.csv"] #["04-12 14:00:47 diagnostic1..csv"] #["BenchmarkData/03-01 11:47:22.csv"]
 matrix_dimensions = [math.floor(2 ** (i+1)) for i in range(0, 12)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot" + timestamp + ".png"

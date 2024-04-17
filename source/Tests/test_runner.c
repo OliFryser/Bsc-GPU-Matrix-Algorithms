@@ -84,6 +84,9 @@ int main() {
                      "matrix_t addition gpu multi core 2 larger matrices",
                      test_matrix_addition_gpu_multi_core2_larger_matrices)) ||
         (NULL == CU_add_test(cuda_matrix_suite,
+                     "matrix_t addition gpu blocks",
+                     test_matrix_addition_gpu_blocks)) ||
+        (NULL == CU_add_test(cuda_matrix_suite,
                      "matrix_t multiplication gpu single core",
                      test_matrix_multiplication_gpu_single_core)) ||
         (NULL == CU_add_test(cuda_matrix_suite,

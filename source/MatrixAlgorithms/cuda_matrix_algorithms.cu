@@ -28,6 +28,25 @@ __global__ void cuda_matrix_addition_multi_core_kernel2(
         matrix_a[INDEX(i, j, columns)] + matrix_b[INDEX(i, j, columns)];
 }
 
+#define SUB_SIZE 16
+
+__global__ void cuda_matrix_addition_blocks_kernel(
+    device_matrix_t matrix_a, device_matrix_t matrix_b,
+    device_matrix_t matrix_c, int size, int _2, int _3) {
+
+    // Vi håber på:
+    // Launch færre kernels giver speed up
+    // Bedre cache coherence
+    // prøv med forskellige størrelser blocks
+
+    int offset = blockIdx.x * blockDim.x * SUB_SIZE + threadIdx.x * SUB_SIZE;
+
+    for (int i = 0; i < SUB_SIZE; i++) {
+        if (offset + i >= size) return;
+        matrix_c[offset + i] = matrix_a[offset + i] + matrix_b[offset + i];
+    }
+}
+
 __global__ void cuda_matrix_multiplication_single_core_kernel(
     device_matrix_t matrix_a, device_matrix_t matrix_b,
     device_matrix_t matrix_c, int l, int n, int m) {
@@ -368,6 +387,21 @@ bool cuda_matrix_addition_multi_core2(
         &(cuda_matrix_addition_multi_core_kernel2), grid_size, block_size);
 
     return success;
+}
+
+bool cuda_matrix_addition_blocks_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    return cuda_matrix_multiplication_single_core(
+        arg_a->matrix, arg_b->matrix, arg_c->matrix);
+}
+
+bool cuda_matrix_addition_blocks(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
+    int block_size = 16;
+    int matrix_size = matrix_a->columns * matrix_a->rows;
+    int elements_pr_block = (SUB_SIZE * block_size);
+    int grid_size = matrix_size + elements_pr_block - 1 / elements_pr_block;
+
+    return cuda_matrix_algorithm_runner(matrix_a, matrix_b, matrix_c, 
+        matrix_size, 2, 3, cuda_matrix_addition_blocks_kernel, dim3(grid_size), dim3(block_size));
 }
 
 bool cuda_matrix_multiplication_single_core_adapter(

@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     double elapsed, elapsed_accumulative;
     double running_times_mean, running_times_standard_deviation;
     int iterations = 2;
-    const double minimum_accumulative = 2.0;
+    const double minimum_accumulative = 0.5;
     double *running_times;
     char *header;
 
@@ -61,6 +61,8 @@ int main(int argc, char *argv[]) {
         matrix_algorithm = &cuda_matrix_addition_multi_core_adapter;
     else if (strcmp(algorithm, "addition gpu multi core 2") == 0)
         matrix_algorithm = &cuda_matrix_addition_multi_core2_adapter;
+    else if (strcmp(algorithm, "addition gpu blocks") == 0)
+        matrix_algorithm = &cuda_matrix_addition_blocks_adapter;
     else if (strcmp(algorithm, "multiplication cpu") == 0)
         matrix_algorithm = &matrix_multiplication_adapter;
     else if (strcmp(algorithm, "multiplication gpu single core") == 0)

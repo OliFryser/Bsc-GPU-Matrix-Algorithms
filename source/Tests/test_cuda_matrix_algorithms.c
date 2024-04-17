@@ -144,6 +144,17 @@ void test_matrix_addition_gpu_multi_core2_larger_matrices(void) {
     matrix_free(gpu_result);
 }
 
+void test_matrix_addition_gpu_blocks(void) {
+    CU_ASSERT_PTR_NOT_NULL_FATAL(cuda_matrix_2x2);
+    matrix_t *result =
+        matrix_init(cuda_matrix_2x2->rows, cuda_matrix_2x2->columns);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(result);
+    CU_ASSERT_TRUE(cuda_matrix_addition_blocks(
+        cuda_matrix_2x2, cuda_matrix_2x2, result));
+    CU_ASSERT_TRUE(matrix_equal(result, cuda_matrix_doubled_2x2));
+    matrix_free(result);
+}
+
 void test_matrix_multiplication_gpu_single_core(void) {
     matrix_t *actual_result = matrix_init(cuda_matrix_multiplication1->rows,
         cuda_matrix_multiplication2->columns);

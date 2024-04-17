@@ -11,6 +11,8 @@ bool cuda_matrix_addition_multi_core_adapter(algorithm_arg_t *arg_a, algorithm_a
 
 bool cuda_matrix_addition_multi_core2_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
 
+bool cuda_matrix_addition_blocks_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+
 bool cuda_matrix_multiplication_single_core_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
 
 bool cuda_matrix_multiplication_multi_core_unwrapping_i_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
@@ -28,6 +30,9 @@ bool cuda_matrix_addition_multi_core(
     matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
 
 bool cuda_matrix_addition_multi_core2(
+    matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
+
+bool cuda_matrix_addition_blocks(
     matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c);
 
 bool cuda_matrix_multiplication_single_core(
