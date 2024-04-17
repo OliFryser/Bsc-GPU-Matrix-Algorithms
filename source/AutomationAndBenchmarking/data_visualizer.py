@@ -1,5 +1,6 @@
 import matplotlib.pyplot as pyplot
 from csv_data_structure import CSVDataStructure
+import numpy
 
 def visualize_csv(csv_data: CSVDataStructure, diagram_save_path: str, algorithms_to_compare: list[str]):
     dimensions = csv_data.dimensions
@@ -15,11 +16,14 @@ def visualize_csv(csv_data: CSVDataStructure, diagram_save_path: str, algorithms
             standard_deviations.append(data.dimension_to_standard_deviation[dimension])
 
         pyplot.plot(dimensions, run_time_means, label=algorithm, marker="^")
-        #pyplot.errorbar(dimensions, run_time_means, standard_deviations, linestyle='None', marker='^')
-    
+        #print("Dimensions: " + str(dimensions))
+        #print("Run time means: " + str(run_time_means))
+        #print("Standard Deviation: " + str(standard_deviations))
+        #pyplot.errorbar(x=dimensions, y=run_time_means, yerr=standard_deviations, label=algorithm, marker="^")
+
     pyplot.title('Run time comparison')
-    pyplot.xlabel('Dimension')
-    pyplot.ylabel('Mean Run time')
+    pyplot.xlabel('Matrix Side Length')
+    pyplot.ylabel('Mean Run Time (in seconds)')
     pyplot.xscale('log', base=2)
     pyplot.yscale('log', base=2)
     pyplot.legend()

@@ -5,6 +5,10 @@ import csv_data_structure as structure
 from data_visualizer import visualize_csv
 from datetime import datetime
 
+# Algorithms
+addition_cpu = "addition cpu"
+addition_gpu_single_core = "addition gpu single core"
+
 directory = "source/MatrixAlgorithms/"
 directory_2d = "source/2DMatrixAlgorithms/"
 
@@ -28,8 +32,9 @@ compile_command_2d = ["gcc", "-L/usr/local/cuda/lib64", "-o", binary_path_2d] + 
 
 timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
 csv_path = "BenchmarkData/" + timestamp + ".csv"
-algorithms_to_run = ["addition cpu", "addition gpu single core", "addition gpu multi core", "addition gpu multi core 2", "addition gpu blocks"] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
-additional_csv_files_to_include = [] #["BenchmarkData/04-13 11:01:43 tampered.csv"] #["04-12 14:31:18 diagonstic 2.csv"] #["04-12 14:00:47 diagnostic1..csv"] #["BenchmarkData/03-01 11:47:22.csv"]
+algorithms_to_run = [addition_gpu_single_core] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
+additional_algorithms_to_compare = [addition_cpu]
+additional_csv_files_to_include = ["SavedBenchmarksAndDiagrams/Machine 2/Addition CPU.csv"] #["BenchmarkData/04-13 11:01:43 tampered.csv"] #["04-12 14:31:18 diagonstic 2.csv"] #["04-12 14:00:47 diagnostic1..csv"] #["BenchmarkData/03-01 11:47:22.csv"]
 matrix_dimensions = [math.floor(2 ** (i+1)) for i in range(0, 12)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot" + timestamp + ".png"
 
@@ -71,9 +76,5 @@ except Exception as e:
     print(f"An unexpected error occurred: {e}")
     exit()
 
-if not os.path.exists(csv_path):
-        with open(csv_path, 'w'):  # 'w' mode will create the file if it doesn't exist
-            pass
-
-data = structure.CSVDataStructure([csv_path] + additional_csv_files_to_include)
-visualize_csv(data, diagram_save_path, algorithms_to_run)
+data = structure.CSVDataStructure(([csv_path] if os.path.exists(csv_path) else []) + additional_csv_files_to_include)
+visualize_csv(data, diagram_save_path, algorithms_to_run + additional_algorithms_to_compare)
