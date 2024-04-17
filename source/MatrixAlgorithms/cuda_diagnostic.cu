@@ -96,19 +96,25 @@ bool memcpy_and_larger_kernel_launch_adapter(
     return true;
 }
 
-__device__ void write_managed_vector_kernel(int size) {
-
+__global__ void write_managed_vector_kernel(device_matrix_t matrix, int size) {
+    matrix[blockIdx.x] = 4.0f;
 }
 
-__managed__ float *vector;
+
 
 void write_managed_vector(matrix_t *matrix) {
+    device_matrix_t vector;
     int size = matrix->columns * matrix->rows;
-    write_managed_vector_kernel<<<size, 1>>>(size);
+    cudaMallocManaged(&vector, size * sizeof(float));
+    write_managed_vector_kernel<<<size, 1>>>(vector, size);
+    cudaDeviceSynchronize();
+    for (int i = 0; i < size; i++)
+    {
+        printf("\n%f", vector[i]);
+    }
 }
 
-bool write_managed_vector_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c)
-{
+bool write_managed_vector_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
     write_managed_vector(arg_a->matrix);
     return true;
 }
