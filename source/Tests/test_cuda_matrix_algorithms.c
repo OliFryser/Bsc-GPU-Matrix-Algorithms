@@ -5,9 +5,6 @@ matrix_t *cuda_matrix_doubled_2x2;
 matrix_t *cuda_matrix_multiplication1;
 matrix_t *cuda_matrix_multiplication2;
 matrix_t *cuda_matrix_multiplication_expected_result;
-matrix_t *cuda_matrix_qr_input;
-matrix_t *cuda_matrix_qr_expected_r;
-matrix_t *cuda_matrix_qr_expected_q;
 
 int init_cuda_matrix_suite(void) {
     char *csv_path;
@@ -36,19 +33,6 @@ int init_cuda_matrix_suite(void) {
         "./source/Tests/csv_test_matrix_multiplication_expected_result.csv";
     csv_file = read_csv(csv_path);
     cuda_matrix_multiplication_expected_result = matrix_init_from_csv(csv_file);
-
-    // QR
-    csv_path = "./source/Tests/csv_test_matrix_qr_2_input.csv";
-    csv_file = read_csv(csv_path);
-    cuda_matrix_qr_input = matrix_init_from_csv(csv_file);
-
-    csv_path = "./source/Tests/csv_test_matrix_qr_2_r.csv";
-    csv_file = read_csv(csv_path);
-    cuda_matrix_qr_expected_r = matrix_init_from_csv(csv_file);
-
-    csv_path = "./source/Tests/csv_test_matrix_qr_2_q.csv";
-    csv_file = read_csv(csv_path);
-    cuda_matrix_qr_expected_q = matrix_init_from_csv(csv_file);
 
     if (cuda_matrix_multiplication1 == NULL ||
         cuda_matrix_multiplication2 == NULL ||
@@ -149,10 +133,39 @@ void test_matrix_addition_gpu_blocks(void) {
     matrix_t *result =
         matrix_init(cuda_matrix_2x2->rows, cuda_matrix_2x2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result);
-    CU_ASSERT_TRUE(cuda_matrix_addition_blocks(
-        cuda_matrix_2x2, cuda_matrix_2x2, result));
+    CU_ASSERT_TRUE(
+        cuda_matrix_addition_blocks(cuda_matrix_2x2, cuda_matrix_2x2, result));
     CU_ASSERT_TRUE(matrix_equal(result, cuda_matrix_doubled_2x2));
     matrix_free(result);
+}
+
+void test_matrix_addition_gpu_blocks_larger_matrices(void) {
+    matrix_t *matrix_a, *matrix_b, *cpu_result, *gpu_result;
+    int rows = 100;
+    int cols = 100;
+
+    matrix_a = matrix_init(rows, cols);
+    matrix_b = matrix_init(rows, cols);
+    cpu_result = matrix_init(rows, cols);
+    gpu_result = matrix_init(rows, cols);
+
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_a);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(matrix_b);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(cpu_result);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(gpu_result);
+
+    CU_ASSERT_TRUE(matrix_random_fill(10.0f, 100.0f, matrix_a));
+    CU_ASSERT_TRUE(matrix_random_fill(10.0f, 100.0f, matrix_b));
+
+    matrix_addition(matrix_a, matrix_b, cpu_result);
+
+    CU_ASSERT_TRUE(cuda_matrix_addition_blocks(matrix_a, matrix_b, gpu_result));
+
+    CU_ASSERT_TRUE(matrix_equal(gpu_result, cpu_result));
+    matrix_free(matrix_a);
+    matrix_free(matrix_b);
+    matrix_free(cpu_result);
+    matrix_free(gpu_result);
 }
 
 void test_matrix_multiplication_gpu_single_core(void) {
@@ -240,7 +253,8 @@ void test_matrix_multiplication_gpu_multi_core_shared_memory(void) {
     CU_ASSERT_TRUE_FATAL(cuda_matrix_multiplication_multi_core_shared_memory(
         cuda_matrix_multiplication1, cuda_matrix_multiplication2,
         actual_result));
-    CU_ASSERT_TRUE(matrix_equal(actual_result, cuda_matrix_multiplication_expected_result));
+    CU_ASSERT_TRUE(matrix_equal(
+        actual_result, cuda_matrix_multiplication_expected_result));
     matrix_free(actual_result);
 }
 
@@ -277,22 +291,24 @@ void test_matrix_multiplication_gpu_multi_core_shared_memory_larger_matrices(
     matrix_free(gpu_result);
 }
 
-void test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses(void)
-{
+void test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses(
+    void) {
     matrix_t *actual_result = matrix_init(cuda_matrix_multiplication1->rows,
-    cuda_matrix_multiplication2->columns);
+        cuda_matrix_multiplication2->columns);
     CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
     CU_ASSERT_TRUE_FATAL(matrix_equal_dimensions(
         cuda_matrix_multiplication_expected_result, actual_result));
-    CU_ASSERT_TRUE_FATAL(cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses(
-        cuda_matrix_multiplication1, cuda_matrix_multiplication2,
-        actual_result));
-    CU_ASSERT_TRUE(matrix_equal(actual_result, cuda_matrix_multiplication_expected_result));
+    CU_ASSERT_TRUE_FATAL(
+        cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses(
+            cuda_matrix_multiplication1, cuda_matrix_multiplication2,
+            actual_result));
+    CU_ASSERT_TRUE(matrix_equal(
+        actual_result, cuda_matrix_multiplication_expected_result));
     matrix_free(actual_result);
 }
 
-void test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses_larger_matrices(void)
-{
+void test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses_larger_matrices(
+    void) {
     matrix_t *matrix_a, *matrix_b, *cpu_result, *gpu_result;
     int m = 79;
     int l = 28;
@@ -313,8 +329,9 @@ void test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses_larg
 
     matrix_multiplication(matrix_a, matrix_b, cpu_result);
 
-    CU_ASSERT_TRUE(cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses(
-        matrix_a, matrix_b, gpu_result));
+    CU_ASSERT_TRUE(
+        cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses(
+            matrix_a, matrix_b, gpu_result));
 
     // CU_ASSERT_TRUE(matrix_equal(gpu_result, cpu_result));
     CU_ASSERT_TRUE(matrix_almost_equal(gpu_result, cpu_result));
@@ -322,53 +339,4 @@ void test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses_larg
     matrix_free(matrix_b);
     matrix_free(cpu_result);
     matrix_free(gpu_result);
-}
-
-void test_matrix_qr_single_core(void)
-{
-    CU_ASSERT_PTR_NOT_NULL_FATAL(cuda_matrix_qr_input);
-    matrix_t *actual_result =
-        matrix_init(cuda_matrix_qr_input->rows, cuda_matrix_qr_input->columns);
-    matrix_copy(cuda_matrix_qr_input, actual_result);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(actual_result);
-
-    float *diagonal, *c;
-    diagonal = malloc(sizeof(float) * cuda_matrix_qr_input->columns);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(diagonal);
-    c = malloc(sizeof(float) * cuda_matrix_qr_input->columns);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(c);
-
-    CU_ASSERT_FALSE_FATAL(cuda_matrix_qr_decomposition_single_core(actual_result, diagonal, c));
-
-    matrix_t *r =
-        matrix_init(cuda_matrix_qr_input->rows, cuda_matrix_qr_input->columns);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(r);
-    matrix_extract_r(actual_result, diagonal, r);
-
-    matrix_t *q =
-        matrix_init(cuda_matrix_qr_input->rows, cuda_matrix_qr_input->columns);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(q);
-
-    matrix_t *q_j =
-        matrix_init(cuda_matrix_qr_input->rows, cuda_matrix_qr_input->columns);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(q);
-
-    extract_q(q, actual_result, c, q_j);
-
-    matrix_t *multiplication_result =
-        matrix_init(cuda_matrix_qr_input->rows, cuda_matrix_qr_input->columns);
-    CU_ASSERT_PTR_NOT_NULL_FATAL(multiplication_result);
-
-    CU_ASSERT_TRUE(matrix_almost_equal(q, cuda_matrix_qr_expected_q));
-    CU_ASSERT_TRUE(matrix_almost_equal(r, cuda_matrix_qr_expected_r));
-    matrix_multiplication(q, r, multiplication_result);
-
-    CU_ASSERT_TRUE(
-        matrix_almost_equal(multiplication_result, cuda_matrix_qr_input));
-    free(c);
-    free(diagonal);
-    matrix_free(r);
-    matrix_free(q);
-    matrix_free(q_j);
-    matrix_free(actual_result);
 }

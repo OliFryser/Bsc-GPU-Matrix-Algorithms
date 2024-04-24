@@ -3,12 +3,14 @@
 
 #include "test_csv_utility.h"
 #include "test_cuda_matrix_algorithms.h"
+#include "test_cuda_qr_decomposition.h"
 #include "test_matrix_algorithms.h"
 
 int main() {
     CU_pSuite matrix_suite = NULL;
     CU_pSuite csv_suite = NULL;
     CU_pSuite cuda_matrix_suite = NULL;
+    CU_pSuite cuda_qr_decomposition_suite = NULL;
 
     /* initialize the CUnit test registry */
     if (CUE_SUCCESS != CU_initialize_registry()) return CU_get_error();
@@ -31,6 +33,13 @@ int main() {
     /* add a suite to the registry */
     cuda_matrix_suite = CU_add_suite(
         "Cuda matrix_t Tests", init_cuda_matrix_suite, clean_cuda_matrix_suite);
+    if (NULL == cuda_matrix_suite) {
+        CU_cleanup_registry();
+        return CU_get_error();
+    }
+
+    cuda_qr_decomposition_suite = CU_add_suite("QR Decomposition Tests",
+        init_cuda_matrix_suite, clean_cuda_matrix_suite);
     if (NULL == cuda_matrix_suite) {
         CU_cleanup_registry();
         return CU_get_error();
@@ -124,7 +133,7 @@ int main() {
                 "matrix_t multiplication gpu multi core: shared memory fewer "
                 "accesses larger matrices",
                 test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses_larger_matrices)) ||
-        (NULL == CU_add_test(cuda_matrix_suite,
+        (NULL == CU_add_test(cuda_qr_decomposition_suite,
                      "matrix_t qr decomposition single core",
                      test_matrix_qr_single_core))) {
         CU_cleanup_registry();
