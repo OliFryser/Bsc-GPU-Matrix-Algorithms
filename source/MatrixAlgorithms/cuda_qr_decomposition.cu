@@ -1,5 +1,5 @@
 extern "C" {
-#include "cuda_matrix_algorithms.h"
+#include "cuda_qr_decomposition.h"
 }
 
 __global__ void cuda_matrix_qr_decomposition_single_core_kernel(
