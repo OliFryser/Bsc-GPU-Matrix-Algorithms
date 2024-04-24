@@ -108,6 +108,65 @@ bool cuda_matrix_qr_decomposition_single_core(
         &(cuda_matrix_qr_decomposition_single_core_kernel), dim3(1), dim3(1));
 }
 
+
+__global__ void cuda_matrix_qr_decomposition_parallel_max_kernel(
+    device_matrix_t matrix, float *diagonal, float *c, int dimension,
+    bool *is_singular, int k) {
+    float column_length;  // sigma in book
+    float column_length_squared, element;
+    int n = dimension;
+    float scale;
+
+    scale = 0.0f;
+    // scale is the max absolute value of the column
+    for (int i = k; i < n; i++)
+        scale = fmaxf(scale, fabsf(matrix[INDEX(i, k, n)]));
+
+    if (scale == 0.0) {
+        *is_singular = true;
+        c[k] = diagonal[k] = 0.0f;
+    }
+
+    // Normalize column
+    for (int i = k; i < n; i++) matrix[INDEX(i, k, n)] /= scale;
+
+    // column length below diagonal
+    column_length_squared = 0.0f;  // sum in book.
+    for (int i = k; i < n; i++) {
+        element = matrix[INDEX(i, k, n)];
+        column_length_squared += element * element;
+    }
+
+    // column length below diagonal, with the sign of diagonal k
+    column_length =
+        SIGN(sqrtf(column_length_squared), matrix[INDEX(k, k, n)]);
+
+    // add column length to diagonal k
+    matrix[INDEX(k, k, n)] += column_length;
+
+    c[k] = matrix[INDEX(k, k, n)] * column_length;
+
+    diagonal[k] = -scale * column_length;
+
+    // Calculate Q[k] = I - (u[k] (x) u[k]) / c[k]
+    for (int j = k + 1; j < n; j++) {
+        // inner product for column j below diagonal
+        float inner_product = 0.0f;
+        for (int i = k; i < n; i++) {
+            inner_product +=
+                matrix[(INDEX(i, k, n))] * matrix[(INDEX(i, j, n))];
+        }
+
+        // division
+        float tau = inner_product / c[k];
+
+        for (int i = k; i < n; i++) {
+            matrix[(INDEX(i, j, n))] -= tau * matrix[(INDEX(i, k, n))];
+        }
+    }
+
+}
+
 bool cuda_matrix_qr_decomposition_parallel_max(matrix_t* matrix, float* diagonal, float* c) {
     device_matrix_t device_matrix = cuda_matrix_init(matrix->rows, matrix->columns);
     cuda_matrix_host_to_device(device_matrix, matrix);
@@ -123,12 +182,11 @@ bool cuda_matrix_qr_decomposition_parallel_max(matrix_t* matrix, float* diagonal
     bool *device_is_singular;
     cudaMalloc(&device_is_singular, sizeof(bool));
 
-    // Mathy
     for (int k = 0; k < matrix->columns; k++)
     {
-        /* code */
+        cuda_matrix_qr_decomposition_parallel_max_kernel<<<dim3(1), dim3(1)>>>(device_matrix, device_diagonal, device_c,
+        matrix->columns, device_is_singular, k);
     }
-    
 
     bool is_singular;
     cudaMemcpy(
