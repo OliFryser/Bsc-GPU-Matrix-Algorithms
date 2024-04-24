@@ -136,7 +136,7 @@ int main() {
         (NULL == CU_add_test(cuda_qr_decomposition_suite,
                      "matrix_t qr decomposition single core",
                      test_matrix_qr_single_core)) ||
-        (NULL == CU_add_test(cuda_matrix_suite,
+        (NULL == CU_add_test(cuda_qr_decomposition_suite,
                      "matrix_t qr decomposition parallel max",
                      test_matrix_qr_parallel_max))) {
         CU_cleanup_registry();

@@ -8,5 +8,6 @@
 #include "../MatrixAlgorithms/matrix_algorithms.h"
 
 void test_matrix_qr_single_core(void);
+void test_matrix_qr_parallel_max(void);
 
 #endif
