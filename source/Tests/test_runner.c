@@ -126,7 +126,10 @@ int main() {
                 test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses_larger_matrices)) ||
         (NULL == CU_add_test(cuda_matrix_suite,
                      "matrix_t qr decomposition single core",
-                     test_matrix_qr_single_core))) {
+                     test_matrix_qr_single_core)) ||
+        (NULL == CU_add_test(cuda_matrix_suite,
+                     "matrix_t qr decomposition parallel max",
+                     test_matrix_qr_parallel_max))) {
         CU_cleanup_registry();
         return CU_get_error();
     }
