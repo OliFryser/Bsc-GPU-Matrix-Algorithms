@@ -39,8 +39,8 @@ int main() {
     }
 
     cuda_qr_decomposition_suite = CU_add_suite("QR Decomposition Tests",
-        init_cuda_matrix_suite, clean_cuda_matrix_suite);
-    if (NULL == cuda_matrix_suite) {
+        init_cuda_qr_decomposition_suite, clean_cuda_qr_decomposition_suite);
+    if (NULL == cuda_qr_decomposition_suite) {
         CU_cleanup_registry();
         return CU_get_error();
     }

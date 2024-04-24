@@ -4,7 +4,7 @@ matrix_t *cuda_matrix_qr_input;
 matrix_t *cuda_matrix_qr_expected_r;
 matrix_t *cuda_matrix_qr_expected_q;
 
-int init_cuda_matrix_suite(void) {
+int init_cuda_qr_decomposition_suite(void) {
     char *csv_path;
     FILE *csv_file;
 
@@ -27,7 +27,7 @@ int init_cuda_matrix_suite(void) {
     return 0;
 }
 
-int clean_cuda_matrix_suite(void) {
+int clean_cuda_qr_decomposition_suite(void) {
     matrix_free(cuda_matrix_qr_expected_q);
     matrix_free(cuda_matrix_qr_expected_r);
     matrix_free(cuda_matrix_qr_input);
