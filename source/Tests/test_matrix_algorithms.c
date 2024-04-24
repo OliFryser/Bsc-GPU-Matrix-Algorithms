@@ -167,6 +167,18 @@ void test_matrix_equal(void) {
     CU_ASSERT_TRUE(matrix_equal(matrix_2x2, matrix_2x2));
 }
 
+void test_almost_equal_not(void) {
+    CU_ASSERT_FALSE(almost_equal(
+        1.0f, 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f));
+}
+
+void test_almost_equal(void) {
+    CU_ASSERT_FALSE(1.0f == 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f +
+                                0.1f + 0.1f + 0.1f);
+    CU_ASSERT_TRUE(almost_equal(1.0f,
+        0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f));
+}
+
 void test_matrix_not_equal(void) {
     CU_ASSERT_FALSE(matrix_equal(matrix_2x2, matrix_4x1));
     CU_ASSERT_FALSE(matrix_equal(matrix_2x2, matrix_doubled_2x2));

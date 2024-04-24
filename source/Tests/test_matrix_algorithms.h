@@ -18,6 +18,8 @@ void test_matrix_equal_dimensions(void);
 void test_matrix_not_equal_dimensions(void);
 void test_matrix_equal(void);
 void test_matrix_not_equal(void);
+void test_almost_equal_not(void);
+void test_almost_equal(void);
 void test_matrix_almost_equal(void);
 void test_matrix_copy(void);
 void test_matrix_addition(void);

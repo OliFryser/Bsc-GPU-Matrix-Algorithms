@@ -53,6 +53,10 @@ int main() {
                      test_matrix_not_equal_dimensions)) ||
         (NULL == CU_add_test(
                      matrix_suite, "matrix_t equality", test_matrix_equal)) ||
+        (NULL == CU_add_test(matrix_suite, "almost equal not",
+                     test_almost_equal_not)) ||
+        (NULL ==
+            CU_add_test(matrix_suite, "almost equal", test_almost_equal)) ||
         (NULL == CU_add_test(matrix_suite, "matrix_t almost equal",
                      test_matrix_almost_equal)) ||
         (NULL ==
@@ -83,8 +87,7 @@ int main() {
         (NULL == CU_add_test(cuda_matrix_suite,
                      "matrix_t addition gpu multi core 2 larger matrices",
                      test_matrix_addition_gpu_multi_core2_larger_matrices)) ||
-        (NULL == CU_add_test(cuda_matrix_suite,
-                     "matrix_t addition gpu blocks",
+        (NULL == CU_add_test(cuda_matrix_suite, "matrix_t addition gpu blocks",
                      test_matrix_addition_gpu_blocks)) ||
         (NULL == CU_add_test(cuda_matrix_suite,
                      "matrix_t multiplication gpu single core",
@@ -113,17 +116,17 @@ int main() {
                 test_matrix_multiplication_gpu_multi_core_shared_memory_larger_matrices)) ||
         (NULL ==
             CU_add_test(cuda_matrix_suite,
-                "matrix_t multiplication gpu multi core: shared memory fewer accesses",
-                test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses)) || 
+                "matrix_t multiplication gpu multi core: shared memory fewer "
+                "accesses",
+                test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses)) ||
         (NULL ==
             CU_add_test(cuda_matrix_suite,
-                "matrix_t multiplication gpu multi core: shared memory fewer accesses larger matrices",
-                test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses_larger_matrices)) || 
-        (NULL == 
-            CU_add_test(cuda_matrix_suite,
-                "matrix_t qr decomposition single core",
-                test_matrix_qr_single_core))
-                ) {
+                "matrix_t multiplication gpu multi core: shared memory fewer "
+                "accesses larger matrices",
+                test_matrix_multiplication_gpu_multi_core_shared_memory_fewer_accesses_larger_matrices)) ||
+        (NULL == CU_add_test(cuda_matrix_suite,
+                     "matrix_t qr decomposition single core",
+                     test_matrix_qr_single_core))) {
         CU_cleanup_registry();
         return CU_get_error();
     }

@@ -135,25 +135,17 @@ bool matrix_equal(matrix_t *matrix_a, matrix_t *matrix_b) {
     return true;
 }
 
-// Calculates units in the last place | unit of least precision
-// float ulp(float number) {
-//     int bits = *(int *)&number;  // Evil bit hack from Quake III Q_sqrt
-//     function
+bool almost_equal(float x, float y) {
+    int maxUlps = 0x100;
+    int xBits = *(int *)&x;  // Evil bit hack from Quake III Q_sqrt
+    int yBits = *(int *)&y;  // Evil bit hack from Quake III Q_sqrt
+    int minValue = 1 << 31;
+    if (xBits < 0) xBits = minValue - xBits;
+    if (yBits < 0) yBits = minValue - yBits;
 
-//     int exponent = (bits & 0x7F800000) >> 23;
-//     int mantissa_0 = (bits & 0x7FFFFE) | 0x800000;
-//     int mantissa_1 = ((bits & 0x7FFFFF) | 0x1) | 0x800000;
-
-//     float significand_0 = *(float *)&mantissa_0;
-//     float significand_1 = *(float *)&mantissa_1;
-
-//     const int bias = 127;
-//     float float_0 = powf(2.0f, exponent - bias) * significand_0;
-//     float float_1 = powf(2.0f, exponent - bias) * significand_1;
-
-//     float ulps = fabsf(float_0 - float_1);
-//     return ulps;
-// }
+    int difference = xBits - yBits;
+    return difference != minValue && fabsf(difference) <= maxUlps;
+}
 
 bool matrix_almost_equal(matrix_t *matrix_a, matrix_t *matrix_b) {
     if (matrix_a == NULL) return false;
@@ -162,16 +154,13 @@ bool matrix_almost_equal(matrix_t *matrix_a, matrix_t *matrix_b) {
 
     int rows = matrix_a->rows;
     int columns = matrix_a->columns;
-    bool almost_equal;
+    bool equal;
 
     for (int i = 0; i < rows * columns; i++) {
-        // float ulp_a = ulp(matrix_a->values[i]);
-        // float ulp_b = ulp(matrix_b->values[i]);
-        // float max_ulp = fmaxf(ulp_a, ulp_b);
-        // almost_equal = abs(matrix_a->values[i] - matrix_b->values[i]) <
-        // max_ulp;
-        almost_equal = fabsf(matrix_a->values[i] - matrix_b->values[i]) < 0.01f;
-        if (!almost_equal) {
+        equal = almost_equal(matrix_a->values[i],
+            matrix_b->values[i]);  // fabsf(matrix_a->values[i] -
+                                   // matrix_b->values[i]) < 0.01f;
+        if (!equal) {
             printf("\nFOUND ERROR AT %d,%d\n", i / columns, i % columns);
             printf("\nPrinting matrix 1:\n");
             matrix_print(matrix_a);
@@ -184,19 +173,17 @@ bool matrix_almost_equal(matrix_t *matrix_a, matrix_t *matrix_b) {
 }
 
 bool matrix_r_equal(matrix_t *r, matrix_t *composite, float *diagonal) {
-    bool almost_equal;
-    float threshold = 0.01f;
+    bool equal;
     for (int i = 0; i < r->rows; i++) {
         for (int j = 0; j <= i; j++) {
             if (i == j) {
-                almost_equal = abs(r->values[INDEX(i, j, r->columns)] -
-                                   diagonal[i]) < threshold;
+                equal = almost_equal(
+                    r->values[INDEX(i, j, r->columns)], diagonal[i]);
             } else {
-                almost_equal =
-                    abs(r->values[INDEX(i, j, r->columns)] -
-                        composite->values[INDEX(i, j, r->columns)]) < threshold;
+                equal = almost_equal(r->values[INDEX(i, j, r->columns)],
+                    composite->values[INDEX(i, j, r->columns)]);
             }
-            if (!almost_equal) return false;
+            if (!equal) return false;
         }
     }
     return true;
@@ -246,19 +233,17 @@ bool matrix_subtract_from_identity(matrix_t *matrix) {
     if (matrix == NULL) return false;
     for (int i = 0; i < matrix->rows; i++)
         for (int j = 0; j < matrix->columns; j++) {
-            float element = matrix->values[INDEX(i,j, matrix->columns)];
+            float element = matrix->values[INDEX(i, j, matrix->columns)];
 
             if (i == j) {
-                element =
-                    1 - element;
+                element = 1 - element;
                 // if (i == matrix->rows - 1) {
                 //     matrix->values[INDEX(i, j, matrix->columns)] *= -1;
                 // }
-            }
-            else {
+            } else {
                 element *= -1;
             }
-            matrix->values[INDEX(i,j, matrix->columns)] = element;
+            matrix->values[INDEX(i, j, matrix->columns)] = element;
         }
     return true;
 }
