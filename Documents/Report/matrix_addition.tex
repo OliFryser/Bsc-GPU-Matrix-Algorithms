@@ -24,6 +24,13 @@ Calculating the matrix sum can be done in linear time complexity in the count of
 
  As can be seen in benchmark [INSERT CPU ADDITION BENCHMARK HERE], our running time has a slope of 2. This is expected, since the algorithm is a $O(n^2)$ and we are using a logarithmic axes in our diagram (see sect. \ref{subsect:benchmark}).
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/Addition CPU.png}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
+
 Note that for each \texttt{element}, only 1 operation have to be performed. The overhead of running this on GPU might outweigh the benefits of parallelization, simply because of the relatively little work each core on the GPU will have to do. Keep this in mind as we dive into the world of GPU programming.
 
 \subsection{Addition: GPU Implementation Single Core}
