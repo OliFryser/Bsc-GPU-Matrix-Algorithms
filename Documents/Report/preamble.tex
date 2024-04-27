@@ -22,6 +22,20 @@
     citecolor=blue,
 }
 
+\makeatletter
+\def\Cline#1#2{\@Cline#1#2\@nil}
+\def\@Cline#1-#2#3\@nil{%
+  \omit
+  \@multicnt#1%
+  \advance\@multispan\m@ne
+  \ifnum\@multicnt=\@ne\@firstofone{&\omit}\fi
+  \@multicnt#2%
+  \advance\@multicnt-#1%
+  \advance\@multispan\@ne
+  \leaders\hrule\@height#3\hfill
+  \cr}
+\makeatother
+
 \addbibresource{refs.bib}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
