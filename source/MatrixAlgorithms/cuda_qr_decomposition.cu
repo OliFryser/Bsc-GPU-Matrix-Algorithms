@@ -232,7 +232,7 @@ bool cuda_matrix_qr_decomposition_parallel_max(
     int block_size = 16;
     int grid_size = 16;
     float *device_blocks;
-    cudaMalloc(&device_blocks, sizeof(float) * block_size);
+    cudaMalloc(&device_blocks, sizeof(float) * grid_size);
 
     int dimension = matrix->columns;
     int parallel_max_grid_size = 0;
@@ -245,7 +245,7 @@ bool cuda_matrix_qr_decomposition_parallel_max(
             device_matrix, k, dimension, column_after_k);
         cuda_parallel_max_kernel<<<grid_size, block_size>>>(
             device_blocks, column_after_k, dimension, k);
-        cuda_max_value<<<1, 1>>>(device_scale, device_blocks, dimension);
+        cuda_max_value<<<1, 1>>>(device_scale, device_blocks, grid_size);
         cuda_matrix_qr_decomposition_kernel<<<1, 1>>>(device_matrix,
             device_diagonal, device_c, dimension, device_is_singular, k,
             device_scale);
