@@ -153,10 +153,7 @@ __global__ void cuda_matrix_qr_decomposition_kernel(device_matrix_t matrix,
     float column_length_squared, element;
     int n = dimension;
     float scale = *scale_in_memory;
-    *is_singular = true;
-    // scale is the max absolute value of the column
-    for (int i = k; i < n; i++)
-        scale = fmaxf(scale, fabsf(matrix[INDEX(i, k, n)]));
+    *is_singular = false;
 
     if (scale == 0.0) {
         *is_singular = true;
@@ -200,6 +197,15 @@ __global__ void cuda_matrix_qr_decomposition_kernel(device_matrix_t matrix,
     }
 }
 
+__global__ void cuda_max_value(float *device_scale, const float *values, int dimension) {
+    float max = values[0];
+    for (int i = 1; i < dimension; i++)
+        if (values[i] > max)
+            max = values[i];
+    *device_scale = max;
+    printf("Max: %f", max);
+}
+
 __global__ void test_kernel() {
     printf("\nTesting");
 }
@@ -239,7 +245,7 @@ bool cuda_matrix_qr_decomposition_parallel_max(
             device_matrix, k, dimension, column_after_k);
         cuda_parallel_max_kernel<<<grid_size, block_size>>>(
             device_blocks, column_after_k, dimension, k);
-        // now assign the max value from device_blocks to device scale
+        cuda_max_value<<<1, 1>>>(device_scale, device_blocks, dimension);
         cuda_matrix_qr_decomposition_kernel<<<1, 1>>>(device_matrix,
             device_diagonal, device_c, dimension, device_is_singular, k,
             device_scale);
