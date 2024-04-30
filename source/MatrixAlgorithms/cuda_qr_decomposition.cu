@@ -121,9 +121,9 @@ __global__ void cuda_parallel_max_kernel(
 
     int i = blockDim.x * blockIdx.x + threadIdx.x;
     int cacheIndex = threadIdx.x;
-    float temp = column[0];  // register for each thread
+    float temp = fabsf(column[0]);  // register for each thread
     while (i < dimension) {
-        if (column[i] > temp) temp = column[i];
+        if (fabsf(column[i]) > temp) temp = fabsf(column[i]);
         i += blockDim.x * gridDim.x; // thread i er ansvarlig for hvert 256. element og der er 256 threads i gang af gangen
     }
 
@@ -203,7 +203,6 @@ __global__ void cuda_max_value(float *device_scale, const float *values, int dim
         if (values[i] > max)
             max = values[i];
     *device_scale = max;
-    printf("Max: %f", max);
 }
 
 __global__ void test_kernel(int number) {
