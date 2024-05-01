@@ -164,6 +164,54 @@ __global__ void cuda_parallel_max_kernel(
     if (cache_index == 0) blocks[blockIdx.x] = cache[0];
 }
 
+enum FolderType { MAX, SUM };
+
+typedef float (*folder_t)(float*, float, float);
+
+__device__ float cuda_max_absolute(float *result, float a, float b) {
+    *result = fmaxf(fabsf(a), fabsf(b));
+}
+
+__device__ float cuda_accumulate_sum_of_products(float *result, float a, float b) {
+    *result += a * b;
+}
+
+__global__ void cuda_parallel_reduction_kernel(
+    float *blocks, float *column, int column_length, FolderType folder_type) {
+    __shared__ float cache[BLOCK_SIZE];  // blockDim.x
+    int i = blockIdx.x * ELEMENTS_PR_THREAD * blockDim.x + threadIdx.x;
+    int cache_index = threadIdx.x;
+    float thread_max = fabsf(column[0]);
+    folder_t folder;
+    if (folder_type == MAX) folder = cuda_max_absolute;
+    else if (folder_type == SUM) folder = cuda_accumulate_sum_of_products;
+    for (int j = 0; j < ELEMENTS_PR_THREAD; j++) {
+        if (i >= column_length) break;
+        folder(&thread_max, column[i], thread_max);
+        // if (fabsf(column[i]) > thread_max) thread_max = fabsf(column[i]);
+        i += blockDim.x;
+    }
+
+    cache[cache_index] = thread_max;  // set the cache value
+
+    __syncthreads();
+
+    // perform parallel reduction, threadsPerBlock must be 2^m
+
+    int split_index = blockDim.x / 2;
+    while (split_index != 0) {
+        if (cache_index < split_index &&
+            cache[cache_index + split_index] > cache[cache_index])
+            cache[cache_index] = cache[cache_index + split_index];
+
+        __syncthreads();
+
+        split_index /= 2;
+    }
+    printf("Max: %f", cache[0]);
+    if (cache_index == 0) blocks[blockIdx.x] = cache[0];
+}
+
 __global__ void cuda_matrix_qr_decomposition_kernel(device_matrix_t matrix,
     float *diagonal, float *c, int dimension, bool *is_singular, int k,
     float *scale_in_memory) {
@@ -263,9 +311,8 @@ bool cuda_matrix_qr_decomposition_parallel_max(
 
         cudaDeviceSynchronize();
 
-        cuda_parallel_max_kernel<<<grid_size, BLOCK_SIZE,
-            sizeof(float) * BLOCK_SIZE>>>(
-            device_blocks, column_after_k, (dimension - k));
+        cuda_parallel_reduction_kernel<<<grid_size, BLOCK_SIZE>>>(
+            device_blocks, column_after_k, (dimension - k), MAX);
 
         cudaDeviceSynchronize();
 
