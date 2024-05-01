@@ -5,23 +5,56 @@
 
 #include "array_algorithms.h"
 #include "csv_utility.h"
-#include "cuda_matrix_algorithms.h"
-#include "matrix_algorithms.h"
 #include "cuda_diagnostic.h"
+#include "cuda_matrix_algorithms.h"
+#include "cuda_qr_decomposition.h"
+#include "matrix_algorithms.h"
 #define NANOSECS_PER_SEC 1e9
 
 void write_to_csv(FILE *file, char algorithm_name[], char matrix_dimensions[],
     double mean_run_time, double standard_deviation, int iterations);
 double mean(double array[], int size_of_array);
 double standard_deviation(double array[], int size_of_array, double mean);
-bool launch_kernel_1_block_1_thread_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
-bool launch_kernel_scaling_with_dimension_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
-bool malloc_scaling_with_dimension_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
-bool memcpy_scaling_with_dimension_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
-bool memcpy_and_kernel_launch_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
-bool memcpy_and_larger_kernel_launch_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
-bool write_managed_vector_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
-bool write_vector_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool launch_kernel_1_block_1_thread_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool launch_kernel_scaling_with_dimension_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool malloc_scaling_with_dimension_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool memcpy_scaling_with_dimension_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool memcpy_and_kernel_launch_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool memcpy_and_larger_kernel_launch_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool write_managed_vector_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool write_vector_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool cuda_matrix_addition_single_core_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool cuda_matrix_addition_multi_core_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+bool cuda_matrix_addition_multi_core2_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+
+bool cuda_matrix_addition_blocks_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+
+bool cuda_matrix_multiplication_single_core_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+
+bool cuda_matrix_multiplication_multi_core_unwrapping_i_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+
+bool cuda_matrix_multiplication_multi_core_unwrapping_i_and_j_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+
+bool cuda_matrix_multiplication_multi_core_shared_memory_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+
+bool cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
 
 int main(int argc, char *argv[]) {
     // Command Line Arguments
@@ -85,17 +118,26 @@ int main(int argc, char *argv[]) {
             &cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_adapter;
     else if (strcmp(algorithm, "qr cpu") == 0)
         matrix_algorithm = &matrix_qr_decomposition_adapter;
-    else if (strcmp(algorithm, "diagnostic: launch kernel 1 block 1 thread") == 0)
+    else if (strcmp(algorithm, "qr gpu parallel max") == 0)
+        matrix_algorithm = &cuda_matrix_qr_decomposition_parallel_max_adapter;
+    else if (strcmp(algorithm, "qr gpu single core") == 0)
+        matrix_algorithm = &cuda_matrix_qr_decomposition_single_core_adapter;
+    else if (strcmp(algorithm, "diagnostic: launch kernel 1 block 1 thread") ==
+             0)
         matrix_algorithm = &launch_kernel_1_block_1_thread_adapter;
-    else if (strcmp(algorithm, "diagnostic: launch kernel scaling grid and blocks") == 0)
+    else if (strcmp(algorithm,
+                 "diagnostic: launch kernel scaling grid and blocks") == 0)
         matrix_algorithm = &launch_kernel_scaling_with_dimension_adapter;
     else if (strcmp(algorithm, "diagnostic: cudaMalloc") == 0)
         matrix_algorithm = &malloc_scaling_with_dimension_adapter;
     else if (strcmp(algorithm, "diagnostic: cudaMemcpy") == 0)
         matrix_algorithm = &memcpy_scaling_with_dimension_adapter;
-    else if (strcmp(algorithm, "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread") == 0)
+    else if (strcmp(algorithm,
+                 "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread") ==
+             0)
         matrix_algorithm = &memcpy_and_kernel_launch_adapter;
-    else if (strcmp(algorithm, "diagnostic: cudaMemcpy & launch larger kernel") == 0)
+    else if (strcmp(algorithm,
+                 "diagnostic: cudaMemcpy & launch larger kernel") == 0)
         matrix_algorithm = &memcpy_and_larger_kernel_launch_adapter;
     else if (strcmp(algorithm, "diagnostic: write managed") == 0)
         matrix_algorithm = &write_managed_vector_adapter;
@@ -114,15 +156,13 @@ int main(int argc, char *argv[]) {
     algorithm_arg_t *arg_b = (algorithm_arg_t *)malloc(sizeof(algorithm_arg_t));
     algorithm_arg_t *arg_c = (algorithm_arg_t *)malloc(sizeof(algorithm_arg_t));
 
-    if (strstr(algorithm, "diagnostic") != NULL) { 
+    if (strstr(algorithm, "diagnostic") != NULL) {
         arg_a->matrix = matrix_a;
-    } 
-    else if (strstr(algorithm, "qr") != NULL) { 
+    } else if (strstr(algorithm, "qr") != NULL) {
         arg_a->matrix = matrix_a;
         arg_b->vector = (float *)malloc(sizeof(float) * dimension);
         arg_c->vector = (float *)malloc(sizeof(float) * dimension);
-    } 
-    else {
+    } else {
         arg_a->matrix = matrix_a;
         arg_b->matrix = matrix_b;
         arg_c->matrix = matrix_c;

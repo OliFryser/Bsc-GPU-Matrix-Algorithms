@@ -102,6 +102,18 @@ bool cuda_qr_decomposition_runner(matrix_t *matrix, float *diagonal, float *c,
     return is_singular;
 }
 
+bool cuda_matrix_qr_decomposition_parallel_max_adapter(
+    algorithm_arg_t *matrix, algorithm_arg_t *diagonal, algorithm_arg_t *c) {
+    return cuda_matrix_qr_decomposition_parallel_max(
+        matrix->matrix, diagonal->vector, c->vector);
+}
+
+bool cuda_matrix_qr_decomposition_single_core_adapter(
+    algorithm_arg_t *matrix, algorithm_arg_t *diagonal, algorithm_arg_t *c) {
+    return cuda_matrix_qr_decomposition_single_core(
+        matrix->matrix, diagonal->vector, c->vector);
+}
+
 bool cuda_matrix_qr_decomposition_single_core(
     matrix_t *matrix, float *diagonal, float *c) {
     return cuda_qr_decomposition_runner(matrix, diagonal, c,
@@ -117,14 +129,16 @@ __global__ void cuda_setup_column_kernel(
 
 __global__ void cuda_parallel_max_kernel(
     float *blocks, float *column, int dimension, int starting_index) {
-    __shared__ float cache[16]; // blockDim.x
+    __shared__ float cache[16];  // blockDim.x
 
     int i = blockDim.x * blockIdx.x + threadIdx.x;
     int cacheIndex = threadIdx.x;
     float temp = fabsf(column[0]);  // register for each thread
     while (i < dimension) {
         if (fabsf(column[i]) > temp) temp = fabsf(column[i]);
-        i += blockDim.x * gridDim.x; // thread i er ansvarlig for hvert 256. element og der er 256 threads i gang af gangen
+        i += blockDim.x *
+             gridDim.x;  // thread i er ansvarlig for hvert 256. element og der
+                         // er 256 threads i gang af gangen
     }
 
     cache[cacheIndex] = temp;  // set the cache value
@@ -197,17 +211,15 @@ __global__ void cuda_matrix_qr_decomposition_kernel(device_matrix_t matrix,
     }
 }
 
-__global__ void cuda_max_value(float *device_scale, const float *values, int dimension) {
+__global__ void cuda_max_value(
+    float *device_scale, const float *values, int dimension) {
     float max = values[0];
     for (int i = 1; i < dimension; i++)
-        if (values[i] > max)
-            max = values[i];
+        if (values[i] > max) max = values[i];
     *device_scale = max;
 }
 
-__global__ void test_kernel(int number) {
-    printf("\nTesting: %d", number);
-}
+__global__ void test_kernel(int number) { printf("\nTesting: %d", number); }
 
 bool cuda_matrix_qr_decomposition_parallel_max(
     matrix_t *matrix, float *diagonal, float *c) {
@@ -236,7 +248,7 @@ bool cuda_matrix_qr_decomposition_parallel_max(
     int dimension = matrix->columns;
     int parallel_max_grid_size = 0;
 
-    for (int k = 0; k < dimension; k++) {        
+    for (int k = 0; k < dimension; k++) {
         int elements_per_thread = (dimension - k) / (grid_size * block_size);
         float *column_after_k;
         cudaMalloc(&column_after_k, sizeof(float) * (dimension - k));

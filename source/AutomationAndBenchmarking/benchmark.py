@@ -12,6 +12,10 @@ addition_gpu_multi_core = "addition gpu multi core"
 addition_gpu_multi_core_2 = "addition gpu multi core 2"
 addition_gpu_blocks = "addition gpu blocks"
 
+qr_cpu = "qr cpu"
+qr_gpu_single_core = "qr gpu single core"
+qr_gpu_parallel_max = "qr gpu parallel max"
+
 diagnostic_no_op = "diagnostic: launch kernel 1 block 1 thread"
 diagnostic_write_managed = "diagnostic: write managed"
 diagnostic_write_vector = "diagnostic: write vector"
@@ -39,9 +43,9 @@ compile_command_2d = ["gcc", "-L/usr/local/cuda/lib64", "-o", binary_path_2d] + 
 
 timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
 csv_path = "BenchmarkData/" + timestamp + ".csv"
-algorithms_to_run = [addition_gpu_multi_core] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
-additional_algorithms_to_compare = [addition_cpu, addition_gpu_single_core]
-additional_csv_files_to_include = ["SavedBenchmarksAndDiagrams/Machine 2/Addition CPU.csv", "SavedBenchmarksAndDiagrams/Machine 2/Addition GPU Single.csv"]
+algorithms_to_run = [qr_cpu, qr_gpu_single_core, qr_gpu_parallel_max] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
+additional_algorithms_to_compare = []
+additional_csv_files_to_include = []
 matrix_dimensions = [math.floor(2 ** (i)) for i in range(0, 11)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot" + timestamp + ".png"
 
