@@ -134,9 +134,16 @@ __global__ void cuda_parallel_max_kernel(
     float *blocks, float *column, int column_length) {
     __shared__ float cache[BLOCK_SIZE];  // blockDim.x
     int i = blockIdx.x * ELEMENTS_PR_THREAD * blockDim.x + threadIdx.x;
+<<<<<<< HEAD
     int cacheIndex = threadIdx.x;
     float thread_max = fabsf(column[0]);
     for (int j = 0; j < ELEMENTS_PR_THREAD; j++) {
+=======
+    int cache_index = threadIdx.x;
+    float thread_max = fabsf(column[0]); 
+    for (int j = 0; j < ELEMENTS_PR_THREAD; j++)
+    {
+>>>>>>> b69968561182ec5da0f52f3953c66a643e74ca50
         if (i >= column_length) continue;
         if (fabsf(column[i]) > thread_max) thread_max = fabsf(column[i]);
         printf("Thread %d in block %d\n-- Threadmax: %f\n-- Iteration %d\n",
@@ -144,7 +151,7 @@ __global__ void cuda_parallel_max_kernel(
         i += blockDim.x;
     }
 
-    cache[cacheIndex] = thread_max;  // set the cache value
+    cache[cache_index] = thread_max;  // set the cache value
 
     __syncthreads();
 
@@ -152,16 +159,21 @@ __global__ void cuda_parallel_max_kernel(
 
     int split_index = blockDim.x / 2;
     while (split_index != 0) {
+<<<<<<< HEAD
         if (cacheIndex < split_index &&
             cache[cacheIndex + split_index] > cache[cacheIndex])
             cache[cacheIndex] = cache[cacheIndex + split_index];
+=======
+        if (cache_index < split_index && cache[cache_index + split_index] > cache[cache_index])
+            cache[cache_index] = cache[cache_index + split_index];
+>>>>>>> b69968561182ec5da0f52f3953c66a643e74ca50
 
         __syncthreads();
 
         split_index /= 2;
     }
 
-    if (cacheIndex == 0) blocks[blockIdx.x] = cache[0];
+    if (cache_index == 0) blocks[blockIdx.x] = cache[0];
 }
 
 __global__ void cuda_matrix_qr_decomposition_kernel(device_matrix_t matrix,
@@ -171,6 +183,7 @@ __global__ void cuda_matrix_qr_decomposition_kernel(device_matrix_t matrix,
     float column_length_squared, element;
     int n = dimension;
     float scale = *scale_in_memory;
+    return;
     *is_singular = false;
 
     if (scale == 0.0) {
