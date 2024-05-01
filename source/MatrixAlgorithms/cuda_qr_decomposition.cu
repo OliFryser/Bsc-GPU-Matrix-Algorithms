@@ -251,12 +251,12 @@ bool cuda_matrix_qr_decomposition_parallel_max(
     float *device_blocks;
     cudaMalloc(&device_blocks, sizeof(float) * grid_size);
 
+    float *column_after_k;
+    cudaMalloc(&column_after_k, sizeof(float) * dimension);
+
     for (int k = 0; k < dimension; k++) {
         grid_size = (dimension - k + ELEMENTS_PR_THREAD * BLOCK_SIZE - 1) /
                     (ELEMENTS_PR_THREAD * BLOCK_SIZE);
-
-        float *column_after_k;
-        cudaMalloc(&column_after_k, sizeof(float) * (dimension - k));
 
         cuda_setup_column_kernel<<<1, 1>>>(
             device_matrix, k, dimension, column_after_k);
