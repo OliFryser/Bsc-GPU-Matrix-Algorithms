@@ -156,7 +156,6 @@ __global__ void cuda_parallel_reduction_kernel(
     for (int j = 0; j < ELEMENTS_PR_THREAD; j++) {
         if (i >= column_count) break;
         folder(&thread_max, matrix[i], thread_max);
-        // if (fabsf(column[i]) > thread_max) thread_max = fabsf(column[i]);
         i += blockDim.x * column_count;
     }
 
