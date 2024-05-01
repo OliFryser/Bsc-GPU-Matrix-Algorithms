@@ -134,16 +134,9 @@ __global__ void cuda_parallel_max_kernel(
     float *blocks, float *column, int column_length) {
     __shared__ float cache[BLOCK_SIZE];  // blockDim.x
     int i = blockIdx.x * ELEMENTS_PR_THREAD * blockDim.x + threadIdx.x;
-<<<<<<< HEAD
-    int cacheIndex = threadIdx.x;
+    int cache_index = threadIdx.x;
     float thread_max = fabsf(column[0]);
     for (int j = 0; j < ELEMENTS_PR_THREAD; j++) {
-=======
-    int cache_index = threadIdx.x;
-    float thread_max = fabsf(column[0]); 
-    for (int j = 0; j < ELEMENTS_PR_THREAD; j++)
-    {
->>>>>>> b69968561182ec5da0f52f3953c66a643e74ca50
         if (i >= column_length) continue;
         if (fabsf(column[i]) > thread_max) thread_max = fabsf(column[i]);
         printf("Thread %d in block %d\n-- Threadmax: %f\n-- Iteration %d\n",
@@ -159,14 +152,9 @@ __global__ void cuda_parallel_max_kernel(
 
     int split_index = blockDim.x / 2;
     while (split_index != 0) {
-<<<<<<< HEAD
-        if (cacheIndex < split_index &&
-            cache[cacheIndex + split_index] > cache[cacheIndex])
-            cache[cacheIndex] = cache[cacheIndex + split_index];
-=======
-        if (cache_index < split_index && cache[cache_index + split_index] > cache[cache_index])
+        if (cache_index < split_index &&
+            cache[cache_index + split_index] > cache[cache_index])
             cache[cache_index] = cache[cache_index + split_index];
->>>>>>> b69968561182ec5da0f52f3953c66a643e74ca50
 
         __syncthreads();
 
