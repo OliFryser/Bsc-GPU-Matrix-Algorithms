@@ -120,28 +120,32 @@ bool cuda_matrix_qr_decomposition_single_core(
         &(cuda_matrix_qr_decomposition_single_core_kernel), dim3(1), dim3(1));
 }
 
-__global__ void cuda_setup_column_kernel(
-    device_matrix_t matrix, int column, int dimension, float *destination) {
-    int column_index = 0;
-    for (int i = column; i < dimension; i++) {
-        destination[column_index] = matrix[INDEX(i, column, dimension)];
-        column_index++;
-    }
-}
+// __global__ void cuda_setup_column_kernel(
+//     device_matrix_t matrix, int column, int dimension, float *destination) {
+//     int column_index = 0;
+//     for (int i = column; i < dimension; i++) {
+//         destination[column_index] = matrix[INDEX(i, column, dimension)];
+//         column_index++;
+//     }
+// }
 
-#define ELEMENTS_PR_THREAD 4
-#define BLOCK_SIZE 4
+#define ELEMENTS_PR_THREAD 16
+#define BLOCK_SIZE 16
 
-__global__ void cuda_parallel_max_kernel(
-    float *blocks, float *column, int column_length) {
+__global__ void cuda_parallel_max_kernel(float *blocks, int starting_index,
+    int column_count, device_matrix_t matrix) {
     __shared__ float cache[BLOCK_SIZE];  // blockDim.x
-    int i = blockIdx.x * ELEMENTS_PR_THREAD * blockDim.x + threadIdx.x;
+
+    int i = starting_index + blockIdx.x * ELEMENTS_PR_THREAD * blockDim.x +
+            threadIdx.x;
+
     int cache_index = threadIdx.x;
-    float thread_max = fabsf(column[0]);
+
+    float thread_max = fabsf(matrix[starting_index]);
     for (int j = 0; j < ELEMENTS_PR_THREAD; j++) {
-        if (i >= column_length) break;
-        if (fabsf(column[i]) > thread_max) thread_max = fabsf(column[i]);
-        i += blockDim.x;
+        if (i >= column_count) break;
+        if (fabsf(matrix[i]) > thread_max) thread_max = fabsf(matrix[i]);
+        i += blockDim.x * column_count;
     }
 
     cache[cache_index] = thread_max;  // set the cache value
@@ -299,20 +303,16 @@ bool cuda_matrix_qr_decomposition_parallel_max(
     float *device_blocks;
     cudaMalloc(&device_blocks, sizeof(float) * grid_size);
 
-    float *column_after_k;
-    cudaMalloc(&column_after_k, sizeof(float) * dimension);
+    int starting_index;
 
     for (int k = 0; k < dimension; k++) {
         grid_size = (dimension - k + ELEMENTS_PR_THREAD * BLOCK_SIZE - 1) /
                     (ELEMENTS_PR_THREAD * BLOCK_SIZE);
 
-        cuda_setup_column_kernel<<<1, 1>>>(
-            device_matrix, k, dimension, column_after_k);
-
-        cudaDeviceSynchronize();
+        starting_index = INDEX(k, k, dimension);
 
         cuda_parallel_reduction_kernel<<<grid_size, BLOCK_SIZE>>>(
-            device_blocks, column_after_k, (dimension - k), MAX);
+            device_blocks, starting_index, matrix->columns, device_matrix, MAX);
 
         cudaDeviceSynchronize();
 
