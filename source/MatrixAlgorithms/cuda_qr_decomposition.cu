@@ -127,21 +127,20 @@ __global__ void cuda_setup_column_kernel(
     }
 }
 
-
 #define ELEMENTS_PR_THREAD 4
 #define BLOCK_SIZE 4
 
 __global__ void cuda_parallel_max_kernel(
     float *blocks, float *column, int column_length) {
     __shared__ float cache[BLOCK_SIZE];  // blockDim.x
-
     int i = blockIdx.x * ELEMENTS_PR_THREAD * blockDim.x + threadIdx.x;
     int cacheIndex = threadIdx.x;
-    float thread_max = fabsf(column[0]); 
-    for (int j = 0; j < ELEMENTS_PR_THREAD; j++)
-    {
+    float thread_max = fabsf(column[0]);
+    for (int j = 0; j < ELEMENTS_PR_THREAD; j++) {
         if (i >= column_length) continue;
         if (fabsf(column[i]) > thread_max) thread_max = fabsf(column[i]);
+        printf("Thread %d in block %d\n-- Threadmax: %f\n-- Iteration %d\n",
+            threadIdx.x, blockIdx.x, thread_max, j);
         i += blockDim.x;
     }
 
@@ -153,7 +152,8 @@ __global__ void cuda_parallel_max_kernel(
 
     int split_index = blockDim.x / 2;
     while (split_index != 0) {
-        if (cacheIndex < split_index && cache[cacheIndex + split_index] > cache[cacheIndex])
+        if (cacheIndex < split_index &&
+            cache[cacheIndex + split_index] > cache[cacheIndex])
             cache[cacheIndex] = cache[cacheIndex + split_index];
 
         __syncthreads();
@@ -221,7 +221,7 @@ __global__ void cuda_max_value(
     for (int i = 1; i < grid_size; i++)
         if (values[i] > max) max = values[i];
     *device_scale = max;
-    printf("\nMax: %f", max);
+    printf("\nMax: %f\n", max);
 }
 
 __global__ void test_kernel(int number) { printf("\nTesting: %d", number); }
@@ -246,7 +246,8 @@ bool cuda_matrix_qr_decomposition_parallel_max(
     cudaMalloc(&device_scale, sizeof(float));
 
     int dimension = matrix->columns;
-    int grid_size = (dimension + ELEMENTS_PR_THREAD * BLOCK_SIZE - 1) / (ELEMENTS_PR_THREAD * BLOCK_SIZE);
+    int grid_size = (dimension + ELEMENTS_PR_THREAD * BLOCK_SIZE - 1) /
+                    (ELEMENTS_PR_THREAD * BLOCK_SIZE);
 
     float *device_blocks;
     cudaMalloc(&device_blocks, sizeof(float) * grid_size);
@@ -254,22 +255,31 @@ bool cuda_matrix_qr_decomposition_parallel_max(
     int parallel_max_grid_size = 0;
 
     for (int k = 0; k < dimension; k++) {
-        grid_size = (dimension - k + ELEMENTS_PR_THREAD * BLOCK_SIZE - 1) / (ELEMENTS_PR_THREAD * BLOCK_SIZE);
-        
+        grid_size = (dimension - k + ELEMENTS_PR_THREAD * BLOCK_SIZE - 1) /
+                    (ELEMENTS_PR_THREAD * BLOCK_SIZE);
+
         float *column_after_k;
         cudaMalloc(&column_after_k, sizeof(float) * (dimension - k));
 
         cuda_setup_column_kernel<<<1, 1>>>(
             device_matrix, k, dimension, column_after_k);
 
-        cuda_parallel_max_kernel<<<grid_size, BLOCK_SIZE, sizeof(float) * BLOCK_SIZE>>>(
+        printf("Finding max for column %d\n", k);
+        cuda_parallel_max_kernel<<<grid_size, BLOCK_SIZE,
+            sizeof(float) * BLOCK_SIZE>>>(
             device_blocks, column_after_k, (dimension - k));
 
+        cudaDeviceSynchronize();
+
         cuda_max_value<<<1, 1>>>(device_scale, device_blocks, grid_size);
+
+        cudaDeviceSynchronize();
 
         cuda_matrix_qr_decomposition_kernel<<<1, 1>>>(device_matrix,
             device_diagonal, device_c, dimension, device_is_singular, k,
             device_scale);
+
+        cudaDeviceSynchronize();
     }
 
     bool is_singular;
