@@ -139,7 +139,7 @@ __global__ void cuda_parallel_max_kernel(
     int cache_index = threadIdx.x;
     float thread_max = fabsf(column[0]);
     for (int j = 0; j < ELEMENTS_PR_THREAD; j++) {
-        if (i >= column_length) continue;
+        if (i >= column_length) break;
         if (fabsf(column[i]) > thread_max) thread_max = fabsf(column[i]);
         i += blockDim.x;
     }
