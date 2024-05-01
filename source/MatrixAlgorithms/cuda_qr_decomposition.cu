@@ -122,8 +122,10 @@ bool cuda_matrix_qr_decomposition_single_core(
 
 __global__ void cuda_setup_column_kernel(
     device_matrix_t matrix, int column, int dimension, float *destination) {
+    int column_index = 0;
     for (int i = column; i < dimension; i++) {
-        destination[i] = matrix[INDEX(i, column, dimension)];
+        destination[column_index] = matrix[INDEX(i, column, dimension)];
+        column_index++;
     }
 }
 
@@ -171,7 +173,6 @@ __global__ void cuda_matrix_qr_decomposition_kernel(device_matrix_t matrix,
     float column_length_squared, element;
     int n = dimension;
     float scale = *scale_in_memory;
-    return;
     *is_singular = false;
 
     if (scale == 0.0) {
