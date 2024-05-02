@@ -136,7 +136,6 @@ __device__ float cuda_accumulate_sum_of_products(
     *result += a * b;
 }
 
-<<<<<<< HEAD
 __device__ void cuda_parallel_reduction(float *cache, int cache_index) {
     int split_index = blockDim.x;
     while (split_index != 0) {
@@ -149,13 +148,9 @@ __device__ void cuda_parallel_reduction(float *cache, int cache_index) {
     }
 }
 
-__global__ void cuda_parallel_reduction_kernel(
-    float *blocks, int starting_index, int column_count, device_matrix_t matrix, FolderType folder_type) {
-=======
 __global__ void cuda_parallel_reduction_kernel(float *blocks,
     int starting_index, int column_count, device_matrix_t matrix,
     FolderType folder_type) {
->>>>>>> 7461e071cb14fd07bc0413229f7a00cd90308c57
     __shared__ float cache[BLOCK_SIZE];  // blockDim.x
     int i = starting_index + blockIdx.x * ELEMENTS_PR_THREAD * blockDim.x +
             threadIdx.x;
