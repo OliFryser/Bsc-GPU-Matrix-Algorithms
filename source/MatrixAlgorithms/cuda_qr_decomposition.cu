@@ -127,9 +127,9 @@ bool cuda_matrix_qr_decomposition_single_core(
 #define ELEMENTS_PR_THREAD 16
 #define BLOCK_SIZE 16
 
-enum FolderType { MAX, SUM };
+__global__ void test_kernel(int number) { printf("\nTesting: %d", number); }
 
-typedef float (*folder_t)(float, float);
+typedef float (*reducer_t)(float, float);
 
 __device__ float cuda_max_absolute(float a, float b) {
     return fmaxf(fabsf(a), fabsf(b));
@@ -139,7 +139,7 @@ __device__ float cuda_sum(float a, float b) {
     return a + b;
 }
 
-__device__ void cuda_parallel_reduction(float *cache, int cache_index, folder_t reduce) {
+__device__ void cuda_parallel_reduction(float *cache, int cache_index, reducer_t reduce) {
     int split_index = blockDim.x;
     while (split_index != 0) {
         split_index /= 2;
@@ -150,34 +150,11 @@ __device__ void cuda_parallel_reduction(float *cache, int cache_index, folder_t 
     }
 }
 
-__device__ void cuda_parallel_sum_reduction(float *cache, int cache_index) {
-    int split_index = blockDim.x;
-    while (split_index != 0) {
-        split_index /= 2;
-        if (cache_index < split_index)
-            cache[cache_index] = cuda_sum(cache[cache_index], cache[cache_index + split_index]);
-
-        __syncthreads();
-    }
-}
-
-__device__ void cuda_parallel_max_reduction(float *cache, int cache_index) {
-    int split_index = blockDim.x;
-    while (split_index != 0) {
-        split_index /= 2;
-        if (cache_index < split_index &&
-            cache[cache_index + split_index] > cache[cache_index])
-            cache[cache_index] = cache[cache_index + split_index];
-
-        __syncthreads();
-    }
-}
-
 __global__ void cuda_parallel_reduction_kernel(float *blocks,
     int starting_index, int column_count, device_matrix_t matrix) {
-    __shared__ float cache[BLOCK_SIZE];  // blockDim.x
-    int i = starting_index + blockIdx.x * ELEMENTS_PR_THREAD * blockDim.x +
-            threadIdx.x;
+
+    __shared__ float cache[BLOCK_SIZE];
+    int i = starting_index + blockIdx.x * ELEMENTS_PR_THREAD * blockDim.x + threadIdx.x;
     int cache_index = threadIdx.x;
     float thread_max = fabsf(matrix[starting_index]);
     
@@ -187,12 +164,9 @@ __global__ void cuda_parallel_reduction_kernel(float *blocks,
         i += blockDim.x * column_count;
     }
 
-    cache[cache_index] = thread_max;  // set the cache value
-
+    cache[cache_index] = thread_max;
     __syncthreads();
-
     cuda_parallel_reduction(cache, cache_index, cuda_max_absolute);
-    
     if (cache_index == 0) blocks[blockIdx.x] = cache[0];
 }
 
@@ -203,7 +177,6 @@ __global__ void cuda_matrix_qr_decomposition_kernel(device_matrix_t matrix,
     float column_length_squared, element;
     int n = dimension;
     float scale = *scale_in_memory;
-    *is_singular = false;
 
     if (scale == 0.0) {
         *is_singular = true;
@@ -254,8 +227,6 @@ __global__ void cuda_max_value(
         if (values[i] > max) max = values[i];
     *device_scale = max;
 }
-
-__global__ void test_kernel(int number) { printf("\nTesting: %d", number); }
 
 bool cuda_matrix_qr_decomposition_parallel_max(
     matrix_t *matrix, float *diagonal, float *c) {
