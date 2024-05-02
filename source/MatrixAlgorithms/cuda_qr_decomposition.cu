@@ -144,12 +144,25 @@ __device__ float cuda_accumulate_sum_of_products(float *result, float a, float b
     *result += a * b;
 }
 
+__device__ void cuda_parallel_reduction(float *cache, int cache_index) {
+    int split_index = blockDim.x;
+    while (split_index != 0) {
+        split_index /= 2;
+        if (cache_index < split_index &&
+            cache[cache_index + split_index] > cache[cache_index])
+            cache[cache_index] = cache[cache_index + split_index];
+
+        __syncthreads();
+    }
+}
+
 __global__ void cuda_parallel_reduction_kernel(
     float *blocks, int starting_index, int column_count, device_matrix_t matrix, FolderType folder_type) {
     __shared__ float cache[BLOCK_SIZE];  // blockDim.x
     int i = starting_index + blockIdx.x * ELEMENTS_PR_THREAD * blockDim.x + threadIdx.x;
     int cache_index = threadIdx.x;
     float thread_max = fabsf(matrix[starting_index]);
+    
     folder_t folder;
     if (folder_type == MAX) folder = cuda_max_absolute;
     else if (folder_type == SUM) folder = cuda_accumulate_sum_of_products;
@@ -163,18 +176,8 @@ __global__ void cuda_parallel_reduction_kernel(
 
     __syncthreads();
 
-    // perform parallel reduction, threadsPerBlock must be 2^m
-
-    int split_index = blockDim.x / 2;
-    while (split_index != 0) {
-        if (cache_index < split_index &&
-            cache[cache_index + split_index] > cache[cache_index])
-            cache[cache_index] = cache[cache_index + split_index];
-
-        __syncthreads();
-
-        split_index /= 2;
-    }
+    cuda_parallel_reduction(cache, cache_index);
+    
     if (cache_index == 0) blocks[blockIdx.x] = cache[0];
 }
 
