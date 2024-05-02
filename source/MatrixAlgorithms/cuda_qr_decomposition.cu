@@ -2,6 +2,8 @@ extern "C" {
 #include "cuda_qr_decomposition.h"
 }
 
+#pragma region SingleCore
+
 __global__ void cuda_matrix_qr_decomposition_single_core_kernel(
     device_matrix_t matrix, float *diagonal, float *c, int dimension,
     bool *is_singular) {
@@ -120,23 +122,46 @@ bool cuda_matrix_qr_decomposition_single_core(
         &(cuda_matrix_qr_decomposition_single_core_kernel), dim3(1), dim3(1));
 }
 
+#pragma endregion
+
 #define ELEMENTS_PR_THREAD 16
 #define BLOCK_SIZE 16
 
 enum FolderType { MAX, SUM };
 
-typedef float (*folder_t)(float *, float, float);
+typedef float (*folder_t)(float, float);
 
-__device__ float cuda_max_absolute(float *result, float a, float b) {
-    *result = fmaxf(fabsf(a), fabsf(b));
+__device__ float cuda_max_absolute(float a, float b) {
+    return fmaxf(fabsf(a), fabsf(b));
 }
 
-__device__ float cuda_accumulate_sum_of_products(
-    float *result, float a, float b) {
-    *result += a * b;
+__device__ float cuda_sum(float a, float b) {
+    return a + b;
 }
 
-__device__ void cuda_parallel_reduction(float *cache, int cache_index) {
+__device__ void cuda_parallel_reduction(float *cache, int cache_index, folder_t reduce) {
+    int split_index = blockDim.x;
+    while (split_index != 0) {
+        split_index /= 2;
+        if (cache_index < split_index)
+            cache[cache_index] = reduce(cache[cache_index], cache[cache_index + split_index]);
+
+        __syncthreads();
+    }
+}
+
+__device__ void cuda_parallel_sum_reduction(float *cache, int cache_index) {
+    int split_index = blockDim.x;
+    while (split_index != 0) {
+        split_index /= 2;
+        if (cache_index < split_index)
+            cache[cache_index] = cuda_sum(cache[cache_index], cache[cache_index + split_index]);
+
+        __syncthreads();
+    }
+}
+
+__device__ void cuda_parallel_max_reduction(float *cache, int cache_index) {
     int split_index = blockDim.x;
     while (split_index != 0) {
         split_index /= 2;
@@ -149,22 +174,16 @@ __device__ void cuda_parallel_reduction(float *cache, int cache_index) {
 }
 
 __global__ void cuda_parallel_reduction_kernel(float *blocks,
-    int starting_index, int column_count, device_matrix_t matrix,
-    FolderType folder_type) {
+    int starting_index, int column_count, device_matrix_t matrix) {
     __shared__ float cache[BLOCK_SIZE];  // blockDim.x
     int i = starting_index + blockIdx.x * ELEMENTS_PR_THREAD * blockDim.x +
             threadIdx.x;
     int cache_index = threadIdx.x;
     float thread_max = fabsf(matrix[starting_index]);
     
-    folder_t folder;
-    if (folder_type == MAX)
-        folder = cuda_max_absolute;
-    else if (folder_type == SUM)
-        folder = cuda_accumulate_sum_of_products;
     for (int j = 0; j < ELEMENTS_PR_THREAD; j++) {
         if (i >= column_count) break;
-        folder(&thread_max, matrix[i], thread_max);
+        thread_max = cuda_max_absolute(thread_max, matrix[i]);
         i += blockDim.x * column_count;
     }
 
@@ -172,7 +191,7 @@ __global__ void cuda_parallel_reduction_kernel(float *blocks,
 
     __syncthreads();
 
-    cuda_parallel_reduction(cache, cache_index);
+    cuda_parallel_reduction(cache, cache_index, cuda_max_absolute);
     
     if (cache_index == 0) blocks[blockIdx.x] = cache[0];
 }
@@ -273,7 +292,7 @@ bool cuda_matrix_qr_decomposition_parallel_max(
         starting_index = INDEX(k, k, dimension);
 
         cuda_parallel_reduction_kernel<<<grid_size, BLOCK_SIZE>>>(
-            device_blocks, starting_index, matrix->columns, device_matrix, MAX);
+            device_blocks, starting_index, matrix->columns, device_matrix);
 
         cudaDeviceSynchronize();
 
