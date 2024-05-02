@@ -120,30 +120,23 @@ bool cuda_matrix_qr_decomposition_single_core(
         &(cuda_matrix_qr_decomposition_single_core_kernel), dim3(1), dim3(1));
 }
 
-// __global__ void cuda_setup_column_kernel(
-//     device_matrix_t matrix, int column, int dimension, float *destination) {
-//     int column_index = 0;
-//     for (int i = column; i < dimension; i++) {
-//         destination[column_index] = matrix[INDEX(i, column, dimension)];
-//         column_index++;
-//     }
-// }
-
 #define ELEMENTS_PR_THREAD 16
 #define BLOCK_SIZE 16
 
 enum FolderType { MAX, SUM };
 
-typedef float (*folder_t)(float*, float, float);
+typedef float (*folder_t)(float *, float, float);
 
 __device__ float cuda_max_absolute(float *result, float a, float b) {
     *result = fmaxf(fabsf(a), fabsf(b));
 }
 
-__device__ float cuda_accumulate_sum_of_products(float *result, float a, float b) {
+__device__ float cuda_accumulate_sum_of_products(
+    float *result, float a, float b) {
     *result += a * b;
 }
 
+<<<<<<< HEAD
 __device__ void cuda_parallel_reduction(float *cache, int cache_index) {
     int split_index = blockDim.x;
     while (split_index != 0) {
@@ -158,14 +151,22 @@ __device__ void cuda_parallel_reduction(float *cache, int cache_index) {
 
 __global__ void cuda_parallel_reduction_kernel(
     float *blocks, int starting_index, int column_count, device_matrix_t matrix, FolderType folder_type) {
+=======
+__global__ void cuda_parallel_reduction_kernel(float *blocks,
+    int starting_index, int column_count, device_matrix_t matrix,
+    FolderType folder_type) {
+>>>>>>> 7461e071cb14fd07bc0413229f7a00cd90308c57
     __shared__ float cache[BLOCK_SIZE];  // blockDim.x
-    int i = starting_index + blockIdx.x * ELEMENTS_PR_THREAD * blockDim.x + threadIdx.x;
+    int i = starting_index + blockIdx.x * ELEMENTS_PR_THREAD * blockDim.x +
+            threadIdx.x;
     int cache_index = threadIdx.x;
     float thread_max = fabsf(matrix[starting_index]);
     
     folder_t folder;
-    if (folder_type == MAX) folder = cuda_max_absolute;
-    else if (folder_type == SUM) folder = cuda_accumulate_sum_of_products;
+    if (folder_type == MAX)
+        folder = cuda_max_absolute;
+    else if (folder_type == SUM)
+        folder = cuda_accumulate_sum_of_products;
     for (int j = 0; j < ELEMENTS_PR_THREAD; j++) {
         if (i >= column_count) break;
         folder(&thread_max, matrix[i], thread_max);
