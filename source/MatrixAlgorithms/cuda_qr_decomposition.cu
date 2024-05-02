@@ -139,6 +139,23 @@ __device__ float cuda_add(float a, float b) {
     return a + b;
 }
 
+__global__ void cuda_max_value(
+    float *device_scale, const float *values, int grid_size) {
+    float max = values[0];
+    for (int i = 1; i < grid_size; i++) {
+        if (values[i] > max) max = values[i];
+    }
+    *device_scale = max;
+}
+
+__global__ void cuda_sum(
+    float *sum, const float *values, int grid_size) {
+    float accumulator = 0;
+    for (int i = 0; i < grid_size; i++)
+        accumulator += values[i];
+    *sum = accumulator;
+}
+
 __device__ void cuda_parallel_reduction(float *cache, int cache_index, reducer_t reduce) {
     int split_index = blockDim.x;
     while (split_index != 0) {
@@ -221,13 +238,6 @@ __global__ void cuda_scale_column(device_matrix_t matrix, float *device_scale, i
     }
 }
 
-__global__ void cuda_qr_magic_formula(device_matrix_t matrix, float *inner_product, float *c, int k, int j, int dimension) {
-    float tau = *inner_product / c[k];
-    for (int i = k; i < dimension; i++) {
-        matrix[(INDEX(i, j, dimension))] -= tau * matrix[(INDEX(i, k, dimension))];
-    }
-}
-
 __global__ void cuda_matrix_qr_decomposition_kernel(device_matrix_t matrix,
     float *diagonal, float *c, int dimension, int k,
     float *scale_in_memory, float *squared_column_length) {
@@ -237,21 +247,11 @@ __global__ void cuda_matrix_qr_decomposition_kernel(device_matrix_t matrix,
     diagonal[k] = -*scale_in_memory * column_length;
 }
 
-__global__ void cuda_max_value(
-    float *device_scale, const float *values, int grid_size) {
-    float max = values[0];
-    for (int i = 1; i < grid_size; i++) {
-        if (values[i] > max) max = values[i];
+__global__ void cuda_qr_magic_formula(device_matrix_t matrix, float *inner_product, float *c, int k, int j, int dimension) {
+    float tau = *inner_product / c[k];
+    for (int i = k; i < dimension; i++) {
+        matrix[(INDEX(i, j, dimension))] -= tau * matrix[(INDEX(i, k, dimension))];
     }
-    *device_scale = max;
-}
-
-__global__ void cuda_sum(
-    float *sum, const float *values, int grid_size) {
-    float accumulator = 0;
-    for (int i = 0; i < grid_size; i++)
-        accumulator += values[i];
-    *sum = accumulator;
 }
 
 bool cuda_matrix_qr_decomposition_parallel_max(
@@ -329,6 +329,7 @@ bool cuda_matrix_qr_decomposition_parallel_max(
             cudaDeviceSynchronize();
 
             cuda_qr_magic_formula<<<1, 1>>>(device_matrix, device_inner_product, device_c, k, j, dimension);
+            cudaDeviceSynchronize();
         }
         
     }
