@@ -32,7 +32,8 @@
         "initializer_list": "cpp",
         "utility": "cpp",
         "cuda_diagnostic.h": "c",
-        "vector": "cpp"
+        "vector": "cpp",
+        "numeric": "cpp"
     },
     "makefile.makefilePath": "source/Makefile",
     "C_Cpp.default.compilerPath": "/usr/bin/gcc",
