@@ -168,6 +168,9 @@ void test_matrix_qr_parallel_max_larger_matrices(void) {
         gpu_result, diagonal_gpu, c_gpu));
 
     CU_ASSERT_TRUE(matrix_almost_equal(gpu_result, cpu_result));
+    CU_ASSERT_TRUE(
+        array_almost_equal(diagonal_cpu, diagonal_gpu, cpu_result->columns))
+    CU_ASSERT_TRUE(array_almost_equal(c_cpu, c_gpu, cpu_result->columns))
 
     free(c_cpu);
     free(c_gpu);

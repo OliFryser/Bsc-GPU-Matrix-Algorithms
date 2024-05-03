@@ -4,6 +4,7 @@
 #include <CUnit/Basic.h>
 #include <CUnit/Console.h>
 
+#include "../MatrixAlgorithms/array_algorithms.h"
 #include "../MatrixAlgorithms/cuda_matrix_algorithms.h"
 #include "../MatrixAlgorithms/matrix_algorithms.h"
 
