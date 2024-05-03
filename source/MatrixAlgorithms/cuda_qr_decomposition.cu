@@ -135,13 +135,28 @@ __device__ float cuda_max_absolute(float a, float b) {
 
 __device__ float cuda_add(float a, float b) { return a + b; }
 
-__global__ void cuda_max_value(
-    float *device_scale, const float *values, int grid_size) {
+__device__ void cuda_max_value(
+    float *scale, const float *values, int grid_size) {
     float max = values[0];
     for (int i = 1; i < grid_size; i++) {
         if (values[i] > max) max = values[i];
     }
-    *device_scale = max;
+    *scale = max;
+}
+
+__device__ void cuda_check_singularity(
+    float scale, bool *is_singular, float *c, float *diagonal, int k) {
+    if (scale == 0.0f) {
+        *is_singular = true;
+        c[k] = diagonal[k] = 0.0f;
+    }
+}
+
+__global__ void cuda_get_max_value_and_check_singularity_kernel(float *scale,
+    const float *values, int grid_size, bool *is_singular, float *c,
+    float *diagonal, int k) {
+    cuda_max_value(scale, values, grid_size);
+    cuda_check_singularity(*scale, is_singular, c, diagonal, k);
 }
 
 __device__ void cuda_sum(float *sum, const float *values, int grid_size) {
@@ -217,14 +232,6 @@ __global__ void initialize_singularity(bool *is_singular) {
     *is_singular = false;
 }
 
-__global__ void cuda_check_singularity(
-    float *scale, bool *is_singular, float *c, float *diagonal, int k) {
-    if (*scale == 0.0f) {
-        *is_singular = true;
-        c[k] = diagonal[k] = 0.0f;
-    }
-}
-
 __global__ void cuda_scale_column(device_matrix_t matrix, float *device_scale,
     int k, int starting_index, int dimension, int element_count) {
     float scale = *device_scale;
@@ -294,7 +301,6 @@ __global__ void cuda_subtract_tau_product(device_matrix_t matrix,
 
 bool cuda_matrix_qr_decomposition_parallel_max(
     matrix_t *matrix, float *diagonal, float *c) {
-
     device_matrix_t device_matrix =
         cuda_matrix_init(matrix->rows, matrix->columns);
     cuda_matrix_host_to_device(device_matrix, matrix);
@@ -342,11 +348,9 @@ bool cuda_matrix_qr_decomposition_parallel_max(
             device_matrix, element_count, k, starting_index, dimension);
         cudaDeviceSynchronize();
 
-        cuda_max_value<<<1, 1>>>(device_scale, device_blocks, grid_size);
-        cudaDeviceSynchronize();
-
-        cuda_check_singularity<<<1, 1>>>(
-            device_scale, device_is_singular, device_c, device_diagonal, k);
+        cuda_get_max_value_and_check_singularity_kernel<<<1, 1>>>(device_scale,
+            device_blocks, grid_size, device_is_singular, device_c,
+            device_diagonal, k);
         cudaDeviceSynchronize();
 
         cuda_scale_column<<<grid_size, BLOCK_SIZE>>>(device_matrix,
