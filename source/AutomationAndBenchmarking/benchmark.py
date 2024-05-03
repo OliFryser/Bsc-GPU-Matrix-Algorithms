@@ -43,10 +43,10 @@ compile_command_2d = ["gcc", "-L/usr/local/cuda/lib64", "-o", binary_path_2d] + 
 
 timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
 csv_path = "BenchmarkData/" + timestamp + ".csv"
-algorithms_to_run = [] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
-additional_algorithms_to_compare = [qr_gpu_single_core, qr_gpu_parallel_max]
-additional_csv_files_to_include = ["BenchmarkData/05-03 07:40:54.csv"]
-matrix_dimensions = [math.floor(2 ** (i)) for i in range(0, 11)] #, 1_000, 10_000, 100_000, 1_000_000]
+algorithms_to_run = [qr_gpu_parallel_max] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
+additional_algorithms_to_compare = [] #[qr_gpu_single_core, qr_gpu_parallel_max]
+additional_csv_files_to_include = [] #["BenchmarkData/05-03 07:40:54.csv"]
+matrix_dimensions = [math.floor(2 ** (i)) for i in range(9, 10)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot" + timestamp + ".png"
 
 try:
