@@ -258,18 +258,20 @@ __global__ void cuda_scale_column(device_matrix_t matrix, float *device_scale, i
 __global__ void cuda_matrix_qr_decomposition_kernel(device_matrix_t matrix,
     float *diagonal, float *c, int dimension, int k,
     float *scale_in_memory, float *squared_column_length) {
-    float column_length = SIGN(sqrtf(*squared_column_length), matrix[INDEX(k, k, dimension)]);
-    matrix[INDEX(k, k, dimension)] += column_length;
-    c[k] = matrix[INDEX(k, k, dimension)] * column_length;
+    
+    int diagonal_index = INDEX(k, k, dimension);
+    float column_length = SIGN(sqrtf(*squared_column_length), matrix[diagonal_index]);
+
+    matrix[diagonal_index] += column_length;
+    c[k] = matrix[diagonal_index] * column_length;
     diagonal[k] = -*scale_in_memory * column_length;
 }
 
 __global__ void cuda_subtract_tau_product(device_matrix_t matrix, float *inner_product, 
-    float *c, int k, int j, int dimension, int element_count) {
+    float *c, int k, int j, int starting_index, int dimension, int element_count) {
 
     float tau = *inner_product / c[k];
     
-    int starting_index = INDEX(k, k, dimension);
     int thread_start = threadIdx.x * dimension;
     int block_start = blockIdx.x * BLOCK_SIZE * ELEMENTS_PR_THREAD;
     int i = starting_index + thread_start + block_start;
@@ -337,7 +339,7 @@ bool cuda_matrix_qr_decomposition_parallel_max(
         starting_index = INDEX(k, k, dimension);
 
         cuda_parallel_max_kernel<<<grid_size, BLOCK_SIZE>>>(
-            device_blocks, device_matrix, element_count, k, INDEX(k, k, dimension), dimension);
+            device_blocks, device_matrix, element_count, k, starting_index, dimension);
         cudaDeviceSynchronize();
 
         cuda_max_value<<<1, 1>>>(device_scale, device_blocks, grid_size);
@@ -346,7 +348,7 @@ bool cuda_matrix_qr_decomposition_parallel_max(
         cuda_check_singularity<<<1, 1>>>(device_scale, device_is_singular, device_c, device_diagonal, k);
         cudaDeviceSynchronize();
 
-        cuda_scale_column<<<grid_size, BLOCK_SIZE>>>(device_matrix, device_scale, k, INDEX(k, k, dimension), dimension, element_count);
+        cuda_scale_column<<<grid_size, BLOCK_SIZE>>>(device_matrix, device_scale, k, starting_index, dimension, element_count);
         cudaDeviceSynchronize();
 
         cuda_parallel_sum_of_products_kernel<<<grid_size, BLOCK_SIZE>>>(
@@ -368,13 +370,13 @@ bool cuda_matrix_qr_decomposition_parallel_max(
         for (int j = k + 1; j < dimension; j++)
         {
             cuda_parallel_sum_of_products_kernel<<<grid_size, BLOCK_SIZE>>>(
-            device_blocks, device_matrix, element_count, INDEX(k, k, dimension), INDEX(k, j, dimension), dimension);
+            device_blocks, device_matrix, element_count, starting_index, INDEX(k, j, dimension), dimension);
             cudaDeviceSynchronize();
 
             cuda_sum<<<1, 1>>>(device_inner_product, device_blocks, grid_size);
             cudaDeviceSynchronize();
 
-            cuda_subtract_tau_product<<<grid_size, BLOCK_SIZE>>>(device_matrix, device_inner_product, device_c, k, j, dimension, element_count);
+            cuda_subtract_tau_product<<<grid_size, BLOCK_SIZE>>>(device_matrix, device_inner_product, device_c, k, j, starting_index, dimension, element_count);
             cudaDeviceSynchronize();
         }
 
