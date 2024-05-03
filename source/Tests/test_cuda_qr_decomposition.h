@@ -11,5 +11,6 @@ int init_cuda_qr_decomposition_suite(void);
 int clean_cuda_qr_decomposition_suite(void);
 void test_matrix_qr_single_core(void);
 void test_matrix_qr_parallel_max(void);
+void test_matrix_qr_parallel_max_larger_matrices(void);
 
 #endif

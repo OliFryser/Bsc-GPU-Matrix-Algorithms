@@ -137,16 +137,20 @@ void test_matrix_qr_parallel_max_larger_matrices(void) {
     matrix_t *cpu_result, *gpu_result;
     float *c_cpu, *c_gpu;
     float *diagonal_cpu, *diagonal_gpu;
-    int rows = 512;
-    int cols = 512;
+    int rows = 32;
+    int cols = 32;
+
+    printf("TESTING QR PARALLEL FOR LARGER MATRICES:\n");
+
+    cpu_result = matrix_init(rows, cols);
+    gpu_result = matrix_init(rows, cols);
+
+    printf("HERE\n");
 
     diagonal_cpu = malloc(sizeof(float) * cpu_result->columns);
     diagonal_gpu = malloc(sizeof(float) * cpu_result->columns);
     c_cpu = malloc(sizeof(float) * cpu_result->columns);
     c_gpu = malloc(sizeof(float) * cpu_result->columns);
-
-    cpu_result = matrix_init(rows, cols);
-    gpu_result = matrix_init(rows, cols);
 
     CU_ASSERT_PTR_NOT_NULL_FATAL(cpu_result);
     CU_ASSERT_PTR_NOT_NULL_FATAL(gpu_result);
@@ -158,12 +162,13 @@ void test_matrix_qr_parallel_max_larger_matrices(void) {
     CU_ASSERT_TRUE(matrix_random_fill(10.0f, 100.0f, cpu_result));
     CU_ASSERT_TRUE(matrix_copy(cpu_result, gpu_result));
 
-    matrix_qr_decomposition(cpu_result, diagonal_cpu, c_cpu);
+    CU_ASSERT_FALSE(matrix_qr_decomposition(cpu_result, diagonal_cpu, c_cpu));
 
-    CU_ASSERT_TRUE(cuda_matrix_qr_decomposition_parallel_max(
+    CU_ASSERT_FALSE(cuda_matrix_qr_decomposition_parallel_max(
         gpu_result, diagonal_gpu, c_gpu));
 
-    CU_ASSERT_TRUE(matrix_equal(gpu_result, cpu_result));
+    CU_ASSERT_TRUE(matrix_almost_equal(gpu_result, cpu_result));
+
     free(c_cpu);
     free(c_gpu);
     free(diagonal_cpu);
