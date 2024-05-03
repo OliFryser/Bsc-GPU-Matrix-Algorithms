@@ -1,6 +1,7 @@
 #ifndef ARRAY_ALGORITHMS_H
 #define ARRAY_ALGORITHMS_H
 
+#include "matrix_utility.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
