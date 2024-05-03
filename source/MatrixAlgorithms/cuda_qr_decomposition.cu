@@ -223,6 +223,10 @@ __global__ void cuda_parallel_sum_of_products_kernel(float *blocks, device_matri
     if (cache_index == 0) blocks[blockIdx.x] = cache[0];
 }
 
+__global__ void initialize_singularity(bool *is_singular) {
+    *is_singular = false;
+}
+
 __global__ void cuda_check_singularity(float *scale, bool *is_singular, float *c, float *diagonal, int k) {
     if (*scale == 0.0f) {
         *is_singular = true;
@@ -291,6 +295,7 @@ bool cuda_matrix_qr_decomposition_parallel_max(
 
     bool *device_is_singular;
     cudaMalloc(&device_is_singular, sizeof(bool));
+    initialize_singularity<<<1, 1>>>(device_is_singular);
 
     float *device_scale;
     cudaMalloc(&device_scale, sizeof(float));
