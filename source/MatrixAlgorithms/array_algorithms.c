@@ -50,3 +50,23 @@ double standard_deviation(double array[], int size_of_array, double mean) {
     }
     return sqrt(accumulative_deviation / size_of_array);
 }
+
+bool array_almost_equal(float array1[], float array2[], int length) {
+    if (array1 == NULL) return false;
+    if (array2 == NULL) return false;
+    bool equal;
+
+    for (int i = 0; i < length; i++) {
+        equal = almost_equal(array1[i], array2[i]);
+        
+        if (!equal) {
+            printf("\nFOUND ERROR AT %d\n", i);
+            printf("\nPrinting array 1:\n");
+            print_numbers(array1, length);
+            printf("\nPrinting array 2:\n");
+            print_numbers(array2, length);
+            return false;
+        }
+    }
+    return true;
+}
