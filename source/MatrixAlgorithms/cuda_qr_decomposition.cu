@@ -368,5 +368,9 @@ bool cuda_matrix_qr_decomposition_parallel_max(
     cudaFree(device_diagonal);
     cudaFree(device_c);
     cudaFree(device_is_singular);
+    cudaFree(device_inner_product);
+    cudaFree(device_scale);
+    cudaFree(device_squared_column_length);
+    cudaFree(device_blocks);
     return is_singular;
 }
