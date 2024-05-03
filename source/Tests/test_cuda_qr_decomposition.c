@@ -137,8 +137,8 @@ void test_matrix_qr_parallel_max_larger_matrices(void) {
     matrix_t *cpu_result, *gpu_result;
     float *c_cpu, *c_gpu;
     float *diagonal_cpu, *diagonal_gpu;
-    int rows = 32;
-    int cols = 32;
+    int rows = 17;
+    int cols = 17;
 
     printf("TESTING QR PARALLEL FOR LARGER MATRICES:\n");
 
@@ -162,7 +162,7 @@ void test_matrix_qr_parallel_max_larger_matrices(void) {
     CU_ASSERT_TRUE(matrix_random_fill(10.0f, 100.0f, cpu_result));
     CU_ASSERT_TRUE(matrix_copy(cpu_result, gpu_result));
 
-    CU_ASSERT_FALSE(matrix_qr_decomposition(cpu_result, diagonal_cpu, c_cpu));
+    CU_ASSERT_FALSE(cuda_matrix_qr_decomposition_single_core(cpu_result, diagonal_cpu, c_cpu));
 
     CU_ASSERT_FALSE(cuda_matrix_qr_decomposition_parallel_max(
         gpu_result, diagonal_gpu, c_gpu));

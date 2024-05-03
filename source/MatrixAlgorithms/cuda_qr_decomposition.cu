@@ -19,9 +19,12 @@ __global__ void cuda_matrix_qr_decomposition_single_core_kernel(
     for (int k = 0; k < n; k++) {
         scale = 0.0f;
         // scale is the max absolute value of the column
-        for (int i = k; i < n; i++)
+        for (int i = k; i < n; i++) {
             scale = fmaxf(scale, fabsf(matrix[INDEX(i, k, n)]));
-
+            if (k == 0) {
+                printf("\nmax single core: %f", matrix[INDEX(i, k, n)]);
+            }
+        }
         if (scale == 0.0) {
             *is_singular = true;
             c[k] = diagonal[k] = 0.0f;
@@ -152,6 +155,7 @@ __global__ void cuda_max_value(
         if (values[i] > max) max = values[i];
     }
     *device_scale = max;
+    printf("\nmax parallel: %f", max);
 }
 
 __global__ void cuda_sum(
@@ -173,22 +177,26 @@ __device__ void cuda_parallel_reduction(float *cache, int cache_index, reducer_t
     }
 }
 
+__device__ int get_index(int starting_index, int dimension) {
+    int thread_start = threadIdx.x * dimension;
+    int block_start = blockIdx.x * BLOCK_SIZE * ELEMENTS_PR_THREAD * dimension;
+    return starting_index + thread_start + block_start;
+}
+
 __global__ void cuda_parallel_max_kernel(float *blocks, device_matrix_t matrix, 
     int element_count, int k, int starting_index, int dimension) {
 
     __shared__ float cache[BLOCK_SIZE];
-    
-    int thread_start = threadIdx.x * dimension;
-    int block_start = blockIdx.x * BLOCK_SIZE * ELEMENTS_PR_THREAD;
-    int i = starting_index + thread_start + block_start;
-
+    int i = get_index(starting_index, dimension);
     int increment = dimension * BLOCK_SIZE;
-
     int cache_index = threadIdx.x;
     float thread_max = fabsf(matrix[starting_index]);
 
     for (int e = 0; e < ELEMENTS_PR_THREAD; e++) {
         if (i >= element_count) break;
+        if (k == 0) {
+            printf("\nThread %d block %d found value %f on iteration %d with i %d", threadIdx.x, blockIdx.x, matrix[i], e, i);
+        }
         thread_max = cuda_max_absolute(thread_max, matrix[i]);
         i += increment;
     }
@@ -203,14 +211,9 @@ __global__ void cuda_parallel_sum_of_products_kernel(float *blocks, device_matri
     int element_count, int starting_index_1, int starting_index_2, int dimension) {
 
     __shared__ float cache[BLOCK_SIZE];
-
-    int thread_start = threadIdx.x * dimension;
-    int block_start = blockIdx.x * BLOCK_SIZE * ELEMENTS_PR_THREAD;
-    int i = starting_index_1 + thread_start + block_start;
-    int j = starting_index_2 + thread_start + block_start;
-
+    int i = get_index(starting_index_1, dimension);
+    int j = get_index(starting_index_2, dimension);
     int increment = dimension * BLOCK_SIZE;
-
     int cache_index = threadIdx.x;
     float sum = 0;
     
@@ -241,11 +244,7 @@ __global__ void cuda_check_singularity(float *scale, bool *is_singular, float *c
 
 __global__ void cuda_scale_column(device_matrix_t matrix, float *device_scale, int k, int starting_index, int dimension, int element_count) {
     float scale = *device_scale;
-    
-    int thread_start = threadIdx.x * dimension;
-    int block_start = blockIdx.x * BLOCK_SIZE * ELEMENTS_PR_THREAD;
-    int i = starting_index + thread_start + block_start;
-
+    int i = get_index(starting_index, dimension);
     int increment = dimension * BLOCK_SIZE;
 
     for (int e = 0; e < ELEMENTS_PR_THREAD; e++) {
@@ -275,12 +274,8 @@ __global__ void cuda_subtract_tau_product(device_matrix_t matrix, float *device_
     float *c, int k, int j, int starting_index, int dimension, int element_count) {
 
     float tau = *device_tau;
-
-    int thread_start = threadIdx.x * dimension;
-    int block_start = blockIdx.x * BLOCK_SIZE * ELEMENTS_PR_THREAD;
-    int i = starting_index + thread_start + block_start;
+    int i = get_index(starting_index, dimension);
     int offset = j - k;
-
     int increment = dimension * BLOCK_SIZE;
 
     for (int e = 0; e < ELEMENTS_PR_THREAD; e++) {
