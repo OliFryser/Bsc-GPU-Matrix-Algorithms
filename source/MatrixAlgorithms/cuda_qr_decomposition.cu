@@ -1,7 +1,5 @@
 extern "C" {
 #include "cuda_qr_decomposition.h"
-// Debug includes
-#include <time.h>
 }
 
 #pragma region SingleCore
@@ -129,13 +127,6 @@ bool cuda_matrix_qr_decomposition_single_core(
 #define ELEMENTS_PR_THREAD 4
 #define BLOCK_SIZE 4
 
-__global__ void test_kernel(int number) { printf("\nTesting: %d", number); }
-#define NANOSECS_PER_SEC 1e9
-float elapsed_time(timespec *start, timespec *end) {
-    return (end->tv_sec - start->tv_sec) +
-           (end->tv_nsec - start->tv_nsec) / NANOSECS_PER_SEC;
-}
-
 typedef float (*reducer_t)(float, float);
 
 __device__ float cuda_max_absolute(float a, float b) {
@@ -188,11 +179,6 @@ __global__ void cuda_parallel_max_kernel(float *blocks, device_matrix_t matrix,
 
     for (int e = 0; e < ELEMENTS_PR_THREAD; e++) {
         if (i >= element_count) break;
-        // if (k == 0) {
-        //     printf(
-        //         "\nThread %d block %d found value %f on iteration %d with i
-        //         %d", threadIdx.x, blockIdx.x, matrix[i], e, i);
-        // }
         thread_max = cuda_max_absolute(thread_max, matrix[i]);
         i += increment;
     }
@@ -286,17 +272,11 @@ __global__ void cuda_subtract_tau_product(device_matrix_t matrix,
 
 bool cuda_matrix_qr_decomposition_parallel_max(
     matrix_t *matrix, float *diagonal, float *c) {
-    // struct timespec start, stop;
-    // timespec_get(&start, TIME_UTC);
-    // printf("\n");
+
     device_matrix_t device_matrix =
         cuda_matrix_init(matrix->rows, matrix->columns);
     cuda_matrix_host_to_device(device_matrix, matrix);
     size_t diagonal_size = sizeof(float) * matrix->columns;
-
-    // timespec_get(&stop, TIME_UTC);
-    // printf("Time after cuda matrix init: %f\n", elapsed_time(&start, &stop));
-    // timespec_get(&start, TIME_UTC);
 
     float *device_diagonal;
     cudaMalloc(&device_diagonal, diagonal_size);
@@ -329,9 +309,6 @@ bool cuda_matrix_qr_decomposition_parallel_max(
     cudaMalloc(&device_blocks, sizeof(float) * grid_size);
 
     int starting_index;
-    // timespec_get(&stop, TIME_UTC);
-    // printf("Time after variable initialization: %f\n", elapsed_time(&start,
-    // &stop)); timespec_get(&start, TIME_UTC);
 
     for (int k = 0; k < dimension; k++) {
         grid_size = (dimension - k + ELEMENTS_PR_THREAD * BLOCK_SIZE - 1) /
@@ -368,10 +345,6 @@ bool cuda_matrix_qr_decomposition_parallel_max(
             device_squared_column_length);
         cudaDeviceSynchronize();
 
-        // timespec_get(&stop, TIME_UTC);
-        // printf("Time before j loop: %f\n", elapsed_time(&start, &stop));
-        // timespec_get(&start, TIME_UTC);
-
         for (int j = k + 1; j < dimension; j++) {
             cuda_parallel_sum_of_products_kernel<<<grid_size, BLOCK_SIZE>>>(
                 device_blocks, device_matrix, element_count, starting_index,
@@ -390,10 +363,6 @@ bool cuda_matrix_qr_decomposition_parallel_max(
                 element_count);
             cudaDeviceSynchronize();
         }
-
-        // timespec_get(&stop, TIME_UTC);
-        // printf("Time after j loop: %f\n", elapsed_time(&start, &stop));
-        // timespec_get(&start, TIME_UTC);
     }
 
     bool is_singular;
