@@ -267,11 +267,15 @@ __global__ void cuda_matrix_qr_decomposition_kernel(device_matrix_t matrix,
     diagonal[k] = -*scale_in_memory * column_length;
 }
 
-__global__ void cuda_subtract_tau_product(device_matrix_t matrix, float *inner_product, 
+__global__ void cuda_compute_tau(float *tau, float *inner_product, float *c, int k) {
+    *tau = *inner_product / c[k];
+}
+
+__global__ void cuda_subtract_tau_product(device_matrix_t matrix, float *device_tau, 
     float *c, int k, int j, int starting_index, int dimension, int element_count) {
 
-    float tau = *inner_product / c[k];
-    
+    float tau = *device_tau;
+
     int thread_start = threadIdx.x * dimension;
     int block_start = blockIdx.x * BLOCK_SIZE * ELEMENTS_PR_THREAD;
     int i = starting_index + thread_start + block_start;
@@ -318,6 +322,9 @@ bool cuda_matrix_qr_decomposition_parallel_max(
 
     float *device_inner_product;
     cudaMalloc(&device_inner_product, sizeof(float));
+
+    float *device_tau;
+    cudaMalloc(&device_tau, sizeof(float));
 
     int dimension = matrix->columns;
     int element_count = matrix->columns * matrix->rows;
@@ -376,7 +383,10 @@ bool cuda_matrix_qr_decomposition_parallel_max(
             cuda_sum<<<1, 1>>>(device_inner_product, device_blocks, grid_size);
             cudaDeviceSynchronize();
 
-            cuda_subtract_tau_product<<<grid_size, BLOCK_SIZE>>>(device_matrix, device_inner_product, device_c, k, j, starting_index, dimension, element_count);
+            cuda_compute_tau<<<1, 1>>>(device_tau, device_inner_product, device_c, k);
+            cudaDeviceSynchronize();
+
+            cuda_subtract_tau_product<<<grid_size, BLOCK_SIZE>>>(device_matrix, device_tau, device_c, k, j, starting_index, dimension, element_count);
             cudaDeviceSynchronize();
         }
 
@@ -398,6 +408,7 @@ bool cuda_matrix_qr_decomposition_parallel_max(
     cudaFree(device_c);
     cudaFree(device_is_singular);
     cudaFree(device_inner_product);
+    cudaFree(device_tau);
     cudaFree(device_scale);
     cudaFree(device_squared_column_length);
     cudaFree(device_blocks);
