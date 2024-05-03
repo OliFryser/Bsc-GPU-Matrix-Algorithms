@@ -33,6 +33,14 @@ void print_numbers(int array[], int size_of_array) {
     }
 }
 
+void print_floats(float *array, int size_of_array) {
+    for (int i = 0; i < size_of_array; i++) {
+        printf("%f", array[i]);
+        if (i < size_of_array - 1) printf(", ");
+        printf("\n");
+    }
+}
+
 double mean(double array[], int size_of_array) {
     double sum = 0.0f;
     for (int i = 0; i < size_of_array; i++) {
@@ -62,9 +70,9 @@ bool array_almost_equal(float array1[], float array2[], int length) {
         if (!equal) {
             printf("\nFOUND ERROR AT %d\n", i);
             printf("\nPrinting array 1:\n");
-            print_numbers(array1, length);
+            print_floats(array1, length);
             printf("\nPrinting array 2:\n");
-            print_numbers(array2, length);
+            print_floats(array2, length);
             return false;
         }
     }
