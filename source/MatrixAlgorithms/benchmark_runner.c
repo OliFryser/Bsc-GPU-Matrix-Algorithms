@@ -88,6 +88,8 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
+    launch_kernel_1_block_1_thread();
+
     // Initialize Command Line Argument Variables
     algorithm = argv[1];
     strcpy(str_dimension, argv[2]);
