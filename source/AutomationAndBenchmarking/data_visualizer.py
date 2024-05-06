@@ -4,24 +4,24 @@ import numpy
 
 def visualize_csv(csv_data: CSVDataStructure, diagram_save_path: str, algorithms_to_compare: list[str]):
     dimensions = csv_data.dimensions
-    
+
     for algorithm in algorithms_to_compare:
         if algorithm not in csv_data.data.keys(): continue
         data = csv_data.data[algorithm]
         run_time_means: list[float] = []
-        standard_deviations: list[float] = []
         for dimension in dimensions:
             if dimension not in data.dimension_to_mean_run_time.keys(): continue
             run_time_means.append(data.dimension_to_mean_run_time[dimension])
-            standard_deviations.append(data.dimension_to_standard_deviation[dimension])
 
-        pyplot.plot(dimensions, run_time_means, label=algorithm, marker="^")
-        #print("Dimensions: " + str(dimensions))
-        #print("Run time means: " + str(run_time_means))
-        #print("Standard Deviation: " + str(standard_deviations))
-        #pyplot.errorbar(x=dimensions, y=run_time_means, yerr=standard_deviations, label=algorithm, marker="^")
+        if("cpu" in algorithm):
+            b, a = numpy.polyfit(numpy.log2(dimensions), numpy.log2(run_time_means), deg=1)
+            algorithm_label = f'{algorithm}: y = {round(b, 2)} x' + ("" if a < 0 else "+") + f'{round(a, 2)}'
+            pyplot.scatter(dimensions, run_time_means, label=algorithm_label, marker="^")
+            pred_f = a + numpy.multiply(numpy.log2(dimensions), b)
+            pyplot.plot(sorted(dimensions), numpy.exp2(pred_f), 'k--')
+        else:
+            pyplot.plot(dimensions, run_time_means, label=algorithm, marker="^")
 
-    pyplot.title('Run time comparison')
     pyplot.xlabel('Matrix Side Length')
     pyplot.ylabel('Mean Run Time (in seconds)')
     pyplot.xscale('log', base=2)

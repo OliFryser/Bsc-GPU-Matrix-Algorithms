@@ -137,8 +137,8 @@ bool matrix_equal(matrix_t *matrix_a, matrix_t *matrix_b) {
 
 bool almost_equal(float x, float y) {
     int maxUlps = 2048;
-    int xBits = *(int *)&x;  // Evil bit hack from Quake III Q_sqrt
-    int yBits = *(int *)&y;  // Evil bit hack from Quake III Q_sqrt
+    int xBits = *(int *)&x;  // Evil bit level hacking from Quake III Q_sqrt
+    int yBits = *(int *)&y;  // Evil bit level hacking from Quake III Q_sqrt
     int minValue = 1 << 31;
     if (xBits < 0) xBits = minValue - xBits;
     if (yBits < 0) yBits = minValue - yBits;
