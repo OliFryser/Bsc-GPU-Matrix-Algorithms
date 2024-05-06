@@ -22,16 +22,16 @@ This implementation breaks the abstraction that the \texttt{float *} represents 
 
 Calculating the matrix sum can be done in linear time complexity in the count of matrix elements equal to $O(m * n)$. For square matrices this can be expressed as $O(n^2)$ for $n^2$ data. 
 
- As can be seen in benchmark [INSERT CPU ADDITION BENCHMARK HERE], our running time has a slope of 2. This is expected, since the algorithm is a $O(n^2)$ and we are using a logarithmic axes in our diagram (see sect. \ref{subsect:benchmark}).
-
-\begin{figure}[h]
+\begin{wrapfigure}{r}{0.5\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/Addition CPU.png}
-    \caption{Caption}
-    \label{fig:enter-label}
-\end{figure}
+    \includegraphics[width=0.5\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/Addition CPU.png}
+    \caption{CPU Addition Benchmark}
+    \label{fig:addition_cpu_bench}
+\end{wrapfigure}
 
-Note that for each \texttt{element}, only 1 operation have to be performed. The overhead of running this on GPU might outweigh the benefits of parallelization, simply because of the relatively little work each core on the GPU will have to do. Keep this in mind as we dive into the world of GPU programming.
+ As can be seen in figure \ref{fig:addition_cpu_bench}, our graph has a slope of 2. This is expected, since the algorithm has time complexity $O(n^2)$ and is plotted on logarithmic axes in our diagram (see sect. \ref{subsect:benchmark}).
+
+Note that for each \texttt{element}, only 1 arithmetic operation has to be performed. The overhead of running this on GPU might outweigh the benefits of parallelization, simply because of the relatively little work each core on the GPU will have to do. Keep this in mind as we dive into the world of GPU programming.
 
 \subsection{Addition: GPU Implementation Single Core}
 The first GPU is essentially running our CPU implementation on a single core on the GPU. Again, it runs a single for-loop iterating over every element in the input matrices, adding them, and storing the result in the result matrix (see listing \ref{lst:gpu_addition_single_core}).
@@ -46,16 +46,20 @@ __global__ void cuda_matrix_addition_single_core_kernel(
 }
 \end{lstlisting}
 
-For launching kernels we wrote an algorithm runner, which can run any algorithm, which takes three matrices as parameters, as well as three integers (used differently in many algorithms. We did this because much of the code, when running code on the GPU, is essentially "boilerplate". All addition- and multiplication algorithms requires us to allocate the matrices on the device, copy the matrices over from host to device, run the kernel, and then copy it back. This "boilerplate" code can be found in listing \ref{lst:algorithm_runner} in appendix A.
+For launching kernels we wrote an algorithm runner, which can run any algorithm, which takes three matrices as parameters, as well as three integers. These integers are used for different parameters in our algorithms. For instance in addition, they are the totalsize of the matrix, the row count and the column count. The size is passed as a parameter to precompute it, instead of computing it in each kernel. It can, however, be derived from the row and column count. 
+
+We wrote the algorithm runner because much of the code, when writing code for the GPU, is essentially "boilerplate". All addition- and multiplication algorithms requires us to allocate the matrices on the device, copy the matrices over from host to device, run the kernel, and then copy the result matrix back. This "boilerplate" code can be found in listing \ref{lst:algorithm_runner} in appendix A.
 
 Launching a kernel requires a grid size and block size. For this implementation both are 1, since we only run code on a single core.
 
-In benchmark (INSERT GPU VS CPU SINGLECORE BENCHMARK), it can be seen that the GPU implementation is a lot slower than the CPU implementation. In fact, it seems that the launching of the kernel is very slow, since there is no real difference in running time between matrix side length $2^1$ and matrix side length $2^5$. To further substantiate this we have % TODO: INSERT CUDA_DIAGNOSTIC PART
+In benchmark (INSERT GPU VS CPU SINGLECORE BENCHMARK), it can be seen that the GPU implementation is a lot slower than the CPU implementation. '
+
+% In fact, it seems that the launching of the kernel is very slow, since there is no real difference in running time between matrix side length $2^1$ and matrix side length $2^5$. To further substantiate this we have % TODO: INSERT CUDA_DIAGNOSTIC PART
 
 \subsection{Addition: GPU Implementation Multi Core 1}
-The following implementation will utilize the architecture of the GPU and the CUDA-specific utilities discussed previously to run the algorithm on multiple cores. Instead of calculating all $n$ elements on one kernel, we will initiate n many kernels to do the job in parallel. Conceptually, the matrix is split up such that each row of the matrix is contained in its own CUDA-block. Further, each entry of a row is sent to each individual CUDA-thread of the CUDA-block. In programming terms, the i'th block and the j'th thread will be responsible for calculating element \texttt{matrix\_c[i][j]} and this element only. 
+The following implementation will utilize the architecture of the GPU and the CUDA-specific utilities discussed previously to run the algorithm on multiple cores. Instead of calculating all $n$ elements on one kernel, we will initiate $n$ many kernels to do the job in parallel. Conceptually, the matrix is split up such that each row of the matrix is contained in its own CUDA-block. Further, each entry of a row is sent to each individual CUDA-thread of the CUDA-block. In programming terms, the i'th block and the j'th thread will be responsible for calculating element \texttt{matrix\_c[i][j]} and this element only. 
 
-In listing \ref{lst:gpu_addition_multi_core}, we use the blockIdx.x, blockDim.x and threadIdx.x to calculate which element we currently at. These values are available in any kernel, provided by the CUDA library. Note this calculation is essentially the same we used for the INDEX macro, described in section \ref{sect:datastructure}. 
+In listing \ref{lst:gpu_addition_multi_core}, we use the blockIdx.x, blockDim.x and threadIdx.x to calculate which element this thread must work on. These values are available in any kernel, provided by the CUDA library. Note this calculation is essentially the same we used for the INDEX macro, described in section \ref{sect:datastructure}. 
 
 \begin{lstlisting}[language=C, caption={GPU addition multi core}, label={lst:gpu_addition_multi_core}]
 __global__ void cuda_matrix_addition_multi_core_kernel(
@@ -68,16 +72,16 @@ __global__ void cuda_matrix_addition_multi_core_kernel(
 }
 \end{lstlisting}
 
-There is one major limitation to this, which is that NVIDIA only allows block sizes up to 1024. This implementation only works for matrices with a column count of up to 1024.
+This has one major limitation: NVIDIA only allows block sizes up to 1024, so implementation only works for matrices with a column count of up to 1024.
 
 INSERT BENCHMARK
 
 \subsection{Addition: GPU Implementation Multi Core 2}
-We experimented with another way to utilize the CUDA-architecture, to see if it would improve our performance. This time, we would hard code the number of threads in each block to be 16. This way, we hope to better take advantage of each multiprocessor. 
+We experimented with another way to utilize the CUDA-architecture, to see if it would improve our performance. This time, we would hardcode the number of threads in each block to be 16. This way, we hope to better take advantage of each multiprocessor and solve the major limitation of the previous algorithm.
 
-Because each multiprocessor is responsible for scheduling the execution of thread-blocks, it would not make sense for each block to have hundreds of threads that all have to finish before the multiprocessor can schedule a new block. To make this possible, we access our thread-blocks in two dimensions. 
+Because each multiprocessor is responsible for scheduling the execution of thread-blocks, it would not make sense for each block to have 1024 threads that all have to finish before the multiprocessor can schedule a new block. Also, as discussed in \ref{background_gpu}, small blocks allow our algorithm to scale better on a plethora of devices with different SM counts.
 
-Each block will consist of 16 by 16 threads. Each grid will consist of $rows / 16$ by $columns / 16$ blocks. To allow for arbitrarily sized matrices, we also included some padding, so the actual grid size is $(rows + 15) / 16$ by $(columns + 15) / 16$. Because of the padding we also need to have a check, so we do not get out of bounds. The implementation can be seen in listing \ref{lst:gpu_addition_multi_core_2}.
+Each block will consist of 16 by 16 threads, meaning 256 threads in total. Each grid will consist of $rows / 16$ by $columns / 16$ blocks. To allow for arbitrarily sized matrices, we also included some padding, so the actual grid size is $(rows + 15) / 16$ by $(columns + 15) / 16$. Because of the padding we also need to have a check, so we do not get out of bounds. The implementation can be seen in listing \ref{lst:gpu_addition_multi_core_2}.
 
 \begin{lstlisting}[language=C, caption={GPU addition multi core 2}, label={lst:gpu_addition_multi_core_2}]
 __global__ void cuda_matrix_addition_multi_core_kernel2(
@@ -99,4 +103,6 @@ Because of the fixed block size, this implementation also fixes the previous pro
 
 INSERT BENCHMARK
 
-\subsection{Benchmark Analysis}
+\subsection{A note about the choice of data structure}
+
+As mentioned earlier, at the beginning of this project we used a 2-dimensional

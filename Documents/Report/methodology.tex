@@ -10,23 +10,26 @@ In our C-program we have written a benchmark runner that runs a benchmark on a s
 
 Further, we calculate the standard deviation of the mean run time. We do this because the normal distribution tells us that 68\% of observations will fall within the standard deviation and 95\% will fall within two standard deviations.
 
-Our unit of measurement is wall clock nano-seconds, rather than CPU-clock cycles, which Sestoft recommends. This is because a lot of what we want to measure happens on the GPU, and thus cannot be measured this way. 
+Our unit of measurement is wall clock nano-seconds, rather than CPU-clock cycles, as recommended by \cite{sestoft:benchmarks}. This is because a lot of what we want to measure happens on the GPU, and thus cannot be measured with CPU-clock cycles. 
 
-For each measurement, we record our findings a csv-file in the format; Algorithm, Dimensions, Mean, Standard Deviation, Iterations. 
+For each measurement, we record our findings in a csv-file in the format: Algorithm, Dimensions, Mean, Standard Deviation, Iterations. 
 
 Because our project is version controlled, we have the ability to measure our algorithms against our old versions, which may run on different data structures.\\
 
-\noindent We benchmark with multiple matrix dimensions. Our benchmarks start with a matrix with side length 1. We then double the side length for the next iterations. Therefore, the iteration 0 has matrix side length $2^0$, iteration 1 has matrix side length $2^1$, and more generally iteration $n$ has matrix side length $2^n$.
+\noindent We benchmark with multiple matrix dimensions. Our benchmarks start with a matrix with side length 1. We then double the side length for the next iterations. Therefore, iteration 0 has matrix side length $2^0$, iteration 1 has matrix side length $2^1$, and more generally iteration $n$ has matrix side length $2^n$.
 
-This enables us to plot our benchmarks on a diagram where the x-axis is $log_2(n)$, where $n$ is the matrix side length, and the y-axis is $log_2(t)$, where $t$ is the mean of the running time of our algorithm. So given an algorithm of $O(n)$, we would get a line described by $y = x + b$, meaning $x$ and $y$ are directly proportional. 
+This enables us to plot our benchmarks on a diagram where the x-axis is $log_2(n)$, where $n$ is the matrix side length, and the y-axis is $log_2(t)$, where $t$ is the mean of the running time of our algorithm. So given an algorithm of $O(n^k)$, we would get a line described by $y = k \cdot x + b$, meaning $x$ and $y$ are directly proportional. 
 
 \subsection{Automation}
 Because this project relies so heavily on benchmarking, we have built a framework for automatic benchmarking that we can run whenever we make a change. This has allowed us to spend our time experimenting with various configurations of each algorithm and quickly view the results. 
 
-The structure of our program is that a python script will compile and run our C-program as well as deciding which algorithm and input size to test with. 
+The execution starts with a Python script that will compile and run our C-program as well as controlling which algorithm and input size to test with. 
 
-The C-program will record important information and store the results in a CSV-file. Afterwards, a data structure written in python will read these CSV-files and plot their content on a diagram using the matplotlib library. For convenience, we have written a \textit{make file} that will do all of the above in a single command. 
+The C-program will record important information and store the results in a CSV-file. Afterwards, using a custom data structure, the Python script will read these CSV-files and plot their content on a diagram using the matplotlib library\cite{matplotlib}. For convenience, we have written a \textit{make file} that will do all of the above in a single command. 
 
 \subsection{Test Driven Development}
-This paper will only be useful as long as what is calculated is still correct. Rather than relying on assumptions, hopes and dreams, we have followed the guidelines for test driven development. Using the cUnit framework, we have  written tests for each of our matrix algorithms and utility matrix algorithms for both our CPU and GPU implementations. 
+This paper will only be useful as long as what is calculated is still correct. Rather than relying on assumptions, hopes and dreams, we have followed the guidelines for test driven development. Using the CUnit library\cite{cUnit}, we have written tests for each of our matrix algorithms and utility matrix algorithms for both our CPU and GPU implementations. 
+
 Not only do we substantiate our belief that our algorithms are correct. It also makes our code more safe to extend and debug. If something unexpected happens in our code, we will rapidly know where a bug occurs.
+
+While we only benchmark with square matrices having dimensions of the form $2^k$, our test suite tests with rectangular matrices of different sizes that do not confine to this form.

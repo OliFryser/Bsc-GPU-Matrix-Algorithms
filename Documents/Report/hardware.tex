@@ -2,7 +2,9 @@
 
 We have three machines equipped with a CUDA compatible graphics card. This section will list the specifications of the machines and discuss the implications of writing code for different specifications.
 
-Our hardware specifications can be seen in table \ref{table:hardware}. Specifications of the graphic cards were found on \cite{techpowerup:gpu_specs}. The specifications for L1 Cache and L2 Cache refer to the GPU's cache. The clock speeds are approximate, since they have both a base clock speed and boost clock speed, and they may speed up and down, depending on power availability and temperature.
+Our hardware specifications can be seen in table \ref{table:hardware}. All benchmarks seen so far have been made on machine 2. 
+
+Specifications of the graphic cards were found on \cite{techpowerup:gpu_specs}. The specifications for L1 Cache and L2 Cache refer to the GPU's cache. The clock speeds are approximate, since they have both a base clock speed and boost clock speed, and they may speed up and down, depending on power availability and temperature.
 
 \begin{table}[h]
 \caption{Our hardware specifications for our 3 machines.}
@@ -24,7 +26,7 @@ Our hardware specifications can be seen in table \ref{table:hardware}. Specifica
 \end{adjustbox}
 \end{table}
 
-Every SM has access to 128 cores on both machine 1 and machine 2.\footnote{Because: Cores per SM = Total cores / SM Count} Machine 1 has double the amount of cores as machine 2 and also double the amount of SMs. Machine 1 also have about double the clock speed as machine 2 and 3, enabling twice as many instructions to be processed. In theory, this would allow machine 1 to perform four times as many GPU operations at once as machine 2, if the code allows it.
+Every SM has access to 128 cores on both machine 1 and machine 2.\footnote{Because: Cores per SM = Total cores / SM Count} Machine 1 has double the amount of cores as machine 2 and also double the amount of SMs. Machine 1 also have about double the clock speed as machine 2 and 3, enabling twice as many instructions to be processed. In theory, this would allow machine 1 to perform four times as many GPU operations at once as machine 2.
 
 Machine 2 has about 4 times as many cores as machine 3, but only double the amount of SMs. So on machine 3, each SM has access to 64 cores. This is further reflected in the fact that the L1 cache for each of the 3 machines have exactly one KB per core an SM have access to. In theory, each SM on machine 1 and machine 2 can do double the amount of work that an SM can on machine 3. They have about the same clock speed. Further, machine 2 can do double the amount of work than machine 3, since it has double the amount of SMs. This means machine 2 can do 4 times as much work as machine 3. By transitivity machine 1 can do double that, so 16 times as much work as machine 3.
 
