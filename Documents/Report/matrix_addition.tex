@@ -105,4 +105,6 @@ INSERT BENCHMARK
 
 \subsection{A note about the choice of data structure}
 
-As mentioned earlier, at the beginning of this project we used a 2-dimensional
+As mentioned earlier, at the beginning of this project we used a two-dimensional data structure. We implemented CPU addition, GPU single core addition and the first GPU multi core addition. On the GPU side it was still simply a \texttt{float *}, and we would simply flatten the two-dimensional matrix to a 1-dimensional one and send it over to the GPU. When we got the result matrix back from the GPU we would turn it back into a two-dimensional data structure. 
+
+We suspected that this translation between the two representations might have introduced some overhead. Therefore we decided to pivot to a fully one-dimensional approach. To see if the pivot was a good idea or not, we did a benchmark
