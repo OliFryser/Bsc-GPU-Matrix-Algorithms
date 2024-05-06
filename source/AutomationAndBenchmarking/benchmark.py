@@ -23,6 +23,15 @@ qr_gpu_single_core = "qr gpu single core"
 qr_gpu_parallel_max = "qr gpu parallel max"
 
 diagnostic_no_op = "diagnostic: launch kernel 1 block 1 thread"
+diagnostic_scaling_grid_and_blocks = "diagnostic: launch kernel scaling grid and blocks"
+diagnostic_malloc = "diagnostic: cudaMalloc"
+diagnostic_malloc_and_memcopy = "diagnostic: cudaMemcpy"
+diagnostic_malloc_copy_and_launch_kernel = "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread"
+diagnostic_malloc_copy_and_launch_kernel_larger = "diagnostic: cudaMemcpy & launch larger kernel"
+gpu_diagnostics = [diagnostic_no_op + diagnostic_scaling_grid_and_blocks + diagnostic_malloc
+                   + diagnostic_malloc_and_memcopy + diagnostic_malloc_copy_and_launch_kernel
+                   + diagnostic_malloc_copy_and_launch_kernel_larger]
+
 diagnostic_write_managed = "diagnostic: write managed"
 diagnostic_write_vector = "diagnostic: write vector"
 diagnostic_write = [diagnostic_write_managed, diagnostic_write_vector]

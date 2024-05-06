@@ -1,8 +1,6 @@
 \section{Background} \label{sect:backgroundw}
 
-In this project, we will study the performance benefits of running algorithms on the GPU in parallel. To do this we will implement three linear algebra algorithms in increasing degrees of complexity, namely: Matrix addition, matrix multiplication, and QR-decomposition.
-
-% Lav et intro afsnit der bedre introducerer meningen med opgaven.
+In this project, we will study the performance benefits of running algorithms on the GPU in parallel. To do this we will implement three linear algebra algorithms in increasing degrees of complexity, namely: Matrix addition, matrix multiplication, and QR decomposition.
 
 First, we will implement these on the CPU to establish a baseline implementation. Next, we will implement them on the GPU, and hopefully see a performance increase.
 
@@ -46,8 +44,8 @@ In matrix multiplication, element \(c_{i,j}\) is calculated from the $i^{th}$ ro
 
 An appealing way to understand matrix multiplication is to interpret it geometrically. Assume a vector space where the basis vectors can be represented as a matrix $\mathbf{A}$. To multiply this matrix with another matrix $\mathbf{B}$ can be interpreted such that the basis vectors are linearly transformed to new positions. For example, all vectors might be stretched by a factor of 2 and rotated clockwise by 10 degrees. 
 
-\subsubsection{QR-decomposition}
-The final algebraic algorithm we want to implement is QR-decomposition. This algorithm takes in a matrix \(\mathbf{A}\) and factorizes it into matrices \(\mathbf{Q}\) and \(\mathbf{R}\).
+\subsubsection{QR Decomposition}
+The final algebraic algorithm we want to implement is QR decomposition. This algorithm takes in a matrix \(\mathbf{A}\) and factorizes it into matrices \(\mathbf{Q}\) and \(\mathbf{R}\).
 
 \[\mathbf{A} = \mathbf{Q} \cdot \mathbf{R}\]
 
@@ -66,18 +64,9 @@ The Householder matrices \(\mathbf{Q_i}\) for \(\mathbf{Q_1 \ldots Q_{n}}\) are 
 % Talk more in-depth aboout Householder (why it is hard to parallelize it).
 % Mention Givens and that it is less numerically stable, but easier to parallelize.
 
-Geometrically, \(\mathbf{Q}\) can be interpreted as a linear transformation that rotates and reflects the basis vectors. Likewise, \(\mathbf{R}\) can be interpreted as a linear transformation that scales and shears the basis vectors. Therefore, by computing the QR-decomposition, we factorize a matrix into these two kinds of linear transformations. 
+Geometrically, \(\mathbf{Q}\) can be interpreted as a linear transformation that rotates and reflects the basis vectors. Likewise, \(\mathbf{R}\) can be interpreted as a linear transformation that scales and shears the basis vectors. Therefore, by computing the QR decomposition, we factorize a matrix into these two kinds of linear transformations. 
 
 % What else we can include in this section on what the algorithm does
-
-% we dont understand some of the math
-% implementation from the book
-% our iteration on the algorithm (TDD)
-% running the loop one more time
-% an iterative algorithm, the computes columns in sequence
-% numerical stbility (dividing by scale)
-% calculating the inner product
-
 
 \newpage
 \subsection{CPU and GPU Architecture}
@@ -144,11 +133,27 @@ One could say that the CPU is the manager that organizes everything, while the G
 
 The typical performance bottleneck in a CUDA program is the communication between the CPU and GPU. Optimizing communication, as well as the parallelization on the GPU, are the keys to optimizing performance of CUDA programs. Specifically, the transfer of data from the host memory to device memory is quite slow \cite[Sect. 5.3.1]{nvidia:cudadoc}.\\
 
-% We could talk about managed memory here?
-
 \noindent We will implement the algorithms to run sequentially on the CPU and in parallel on the GPU. One might argue that a more fair comparison would be to write a parallel program on the CPU and then comparing the performance with the parallel program on the GPU.\footnote{One could also take advantage of SIMD operations on the CPU.}
 
 If the purpose of the project was to judge whether an algorithm should be implemented on the CPU or GPU to yield the best performance, one would be correct. However, the purpose of this project is to implement algorithms on the GPU, and tuning that code to better performance. Writing a GPU implementation faster than a parallel implementation on the CPU is out of scope for this project.
+
+\subsection{Floating Point Arithmetic}
+
+We want our matrices to contain decimal numbers. Floating point numbers are a way to represent decimal numbers in a finite amount of information. The idea is that a floating point number will have three parts: A sign bit (indicating whether it is positive or negative) $s$, an exponent $e$, and a fraction $f$ \cite[Sect. 6]{afternotes}. If $\beta$ is the base of the floating point representation, the value of the number is
+
+\[s \cdot \beta^e \cdot f\]
+
+Most computers use binary representations of numbers, and this includes floating point numbers. The IEEE 754 floating point standard is very widely used. In that standard, we have two representations of floating point numbers: \textit{Single precision numbers} (floats), using 32 bits, and \textit{double precision numbers} (doubles), using 64 bits. 
+
+Floating points are only finitely precise and therefore only approximations of the actual decimal number. Intuitively, the more bits that are available, the more precise the representation will be. Floats have about seven significant decimal digits, and doubles have about 13 \cite[Sect. 6]{afternotes}. However, most consumer GPUs only support single precision numbers, so we will be using floats throughout this project.
+
+Because of floating point imprecisions (also known as rounding errors), it is not very useful to ask if two floating point numbers are equal, using default equality operators. It is usually better to ask if they are "almost equal", meaning they have an insubstantial difference. In order to test the correctness of our algorithms throughout this project, we have implemented an almost equal method (see listing \ref{lst:almost_equal} in Appendix A). The variable \texttt{maxUlps} defines the maximum rounding error we accept.
+
+Annoyingly, it seems that the our GPUs' floating point arithmetic \textit{slightly} differs from our CPUs' floating point arithmetic. Although NVIDIA does list a number of ways their floating point arithmetic differs from the IEEE 754 standard, none of them seem to apply to our use-case \cite[Sect. 13.1]{nvidia:cudadoc}. Because of this, we had to set our \texttt{maxUlps} quite high, at 2048. We were not able to figure out, why the computations did not yield the same results on the CPU and GPU.\\
+
+\noindent If a floating point number grows too large (i.e. by squaring it), it results in overflow. The way the IEEE 754 standard handles overflow, is by turning it into infinity. If a floating point number grows too small (i.e. by dividing it by a large number), it turns into zero. 
+
+It is much preferable to have underflow rather than overflow in most computations, since such a small value usually can be considered zero without too many harmful effects. Therefore, one can scale all numbers in a computation by dividing them with the largest number in that computation, then multiply with it as the very last computation, rescaling it. This way we eliminate overflow, at the cost of neglicible underflows \cite{afternotes}. This will be useful in our QR decomposition implementation.
 
 % Afsnit om vores hypoteser. Hvorfor vi skriver denne rapport. 
 % Altså at addition ikke vil få en speedup, og hvorfor vi tror det

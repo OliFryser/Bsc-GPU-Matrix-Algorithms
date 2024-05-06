@@ -1,0 +1,12 @@
+\section{Limiting Factors of the GPU}
+
+In order to write code that is accelerated by the GPU, we must know which overheads are involved and how they impact performance. 
+For this we have measured the performance of the following metrics: 
+
+\begin{itemize}
+    \item Allocating and freeing memory on the GPU
+    \item Copying memory to and from the GPU
+    \item Launching more blocks for each kernel
+    \item Spawning more threads per block
+\end{itemize}
+

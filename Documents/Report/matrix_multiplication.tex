@@ -106,9 +106,8 @@ The key observation is that each element in matrix A will be accessed $n$ many t
 
 For this implementation, each thread will still only be responsible for calculating a single element in the result matrix. However, our blocks will be defined by threads, that access much of the same memory. These threads will help each other retrieve the commonly accessed values from matrix A and B. By doing this, the L1 cache is filled in parallel with the commonly accessed memory, so that all threads can quickly access it and compute their values. 
 
-\epigraph{The best way to find yourself is to lose yourself in the service of others.}{\textit{Mahatma Gandhi}}
 
-Insert sentences on how much space the L1 cache has, how many floats that is and the calculation that determines BLOCK\_SIZE
+\color{red} Insert sentences on how much space the L1 cache has, how many floats that is and the calculation that determines BLOCK\_SIZE \color{black}
 
 Previously we have only accessed our blocks and threads by their x-coordinate. For this implementation, it helps to abstract the memory access to be 2-dimensional. That means we will start to access our specific blocks and threads with both x- and y-coordinates. 
 

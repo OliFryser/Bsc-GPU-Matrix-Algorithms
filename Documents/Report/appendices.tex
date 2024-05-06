@@ -1,5 +1,19 @@
 \section*{Appendix A - Listings}
 
+\begin{lstlisting}[language=C, caption={Almost Equal algorithm}, label={lst:almost_equal}]
+bool almost_equal(float x, float y) {
+    int maxUlps = 2048;
+    int xBits = *(int *)&x;  // Evil bit level hacking from Quake III Q_sqrt
+    int yBits = *(int *)&y;  // Evil bit level hacking from Quake III Q_sqrt
+    int minValue = 1 << 31;
+    if (xBits < 0) xBits = minValue - xBits;
+    if (yBits < 0) yBits = minValue - yBits;
+
+    int difference = xBits - yBits;
+    return difference != minValue && fabsf(difference) <= maxUlps;
+}
+\end{lstlisting}
+
 \begin{lstlisting}[language=C, caption={CPU addition algorithm}, label={lst:cpu_addition}]
 bool matrix_addition(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
     if (matrix_a == NULL) return false;
