@@ -32,5 +32,6 @@ bool matrix_r_equal(matrix_t *r, matrix_t *composite, float *diagonal);
 void matrix_extract_r(matrix_t *composite, float *d, matrix_t *r_result);
 bool matrix_extract_q_j(
     matrix_t *composite, float *c, int j, matrix_t *q_result);
+float random_float(float min_value, float max_value);
 
 #endif

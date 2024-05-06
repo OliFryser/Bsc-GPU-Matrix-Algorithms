@@ -14,5 +14,7 @@ void print_numbers(int array[], int size_of_array);
 bool array_almost_equal(float array1[], float array2[], int length);
 double mean(double array[], int size_of_array);
 double standard_deviation(double array[], int size_of_array, double mean);
+void array_random_fill(float *array, int length);
+void print_floats(float *array, int size_of_array);
 
 #endif

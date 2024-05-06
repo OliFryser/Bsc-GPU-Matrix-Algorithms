@@ -56,6 +56,12 @@ bool cuda_matrix_multiplication_multi_core_shared_memory_adapter(
 bool cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_adapter(
     algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
 
+bool parallel_max_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+
+bool sequential_max_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c);
+
 int main(int argc, char *argv[]) {
     // Command Line Arguments
     char *algorithm;
@@ -143,6 +149,10 @@ int main(int argc, char *argv[]) {
         matrix_algorithm = &write_managed_vector_adapter;
     else if (strcmp(algorithm, "diagnostic: write vector") == 0)
         matrix_algorithm = &write_vector_adapter;
+    else if (strcmp(algorithm, "parallel max") == 0)
+        matrix_algorithm = &parallel_max_adapter;
+    else if (strcmp(algorithm, "sequential max") == 0)
+        matrix_algorithm = &sequential_max_adapter;
 
     matrix_a = matrix_init(dimension, dimension);
     matrix_b = matrix_init(dimension, dimension);
@@ -162,6 +172,14 @@ int main(int argc, char *argv[]) {
         arg_a->matrix = matrix_a;
         arg_b->vector = (float *)malloc(sizeof(float) * dimension);
         arg_c->vector = (float *)malloc(sizeof(float) * dimension);
+    } else if (strstr(algorithm, "max") != NULL) {
+        matrix_t *matrix = (matrix_t *)malloc(sizeof(matrix_t));
+        matrix->rows = dimension;
+        arg_a->matrix = matrix;
+
+        float *vector = (float *)malloc(sizeof(float) * dimension);
+        array_random_fill(vector, dimension);
+        arg_b->vector = vector;
     } else {
         arg_a->matrix = matrix_a;
         arg_b->matrix = matrix_b;

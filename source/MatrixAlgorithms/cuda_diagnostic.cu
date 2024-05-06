@@ -128,6 +128,102 @@ bool write_vector_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algori
     return true;
 }
 
+#define ELEMENTS_PR_THREAD 4
+#define BLOCK_SIZE 4
+
+// copied
+__device__ float cuda_max_absolute_copied(float a, float b) {
+    return fmaxf(fabsf(a), fabsf(b));
+}
+
+// copied
+__device__ void cuda_parallel_reduction_copied(
+    float *cache, int cache_index, reducer_t reduce) {
+    int split_index = blockDim.x;
+    while (split_index != 0) {
+        split_index /= 2;
+        if (cache_index < split_index)
+            cache[cache_index] =
+                reduce(cache[cache_index], cache[cache_index + split_index]);
+
+        __syncthreads();
+    }
+}
+
+// modified
+__global__ void cuda_parallel_max_kernel_copied(float *blocks, device_matrix_t matrix,
+    int element_count) {
+    __shared__ float cache[BLOCK_SIZE];
+    int cache_index = threadIdx.x;
+    int starting_index = blockIdx.x * ELEMENTS_PR_THREAD * BLOCK_SIZE + threadIdx.x * ELEMENTS_PR_THREAD;
+    float thread_max = fabsf(matrix[starting_index]);
+
+    for (int e = 1; e < ELEMENTS_PR_THREAD; e++) {
+        if (e >= element_count) break;
+        thread_max = cuda_max_absolute_copied(thread_max, matrix[starting_index + e]);
+    }
+
+    cache[cache_index] = thread_max;
+    __syncthreads();
+    cuda_parallel_reduction_copied(cache, cache_index, cuda_max_absolute_copied);
+    if (cache_index == 0) blocks[blockIdx.x] = cache[0];
+}
+
+// copied
+__global__ void cuda_max_value_copied(
+    float *max_value, const float *values, int grid_size) {
+    float max = values[0];
+    for (int i = 1; i < grid_size; i++) {
+        if (values[i] > max) max = values[i];
+    }
+    *max_value = max;
+}
+
+
+void parallel_max(int element_count, float *vector) {
+    float *device_max_value;
+    // cudaMalloc(&device_max_value, sizeof(float));
+
+    float *device_vector;
+    // cudaMalloc(&device_vector, sizeof(float) * element_count);
+    // cudaMemcpy(device_vector, vector, sizeof(float) * element_count, cudaMemcpyHostToDevice);
+
+    int grid_size = (element_count + ELEMENTS_PR_THREAD * BLOCK_SIZE - 1) /
+                    (ELEMENTS_PR_THREAD * BLOCK_SIZE);
+    float *device_blocks;
+    // cudaMalloc(&device_blocks, sizeof(float) * grid_size);
+
+    cuda_parallel_max_kernel_copied<<<grid_size, BLOCK_SIZE>>>(device_blocks, device_vector, element_count);
+    cuda_max_value_copied<<<1, 1>>>(device_max_value, device_blocks, grid_size);
+
+    // float *max_value = (float *)malloc(sizeof(float));
+    // cudaMemcpy(max_value, device_max_value, sizeof(float), cudaMemcpyDeviceToHost);
+    // cudaFree(device_max_value);
+    // cudaFree(device_vector);
+    // cudaFree(device_blocks);
+    // free(max_value);
+}
+
+bool parallel_max_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c)
+{
+    parallel_max(arg_a->matrix->rows, arg_b->vector); 
+    return true;
+}
+
+void sequential_max(int element_count, float *vector) {
+    float max = vector[0];
+    for (int i = 0; i < element_count; i++)
+    {
+        max = fmaxf(fabsf(max), fabsf(vector[i]));
+    }
+}
+
+bool sequential_max_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c)
+{
+    sequential_max(arg_a->matrix->rows, arg_b->vector); 
+    return false;
+}
+
 // only memcpy, dont launch kernel
 // memcpy more and more data and launch kernel
 // memcpy more and more data dont launch kernel

@@ -127,8 +127,6 @@ bool cuda_matrix_qr_decomposition_single_core(
 #define ELEMENTS_PR_THREAD 4
 #define BLOCK_SIZE 4
 
-typedef float (*reducer_t)(float, float);
-
 __device__ float cuda_max_absolute(float a, float b) {
     return fmaxf(fabsf(a), fabsf(b));
 }

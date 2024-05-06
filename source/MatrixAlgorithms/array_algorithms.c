@@ -78,3 +78,15 @@ bool array_almost_equal(float array1[], float array2[], int length) {
     }
     return true;
 }
+
+void array_random_fill(float *array, int length) {
+    if (array == NULL) {
+        printf("Array is null.");
+        return;
+    }
+
+    for (int i = 0; i < length; i++)
+    {
+        array[i] = random_float(0.0f, 10.0f);
+    }
+}
