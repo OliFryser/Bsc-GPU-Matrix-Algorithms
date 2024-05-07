@@ -134,11 +134,11 @@ int main(int argc, char *argv[]) {
              0)
         matrix_algorithm = &launch_kernel_1_block_1_thread_adapter;
     else if (strcmp(algorithm,
-                 "diagnostic: launch kernel scaling grid and blocks") == 0)
+                 "diagnostic: single kernel with grid and block size = x") == 0)
         matrix_algorithm = &launch_kernel_scaling_with_dimension_adapter;
-    else if (strcmp(algorithm, "diagnostic: cudaMalloc") == 0)
+    else if (strcmp(algorithm, "diagnostic: cudaMalloc x floats") == 0)
         matrix_algorithm = &malloc_scaling_with_dimension_adapter;
-    else if (strcmp(algorithm, "diagnostic: cudaMemcpy") == 0)
+    else if (strcmp(algorithm, "diagnostic: cudaMalloc & cudaMemcpy x floats") == 0)
         matrix_algorithm = &memcpy_scaling_with_dimension_adapter;
     else if (strcmp(algorithm,
                  "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread") ==
@@ -147,6 +147,10 @@ int main(int argc, char *argv[]) {
     else if (strcmp(algorithm,
                  "diagnostic: cudaMemcpy & launch larger kernel") == 0)
         matrix_algorithm = &memcpy_and_larger_kernel_launch_adapter;
+    else if (strcmp(algorithm, "diagnostic: launch x kernels") == 0)
+        matrix_algorithm = &launch_x_kernels_adapter;
+    else if (strcmp(algorithm, "diagnostic: launch x kernels sequentially") == 0)
+        matrix_algorithm = &launch_x_kernels_sequentially_adapter;
     else if (strcmp(algorithm, "diagnostic: write managed") == 0)
         matrix_algorithm = &write_managed_vector_adapter;
     else if (strcmp(algorithm, "diagnostic: write vector") == 0)

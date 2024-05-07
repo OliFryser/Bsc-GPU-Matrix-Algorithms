@@ -100,6 +100,31 @@ __global__ void write_managed_vector_kernel(device_matrix_t matrix, int size) {
     matrix[blockIdx.x] = 4.0f;
 }
 
+bool launch_x_kernels(int dimension) {
+    for (int i = 0; i < dimension; i++)
+    {
+        noop_kernel<<<1, 1>>>();
+    }
+}
+
+bool launch_x_kernels_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    launch_x_kernels(arg_a->matrix->rows);
+}
+
+bool launch_x_kernels_sequentially(int dimension) {
+    for (int i = 0; i < dimension; i++)
+    {
+        noop_kernel<<<1, 1>>>();
+        cudaDeviceSynchronize();
+    }
+}
+
+bool launch_x_kernels_sequentially_adapter(
+    algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
+    launch_x_kernels(arg_a->matrix->rows);
+}
+
 void write_managed_vector(matrix_t *matrix) {
     device_matrix_t vector;
     int size = matrix->columns * matrix->rows;
