@@ -1,0 +1,48 @@
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+qr gpu parallel max,	2,	0.004867385,	0.003479262,	2
+qr gpu parallel max,	2,	0.001317302,	0.000113473,	4
+qr gpu parallel max,	2,	0.001207628,	0.000045277,	8
+qr gpu parallel max,	2,	0.001183988,	0.000082810,	16
+qr gpu parallel max,	2,	0.001302756,	0.000149427,	32
+qr gpu parallel max,	2,	0.001456894,	0.000213780,	64
+qr gpu parallel max,	2,	0.001494831,	0.000289842,	128
+qr gpu parallel max,	2,	0.001263506,	0.000173083,	256
+qr gpu parallel max,	2,	0.001436040,	0.000296925,	512
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+qr gpu parallel max,	4,	0.004938240,	0.002930280,	2
+qr gpu parallel max,	4,	0.002046694,	0.000054027,	4
+qr gpu parallel max,	4,	0.001986989,	0.000058943,	8
+qr gpu parallel max,	4,	0.002062751,	0.000073519,	16
+qr gpu parallel max,	4,	0.002149881,	0.000256890,	32
+qr gpu parallel max,	4,	0.002127971,	0.000219695,	64
+qr gpu parallel max,	4,	0.002076161,	0.000120903,	128
+qr gpu parallel max,	4,	0.002072076,	0.000122113,	256
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+qr gpu parallel max,	8,	0.008400331,	0.003055559,	2
+qr gpu parallel max,	8,	0.005127618,	0.000051297,	4
+qr gpu parallel max,	8,	0.005480237,	0.000142110,	8
+qr gpu parallel max,	8,	0.005163923,	0.000169818,	16
+qr gpu parallel max,	8,	0.005247329,	0.000296828,	32
+qr gpu parallel max,	8,	0.005160560,	0.000213176,	64
+qr gpu parallel max,	8,	0.005268858,	0.000480128,	128
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+qr gpu parallel max,	16,	0.019356590,	0.003027927,	2
+qr gpu parallel max,	16,	0.017174557,	0.000157615,	4
+qr gpu parallel max,	16,	0.016359769,	0.000253356,	8
+qr gpu parallel max,	16,	0.016669167,	0.000650894,	16
+qr gpu parallel max,	16,	0.017078314,	0.001223925,	32
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+qr gpu parallel max,	32,	0.062497758,	0.002325818,	2
+qr gpu parallel max,	32,	0.060329846,	0.000840260,	4
+qr gpu parallel max,	32,	0.065932971,	0.007769436,	8
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+qr gpu parallel max,	64,	0.242539414,	0.002811169,	2
+qr gpu parallel max,	64,	0.231771495,	0.001683963,	4
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+qr gpu parallel max,	128,	0.945625566,	0.018189455,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+qr gpu parallel max,	256,	3.841416989,	0.161547000,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+qr gpu parallel max,	512,	21.119004245,	2.168063490,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+qr gpu parallel max,	1024,	94.162212238,	2.480079835,	2

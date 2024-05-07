@@ -1,0 +1,106 @@
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	2,	0.000977365,	0.000282746,	2
+shared memory multiplication,	2,	0.000599017,	0.000028440,	4
+shared memory multiplication,	2,	0.000577431,	0.000016463,	8
+shared memory multiplication,	2,	0.000588963,	0.000033928,	16
+shared memory multiplication,	2,	0.000604795,	0.000103131,	32
+shared memory multiplication,	2,	0.000572295,	0.000043033,	64
+shared memory multiplication,	2,	0.000573239,	0.000046180,	128
+shared memory multiplication,	2,	0.000600469,	0.000373694,	256
+shared memory multiplication,	2,	0.000628946,	0.000312226,	512
+shared memory multiplication,	2,	0.000620742,	0.000376964,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	4,	0.000862181,	0.000271300,	2
+shared memory multiplication,	4,	0.000600995,	0.000026046,	4
+shared memory multiplication,	4,	0.000563080,	0.000006753,	8
+shared memory multiplication,	4,	0.000562197,	0.000012671,	16
+shared memory multiplication,	4,	0.000598621,	0.000083114,	32
+shared memory multiplication,	4,	0.000568030,	0.000023848,	64
+shared memory multiplication,	4,	0.000594780,	0.000062671,	128
+shared memory multiplication,	4,	0.000598229,	0.000080279,	256
+shared memory multiplication,	4,	0.000597119,	0.000056363,	512
+shared memory multiplication,	4,	0.000583584,	0.000050668,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	8,	0.001026625,	0.000270697,	2
+shared memory multiplication,	8,	0.000665092,	0.000037565,	4
+shared memory multiplication,	8,	0.000670487,	0.000033993,	8
+shared memory multiplication,	8,	0.000665842,	0.000031338,	16
+shared memory multiplication,	8,	0.000608601,	0.000052106,	32
+shared memory multiplication,	8,	0.000607832,	0.000178566,	64
+shared memory multiplication,	8,	0.000577665,	0.000038564,	128
+shared memory multiplication,	8,	0.000594809,	0.000102481,	256
+shared memory multiplication,	8,	0.000585181,	0.000045406,	512
+shared memory multiplication,	8,	0.000598615,	0.000061584,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	16,	0.000892124,	0.000264472,	2
+shared memory multiplication,	16,	0.000692467,	0.000123960,	4
+shared memory multiplication,	16,	0.000612952,	0.000020477,	8
+shared memory multiplication,	16,	0.000610012,	0.000037171,	16
+shared memory multiplication,	16,	0.000594163,	0.000021175,	32
+shared memory multiplication,	16,	0.000590018,	0.000020859,	64
+shared memory multiplication,	16,	0.000594523,	0.000032760,	128
+shared memory multiplication,	16,	0.000594029,	0.000035607,	256
+shared memory multiplication,	16,	0.000634712,	0.000074424,	512
+shared memory multiplication,	16,	0.000624430,	0.000200664,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	32,	0.001241471,	0.000383539,	2
+shared memory multiplication,	32,	0.000762950,	0.000051770,	4
+shared memory multiplication,	32,	0.000701604,	0.000061904,	8
+shared memory multiplication,	32,	0.000590355,	0.000062068,	16
+shared memory multiplication,	32,	0.000601939,	0.000052338,	32
+shared memory multiplication,	32,	0.000574144,	0.000028949,	64
+shared memory multiplication,	32,	0.000660109,	0.000062272,	128
+shared memory multiplication,	32,	0.000647263,	0.000045771,	256
+shared memory multiplication,	32,	0.000646945,	0.000044142,	512
+shared memory multiplication,	32,	0.000654821,	0.000071402,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	64,	0.000862582,	0.000257293,	2
+shared memory multiplication,	64,	0.000586044,	0.000021385,	4
+shared memory multiplication,	64,	0.000670082,	0.000118086,	8
+shared memory multiplication,	64,	0.000622871,	0.000042267,	16
+shared memory multiplication,	64,	0.000577563,	0.000025880,	32
+shared memory multiplication,	64,	0.000602629,	0.000073484,	64
+shared memory multiplication,	64,	0.000599314,	0.000042144,	128
+shared memory multiplication,	64,	0.000612900,	0.000078477,	256
+shared memory multiplication,	64,	0.000607196,	0.000055582,	512
+shared memory multiplication,	64,	0.000615372,	0.000180226,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	128,	0.001089818,	0.000343170,	2
+shared memory multiplication,	128,	0.000630998,	0.000022762,	4
+shared memory multiplication,	128,	0.000819710,	0.000388307,	8
+shared memory multiplication,	128,	0.000690899,	0.000086460,	16
+shared memory multiplication,	128,	0.000643315,	0.000045575,	32
+shared memory multiplication,	128,	0.000676925,	0.000034361,	64
+shared memory multiplication,	128,	0.000704823,	0.000077543,	128
+shared memory multiplication,	128,	0.000707916,	0.000062857,	256
+shared memory multiplication,	128,	0.000669324,	0.000046691,	512
+shared memory multiplication,	128,	0.000674809,	0.000058351,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	256,	0.001146776,	0.000255264,	2
+shared memory multiplication,	256,	0.000830511,	0.000011816,	4
+shared memory multiplication,	256,	0.000835662,	0.000021872,	8
+shared memory multiplication,	256,	0.000861655,	0.000061367,	16
+shared memory multiplication,	256,	0.000845454,	0.000045272,	32
+shared memory multiplication,	256,	0.000863612,	0.000104123,	64
+shared memory multiplication,	256,	0.000850644,	0.000058773,	128
+shared memory multiplication,	256,	0.000837508,	0.000032560,	256
+shared memory multiplication,	256,	0.000869036,	0.000066340,	512
+shared memory multiplication,	256,	0.000843400,	0.000140210,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	512,	0.002258574,	0.000231655,	2
+shared memory multiplication,	512,	0.001950678,	0.000069800,	4
+shared memory multiplication,	512,	0.001909152,	0.000049758,	8
+shared memory multiplication,	512,	0.001908178,	0.000055563,	16
+shared memory multiplication,	512,	0.001846882,	0.000061456,	32
+shared memory multiplication,	512,	0.001882205,	0.000075534,	64
+shared memory multiplication,	512,	0.001817882,	0.000108124,	128
+shared memory multiplication,	512,	0.001842500,	0.000122029,	256
+shared memory multiplication,	512,	0.001834540,	0.000321263,	512
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	1024,	0.005968927,	0.000583714,	2
+shared memory multiplication,	1024,	0.005855860,	0.000852633,	4
+shared memory multiplication,	1024,	0.005485294,	0.000197766,	8
+shared memory multiplication,	1024,	0.005964846,	0.002361398,	16
+shared memory multiplication,	1024,	0.005717524,	0.001678072,	32
+shared memory multiplication,	1024,	0.005433331,	0.000246485,	64
+shared memory multiplication,	1024,	0.005434152,	0.000165511,	128

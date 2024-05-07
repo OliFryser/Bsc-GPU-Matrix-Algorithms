@@ -112,7 +112,6 @@ bool cuda_matrix_qr_decomposition_single_core_adapter(
 
 bool cuda_matrix_qr_decomposition_single_core(
     matrix_t *matrix, float *diagonal, float *c) {
-    printf("\nRunning single core...\n");
     return cuda_qr_decomposition_runner(matrix, diagonal, c,
         &(cuda_matrix_qr_decomposition_single_core_kernel), dim3(1), dim3(1));
 }
@@ -246,12 +245,12 @@ __global__ void cuda_scale_column(device_matrix_t matrix, float *device_scale,
     }
 }
 
-__global__ void cuda_matrix_qr_decomposition_kernel(float *blocks, int grid_size, device_matrix_t matrix,
-    float *diagonal, float *c, int dimension, int k, float *scale_in_memory,
+__global__ void cuda_matrix_qr_decomposition_kernel(float *blocks,
+    int grid_size, device_matrix_t matrix, float *diagonal, float *c,
+    int dimension, int k, float *scale_in_memory,
     float *squared_column_length) {
-
     cuda_sum(squared_column_length, blocks, grid_size);
-    
+
     int diagonal_index = INDEX(k, k, dimension);
     float column_length =
         SIGN(sqrtf(*squared_column_length), matrix[diagonal_index]);
@@ -266,9 +265,8 @@ __device__ void cuda_compute_tau(
     *tau = *inner_product / c[k];
 }
 
-__global__ void cuda_find_inner_product_and_compute_tau(
-    float *inner_product, float *blocks, int grid_size,
-    float *tau, float *c, int k) {
+__global__ void cuda_find_inner_product_and_compute_tau(float *inner_product,
+    float *blocks, int grid_size, float *tau, float *c, int k) {
     cuda_sum(inner_product, blocks, grid_size);
     cuda_compute_tau(tau, inner_product, c, k);
 }
@@ -351,9 +349,9 @@ bool cuda_matrix_qr_decomposition_parallel_max(
             starting_index, dimension);
         cudaDeviceSynchronize();
 
-        cuda_matrix_qr_decomposition_kernel<<<1, 1>>>(device_blocks, grid_size, device_matrix,
-            device_diagonal, device_c, dimension, k, device_scale,
-            device_squared_column_length);
+        cuda_matrix_qr_decomposition_kernel<<<1, 1>>>(device_blocks, grid_size,
+            device_matrix, device_diagonal, device_c, dimension, k,
+            device_scale, device_squared_column_length);
         // cudaDeviceSynchronize();
 
         for (int j = k + 1; j < dimension; j++) {
@@ -362,8 +360,9 @@ bool cuda_matrix_qr_decomposition_parallel_max(
                 INDEX(k, j, dimension), dimension);
             cudaDeviceSynchronize();
 
-            cuda_find_inner_product_and_compute_tau<<<1, 1>>>(device_inner_product, device_blocks, grid_size, 
-            device_tau, device_c, k);
+            cuda_find_inner_product_and_compute_tau<<<1, 1>>>(
+                device_inner_product, device_blocks, grid_size, device_tau,
+                device_c, k);
             // cudaDeviceSynchronize();
 
             cuda_subtract_tau_product<<<grid_size, BLOCK_SIZE>>>(device_matrix,
@@ -395,8 +394,9 @@ bool cuda_matrix_qr_decomposition_parallel_max(
 
 #pragma endregion
 
-__device__ void device_cuda_parallel_max_kernel(float *blocks, device_matrix_t matrix,
-    int element_count, int k, int starting_index, int dimension) {
+__device__ void device_cuda_parallel_max_kernel(float *blocks,
+    device_matrix_t matrix, int element_count, int k, int starting_index,
+    int dimension) {
     __shared__ float cache[BLOCK_SIZE];
     int i = get_index(starting_index, dimension);
     int increment = dimension * BLOCK_SIZE;
@@ -419,18 +419,18 @@ __device__ int globalSyncVar = 0;
 
 __device__ void wait() {
     int value = atomicAdd(&globalSyncVar, 1);
-    __syncthreads(); // Ensure all threads have updated globalSyncVar
+    __syncthreads();  // Ensure all threads have updated globalSyncVar
 
     if (value == blockDim.x * gridDim.x - 1) {
-        globalSyncVar = 0; // Reset globalSyncVar for next iteration
-    }
-    else {
-        while (globalSyncVar != 0); // Spin until globalSyncVar is reset
+        globalSyncVar = 0;  // Reset globalSyncVar for next iteration
+    } else {
+        while (globalSyncVar != 0);  // Spin until globalSyncVar is reset
     }
 }
 
-__device__ void device_cuda_scale_column(device_matrix_t matrix, float *device_scale,
-    int k, int starting_index, int dimension, int element_count) {
+__device__ void device_cuda_scale_column(device_matrix_t matrix,
+    float *device_scale, int k, int starting_index, int dimension,
+    int element_count) {
     float scale = *device_scale;
     int i = get_index(starting_index, dimension);
     int increment = dimension * BLOCK_SIZE;
@@ -481,19 +481,20 @@ __device__ void device_cuda_subtract_tau_product(device_matrix_t matrix,
     }
 }
 
-__global__ void cuda_matrix_qr_decomposition_multi_core_kernel(float *matrix, float *diagonal, float *c, 
-    bool *is_singular, int dimension, float *blocks, float *scale, float *squared_column_length, 
-    float *inner_product, float *tau) {
+__global__ void cuda_matrix_qr_decomposition_multi_core_kernel(float *matrix,
+    float *diagonal, float *c, bool *is_singular, int dimension, float *blocks,
+    float *scale, float *squared_column_length, float *inner_product,
+    float *tau) {
     int element_count = dimension * dimension;
     *is_singular = false;
     int starting_index;
 
-    for (int k = 0; k < dimension; k++)
-    {
+    for (int k = 0; k < dimension; k++) {
         starting_index = INDEX(k, k, dimension);
 
         // compute scale (parallel reduction: max)
-        device_cuda_parallel_max_kernel(blocks, matrix, element_count, k, starting_index, dimension);
+        device_cuda_parallel_max_kernel(
+            blocks, matrix, element_count, k, starting_index, dimension);
         printf("%d", 1);
         wait();
         printf("%d", 2);
@@ -504,18 +505,18 @@ __global__ void cuda_matrix_qr_decomposition_multi_core_kernel(float *matrix, fl
             c[k] = diagonal[k] = 0.0f;
         }
 
-
         // normalize column (independent division)
-        device_cuda_scale_column(matrix, scale, k, starting_index, dimension, element_count);
+        device_cuda_scale_column(
+            matrix, scale, k, starting_index, dimension, element_count);
         wait();
 
         // compute column length squared (parallel reduction: sum)
-        device_cuda_parallel_sum_of_products_kernel(blocks, matrix, element_count, 
-            starting_index, starting_index, dimension);
+        device_cuda_parallel_sum_of_products_kernel(blocks, matrix,
+            element_count, starting_index, starting_index, dimension);
         wait();
 
         cuda_sum(squared_column_length, blocks, gridDim.x);
-            
+
         // do four sequential computations
         float column_length =
             SIGN(sqrtf(*squared_column_length), matrix[starting_index]);
@@ -525,33 +526,32 @@ __global__ void cuda_matrix_qr_decomposition_multi_core_kernel(float *matrix, fl
         diagonal[k] = -*scale * column_length;
         wait();
 
-        for (int j = k + 1; j < dimension; j++)
-        {
+        for (int j = k + 1; j < dimension; j++) {
             // compute inner product (parallel reduction: sum)
-            device_cuda_parallel_sum_of_products_kernel(
-                blocks, matrix, element_count, starting_index,
-                INDEX(k, j, dimension), dimension);
+            device_cuda_parallel_sum_of_products_kernel(blocks, matrix,
+                element_count, starting_index, INDEX(k, j, dimension),
+                dimension);
             wait();
             cuda_sum(inner_product, blocks, gridDim.x);
 
-            // tau 
+            // tau
             *tau = *inner_product / c[k];
 
             // subtract tau multiplication from rest of matrix
-            device_cuda_subtract_tau_product(matrix, tau, c, k, j, starting_index, dimension, element_count);
+            device_cuda_subtract_tau_product(
+                matrix, tau, c, k, j, starting_index, dimension, element_count);
             wait();
         }
     }
 }
 
 bool cuda_matrix_qr_decomposition_multi_core_single_kernel(
-    matrix_t* matrix, float* diagonal, float* c) {
+    matrix_t *matrix, float *diagonal, float *c) {
     printf("\nRunning multi core...\n");
 
     int dimension = matrix->columns;
 
-    device_matrix_t device_matrix =
-        cuda_matrix_init(dimension, dimension);
+    device_matrix_t device_matrix = cuda_matrix_init(dimension, dimension);
     cuda_matrix_host_to_device(device_matrix, matrix);
 
     size_t diagonal_size = sizeof(float) * dimension;
@@ -566,7 +566,7 @@ bool cuda_matrix_qr_decomposition_multi_core_single_kernel(
     cudaMalloc(&device_is_singular, sizeof(bool));
 
     int grid_size = (dimension + ELEMENTS_PR_THREAD * BLOCK_SIZE - 1) /
-                (ELEMENTS_PR_THREAD * BLOCK_SIZE);
+                    (ELEMENTS_PR_THREAD * BLOCK_SIZE);
 
     float *device_blocks;
     cudaMalloc(&device_blocks, sizeof(float) * grid_size);
@@ -584,8 +584,9 @@ bool cuda_matrix_qr_decomposition_multi_core_single_kernel(
     cudaMalloc(&device_tau, sizeof(float));
 
     cuda_matrix_qr_decomposition_multi_core_kernel<<<grid_size, BLOCK_SIZE>>>(
-        device_matrix, device_diagonal, device_c, device_is_singular, dimension, 
-        device_blocks, device_scale, device_squared_column_length, device_inner_product, device_tau);
+        device_matrix, device_diagonal, device_c, device_is_singular, dimension,
+        device_blocks, device_scale, device_squared_column_length,
+        device_inner_product, device_tau);
 
     bool is_singular = false;
     cudaMemcpy(
@@ -603,7 +604,8 @@ bool cuda_matrix_qr_decomposition_multi_core_single_kernel(
     return is_singular;
 }
 
-bool cuda_matrix_qr_decomposition_multi_core_single_kernel_adapter(algorithm_arg_t *matrix, algorithm_arg_t *diagonal, algorithm_arg_t *c)
-{
-    return cuda_matrix_qr_decomposition_multi_core_single_kernel(matrix->matrix, diagonal->vector, c->vector);
+bool cuda_matrix_qr_decomposition_multi_core_single_kernel_adapter(
+    algorithm_arg_t *matrix, algorithm_arg_t *diagonal, algorithm_arg_t *c) {
+    return cuda_matrix_qr_decomposition_multi_core_single_kernel(
+        matrix->matrix, diagonal->vector, c->vector);
 }
