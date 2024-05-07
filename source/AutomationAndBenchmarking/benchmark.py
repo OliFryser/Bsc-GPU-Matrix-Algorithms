@@ -5,19 +5,27 @@ import csv_data_structure as structure
 from data_visualizer import visualize_csv
 from datetime import datetime
 
+# 2d Algorithms
 addition_cpu_2d = "2d addition cpu"
 addition_gpu_single_core_2d = "2d addition gpu single core"
 addition_gpu_multi_core_2d = "2d addition gpu multi core"
 
-# Algorithms
+# Addition Algorithms
 addition_cpu = "addition cpu"
 addition_gpu_single_core = "addition gpu single core"
 addition_gpu_multi_core = "addition gpu multi core"
 addition_gpu_multi_core_2 = "addition gpu multi core 2"
 addition_gpu_blocks = "addition gpu blocks"
 
+# Multiplication Algorithms
 multiplication_cpu = "multiplication cpu"
+multiplication_gpu_single_core = "multiplication gpu single core"
+multiplication_gpu_multi_core_unwrapping_i = "multiplication gpu multi core unwrapping i"
+multiplication_gpu_multi_core_unwrapping_i_and_j = "multiplication gpu multi core unwrapping i and j"
+shared_memory_multiplication = "shared memory multiplication"
+shared_memory_fewer_accesses = "shared memory fewer accesses"
 
+# QR Algorithms
 qr_cpu = "qr cpu"
 qr_gpu_single_core = "qr gpu single core"
 qr_gpu_parallel_max = "qr gpu parallel max"
