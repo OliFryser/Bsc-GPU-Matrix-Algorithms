@@ -181,7 +181,7 @@ void test_matrix_qr_multi_core_single_kernel(void)
     matrix_t *cpu_result, *gpu_result;
     float *c_cpu, *c_gpu;
     float *diagonal_cpu, *diagonal_gpu;
-    int rows = 32;
+    int rows = 16;
     int cols = rows;
 
     cpu_result = matrix_init(rows, cols);

@@ -418,14 +418,15 @@ __device__ void device_cuda_parallel_max_kernel(float *blocks, device_matrix_t m
 __device__ int globalSyncVar = 0;
 
 __device__ void wait() {
-    globalSyncVar = 0;
-    __syncthreads();
-    if (threadIdx.x == 0 && blockIdx.x == 0) {
-        atomicAdd(&globalSyncVar, 1); 
-    } 
+    int value = atomicAdd(&globalSyncVar, 1);
+    __syncthreads(); // Ensure all threads have updated globalSyncVar
 
-    __threadfence();
-    while (globalSyncVar < gridDim.x);
+    if (value == blockDim.x * gridDim.x - 1) {
+        globalSyncVar = 0; // Reset globalSyncVar for next iteration
+    }
+    else {
+        while (globalSyncVar != 0); // Spin until globalSyncVar is reset
+    }
 }
 
 __device__ void device_cuda_scale_column(device_matrix_t matrix, float *device_scale,
