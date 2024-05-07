@@ -104,12 +104,6 @@ bool cuda_qr_decomposition_runner(matrix_t *matrix, float *diagonal, float *c,
     return is_singular;
 }
 
-bool cuda_matrix_qr_decomposition_parallel_max_adapter(
-    algorithm_arg_t *matrix, algorithm_arg_t *diagonal, algorithm_arg_t *c) {
-    return cuda_matrix_qr_decomposition_parallel_max(
-        matrix->matrix, diagonal->vector, c->vector);
-}
-
 bool cuda_matrix_qr_decomposition_single_core_adapter(
     algorithm_arg_t *matrix, algorithm_arg_t *diagonal, algorithm_arg_t *c) {
     return cuda_matrix_qr_decomposition_single_core(
@@ -123,6 +117,14 @@ bool cuda_matrix_qr_decomposition_single_core(
 }
 
 #pragma endregion
+
+#pragma region MultiCoreManyKernalLaunches
+
+bool cuda_matrix_qr_decomposition_parallel_max_adapter(
+    algorithm_arg_t *matrix, algorithm_arg_t *diagonal, algorithm_arg_t *c) {
+    return cuda_matrix_qr_decomposition_parallel_max(
+        matrix->matrix, diagonal->vector, c->vector);
+}
 
 #define ELEMENTS_PR_THREAD 4
 #define BLOCK_SIZE 4
@@ -389,3 +391,6 @@ bool cuda_matrix_qr_decomposition_parallel_max(
     cudaFree(device_blocks);
     return is_singular;
 }
+
+#pragma endregion
+
