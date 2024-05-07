@@ -394,3 +394,67 @@ bool cuda_matrix_qr_decomposition_parallel_max(
 
 #pragma endregion
 
+__global__ void cuda_matrix_qr_decomposition_multi_core_kernel(float *matrix, float *diagonal, float *c, bool *is_singular, int dimension) {
+    for (int k = 0; k < dimension; k++)
+    {
+        // compute scale (parallel reduction: max)
+        // singularity check
+        // normalize column (independent division)
+        // compute column length squared (parallel reduction: sum)
+        // do four sequential computations
+
+        for (int j = 0; j < dimension; j++)
+        {
+            // compute inner product (parallel reduction: sum)
+            // tau 
+            // subtract tau multiplication from rest of matrix
+        }
+    }
+}
+
+bool cuda_matrix_qr_decomposition_multi_core_single_kernel(
+    matrix_t* matrix, float* diagonal, float* c) {
+    
+    int dimension = matrix->columns;
+
+    device_matrix_t device_matrix =
+        cuda_matrix_init(dimension, dimension);
+    cuda_matrix_host_to_device(device_matrix, matrix);
+
+    size_t diagonal_size = sizeof(float) * dimension;
+
+    float *device_diagonal;
+    cudaMalloc(&device_diagonal, diagonal_size);
+
+    float *device_c;
+    cudaMalloc(&device_c, diagonal_size);
+
+    bool *device_is_singular;
+    cudaMalloc(&device_is_singular, sizeof(bool));
+
+    int grid_size = (dimension + ELEMENTS_PR_THREAD * BLOCK_SIZE - 1) /
+                (ELEMENTS_PR_THREAD * BLOCK_SIZE);
+
+    cuda_matrix_qr_decomposition_multi_core_kernel<<<grid_size, BLOCK_SIZE>>>(
+        device_matrix, device_diagonal, device_c, device_is_singular, dimension);
+
+    bool is_singular = false;
+    cudaMemcpy(
+        &is_singular, device_is_singular, sizeof(bool), cudaMemcpyDeviceToHost);
+    cuda_matrix_device_to_host(matrix, device_matrix);
+    cudaMemcpy(
+        diagonal, device_diagonal, diagonal_size, cudaMemcpyDeviceToHost);
+    cudaMemcpy(c, device_c, diagonal_size, cudaMemcpyDeviceToHost);
+
+    cuda_matrix_free(device_matrix);
+    cudaFree(device_diagonal);
+    cudaFree(device_c);
+    cudaFree(device_is_singular);
+
+    return is_singular;
+}
+
+bool cuda_matrix_qr_decomposition_multi_core_single_kernel_adapter(algorithm_arg_t *matrix, algorithm_arg_t *diagonal, algorithm_arg_t *c)
+{
+    return cuda_matrix_qr_decomposition_multi_core_single_kernel(matrix->matrix, diagonal->vector, c->vector);
+}

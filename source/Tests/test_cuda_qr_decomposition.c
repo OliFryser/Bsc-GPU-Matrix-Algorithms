@@ -140,12 +140,8 @@ void test_matrix_qr_parallel_max_larger_matrices(void) {
     int rows = 32;
     int cols = rows;
 
-    printf("TESTING QR PARALLEL FOR LARGER MATRICES:\n");
-
     cpu_result = matrix_init(rows, cols);
     gpu_result = matrix_init(rows, cols);
-
-    printf("HERE\n");
 
     diagonal_cpu = malloc(sizeof(float) * cpu_result->columns);
     diagonal_gpu = malloc(sizeof(float) * cpu_result->columns);
@@ -165,6 +161,50 @@ void test_matrix_qr_parallel_max_larger_matrices(void) {
     CU_ASSERT_FALSE(cuda_matrix_qr_decomposition_single_core(cpu_result, diagonal_cpu, c_cpu));
 
     CU_ASSERT_FALSE(cuda_matrix_qr_decomposition_parallel_max(
+        gpu_result, diagonal_gpu, c_gpu));
+
+    CU_ASSERT_TRUE(matrix_almost_equal(gpu_result, cpu_result));
+    CU_ASSERT_TRUE(
+        array_almost_equal(diagonal_cpu, diagonal_gpu, cpu_result->columns))
+    CU_ASSERT_TRUE(array_almost_equal(c_cpu, c_gpu, cpu_result->columns))
+
+    free(c_cpu);
+    free(c_gpu);
+    free(diagonal_cpu);
+    free(diagonal_gpu);
+    matrix_free(cpu_result);
+    matrix_free(gpu_result);
+}
+
+void test_matrix_qr_multi_core_single_kernel(void)
+{
+    matrix_t *cpu_result, *gpu_result;
+    float *c_cpu, *c_gpu;
+    float *diagonal_cpu, *diagonal_gpu;
+    int rows = 4;
+    int cols = rows;
+
+    cpu_result = matrix_init(rows, cols);
+    gpu_result = matrix_init(rows, cols);
+
+    diagonal_cpu = malloc(sizeof(float) * cpu_result->columns);
+    diagonal_gpu = malloc(sizeof(float) * cpu_result->columns);
+    c_cpu = malloc(sizeof(float) * cpu_result->columns);
+    c_gpu = malloc(sizeof(float) * cpu_result->columns);
+
+    CU_ASSERT_PTR_NOT_NULL_FATAL(cpu_result);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(gpu_result);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(diagonal_cpu);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(diagonal_gpu);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(c_cpu);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(c_gpu);
+
+    CU_ASSERT_TRUE(matrix_random_fill(1.0f, 10.0f, cpu_result));
+    CU_ASSERT_TRUE(matrix_copy(cpu_result, gpu_result));
+
+    CU_ASSERT_FALSE(cuda_matrix_qr_decomposition_single_core(cpu_result, diagonal_cpu, c_cpu));
+
+    CU_ASSERT_FALSE(cuda_matrix_qr_decomposition_multi_core_single_kernel(
         gpu_result, diagonal_gpu, c_gpu));
 
     CU_ASSERT_TRUE(matrix_almost_equal(gpu_result, cpu_result));

@@ -141,7 +141,12 @@ int main() {
                      test_matrix_qr_parallel_max)) ||
         (NULL == CU_add_test(cuda_qr_decomposition_suite,
                      "cuda qr decomposition parallel max larger matrices",
-                     test_matrix_qr_parallel_max_larger_matrices))) {
+                     test_matrix_qr_parallel_max_larger_matrices)) 
+                     ||
+        (NULL == CU_add_test(cuda_qr_decomposition_suite,
+                     "cuda qr decomposition multi core single kernel larger matrices",
+                     test_matrix_qr_multi_core_single_kernel))
+                     ) {
         CU_cleanup_registry();
         return CU_get_error();
     }
