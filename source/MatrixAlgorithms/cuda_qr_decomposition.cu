@@ -509,7 +509,7 @@ __global__ void cuda_matrix_qr_decomposition_multi_core_kernel(float *matrix,
         // wait();
         device_cuda_scale_column(
             matrix, scale, k, starting_index, dimension, element_count);
-        wait();
+        // wait();
 
         // compute column length squared (parallel reduction: sum)
         device_cuda_parallel_sum_of_products_kernel(blocks, matrix, element_count, 
@@ -517,7 +517,7 @@ __global__ void cuda_matrix_qr_decomposition_multi_core_kernel(float *matrix,
         // wait();
         device_cuda_parallel_sum_of_products_kernel(blocks, matrix,
             element_count, starting_index, starting_index, dimension);
-        wait();
+        // wait();
 
         cuda_sum(squared_column_length, blocks, gridDim.x);
 
@@ -535,7 +535,7 @@ __global__ void cuda_matrix_qr_decomposition_multi_core_kernel(float *matrix,
             device_cuda_parallel_sum_of_products_kernel(blocks, matrix,
                 element_count, starting_index, INDEX(k, j, dimension),
                 dimension);
-            wait();
+            // wait();
             device_cuda_parallel_sum_of_products_kernel(
                 blocks, matrix, element_count, starting_index,
                 INDEX(k, j, dimension), dimension);
@@ -548,7 +548,7 @@ __global__ void cuda_matrix_qr_decomposition_multi_core_kernel(float *matrix,
             // subtract tau multiplication from rest of matrix
             device_cuda_subtract_tau_product(
                 matrix, tau, c, k, j, starting_index, dimension, element_count);
-            wait();
+            // wait();
         }
     }
 }
