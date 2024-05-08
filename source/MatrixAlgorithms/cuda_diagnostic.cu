@@ -100,31 +100,31 @@ __global__ void write_managed_vector_kernel(device_matrix_t matrix, int size) {
     matrix[blockIdx.x] = 4.0f;
 }
 
-bool launch_x_kernels(int dimension) {
+void launch_x_kernels(int dimension) {
     for (int i = 0; i < dimension; i++)
     {
         noop_kernel<<<1, 1>>>();
     }
-    return true;
 }
 
 bool launch_x_kernels_adapter(
     algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
-    return launch_x_kernels(arg_a->matrix->rows);
+    launch_x_kernels(arg_a->matrix->rows);
+    return true;
 }
 
-bool launch_x_kernels_sequentially(int dimension) {
+void launch_x_kernels_sequentially(int dimension) {
     for (int i = 0; i < dimension; i++)
     {
         noop_kernel<<<1, 1>>>();
         cudaDeviceSynchronize();
     }
-    return true;
 }
 
 bool launch_x_kernels_sequentially_adapter(
     algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
-    return launch_x_kernels_sequentially(arg_a->matrix->rows);
+    launch_x_kernels_sequentially(arg_a->matrix->rows);
+    return true;
 }
 
 void write_managed_vector(matrix_t *matrix) {
