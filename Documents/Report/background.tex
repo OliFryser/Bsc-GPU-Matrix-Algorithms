@@ -57,16 +57,18 @@ where \(\mathbf{Q^T}\) is the transpose of \(\mathbf{Q}\) and \(\mathbf{I}\) is 
 
 % Explain why this is useful. I.e. linear algebraic equations and how to solve them with this.
 
+We use the Householder method to compute the QR decomposition as it is more numerically stable than other methods. It works by applying many transformations to the matrix, one iteration for each of its columns. Unfortunately, each iteration depends on the previous iteration. This makes the algorithm fundamentally non-parallelizable. Other less numerically stable methods exist like Givens Rotations algorithm that are more easily parallelizable \cite[Sect. 2.10.4]{numericalrecipes}. However, \cite[Sect. 11.2]{numericalrecipes} describes the Householder method in detail, and so we chose it. 
+
 The Householder matrices \(\mathbf{Q_i}\) for \(\mathbf{Q_1 \ldots Q_{n}}\) are computed for each column in our matrix \(\mathbf{A}\). This leaves us with a way to calculate \(\mathbf{Q}\) if we need it.\cite[Sect. 2.13, 11.2]{numericalrecipes}
 
 \[\mathbf{Q = Q_1 \cdot Q_1 \cdot \ldots \cdot Q_{n}}\]
 
-% Talk more in-depth aboout Householder (why it is hard to parallelize it).
-% Mention Givens and that it is less numerically stable, but easier to parallelize.
-
 Geometrically, \(\mathbf{Q}\) can be interpreted as a linear transformation that rotates and reflects the basis vectors. Likewise, \(\mathbf{R}\) can be interpreted as a linear transformation that scales and shears the basis vectors. Therefore, by computing the QR decomposition, we factorize a matrix into these two kinds of linear transformations. 
 
 % What else we can include in this section on what the algorithm does
+
+\subsection*{Applications}
+The QR-decomposition of a matrix \(\mathbf{A = QR}\) is useful for efficiently solving systems of linear equations. Solving $n$ many equations of the form \(\mathbf{Ax = b}\) becomes trivial to solve when it becomes \(\mathbf{Rx = Q^Tb}\), especially for larger matrices.\cite[Sect. 2.10]{numericalrecipes} We will not go into more detail on this as solving systems of linear equations is out of scope for this project. 
 
 \newpage
 \subsection{CPU and GPU Architecture}
@@ -97,7 +99,7 @@ On modern computers a CPU will contain anywhere from 2 to 90+ cores, typically i
 
 Therefore, to run programs efficiently on a modern CPU, one should utilize all its cores by writing code which can run in parallel. This is usually done with the abstraction of \textit{threads}, which are fundamentally a sequence of instructions \cite[p. 1022]{computersystems}.
 
-\subsubsection{The GPU} \label{background_gpu}
+\subsubsection{The GPU} \label{sect:background_gpu}
 
 \noindent Another component in the computer capable of executing code is called the \textit{Graphics Processing Unit} (GPU). Likewise, it has a set of cores capable of executing instructions. However, the GPU was built to process massive amounts of data in parallel. Thus, the architectural structure of the GPU is different from the CPU.
 

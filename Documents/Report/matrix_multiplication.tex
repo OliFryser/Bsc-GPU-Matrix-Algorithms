@@ -1,11 +1,18 @@
 \section{Matrix Multiplication Implementation}
 
 % Should this even be here?
-Matrix multiplication can be done sequentially in time complexity $O(l * m * n)$. For square matrices this can be expressed as $O(n^3)$ for $n^2$ data. For each element $n$ many independent operations have to be performed. Because these operations are independent, they can be computed in parallel. This can, potentially, have a large positive impact on performance. % Er det rigtigt at det er n independent operations? Det er vel nærmere at det er n operationer pr. element som kan køres uafhængigt af de andre elementer i matricen.
+Matrix multiplication can be done sequentially in time complexity $O(l * m * n)$. For square matrices this can be expressed as $O(n^3)$ for $n^2$ data. For each element $n$ many independent operations have to be performed. Because these operations are independent, they can be computed in parallel. This can, potentially, have a large positive impact on performance.
 
-\subsection{Multiplication: CPU Implementation}
-The implementation follows a standard sequential procedure with a triple nested for loop. For each element in the output matrix, a row from input matrix A is paired with a column from input matrix B as illustrated in Figure \ref{fig:multiplication_illustration}. The sum of all products of each pair of elements from A[i] and B[j] will be the result C[i][j]. % B[j] ligner at man indexerer i jth row på B. Det bør vi skrive på en anden måde, så man forstår at det er en column.
-In this implementation, a single CPU thread will compute the entire result matrix.
+\subsection{Multiplication: CPU}
+
+% \begin{wrapfigure}{R}{0.5\textwidth}
+%     \centering
+%     \includegraphics[width=0.5\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/Multiplication/CPU.png}
+%     \caption{Multiplication: CPU Benchmark}
+%     \label{fig:mul_cpu_bench}
+% \end{wrapfigure}
+
+The implementation follows a standard sequential procedure with a triple nested for-loop. For each element in the output matrix, a row from input matrix $\mathbf{A}$ is paired with a column from input matrix $\mathbf{B}$ as illustrated in Figure \ref{fig:multiplication_illustration}.  In this implementation, a single CPU core will compute the entire result matrix.
 
 \begin{lstlisting}[language=C, caption={Matrix Multiplication on the CPU}, label={lst:matrix_multiplication_cpu}]
 bool matrix_multiplication(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *matrix_c) {
@@ -23,9 +30,11 @@ bool matrix_multiplication(matrix_t *matrix_a, matrix_t *matrix_b, matrix_t *mat
 }
 \end{lstlisting}
 
+As can be seen in figure \ref{fig:mul_cpu_bench}, the slope of the CPU implementation's running time is $\sim 3$. This is expected, since the algorithms time complexity is $O(n^3)$ for square matrices.
 
-\subsection{Multiplication: GPU Implementation Single Core}
-The same procedure is implemented on the GPU, to compare the single core version from the CPU with the GPU.
+\subsection{Multiplication: GPU Single Core}
+
+The same procedure is implemented on the GPU, to compare the single core version from the CPU with the GPU. This kernel is launched with a block size and grid size of 1, making it run on a single core.
 
 \begin{lstlisting}[language=C, caption={Matrix Multiplication on the gpu}, label={lst:matrix_multiplication_gpu}]
 __global__ void cuda_matrix_multiplication_single_core_kernel(
@@ -37,22 +46,33 @@ __global__ void cuda_matrix_multiplication_single_core_kernel(
         for (int j = 0; j < n; j++) {
             sum_of_products = 0.0f;
             for (int k = 0; k < m; k++)
-                sum_of_products +=
-                    matrix1[INDEX(i, k, m)] * matrix2[INDEX(k, j, n)];
+                sum_of_products += matrix1[INDEX(i, k, m)] 
+                    * matrix2[INDEX(k, j, n)];
             result[INDEX(i, j, n)] = sum_of_products;
         }
 }
 \end{lstlisting}
 
-The following three sections will explore various approaches to improve runtime performance by utilizing the GPU architecture in different ways. % Vi bør også snakke om block_size og grid_size er 1, og at dette betyder at vi ikke kan regne på større matricer end 1024
+As can be seen in figure \ref{fig:mul_cpu_bench}, the single core implementation of matrix multiplication looks similar to the single core implementation of matrix addition. Again, this is likely due to the overhead of allocating memory on the GPU.
 
-\subsection{Multiplication: GPU Implementation Multi Core}
+\begin{figure}[h]
+  \includegraphics[width=\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/Multiplication/CPU, GPU SC.png}
+  \centering
+  \caption{Multiplication: CPU Benchmark}
+  \label{fig:mul_cpu_bench}
+\end{figure}
 
-% Bør vi måske kalde den Multi Block i stedet for Multi Core? Sv: Den er jo multi core
+Notably, the lines are a lot closer than they were with addition. This is likely due to the fact that matrix multiplication has a cubic time complexity, whereas matrix addition is quadratic, meaning the overhead has less of an impact. In other words, the GPU is able to more easily "catch-up" to the CPU implementation, since the CPU implementation is slower.
 
-In this version, we aim to utilize the block architecture of the GPU. We initialize our grid to be one dimensional with $l$ many blocks, where $l$ is the number of rows in the result matrix. Each block has a single thread.
+At the end of our benchmarks, the slope of our single core GPU implementation seems to grow steeper. From the results seen in figure \ref{fig:gpu_diagnostic}, this increase is likely due to the amount of data we have to copy back and forth between the CPU and GPU.
 
-One thread (and block) is then responsible for computing one column of the result matrix. This essentially \textit{unwraps} the outermost for-loop (using i as the counter), which was previously iterating over all rows. Therefore this implementation is dubbed "unwrapping i". One is then left with a single nested for-loop, as can be seen in listing \ref{lst:matrix_multiplication_gpu_multi_core}.
+The following three sections will explore various approaches to improve runtime performance by utilizing the GPU architecture in different ways.
+
+\subsection{Multiplication: GPU Multi Core Unwrapping i}
+
+To utilize the block architecture of the GPU, we initialize our grid to be one-dimensional with $l$ many blocks, where $l$ is the number of rows in the result matrix. Each block has a single thread.
+
+One thread (and block) is then responsible for computing one column of the result matrix. This essentially \textit{unwraps} the outermost for-loop (using i as the counter), which was previously iterating over all rows. Therefore this implementation is dubbed "unwrapping i". One is then left with a nested for-loop, as can be seen in listing \ref{lst:matrix_multiplication_gpu_multi_core}.
 
 \begin{lstlisting}[language=C, caption={Multi Core Matrix Multiplication}, label={lst:matrix_multiplication_gpu_multi_core}]
 __global__ void cuda_matrix_multiplication_multicore_unwrapping_i_kernel(
@@ -64,23 +84,28 @@ __global__ void cuda_matrix_multiplication_multicore_unwrapping_i_kernel(
     for (int j = 0; j < n; j++) {
         sum_of_products = 0.0f;
         for (int k = 0; k < m; k++)
-            sum_of_products +=
-                matrix_a[INDEX(i, k, m)] * matrix_b[INDEX(k, j, n)];
+            sum_of_products += matrix_a[INDEX(i, k, m)] 
+                * matrix_b[INDEX(k, j, n)];
         matrix_c[INDEX(i, j, n)] = sum_of_products;
     }
 }
 \end{lstlisting}
 
-\subsection{Multiplication: GPU Implementation Multi Core 2}
+\begin{figure}[h]
+  \includegraphics[width=\textwidth]{SavedBenchmarksAndDiagrams/mac, GPU SC.png}
+  \centering
+  \caption{Multiplication: CPU Benchmark}
+  \label{fig:mul_cpu_bench}
+\end{figure}
 
-% Bør vi måske kalde den Multi Block Multi Thread i stedet for Multi Core 2?
+\subsection{Multiplication: GPU Multi Core Unwrapping i and j}
 
 Taking this one step further, we will now utilize that each block can have many threads. Specifically, we will spawn $n$ many threads in each block, where $n$ is the number of columns in the result matrix. 
 
 This way, each thread will be responsible for calculating on one single element of the result matrix. The block determines which row, and the thread determines which column. This leaves us with a kernel that has only a single for-loop as can be seen in listing \ref{lst:matrix_multiplication_gpu_multi_core_multi_thread}. 
 
 \begin{lstlisting}[language=C, caption={Multi Core Multi Thread Matrix Multiplication}, label={lst:matrix_multiplication_gpu_multi_core_multi_thread}]
-__global__ void cuda_matrix_multiplication_multicore_unwrapping_i_and_j_kernel(
+__global__ void cuda_matrix_multiplication_unwrapping_i_and_j_kernel(
     device_matrix_t matrix_a, device_matrix_t matrix_b,
     device_matrix_t matrix_c, int l, int n, int m) {
     int i = blockIdx.x;
@@ -88,7 +113,8 @@ __global__ void cuda_matrix_multiplication_multicore_unwrapping_i_and_j_kernel(
     float sum_of_products = 0.0f;
 
     for (int k = 0; k < m; k++)
-        sum_of_products += matrix_a[INDEX(i, k, m)] * matrix_b[INDEX(k, j, n)];
+        sum_of_products += matrix_a[INDEX(i, k, m)] 
+            * matrix_b[INDEX(k, j, n)];
 
     matrix_c[INDEX(i, j, n)] = sum_of_products;
 }
@@ -96,7 +122,7 @@ __global__ void cuda_matrix_multiplication_multicore_unwrapping_i_and_j_kernel(
 
 A limitation to this approach is that the maximum block size is 1024, meaning if we try to compute a matrix multiplication where $n$ is greater than 1024, it simply will not work. Our next section will rectify this limitation.
 
-\subsection{Multiplication: GPU Implementation Shared Memory}
+\subsection{Multiplication: GPU Multi Core Shared Memory}
 
 % Reference Variable Memory Space Specifiers: https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#variable-memory-space-specifiers
 
