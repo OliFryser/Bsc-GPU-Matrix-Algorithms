@@ -112,7 +112,6 @@ bool cuda_matrix_qr_decomposition_single_core_adapter(
 
 bool cuda_matrix_qr_decomposition_single_core(
     matrix_t *matrix, float *diagonal, float *c) {
-    printf("\nRunning single core...\n");
     return cuda_qr_decomposition_runner(matrix, diagonal, c,
         &(cuda_matrix_qr_decomposition_single_core_kernel), dim3(1), dim3(1));
 }
@@ -494,9 +493,9 @@ __global__ void cuda_matrix_qr_decomposition_multi_core_kernel(float *matrix, fl
 
         // compute scale (parallel reduction: max)
         device_cuda_parallel_max_kernel(blocks, matrix, element_count, k, starting_index, dimension);
-        printf("%d", 1);
-        wait();
-        printf("%d", 2);
+        // printf("%d", 1);
+        // wait();
+        // printf("%d", 2);
         cuda_max_value(scale, blocks, gridDim.x);
         // singularity check
         if (*scale == 0.0f) {
@@ -507,12 +506,12 @@ __global__ void cuda_matrix_qr_decomposition_multi_core_kernel(float *matrix, fl
 
         // normalize column (independent division)
         device_cuda_scale_column(matrix, scale, k, starting_index, dimension, element_count);
-        wait();
+        // wait();
 
         // compute column length squared (parallel reduction: sum)
         device_cuda_parallel_sum_of_products_kernel(blocks, matrix, element_count, 
             starting_index, starting_index, dimension);
-        wait();
+        // wait();
 
         cuda_sum(squared_column_length, blocks, gridDim.x);
             
@@ -523,7 +522,7 @@ __global__ void cuda_matrix_qr_decomposition_multi_core_kernel(float *matrix, fl
         matrix[starting_index] += column_length;
         c[k] = matrix[starting_index] * column_length;
         diagonal[k] = -*scale * column_length;
-        wait();
+        // wait();
 
         for (int j = k + 1; j < dimension; j++)
         {
@@ -531,7 +530,7 @@ __global__ void cuda_matrix_qr_decomposition_multi_core_kernel(float *matrix, fl
             device_cuda_parallel_sum_of_products_kernel(
                 blocks, matrix, element_count, starting_index,
                 INDEX(k, j, dimension), dimension);
-            wait();
+            // wait();
             cuda_sum(inner_product, blocks, gridDim.x);
 
             // tau 
@@ -539,14 +538,13 @@ __global__ void cuda_matrix_qr_decomposition_multi_core_kernel(float *matrix, fl
 
             // subtract tau multiplication from rest of matrix
             device_cuda_subtract_tau_product(matrix, tau, c, k, j, starting_index, dimension, element_count);
-            wait();
+            // wait();
         }
     }
 }
 
 bool cuda_matrix_qr_decomposition_multi_core_single_kernel(
     matrix_t* matrix, float* diagonal, float* c) {
-    printf("\nRunning multi core...\n");
 
     int dimension = matrix->columns;
 

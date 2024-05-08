@@ -105,11 +105,12 @@ bool launch_x_kernels(int dimension) {
     {
         noop_kernel<<<1, 1>>>();
     }
+    return true;
 }
 
 bool launch_x_kernels_adapter(
     algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
-    launch_x_kernels(arg_a->matrix->rows);
+    return launch_x_kernels(arg_a->matrix->rows);
 }
 
 bool launch_x_kernels_sequentially(int dimension) {
@@ -118,11 +119,12 @@ bool launch_x_kernels_sequentially(int dimension) {
         noop_kernel<<<1, 1>>>();
         cudaDeviceSynchronize();
     }
+    return true;
 }
 
 bool launch_x_kernels_sequentially_adapter(
     algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c) {
-    launch_x_kernels(arg_a->matrix->rows);
+    return launch_x_kernels_sequentially(arg_a->matrix->rows);
 }
 
 void write_managed_vector(matrix_t *matrix) {
@@ -207,26 +209,26 @@ __global__ void cuda_max_value_copied(
 
 void parallel_max(int element_count, float *vector) {
     float *device_max_value;
-    // cudaMalloc(&device_max_value, sizeof(float));
+    cudaMalloc(&device_max_value, sizeof(float));
 
     float *device_vector;
-    // cudaMalloc(&device_vector, sizeof(float) * element_count);
-    // cudaMemcpy(device_vector, vector, sizeof(float) * element_count, cudaMemcpyHostToDevice);
+    cudaMalloc(&device_vector, sizeof(float) * element_count);
+    cudaMemcpy(device_vector, vector, sizeof(float) * element_count, cudaMemcpyHostToDevice);
 
     int grid_size = (element_count + ELEMENTS_PR_THREAD * BLOCK_SIZE - 1) /
                     (ELEMENTS_PR_THREAD * BLOCK_SIZE);
     float *device_blocks;
-    // cudaMalloc(&device_blocks, sizeof(float) * grid_size);
+    cudaMalloc(&device_blocks, sizeof(float) * grid_size);
 
     cuda_parallel_max_kernel_copied<<<grid_size, BLOCK_SIZE>>>(device_blocks, device_vector, element_count);
     cuda_max_value_copied<<<1, 1>>>(device_max_value, device_blocks, grid_size);
 
-    // float *max_value = (float *)malloc(sizeof(float));
-    // cudaMemcpy(max_value, device_max_value, sizeof(float), cudaMemcpyDeviceToHost);
-    // cudaFree(device_max_value);
-    // cudaFree(device_vector);
-    // cudaFree(device_blocks);
-    // free(max_value);
+    float *max_value = (float *)malloc(sizeof(float));
+    cudaMemcpy(max_value, device_max_value, sizeof(float), cudaMemcpyDeviceToHost);
+    cudaFree(device_max_value);
+    cudaFree(device_vector);
+    cudaFree(device_blocks);
+    free(max_value);
 }
 
 bool parallel_max_adapter(algorithm_arg_t *arg_a, algorithm_arg_t *arg_b, algorithm_arg_t *arg_c)

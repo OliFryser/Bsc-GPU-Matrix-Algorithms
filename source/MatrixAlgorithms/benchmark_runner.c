@@ -130,6 +130,8 @@ int main(int argc, char *argv[]) {
         matrix_algorithm = &cuda_matrix_qr_decomposition_parallel_max_adapter;
     else if (strcmp(algorithm, "qr gpu single core") == 0)
         matrix_algorithm = &cuda_matrix_qr_decomposition_single_core_adapter;
+    else if (strcmp(algorithm, "qr gpu multi core single kernel") == 0)
+        matrix_algorithm = &cuda_matrix_qr_decomposition_multi_core_single_kernel_adapter;
     else if (strcmp(algorithm, "diagnostic: launch kernel 1 block 1 thread") ==
              0)
         matrix_algorithm = &launch_kernel_1_block_1_thread_adapter;

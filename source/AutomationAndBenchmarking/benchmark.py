@@ -29,6 +29,8 @@ shared_memory_fewer_accesses = "shared memory fewer accesses"
 qr_cpu = "qr cpu"
 qr_gpu_single_core = "qr gpu single core"
 qr_gpu_parallel_max = "qr gpu parallel max"
+qr_gpu_multi_core_single_kernel = "qr gpu multi core single kernel"
+qr_algorithms = [qr_cpu, qr_gpu_single_core, qr_gpu_parallel_max, qr_gpu_multi_core_single_kernel]
 
 diagnostic_no_op = "diagnostic: launch kernel 1 block 1 thread"
 diagnostic_scaling_grid_and_blocks = "diagnostic: single kernel with grid and block size = x"
@@ -39,7 +41,8 @@ diagnostic_malloc_copy_and_launch_kernel_larger = "diagnostic: cudaMemcpy & laun
 diagnostic_launch_x_kernels = "diagnostic: launch x kernels"
 diagnostic_launch_x_kernels_sequentially = "diagnostic: launch x kernels sequentially"
 gpu_diagnostics = [diagnostic_scaling_grid_and_blocks, diagnostic_malloc, 
-                   diagnostic_malloc_and_memcopy, diagnostic_launch_x_kernels]
+                   diagnostic_malloc_and_memcopy, diagnostic_launch_x_kernels,
+                   diagnostic_launch_x_kernels_sequentially]
 
 diagnostic_write_managed = "diagnostic: write managed"
 diagnostic_write_vector = "diagnostic: write vector"
@@ -71,10 +74,10 @@ compile_command_2d = ["gcc", "-L/usr/local/cuda/lib64", "-o", binary_path_2d] + 
 
 timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
 csv_path = "BenchmarkData/" + timestamp + ".csv"
-algorithms_to_run = [diagnostic_launch_x_kernels_sequentially] #[addition_cpu, addition_cpu_2d, addition_gpu_single_core, addition_gpu_single_core_2d, addition_gpu_multi_core, addition_gpu_multi_core_2d] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
-additional_algorithms_to_compare = gpu_diagnostics #[qr_gpu_single_core, qr_gpu_parallel_max]
-additional_csv_files_to_include = ["BenchmarkData/05-07 12:25:47.csv"] #["BenchmarkData/05-03 07:40:54.csv"]
-matrix_dimensions = [math.floor(2 ** (i)) for i in range(1, 11)] #, 1_000, 10_000, 100_000, 1_000_000]
+algorithms_to_run = qr_algorithms #[qr_gpu_multi_core_single_kernel] #[addition_cpu, addition_cpu_2d, addition_gpu_single_core, addition_gpu_single_core_2d, addition_gpu_multi_core, addition_gpu_multi_core_2d] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
+additional_algorithms_to_compare = [] #[qr_gpu_single_core, qr_gpu_parallel_max]
+additional_csv_files_to_include = [] #["BenchmarkData/05-07 16:24:55 QR parallel max.csv"] #["BenchmarkData/05-08 10:05:14.csv", "BenchmarkData/05-08 10:08:22.csv"] #["BenchmarkData/05-03 07:40:54.csv"]
+matrix_dimensions = [math.floor(2 ** (i)) for i in range(1, 11)] # 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
 diagram_save_path = "Diagrams/output_plot" + timestamp + ".png"
 
 try:
