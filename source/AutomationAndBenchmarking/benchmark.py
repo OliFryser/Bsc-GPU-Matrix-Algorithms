@@ -73,9 +73,9 @@ timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
 csv_path = "BenchmarkData/" + timestamp + ".csv"
 
 # TWEAK THESE
-algorithms_to_run = [qr_gpu_parallel_max] #[addition_cpu, addition_cpu_2d, addition_gpu_single_core, addition_gpu_single_core_2d, addition_gpu_multi_core, addition_gpu_multi_core_2d] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
-additional_algorithms_to_compare = [qr_gpu_single_core, qr_cpu] #[qr_gpu_single_core, qr_gpu_parallel_max]
-additional_csv_files_to_include = ["SavedBenchmarksAndDiagrams/Machine 2/QR/GPU SC.csv", "SavedBenchmarksAndDiagrams/Machine 2/QR/CPU.csv"]
+algorithms_to_run = [addition_cpu] #[addition_cpu, addition_cpu_2d, addition_gpu_single_core, addition_gpu_single_core_2d, addition_gpu_multi_core, addition_gpu_multi_core_2d] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
+additional_algorithms_to_compare = [] #[qr_gpu_single_core, qr_gpu_parallel_max]
+additional_csv_files_to_include = []
 
 matrix_dimensions = [math.floor(2 ** (i)) for i in range(1, 11)] #, 1_000, 10_000, 100_000, 1_000_000]
 diagram_save_path = "Diagrams/output_plot" + timestamp + ".png"

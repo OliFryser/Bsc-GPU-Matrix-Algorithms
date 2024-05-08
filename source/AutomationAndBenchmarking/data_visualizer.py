@@ -27,4 +27,4 @@ def visualize_csv(csv_data: CSVDataStructure, diagram_save_path: str, algorithms
     pyplot.xscale('log', base=2)
     pyplot.yscale('log', base=2)
     pyplot.legend()
-    pyplot.savefig(diagram_save_path)
+    pyplot.savefig(diagram_save_path, bbox_inches='tight')
