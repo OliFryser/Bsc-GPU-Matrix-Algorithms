@@ -24,7 +24,7 @@ Calculating the matrix sum can be done in linear time complexity in the count of
 
 \begin{wrapfigure}{r}{0.5\textwidth}
     \centering
-    \includegraphics[width=0.5\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/Addition CPU.png}
+    \includegraphics[width=0.5\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/Addition}
     \caption{CPU Addition Benchmark}
     \label{fig:addition_cpu_bench}
 \end{wrapfigure}
@@ -57,7 +57,7 @@ In benchmark (INSERT GPU VS CPU SINGLECORE BENCHMARK), it can be seen that the G
 % In fact, it seems that the launching of the kernel is very slow, since there is no real difference in running time between matrix side length $2^1$ and matrix side length $2^5$. To further substantiate this we have % TODO: INSERT CUDA_DIAGNOSTIC PART
 
 \subsection{Addition: GPU Implementation Multi Core 1}
-The following implementation will utilize the architecture of the GPU and the CUDA-specific utilities discussed previously to run the algorithm on multiple cores. Instead of calculating all $n$ elements on one kernel, we will initiate $n$ many kernels to do the job in parallel. Conceptually, the matrix is split up such that each row of the matrix is contained in its own CUDA-block. Further, each entry of a row is sent to each individual CUDA-thread of the CUDA-block. In programming terms, the i'th block and the j'th thread will be responsible for calculating element \texttt{matrix\_c[i][j]} and this element only. 
+The following implementation will utilize the architecture of the GPU and the CUDA-specific utilities discussed previously to run the algorithm on multiple cores. Instead of calculating all $n$ elements on one kernel, we will initiate $n$ many kernels to do the job in parallel. Conceptually, the matrix is split up such that each row of the matrix is contained in its own CUDA-block. Further, each entry of a row is sent to each individual CUDA-thread of the CUDA-block. In programming terms, the i'th block and the $j^{th}$ thread will be responsible for calculating element \texttt{matrix\_c[i][j]} and this element only. 
 
 In listing \ref{lst:gpu_addition_multi_core}, we use the blockIdx.x, blockDim.x and threadIdx.x to calculate which element this thread must work on. These values are available in any kernel, provided by the CUDA library. Note this calculation is essentially the same we used for the INDEX macro, described in section \ref{sect:datastructure}. 
 
@@ -105,6 +105,13 @@ INSERT BENCHMARK
 
 \subsection{A note about the choice of data structure}
 
-As mentioned earlier, at the beginning of this project we used a two-dimensional data structure. We implemented CPU addition, GPU single core addition and the first GPU multi core addition. On the GPU side it was still simply a \texttt{float *}, and we would simply flatten the two-dimensional matrix to a 1-dimensional one and send it over to the GPU. When we got the result matrix back from the GPU we would turn it back into a two-dimensional data structure. 
+As mentioned earlier, at the beginning of this project we used a 2D data structure. We implemented CPU addition, GPU single core addition and the first GPU multi core addition. On the GPU side it was still simply a \texttt{float *}, and we would simply flatten the two-dimensional matrix to a 1-dimensional one and send it over to the GPU. When we got the result matrix back from the GPU we would turn it back into a two-dimensional data structure. 
 
-We suspected that this translation between the two representations might have introduced some overhead. Therefore we decided to pivot to a fully one-dimensional approach. To see if the pivot was a good idea or not, we did a benchmark
+We suspected that this translation between the two representations might have introduced some overhead. Therefore we decided to pivot to a fully one-dimensional approach. We decided to benchmark the two data structures against each other for both the CPU and GPU. As can be seen in figure \ref{fig:1d_vs_2d_bench}, all of the algorithms run faster with the one-dimensional approach, rather than the two-dimensional one, even on the CPU. This is likely due to the fact that our CPU implementation of addition iterates over the matrix linearly, giving optimal locality in the one-dimensional approach.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.65\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/2D vs 1D.png}
+    \caption{CPU Addition Benchmark}
+    \label{fig:1d_vs_2d_bench}
+\end{figure}
