@@ -22,12 +22,19 @@ This implementation breaks the abstraction that the \texttt{float *} represents 
 
 Calculating the matrix sum can be done in linear time complexity in the count of matrix elements equal to $O(m * n)$. For square matrices this can be expressed as $O(n^2)$ for $n^2$ data. 
 
-\begin{wrapfigure}{r}{0.5\textwidth}
+% \begin{wrapfigure}{r}{0.5\textwidth}
+%     \centering
+%     \includegraphics[width=0.5\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/Addition/CPU.png}
+%     \caption{CPU Addition Benchmark}
+%     \label{fig:addition_cpu_bench}
+% \end{wrapfigure}
+
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/Addition}
+    \includegraphics[width=\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/Addition/CPU.png}
     \caption{CPU Addition Benchmark}
-    \label{fig:addition_cpu_bench}
-\end{wrapfigure}
+    \label{fig:enter-label}
+\end{figure}
 
  As can be seen in figure \ref{fig:addition_cpu_bench}, our graph has a slope of 2. This is expected, since the algorithm has time complexity $O(n^2)$ and is plotted on logarithmic axes in our diagram (see sect. \ref{subsect:benchmark}).
 
