@@ -1,0 +1,347 @@
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication cpu,	2,	0.000000215,	0.000000105,	2
+multiplication cpu,	2,	0.000000060,	0.000000017,	4
+multiplication cpu,	2,	0.000000050,	0.000000000,	8
+multiplication cpu,	2,	0.000000051,	0.000000002,	16
+multiplication cpu,	2,	0.000000050,	0.000000008,	32
+multiplication cpu,	2,	0.000000050,	0.000000004,	64
+multiplication cpu,	2,	0.000000049,	0.000000004,	128
+multiplication cpu,	2,	0.000000050,	0.000000002,	256
+multiplication cpu,	2,	0.000000049,	0.000000004,	512
+multiplication cpu,	2,	0.000000050,	0.000000004,	1024
+multiplication cpu,	2,	0.000000050,	0.000000003,	2048
+multiplication cpu,	2,	0.000000050,	0.000000003,	4096
+multiplication cpu,	2,	0.000000050,	0.000000066,	8192
+multiplication cpu,	2,	0.000000050,	0.000000068,	16384
+multiplication cpu,	2,	0.000000051,	0.000000084,	32768
+multiplication cpu,	2,	0.000000050,	0.000000028,	65536
+multiplication cpu,	2,	0.000000050,	0.000000146,	131072
+multiplication cpu,	2,	0.000000050,	0.000000066,	262144
+multiplication cpu,	2,	0.000000050,	0.000000120,	524288
+multiplication cpu,	2,	0.000000050,	0.000000089,	1048576
+multiplication cpu,	2,	0.000000050,	0.000000082,	2097152
+multiplication cpu,	2,	0.000000050,	0.000000076,	4194304
+multiplication cpu,	2,	0.000000051,	0.000000098,	8388608
+multiplication cpu,	2,	0.000000050,	0.000000085,	16777216
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication cpu,	4,	0.000000470,	0.000000121,	2
+multiplication cpu,	4,	0.000000268,	0.000000037,	4
+multiplication cpu,	4,	0.000000253,	0.000000018,	8
+multiplication cpu,	4,	0.000000246,	0.000000005,	16
+multiplication cpu,	4,	0.000000248,	0.000000009,	32
+multiplication cpu,	4,	0.000000246,	0.000000005,	64
+multiplication cpu,	4,	0.000000245,	0.000000007,	128
+multiplication cpu,	4,	0.000000246,	0.000000007,	256
+multiplication cpu,	4,	0.000000246,	0.000000007,	512
+multiplication cpu,	4,	0.000000247,	0.000000007,	1024
+multiplication cpu,	4,	0.000000222,	0.000000027,	2048
+multiplication cpu,	4,	0.000000194,	0.000000101,	4096
+multiplication cpu,	4,	0.000000193,	0.000000006,	8192
+multiplication cpu,	4,	0.000000192,	0.000000005,	16384
+multiplication cpu,	4,	0.000000196,	0.000000161,	32768
+multiplication cpu,	4,	0.000000197,	0.000000149,	65536
+multiplication cpu,	4,	0.000000202,	0.000000102,	131072
+multiplication cpu,	4,	0.000000199,	0.000000179,	262144
+multiplication cpu,	4,	0.000000201,	0.000000126,	524288
+multiplication cpu,	4,	0.000000199,	0.000000257,	1048576
+multiplication cpu,	4,	0.000000197,	0.000000133,	2097152
+multiplication cpu,	4,	0.000000197,	0.000000147,	4194304
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication cpu,	8,	0.000001713,	0.000000090,	2
+multiplication cpu,	8,	0.000001573,	0.000000047,	4
+multiplication cpu,	8,	0.000001563,	0.000000032,	8
+multiplication cpu,	8,	0.000001535,	0.000000017,	16
+multiplication cpu,	8,	0.000001550,	0.000000019,	32
+multiplication cpu,	8,	0.000001544,	0.000000017,	64
+multiplication cpu,	8,	0.000001681,	0.000001513,	128
+multiplication cpu,	8,	0.000001542,	0.000000016,	256
+multiplication cpu,	8,	0.000001556,	0.000000212,	512
+multiplication cpu,	8,	0.000001550,	0.000000075,	1024
+multiplication cpu,	8,	0.000001586,	0.000002210,	2048
+multiplication cpu,	8,	0.000001638,	0.000001637,	4096
+multiplication cpu,	8,	0.000001590,	0.000000475,	8192
+multiplication cpu,	8,	0.000001675,	0.000000828,	16384
+multiplication cpu,	8,	0.000001593,	0.000000820,	32768
+multiplication cpu,	8,	0.000001519,	0.000000638,	65536
+multiplication cpu,	8,	0.000001544,	0.000000559,	131072
+multiplication cpu,	8,	0.000001544,	0.000000554,	262144
+multiplication cpu,	8,	0.000001507,	0.000000554,	524288
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication cpu,	16,	0.000015710,	0.000000090,	2
+multiplication cpu,	16,	0.000015560,	0.000000067,	4
+multiplication cpu,	16,	0.000015510,	0.000000048,	8
+multiplication cpu,	16,	0.000015489,	0.000000057,	16
+multiplication cpu,	16,	0.000013575,	0.000001723,	32
+multiplication cpu,	16,	0.000012395,	0.000000059,	64
+multiplication cpu,	16,	0.000012320,	0.000000054,	128
+multiplication cpu,	16,	0.000012356,	0.000000062,	256
+multiplication cpu,	16,	0.000013219,	0.000007898,	512
+multiplication cpu,	16,	0.000012628,	0.000001593,	1024
+multiplication cpu,	16,	0.000012438,	0.000001032,	2048
+multiplication cpu,	16,	0.000012198,	0.000001403,	4096
+multiplication cpu,	16,	0.000012251,	0.000001514,	8192
+multiplication cpu,	16,	0.000012263,	0.000001473,	16384
+multiplication cpu,	16,	0.000012596,	0.000001482,	32768
+multiplication cpu,	16,	0.000012497,	0.000001846,	65536
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication cpu,	32,	0.000099619,	0.000000681,	2
+multiplication cpu,	32,	0.000098810,	0.000000108,	4
+multiplication cpu,	32,	0.000098782,	0.000000095,	8
+multiplication cpu,	32,	0.000099471,	0.000001527,	16
+multiplication cpu,	32,	0.000101706,	0.000013917,	32
+multiplication cpu,	32,	0.000104690,	0.000016098,	64
+multiplication cpu,	32,	0.000102422,	0.000008618,	128
+multiplication cpu,	32,	0.000099445,	0.000010560,	256
+multiplication cpu,	32,	0.000096488,	0.000003069,	512
+multiplication cpu,	32,	0.000099537,	0.000009146,	1024
+multiplication cpu,	32,	0.000098682,	0.000013436,	2048
+multiplication cpu,	32,	0.000098561,	0.000005763,	4096
+multiplication cpu,	32,	0.000100618,	0.000007237,	8192
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication cpu,	64,	0.000795680,	0.000004248,	2
+multiplication cpu,	64,	0.000782590,	0.000003527,	4
+multiplication cpu,	64,	0.000788452,	0.000013888,	8
+multiplication cpu,	64,	0.000784054,	0.000007458,	16
+multiplication cpu,	64,	0.000804359,	0.000062275,	32
+multiplication cpu,	64,	0.000779225,	0.000013673,	64
+multiplication cpu,	64,	0.000777537,	0.000029732,	128
+multiplication cpu,	64,	0.000772368,	0.000028621,	256
+multiplication cpu,	64,	0.000774087,	0.000027516,	512
+multiplication cpu,	64,	0.000778046,	0.000028464,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication cpu,	128,	0.006454557,	0.000018374,	2
+multiplication cpu,	128,	0.006415624,	0.000041261,	4
+multiplication cpu,	128,	0.006341922,	0.000111804,	8
+multiplication cpu,	128,	0.006344039,	0.000159155,	16
+multiplication cpu,	128,	0.006437084,	0.000113419,	32
+multiplication cpu,	128,	0.006412039,	0.000129700,	64
+multiplication cpu,	128,	0.006376482,	0.000158560,	128
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication cpu,	256,	0.050381075,	0.000489534,	2
+multiplication cpu,	256,	0.050542093,	0.000725036,	4
+multiplication cpu,	256,	0.050709304,	0.000324683,	8
+multiplication cpu,	256,	0.050587827,	0.000609541,	16
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication cpu,	512,	0.406908708,	0.000838551,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication cpu,	1024,	3.664866321,	0.011237497,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication cpu,	2048,	32.031464506,	0.018325187,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication cpu,	4096,	310.534392425,	0.396531501,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	2,	0.000938230,	0.000331017,	2
+multiplication gpu multi core unwrapping i,	2,	0.000582363,	0.000027800,	4
+multiplication gpu multi core unwrapping i,	2,	0.000565005,	0.000009559,	8
+multiplication gpu multi core unwrapping i,	2,	0.000584273,	0.000037425,	16
+multiplication gpu multi core unwrapping i,	2,	0.000572496,	0.000034818,	32
+multiplication gpu multi core unwrapping i,	2,	0.000600446,	0.000093852,	64
+multiplication gpu multi core unwrapping i,	2,	0.000653309,	0.000072380,	128
+multiplication gpu multi core unwrapping i,	2,	0.000636740,	0.000072245,	256
+multiplication gpu multi core unwrapping i,	2,	0.000588848,	0.000049125,	512
+multiplication gpu multi core unwrapping i,	2,	0.000591560,	0.000057603,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	4,	0.000925832,	0.000309222,	2
+multiplication gpu multi core unwrapping i,	4,	0.000637638,	0.000016384,	4
+multiplication gpu multi core unwrapping i,	4,	0.000581314,	0.000019649,	8
+multiplication gpu multi core unwrapping i,	4,	0.000585578,	0.000026130,	16
+multiplication gpu multi core unwrapping i,	4,	0.000585427,	0.000033147,	32
+multiplication gpu multi core unwrapping i,	4,	0.000601900,	0.000091953,	64
+multiplication gpu multi core unwrapping i,	4,	0.000574323,	0.000023958,	128
+multiplication gpu multi core unwrapping i,	4,	0.000591585,	0.000080827,	256
+multiplication gpu multi core unwrapping i,	4,	0.000665957,	0.000531496,	512
+multiplication gpu multi core unwrapping i,	4,	0.000653710,	0.000118454,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	8,	0.000932179,	0.000297435,	2
+multiplication gpu multi core unwrapping i,	8,	0.000587760,	0.000015676,	4
+multiplication gpu multi core unwrapping i,	8,	0.000571914,	0.000005910,	8
+multiplication gpu multi core unwrapping i,	8,	0.000571958,	0.000028988,	16
+multiplication gpu multi core unwrapping i,	8,	0.000576800,	0.000047187,	32
+multiplication gpu multi core unwrapping i,	8,	0.000591394,	0.000039160,	64
+multiplication gpu multi core unwrapping i,	8,	0.000576241,	0.000042508,	128
+multiplication gpu multi core unwrapping i,	8,	0.000582716,	0.000049234,	256
+multiplication gpu multi core unwrapping i,	8,	0.000580208,	0.000045185,	512
+multiplication gpu multi core unwrapping i,	8,	0.000577687,	0.000046768,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	16,	0.000989623,	0.000302459,	2
+multiplication gpu multi core unwrapping i,	16,	0.000687982,	0.000039546,	4
+multiplication gpu multi core unwrapping i,	16,	0.000630639,	0.000079331,	8
+multiplication gpu multi core unwrapping i,	16,	0.000634092,	0.000043925,	16
+multiplication gpu multi core unwrapping i,	16,	0.000607706,	0.000031782,	32
+multiplication gpu multi core unwrapping i,	16,	0.000648847,	0.000069507,	64
+multiplication gpu multi core unwrapping i,	16,	0.000607780,	0.000057273,	128
+multiplication gpu multi core unwrapping i,	16,	0.000617760,	0.000080111,	256
+multiplication gpu multi core unwrapping i,	16,	0.000598541,	0.000174156,	512
+multiplication gpu multi core unwrapping i,	16,	0.000580830,	0.000103285,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	32,	0.000998014,	0.000325277,	2
+multiplication gpu multi core unwrapping i,	32,	0.000664241,	0.000017012,	4
+multiplication gpu multi core unwrapping i,	32,	0.000652253,	0.000033184,	8
+multiplication gpu multi core unwrapping i,	32,	0.000652347,	0.000034476,	16
+multiplication gpu multi core unwrapping i,	32,	0.000663417,	0.000041647,	32
+multiplication gpu multi core unwrapping i,	32,	0.000667262,	0.000082067,	64
+multiplication gpu multi core unwrapping i,	32,	0.000647393,	0.000039857,	128
+multiplication gpu multi core unwrapping i,	32,	0.000647455,	0.000051369,	256
+multiplication gpu multi core unwrapping i,	32,	0.000701725,	0.000105429,	512
+multiplication gpu multi core unwrapping i,	32,	0.000620909,	0.000066412,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	64,	0.000934444,	0.000267739,	2
+multiplication gpu multi core unwrapping i,	64,	0.000666612,	0.000015367,	4
+multiplication gpu multi core unwrapping i,	64,	0.000653537,	0.000026736,	8
+multiplication gpu multi core unwrapping i,	64,	0.000644908,	0.000017444,	16
+multiplication gpu multi core unwrapping i,	64,	0.000643948,	0.000021507,	32
+multiplication gpu multi core unwrapping i,	64,	0.000658630,	0.000036340,	64
+multiplication gpu multi core unwrapping i,	64,	0.000680487,	0.000071352,	128
+multiplication gpu multi core unwrapping i,	64,	0.000659076,	0.000052633,	256
+multiplication gpu multi core unwrapping i,	64,	0.000675474,	0.000317091,	512
+multiplication gpu multi core unwrapping i,	64,	0.000678140,	0.000127543,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	128,	0.001234438,	0.000270007,	2
+multiplication gpu multi core unwrapping i,	128,	0.000962316,	0.000032194,	4
+multiplication gpu multi core unwrapping i,	128,	0.000958548,	0.000063156,	8
+multiplication gpu multi core unwrapping i,	128,	0.000945301,	0.000030966,	16
+multiplication gpu multi core unwrapping i,	128,	0.000932291,	0.000018671,	32
+multiplication gpu multi core unwrapping i,	128,	0.000961012,	0.000048775,	64
+multiplication gpu multi core unwrapping i,	128,	0.000952723,	0.000085496,	128
+multiplication gpu multi core unwrapping i,	128,	0.000881904,	0.000072772,	256
+multiplication gpu multi core unwrapping i,	128,	0.000848219,	0.000054021,	512
+multiplication gpu multi core unwrapping i,	128,	0.000845624,	0.000148140,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	256,	0.002631052,	0.000280692,	2
+multiplication gpu multi core unwrapping i,	256,	0.002370013,	0.000103729,	4
+multiplication gpu multi core unwrapping i,	256,	0.002351149,	0.000026829,	8
+multiplication gpu multi core unwrapping i,	256,	0.002356475,	0.000034772,	16
+multiplication gpu multi core unwrapping i,	256,	0.002348362,	0.000053528,	32
+multiplication gpu multi core unwrapping i,	256,	0.002357931,	0.000119742,	64
+multiplication gpu multi core unwrapping i,	256,	0.002369327,	0.000085836,	128
+multiplication gpu multi core unwrapping i,	256,	0.002348050,	0.000054091,	256
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	512,	0.013697045,	0.000436683,	2
+multiplication gpu multi core unwrapping i,	512,	0.013590659,	0.000205023,	4
+multiplication gpu multi core unwrapping i,	512,	0.013304936,	0.000085857,	8
+multiplication gpu multi core unwrapping i,	512,	0.013473314,	0.000216624,	16
+multiplication gpu multi core unwrapping i,	512,	0.013551510,	0.000199349,	32
+multiplication gpu multi core unwrapping i,	512,	0.013483961,	0.000204801,	64
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	1024,	0.090894411,	0.001344806,	2
+multiplication gpu multi core unwrapping i,	1024,	0.089346554,	0.000810777,	4
+multiplication gpu multi core unwrapping i,	1024,	0.089650435,	0.000696583,	8
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	2048,	0.881492354,	0.001240202,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	4096,	7.229916753,	0.010104600,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	2,	0.000843360,	0.000275674,	2
+shared memory multiplication,	2,	0.000576436,	0.000021459,	4
+shared memory multiplication,	2,	0.000544353,	0.000013954,	8
+shared memory multiplication,	2,	0.000547331,	0.000015977,	16
+shared memory multiplication,	2,	0.000571569,	0.000052314,	32
+shared memory multiplication,	2,	0.000554173,	0.000035144,	64
+shared memory multiplication,	2,	0.000562496,	0.000040443,	128
+shared memory multiplication,	2,	0.000647011,	0.000090177,	256
+shared memory multiplication,	2,	0.000570460,	0.000055967,	512
+shared memory multiplication,	2,	0.000589629,	0.000274229,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	4,	0.001033734,	0.000315611,	2
+shared memory multiplication,	4,	0.000703635,	0.000046619,	4
+shared memory multiplication,	4,	0.000685325,	0.000035977,	8
+shared memory multiplication,	4,	0.000670576,	0.000039386,	16
+shared memory multiplication,	4,	0.000734255,	0.000415767,	32
+shared memory multiplication,	4,	0.000656219,	0.000050219,	64
+shared memory multiplication,	4,	0.000704597,	0.000068856,	128
+shared memory multiplication,	4,	0.000667806,	0.000055074,	256
+shared memory multiplication,	4,	0.000653766,	0.000041496,	512
+shared memory multiplication,	4,	0.000655149,	0.000053041,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	8,	0.000932008,	0.000322482,	2
+shared memory multiplication,	8,	0.000592782,	0.000016484,	4
+shared memory multiplication,	8,	0.000578267,	0.000037773,	8
+shared memory multiplication,	8,	0.000597967,	0.000032625,	16
+shared memory multiplication,	8,	0.000587500,	0.000030947,	32
+shared memory multiplication,	8,	0.000581034,	0.000033287,	64
+shared memory multiplication,	8,	0.000585856,	0.000089630,	128
+shared memory multiplication,	8,	0.000577160,	0.000039443,	256
+shared memory multiplication,	8,	0.000631163,	0.000064476,	512
+shared memory multiplication,	8,	0.000583833,	0.000159422,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	16,	0.000929865,	0.000289670,	2
+shared memory multiplication,	16,	0.000597328,	0.000011749,	4
+shared memory multiplication,	16,	0.000586479,	0.000033965,	8
+shared memory multiplication,	16,	0.000587108,	0.000025877,	16
+shared memory multiplication,	16,	0.000577848,	0.000024520,	32
+shared memory multiplication,	16,	0.000586605,	0.000037145,	64
+shared memory multiplication,	16,	0.000602255,	0.000079000,	128
+shared memory multiplication,	16,	0.000586083,	0.000048398,	256
+shared memory multiplication,	16,	0.000584406,	0.000041322,	512
+shared memory multiplication,	16,	0.000603869,	0.000061948,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	32,	0.000870562,	0.000281043,	2
+shared memory multiplication,	32,	0.000591309,	0.000017171,	4
+shared memory multiplication,	32,	0.000621848,	0.000052699,	8
+shared memory multiplication,	32,	0.000578264,	0.000023341,	16
+shared memory multiplication,	32,	0.000580623,	0.000040887,	32
+shared memory multiplication,	32,	0.000597210,	0.000047063,	64
+shared memory multiplication,	32,	0.000593602,	0.000072838,	128
+shared memory multiplication,	32,	0.000605700,	0.000065320,	256
+shared memory multiplication,	32,	0.000613217,	0.000059413,	512
+shared memory multiplication,	32,	0.000591639,	0.000049737,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	64,	0.000887680,	0.000267624,	2
+shared memory multiplication,	64,	0.000595353,	0.000017425,	4
+shared memory multiplication,	64,	0.000604748,	0.000017330,	8
+shared memory multiplication,	64,	0.000585348,	0.000016455,	16
+shared memory multiplication,	64,	0.000575732,	0.000030078,	32
+shared memory multiplication,	64,	0.000597515,	0.000068841,	64
+shared memory multiplication,	64,	0.000614785,	0.000057653,	128
+shared memory multiplication,	64,	0.000648162,	0.000072294,	256
+shared memory multiplication,	64,	0.000588592,	0.000043827,	512
+shared memory multiplication,	64,	0.000603777,	0.000165943,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	128,	0.001067381,	0.000330973,	2
+shared memory multiplication,	128,	0.000704747,	0.000039720,	4
+shared memory multiplication,	128,	0.000650558,	0.000028923,	8
+shared memory multiplication,	128,	0.000632069,	0.000017219,	16
+shared memory multiplication,	128,	0.000646005,	0.000041876,	32
+shared memory multiplication,	128,	0.000624623,	0.000062633,	64
+shared memory multiplication,	128,	0.000616193,	0.000050528,	128
+shared memory multiplication,	128,	0.000620193,	0.000045974,	256
+shared memory multiplication,	128,	0.000619636,	0.000048737,	512
+shared memory multiplication,	128,	0.000633589,	0.000069047,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	256,	0.001302662,	0.000326549,	2
+shared memory multiplication,	256,	0.000940117,	0.000043649,	4
+shared memory multiplication,	256,	0.000891579,	0.000020279,	8
+shared memory multiplication,	256,	0.000886752,	0.000032898,	16
+shared memory multiplication,	256,	0.000942959,	0.000063818,	32
+shared memory multiplication,	256,	0.000936545,	0.000093357,	64
+shared memory multiplication,	256,	0.000912092,	0.000047219,	128
+shared memory multiplication,	256,	0.000938081,	0.000259254,	256
+shared memory multiplication,	256,	0.000923904,	0.000132878,	512
+shared memory multiplication,	256,	0.000922280,	0.000057304,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	512,	0.002311481,	0.000172283,	2
+shared memory multiplication,	512,	0.001978104,	0.000044460,	4
+shared memory multiplication,	512,	0.001954438,	0.000153385,	8
+shared memory multiplication,	512,	0.001890295,	0.000041227,	16
+shared memory multiplication,	512,	0.001978523,	0.000143211,	32
+shared memory multiplication,	512,	0.001913925,	0.000098608,	64
+shared memory multiplication,	512,	0.001836482,	0.000088094,	128
+shared memory multiplication,	512,	0.001800661,	0.000085471,	256
+shared memory multiplication,	512,	0.001834225,	0.000243372,	512
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	1024,	0.006121612,	0.000693340,	2
+shared memory multiplication,	1024,	0.005355799,	0.000097032,	4
+shared memory multiplication,	1024,	0.005393918,	0.000102011,	8
+shared memory multiplication,	1024,	0.005316318,	0.000074050,	16
+shared memory multiplication,	1024,	0.005351059,	0.000078647,	32
+shared memory multiplication,	1024,	0.005378124,	0.000092621,	64
+shared memory multiplication,	1024,	0.005409586,	0.000161449,	128
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	2048,	0.026367869,	0.001444051,	2
+shared memory multiplication,	2048,	0.025054030,	0.000246793,	4
+shared memory multiplication,	2048,	0.024710620,	0.000094536,	8
+shared memory multiplication,	2048,	0.024795061,	0.000255129,	16
+shared memory multiplication,	2048,	0.024911266,	0.000312791,	32
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+shared memory multiplication,	4096,	0.159568907,	0.003555082,	2
+shared memory multiplication,	4096,	0.156734224,	0.000711476,	4

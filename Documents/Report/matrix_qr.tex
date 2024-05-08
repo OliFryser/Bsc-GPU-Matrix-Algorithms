@@ -119,3 +119,5 @@ __device__ void cuda_parallel_reduction(
 
 \subsection*{Final Details}
 In our final implementation of a GPU QR decomposition, we utilize a CPU runner responsible for launching kernels. Each kernel is launched with an appropriate amount of threads and blocks depending on the work required. Each column must still sequentially go through the Householder method, thus preventing us from running the algorithm completely in parallel. This runner is also responsible for allocating, copying and freeing memory related to the GPU. 
+\\
+A major performance disadvantage to the QR decomposition algorithm is that it must iterate through columns. Column elements are not sequentially aligned in memory, so many cache misses will occur. This causes the machine to fill its cache with data that will not be used immediately for computation, leading to more time spent fetching relevant data. 

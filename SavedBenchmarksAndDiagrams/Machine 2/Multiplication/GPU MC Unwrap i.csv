@@ -1,0 +1,97 @@
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	2,	0.000980520,	0.000351857,	2
+multiplication gpu multi core unwrapping i,	2,	0.000608475,	0.000009658,	4
+multiplication gpu multi core unwrapping i,	2,	0.000628430,	0.000052126,	8
+multiplication gpu multi core unwrapping i,	2,	0.000582468,	0.000024828,	16
+multiplication gpu multi core unwrapping i,	2,	0.000593592,	0.000046445,	32
+multiplication gpu multi core unwrapping i,	2,	0.000576226,	0.000034534,	64
+multiplication gpu multi core unwrapping i,	2,	0.000643584,	0.000115882,	128
+multiplication gpu multi core unwrapping i,	2,	0.000711091,	0.000139006,	256
+multiplication gpu multi core unwrapping i,	2,	0.000623358,	0.000070529,	512
+multiplication gpu multi core unwrapping i,	2,	0.000657178,	0.000126741,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	4,	0.000869099,	0.000258280,	2
+multiplication gpu multi core unwrapping i,	4,	0.000611387,	0.000014535,	4
+multiplication gpu multi core unwrapping i,	4,	0.000559325,	0.000009033,	8
+multiplication gpu multi core unwrapping i,	4,	0.000614988,	0.000078435,	16
+multiplication gpu multi core unwrapping i,	4,	0.000609391,	0.000063923,	32
+multiplication gpu multi core unwrapping i,	4,	0.000614809,	0.000057074,	64
+multiplication gpu multi core unwrapping i,	4,	0.000637943,	0.000083358,	128
+multiplication gpu multi core unwrapping i,	4,	0.000639684,	0.000056598,	256
+multiplication gpu multi core unwrapping i,	4,	0.000653380,	0.000138190,	512
+multiplication gpu multi core unwrapping i,	4,	0.000627170,	0.000176749,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	8,	0.000946779,	0.000271377,	2
+multiplication gpu multi core unwrapping i,	8,	0.000623893,	0.000016613,	4
+multiplication gpu multi core unwrapping i,	8,	0.000563363,	0.000012334,	8
+multiplication gpu multi core unwrapping i,	8,	0.000569326,	0.000016509,	16
+multiplication gpu multi core unwrapping i,	8,	0.000571877,	0.000026004,	32
+multiplication gpu multi core unwrapping i,	8,	0.000589328,	0.000053648,	64
+multiplication gpu multi core unwrapping i,	8,	0.000573729,	0.000043849,	128
+multiplication gpu multi core unwrapping i,	8,	0.000566043,	0.000040310,	256
+multiplication gpu multi core unwrapping i,	8,	0.000563944,	0.000044180,	512
+multiplication gpu multi core unwrapping i,	8,	0.000572138,	0.000049564,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	16,	0.000890870,	0.000253231,	2
+multiplication gpu multi core unwrapping i,	16,	0.000675336,	0.000082901,	4
+multiplication gpu multi core unwrapping i,	16,	0.000574742,	0.000025033,	8
+multiplication gpu multi core unwrapping i,	16,	0.000597986,	0.000060370,	16
+multiplication gpu multi core unwrapping i,	16,	0.000562766,	0.000036203,	32
+multiplication gpu multi core unwrapping i,	16,	0.000568280,	0.000047517,	64
+multiplication gpu multi core unwrapping i,	16,	0.000566655,	0.000055822,	128
+multiplication gpu multi core unwrapping i,	16,	0.000556465,	0.000048038,	256
+multiplication gpu multi core unwrapping i,	16,	0.000564038,	0.000051715,	512
+multiplication gpu multi core unwrapping i,	16,	0.000637836,	0.000170263,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	32,	0.000980151,	0.000294759,	2
+multiplication gpu multi core unwrapping i,	32,	0.000722741,	0.000104957,	4
+multiplication gpu multi core unwrapping i,	32,	0.000623926,	0.000033771,	8
+multiplication gpu multi core unwrapping i,	32,	0.000627366,	0.000026887,	16
+multiplication gpu multi core unwrapping i,	32,	0.000645037,	0.000053887,	32
+multiplication gpu multi core unwrapping i,	32,	0.000637387,	0.000057600,	64
+multiplication gpu multi core unwrapping i,	32,	0.000608606,	0.000051578,	128
+multiplication gpu multi core unwrapping i,	32,	0.000588316,	0.000055404,	256
+multiplication gpu multi core unwrapping i,	32,	0.000580241,	0.000042298,	512
+multiplication gpu multi core unwrapping i,	32,	0.000619138,	0.000054534,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	64,	0.001124078,	0.000310394,	2
+multiplication gpu multi core unwrapping i,	64,	0.000716324,	0.000032810,	4
+multiplication gpu multi core unwrapping i,	64,	0.000670283,	0.000016115,	8
+multiplication gpu multi core unwrapping i,	64,	0.000676585,	0.000028756,	16
+multiplication gpu multi core unwrapping i,	64,	0.000701339,	0.000021974,	32
+multiplication gpu multi core unwrapping i,	64,	0.000676739,	0.000025426,	64
+multiplication gpu multi core unwrapping i,	64,	0.000681170,	0.000050560,	128
+multiplication gpu multi core unwrapping i,	64,	0.000676051,	0.000029737,	256
+multiplication gpu multi core unwrapping i,	64,	0.000692879,	0.000057674,	512
+multiplication gpu multi core unwrapping i,	64,	0.000692459,	0.000147641,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	128,	0.001368023,	0.000258022,	2
+multiplication gpu multi core unwrapping i,	128,	0.001015855,	0.000020329,	4
+multiplication gpu multi core unwrapping i,	128,	0.000983705,	0.000005545,	8
+multiplication gpu multi core unwrapping i,	128,	0.000945634,	0.000025925,	16
+multiplication gpu multi core unwrapping i,	128,	0.000961333,	0.000050477,	32
+multiplication gpu multi core unwrapping i,	128,	0.000972351,	0.000038457,	64
+multiplication gpu multi core unwrapping i,	128,	0.000979557,	0.000095602,	128
+multiplication gpu multi core unwrapping i,	128,	0.000934266,	0.000062868,	256
+multiplication gpu multi core unwrapping i,	128,	0.000884995,	0.000061207,	512
+multiplication gpu multi core unwrapping i,	128,	0.000885277,	0.000064550,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	256,	0.002648305,	0.000201272,	2
+multiplication gpu multi core unwrapping i,	256,	0.002401424,	0.000017271,	4
+multiplication gpu multi core unwrapping i,	256,	0.002478229,	0.000041300,	8
+multiplication gpu multi core unwrapping i,	256,	0.002469250,	0.000085105,	16
+multiplication gpu multi core unwrapping i,	256,	0.002455140,	0.000071242,	32
+multiplication gpu multi core unwrapping i,	256,	0.002401942,	0.000075295,	64
+multiplication gpu multi core unwrapping i,	256,	0.002384433,	0.000085106,	128
+multiplication gpu multi core unwrapping i,	256,	0.002382172,	0.000076221,	256
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	512,	0.014062758,	0.000600577,	2
+multiplication gpu multi core unwrapping i,	512,	0.013559656,	0.000126279,	4
+multiplication gpu multi core unwrapping i,	512,	0.013454612,	0.000078290,	8
+multiplication gpu multi core unwrapping i,	512,	0.013380312,	0.000125250,	16
+multiplication gpu multi core unwrapping i,	512,	0.013579481,	0.000255907,	32
+multiplication gpu multi core unwrapping i,	512,	0.013582605,	0.000541209,	64
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+multiplication gpu multi core unwrapping i,	1024,	0.090396290,	0.000706002,	2
+multiplication gpu multi core unwrapping i,	1024,	0.089239491,	0.000589947,	4
+multiplication gpu multi core unwrapping i,	1024,	0.089738959,	0.001145128,	8

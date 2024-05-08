@@ -1,0 +1,107 @@
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu multi core 2,	2,	0.000932675,	0.000299994,	2
+addition gpu multi core 2,	2,	0.000579544,	0.000009621,	4
+addition gpu multi core 2,	2,	0.000597235,	0.000039735,	8
+addition gpu multi core 2,	2,	0.000583897,	0.000029820,	16
+addition gpu multi core 2,	2,	0.000592626,	0.000048645,	32
+addition gpu multi core 2,	2,	0.000639873,	0.000107513,	64
+addition gpu multi core 2,	2,	0.000588221,	0.000064747,	128
+addition gpu multi core 2,	2,	0.000656419,	0.000123697,	256
+addition gpu multi core 2,	2,	0.000659782,	0.000081556,	512
+addition gpu multi core 2,	2,	0.000605892,	0.000185833,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu multi core 2,	4,	0.000993570,	0.000282462,	2
+addition gpu multi core 2,	4,	0.000791524,	0.000053343,	4
+addition gpu multi core 2,	4,	0.000572846,	0.000013788,	8
+addition gpu multi core 2,	4,	0.000650199,	0.000057025,	16
+addition gpu multi core 2,	4,	0.000613375,	0.000067900,	32
+addition gpu multi core 2,	4,	0.000585570,	0.000044591,	64
+addition gpu multi core 2,	4,	0.000591853,	0.000044140,	128
+addition gpu multi core 2,	4,	0.000606458,	0.000064185,	256
+addition gpu multi core 2,	4,	0.000606535,	0.000062856,	512
+addition gpu multi core 2,	4,	0.000619659,	0.000100876,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu multi core 2,	8,	0.001050147,	0.000338252,	2
+addition gpu multi core 2,	8,	0.000597663,	0.000043457,	4
+addition gpu multi core 2,	8,	0.000639056,	0.000211469,	8
+addition gpu multi core 2,	8,	0.000581557,	0.000036872,	16
+addition gpu multi core 2,	8,	0.000565134,	0.000029353,	32
+addition gpu multi core 2,	8,	0.000668743,	0.000461673,	64
+addition gpu multi core 2,	8,	0.000607749,	0.000048806,	128
+addition gpu multi core 2,	8,	0.000620960,	0.000273978,	256
+addition gpu multi core 2,	8,	0.000613857,	0.000131399,	512
+addition gpu multi core 2,	8,	0.000611429,	0.000071393,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu multi core 2,	16,	0.000872290,	0.000255039,	2
+addition gpu multi core 2,	16,	0.000602497,	0.000027273,	4
+addition gpu multi core 2,	16,	0.000612490,	0.000069837,	8
+addition gpu multi core 2,	16,	0.000634396,	0.000046438,	16
+addition gpu multi core 2,	16,	0.000609102,	0.000057139,	32
+addition gpu multi core 2,	16,	0.000652301,	0.000056308,	64
+addition gpu multi core 2,	16,	0.000600926,	0.000048622,	128
+addition gpu multi core 2,	16,	0.000659686,	0.000077358,	256
+addition gpu multi core 2,	16,	0.000600583,	0.000053676,	512
+addition gpu multi core 2,	16,	0.000605473,	0.000051994,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu multi core 2,	32,	0.000860513,	0.000245646,	2
+addition gpu multi core 2,	32,	0.000591452,	0.000016268,	4
+addition gpu multi core 2,	32,	0.000582629,	0.000009265,	8
+addition gpu multi core 2,	32,	0.000601243,	0.000019006,	16
+addition gpu multi core 2,	32,	0.000585989,	0.000019086,	32
+addition gpu multi core 2,	32,	0.000596641,	0.000037387,	64
+addition gpu multi core 2,	32,	0.000591362,	0.000025443,	128
+addition gpu multi core 2,	32,	0.000592511,	0.000040442,	256
+addition gpu multi core 2,	32,	0.000618109,	0.000174341,	512
+addition gpu multi core 2,	32,	0.000613124,	0.000067409,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu multi core 2,	64,	0.000919515,	0.000291934,	2
+addition gpu multi core 2,	64,	0.000576999,	0.000012707,	4
+addition gpu multi core 2,	64,	0.000598599,	0.000050293,	8
+addition gpu multi core 2,	64,	0.000584780,	0.000036502,	16
+addition gpu multi core 2,	64,	0.000577340,	0.000033493,	32
+addition gpu multi core 2,	64,	0.000581967,	0.000035739,	64
+addition gpu multi core 2,	64,	0.000603291,	0.000044846,	128
+addition gpu multi core 2,	64,	0.000614746,	0.000054547,	256
+addition gpu multi core 2,	64,	0.000567863,	0.000041340,	512
+addition gpu multi core 2,	64,	0.000579535,	0.000056614,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu multi core 2,	128,	0.000924174,	0.000259643,	2
+addition gpu multi core 2,	128,	0.000621347,	0.000010546,	4
+addition gpu multi core 2,	128,	0.000630325,	0.000029799,	8
+addition gpu multi core 2,	128,	0.000611976,	0.000015165,	16
+addition gpu multi core 2,	128,	0.000710728,	0.000038044,	32
+addition gpu multi core 2,	128,	0.000723935,	0.000131022,	64
+addition gpu multi core 2,	128,	0.000701612,	0.000059512,	128
+addition gpu multi core 2,	128,	0.000624514,	0.000030670,	256
+addition gpu multi core 2,	128,	0.000628043,	0.000040944,	512
+addition gpu multi core 2,	128,	0.000607935,	0.000114650,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu multi core 2,	256,	0.001293177,	0.000332999,	2
+addition gpu multi core 2,	256,	0.000792674,	0.000045475,	4
+addition gpu multi core 2,	256,	0.000817203,	0.000059494,	8
+addition gpu multi core 2,	256,	0.000951939,	0.000408299,	16
+addition gpu multi core 2,	256,	0.000781535,	0.000040376,	32
+addition gpu multi core 2,	256,	0.000787978,	0.000047121,	64
+addition gpu multi core 2,	256,	0.000807586,	0.000197539,	128
+addition gpu multi core 2,	256,	0.000788421,	0.000182925,	256
+addition gpu multi core 2,	256,	0.000776365,	0.000105770,	512
+addition gpu multi core 2,	256,	0.000783262,	0.000058725,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu multi core 2,	512,	0.002019607,	0.000222637,	2
+addition gpu multi core 2,	512,	0.001659251,	0.000036359,	4
+addition gpu multi core 2,	512,	0.001631664,	0.000052231,	8
+addition gpu multi core 2,	512,	0.001621042,	0.000040400,	16
+addition gpu multi core 2,	512,	0.001654818,	0.000103450,	32
+addition gpu multi core 2,	512,	0.001648146,	0.000062253,	64
+addition gpu multi core 2,	512,	0.001641197,	0.000082701,	128
+addition gpu multi core 2,	512,	0.001632581,	0.000092406,	256
+addition gpu multi core 2,	512,	0.001649144,	0.000269646,	512
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu multi core 2,	1024,	0.004520347,	0.000824534,	2
+addition gpu multi core 2,	1024,	0.003694144,	0.000021474,	4
+addition gpu multi core 2,	1024,	0.003654261,	0.000057740,	8
+addition gpu multi core 2,	1024,	0.003675099,	0.000052873,	16
+addition gpu multi core 2,	1024,	0.003708463,	0.000115630,	32
+addition gpu multi core 2,	1024,	0.004175463,	0.000694407,	64
+addition gpu multi core 2,	1024,	0.003631150,	0.000096588,	128
+addition gpu multi core 2,	1024,	0.003682279,	0.000133030,	256

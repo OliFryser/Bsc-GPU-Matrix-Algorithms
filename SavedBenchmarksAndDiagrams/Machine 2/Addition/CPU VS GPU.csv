@@ -1,0 +1,96 @@
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu single core,	2,	0.005438820,	0.004799086,	2
+addition gpu single core,	2,	0.000601241,	0.000032106,	4
+addition gpu single core,	2,	0.000561760,	0.000008517,	8
+addition gpu single core,	2,	0.000580881,	0.000029853,	16
+addition gpu single core,	2,	0.000599920,	0.000056774,	32
+addition gpu single core,	2,	0.000600360,	0.000055387,	64
+addition gpu single core,	2,	0.000641853,	0.000104819,	128
+addition gpu single core,	2,	0.000718977,	0.000157477,	256
+addition gpu single core,	2,	0.000561676,	0.000053578,	512
+addition gpu single core,	2,	0.000600046,	0.000095369,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu single core,	4,	0.001002360,	0.000264455,	2
+addition gpu single core,	4,	0.000681612,	0.000075624,	4
+addition gpu single core,	4,	0.000708901,	0.000137750,	8
+addition gpu single core,	4,	0.000691749,	0.000086001,	16
+addition gpu single core,	4,	0.000637186,	0.000086964,	32
+addition gpu single core,	4,	0.000634376,	0.000079126,	64
+addition gpu single core,	4,	0.000647506,	0.000060048,	128
+addition gpu single core,	4,	0.000608240,	0.000057011,	256
+addition gpu single core,	4,	0.000604108,	0.000054935,	512
+addition gpu single core,	4,	0.000595728,	0.000198443,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu single core,	8,	0.000996566,	0.000371390,	2
+addition gpu single core,	8,	0.000585679,	0.000023000,	4
+addition gpu single core,	8,	0.000590404,	0.000047189,	8
+addition gpu single core,	8,	0.000597103,	0.000042673,	16
+addition gpu single core,	8,	0.000562516,	0.000026067,	32
+addition gpu single core,	8,	0.000601644,	0.000079845,	64
+addition gpu single core,	8,	0.000599900,	0.000059163,	128
+addition gpu single core,	8,	0.000595899,	0.000061142,	256
+addition gpu single core,	8,	0.000603495,	0.000052495,	512
+addition gpu single core,	8,	0.000615615,	0.000059365,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu single core,	16,	0.000860933,	0.000242831,	2
+addition gpu single core,	16,	0.000623879,	0.000046963,	4
+addition gpu single core,	16,	0.000607618,	0.000056067,	8
+addition gpu single core,	16,	0.000579119,	0.000033508,	16
+addition gpu single core,	16,	0.000624750,	0.000051662,	32
+addition gpu single core,	16,	0.000644314,	0.000064982,	64
+addition gpu single core,	16,	0.000600151,	0.000048544,	128
+addition gpu single core,	16,	0.000604679,	0.000051759,	256
+addition gpu single core,	16,	0.000598305,	0.000054757,	512
+addition gpu single core,	16,	0.000609803,	0.000187467,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu single core,	32,	0.001116314,	0.000274205,	2
+addition gpu single core,	32,	0.000775729,	0.000033904,	4
+addition gpu single core,	32,	0.000668227,	0.000029854,	8
+addition gpu single core,	32,	0.000661095,	0.000047935,	16
+addition gpu single core,	32,	0.000645672,	0.000036684,	32
+addition gpu single core,	32,	0.000648840,	0.000040813,	64
+addition gpu single core,	32,	0.000643832,	0.000034885,	128
+addition gpu single core,	32,	0.000656741,	0.000060265,	256
+addition gpu single core,	32,	0.000655347,	0.000049730,	512
+addition gpu single core,	32,	0.000654515,	0.000051175,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu single core,	64,	0.001256952,	0.000366708,	2
+addition gpu single core,	64,	0.000856088,	0.000049609,	4
+addition gpu single core,	64,	0.000906303,	0.000087268,	8
+addition gpu single core,	64,	0.000859214,	0.000036248,	16
+addition gpu single core,	64,	0.000863970,	0.000035432,	32
+addition gpu single core,	64,	0.000867279,	0.000040301,	64
+addition gpu single core,	64,	0.000851720,	0.000048781,	128
+addition gpu single core,	64,	0.000846743,	0.000058043,	256
+addition gpu single core,	64,	0.000856718,	0.000061392,	512
+addition gpu single core,	64,	0.000855554,	0.000165940,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu single core,	128,	0.001794284,	0.000282626,	2
+addition gpu single core,	128,	0.001463892,	0.000020469,	4
+addition gpu single core,	128,	0.001470861,	0.000025546,	8
+addition gpu single core,	128,	0.001476938,	0.000029229,	16
+addition gpu single core,	128,	0.001460695,	0.000040779,	32
+addition gpu single core,	128,	0.001448205,	0.000138851,	64
+addition gpu single core,	128,	0.001277133,	0.000045529,	128
+addition gpu single core,	128,	0.001182311,	0.000066231,	256
+addition gpu single core,	128,	0.001183449,	0.000048687,	512
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu single core,	256,	0.003571966,	0.000366382,	2
+addition gpu single core,	256,	0.003343611,	0.000095826,	4
+addition gpu single core,	256,	0.003276119,	0.000094490,	8
+addition gpu single core,	256,	0.003372984,	0.000394499,	16
+addition gpu single core,	256,	0.003258732,	0.000077481,	32
+addition gpu single core,	256,	0.003220685,	0.000058468,	64
+addition gpu single core,	256,	0.003277579,	0.000230123,	128
+addition gpu single core,	256,	0.003362472,	0.000613626,	256
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu single core,	512,	0.015310417,	0.002598235,	2
+addition gpu single core,	512,	0.013587380,	0.002093430,	4
+addition gpu single core,	512,	0.012331246,	0.000594686,	8
+addition gpu single core,	512,	0.012560551,	0.001372219,	16
+addition gpu single core,	512,	0.012473559,	0.001426822,	32
+addition gpu single core,	512,	0.012757269,	0.001501264,	64
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+addition gpu single core,	1024,	0.066664623,	0.001552036,	2
+addition gpu single core,	1024,	0.065543354,	0.000368026,	4
+addition gpu single core,	1024,	0.065551410,	0.000276617,	8
