@@ -1,0 +1,617 @@
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: single kernel with grid and block size = x,	2,	0.000030428,	0.000015359,	2
+diagnostic: single kernel with grid and block size = x,	2,	0.000013686,	0.000006695,	4
+diagnostic: single kernel with grid and block size = x,	2,	0.000007727,	0.000001815,	8
+diagnostic: single kernel with grid and block size = x,	2,	0.000006857,	0.000001457,	16
+diagnostic: single kernel with grid and block size = x,	2,	0.000006839,	0.000001428,	32
+diagnostic: single kernel with grid and block size = x,	2,	0.000006694,	0.000001350,	64
+diagnostic: single kernel with grid and block size = x,	2,	0.000006387,	0.000001260,	128
+diagnostic: single kernel with grid and block size = x,	2,	0.000006903,	0.000003027,	256
+diagnostic: single kernel with grid and block size = x,	2,	0.000007228,	0.000003661,	512
+diagnostic: single kernel with grid and block size = x,	2,	0.000006001,	0.000002995,	1024
+diagnostic: single kernel with grid and block size = x,	2,	0.000008121,	0.000090097,	2048
+diagnostic: single kernel with grid and block size = x,	2,	0.000006823,	0.000046076,	4096
+diagnostic: single kernel with grid and block size = x,	2,	0.000007370,	0.000086710,	8192
+diagnostic: single kernel with grid and block size = x,	2,	0.000006973,	0.000081220,	16384
+diagnostic: single kernel with grid and block size = x,	2,	0.000006900,	0.000070376,	32768
+diagnostic: single kernel with grid and block size = x,	2,	0.000010482,	0.000117296,	65536
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: single kernel with grid and block size = x,	4,	0.000010359,	0.000005320,	2
+diagnostic: single kernel with grid and block size = x,	4,	0.000005333,	0.000001675,	4
+diagnostic: single kernel with grid and block size = x,	4,	0.000005512,	0.000000444,	8
+diagnostic: single kernel with grid and block size = x,	4,	0.000004448,	0.000000900,	16
+diagnostic: single kernel with grid and block size = x,	4,	0.000004683,	0.000000831,	32
+diagnostic: single kernel with grid and block size = x,	4,	0.000004586,	0.000000832,	64
+diagnostic: single kernel with grid and block size = x,	4,	0.000005053,	0.000001952,	128
+diagnostic: single kernel with grid and block size = x,	4,	0.000005226,	0.000002368,	256
+diagnostic: single kernel with grid and block size = x,	4,	0.000003937,	0.000001553,	512
+diagnostic: single kernel with grid and block size = x,	4,	0.000007503,	0.000090148,	1024
+diagnostic: single kernel with grid and block size = x,	4,	0.000006372,	0.000077626,	2048
+diagnostic: single kernel with grid and block size = x,	4,	0.000005752,	0.000067488,	4096
+diagnostic: single kernel with grid and block size = x,	4,	0.000005997,	0.000070568,	8192
+diagnostic: single kernel with grid and block size = x,	4,	0.000005982,	0.000069866,	16384
+diagnostic: single kernel with grid and block size = x,	4,	0.000006269,	0.000074065,	32768
+diagnostic: single kernel with grid and block size = x,	4,	0.000006797,	0.000078256,	65536
+diagnostic: single kernel with grid and block size = x,	4,	0.000006612,	0.000073395,	131072
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: single kernel with grid and block size = x,	8,	0.000039706,	0.000024376,	2
+diagnostic: single kernel with grid and block size = x,	8,	0.000044003,	0.000038189,	4
+diagnostic: single kernel with grid and block size = x,	8,	0.000030984,	0.000025557,	8
+diagnostic: single kernel with grid and block size = x,	8,	0.000025695,	0.000015794,	16
+diagnostic: single kernel with grid and block size = x,	8,	0.000027344,	0.000015097,	32
+diagnostic: single kernel with grid and block size = x,	8,	0.000025568,	0.000014925,	64
+diagnostic: single kernel with grid and block size = x,	8,	0.000026997,	0.000016432,	128
+diagnostic: single kernel with grid and block size = x,	8,	0.000026305,	0.000014826,	256
+diagnostic: single kernel with grid and block size = x,	8,	0.000008123,	0.000013169,	512
+diagnostic: single kernel with grid and block size = x,	8,	0.000005288,	0.000063593,	1024
+diagnostic: single kernel with grid and block size = x,	8,	0.000014471,	0.000090057,	2048
+diagnostic: single kernel with grid and block size = x,	8,	0.000013216,	0.000139208,	4096
+diagnostic: single kernel with grid and block size = x,	8,	0.000012485,	0.000133718,	8192
+diagnostic: single kernel with grid and block size = x,	8,	0.000013750,	0.000109417,	16384
+diagnostic: single kernel with grid and block size = x,	8,	0.000012749,	0.000135385,	32768
+diagnostic: single kernel with grid and block size = x,	8,	0.000012602,	0.000102993,	65536
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: single kernel with grid and block size = x,	16,	0.000009999,	0.000005891,	2
+diagnostic: single kernel with grid and block size = x,	16,	0.000004423,	0.000001027,	4
+diagnostic: single kernel with grid and block size = x,	16,	0.000004670,	0.000000670,	8
+diagnostic: single kernel with grid and block size = x,	16,	0.000004036,	0.000000609,	16
+diagnostic: single kernel with grid and block size = x,	16,	0.000004238,	0.000002184,	32
+diagnostic: single kernel with grid and block size = x,	16,	0.000003993,	0.000000736,	64
+diagnostic: single kernel with grid and block size = x,	16,	0.000005649,	0.000001508,	128
+diagnostic: single kernel with grid and block size = x,	16,	0.000005646,	0.000001039,	256
+diagnostic: single kernel with grid and block size = x,	16,	0.000005640,	0.000001313,	512
+diagnostic: single kernel with grid and block size = x,	16,	0.000004482,	0.000034982,	1024
+diagnostic: single kernel with grid and block size = x,	16,	0.000006220,	0.000077425,	2048
+diagnostic: single kernel with grid and block size = x,	16,	0.000005877,	0.000067741,	4096
+diagnostic: single kernel with grid and block size = x,	16,	0.000005931,	0.000068678,	8192
+diagnostic: single kernel with grid and block size = x,	16,	0.000005825,	0.000068985,	16384
+diagnostic: single kernel with grid and block size = x,	16,	0.000007417,	0.000068003,	32768
+diagnostic: single kernel with grid and block size = x,	16,	0.000007329,	0.000082697,	65536
+diagnostic: single kernel with grid and block size = x,	16,	0.000009524,	0.000104983,	131072
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: single kernel with grid and block size = x,	32,	0.000008952,	0.000004734,	2
+diagnostic: single kernel with grid and block size = x,	32,	0.000004842,	0.000000944,	4
+diagnostic: single kernel with grid and block size = x,	32,	0.000004416,	0.000000600,	8
+diagnostic: single kernel with grid and block size = x,	32,	0.000003725,	0.000000758,	16
+diagnostic: single kernel with grid and block size = x,	32,	0.000004120,	0.000000781,	32
+diagnostic: single kernel with grid and block size = x,	32,	0.000004529,	0.000003634,	64
+diagnostic: single kernel with grid and block size = x,	32,	0.000003764,	0.000000708,	128
+diagnostic: single kernel with grid and block size = x,	32,	0.000003697,	0.000000840,	256
+diagnostic: single kernel with grid and block size = x,	32,	0.000003351,	0.000000516,	512
+diagnostic: single kernel with grid and block size = x,	32,	0.000013935,	0.000076572,	1024
+diagnostic: single kernel with grid and block size = x,	32,	0.000010229,	0.000117838,	2048
+diagnostic: single kernel with grid and block size = x,	32,	0.000013079,	0.000137435,	4096
+diagnostic: single kernel with grid and block size = x,	32,	0.000012376,	0.000133634,	8192
+diagnostic: single kernel with grid and block size = x,	32,	0.000014241,	0.000145852,	16384
+diagnostic: single kernel with grid and block size = x,	32,	0.000013766,	0.000124967,	32768
+diagnostic: single kernel with grid and block size = x,	32,	0.000012181,	0.000118527,	65536
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: single kernel with grid and block size = x,	64,	0.000009473,	0.000003913,	2
+diagnostic: single kernel with grid and block size = x,	64,	0.000003958,	0.000001283,	4
+diagnostic: single kernel with grid and block size = x,	64,	0.000003503,	0.000000676,	8
+diagnostic: single kernel with grid and block size = x,	64,	0.000003919,	0.000000730,	16
+diagnostic: single kernel with grid and block size = x,	64,	0.000004011,	0.000000714,	32
+diagnostic: single kernel with grid and block size = x,	64,	0.000003548,	0.000000623,	64
+diagnostic: single kernel with grid and block size = x,	64,	0.000004092,	0.000001706,	128
+diagnostic: single kernel with grid and block size = x,	64,	0.000003732,	0.000000811,	256
+diagnostic: single kernel with grid and block size = x,	64,	0.000003266,	0.000000562,	512
+diagnostic: single kernel with grid and block size = x,	64,	0.000005350,	0.000063109,	1024
+diagnostic: single kernel with grid and block size = x,	64,	0.000006812,	0.000077260,	2048
+diagnostic: single kernel with grid and block size = x,	64,	0.000006053,	0.000070679,	4096
+diagnostic: single kernel with grid and block size = x,	64,	0.000006210,	0.000074093,	8192
+diagnostic: single kernel with grid and block size = x,	64,	0.000006036,	0.000070707,	16384
+diagnostic: single kernel with grid and block size = x,	64,	0.000005976,	0.000070087,	32768
+diagnostic: single kernel with grid and block size = x,	64,	0.000006113,	0.000072419,	65536
+diagnostic: single kernel with grid and block size = x,	64,	0.000006814,	0.000080715,	131072
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: single kernel with grid and block size = x,	128,	0.000008265,	0.000004358,	2
+diagnostic: single kernel with grid and block size = x,	128,	0.000004072,	0.000001158,	4
+diagnostic: single kernel with grid and block size = x,	128,	0.000003266,	0.000000376,	8
+diagnostic: single kernel with grid and block size = x,	128,	0.000004200,	0.000000621,	16
+diagnostic: single kernel with grid and block size = x,	128,	0.000003436,	0.000000593,	32
+diagnostic: single kernel with grid and block size = x,	128,	0.000003778,	0.000000633,	64
+diagnostic: single kernel with grid and block size = x,	128,	0.000003692,	0.000000704,	128
+diagnostic: single kernel with grid and block size = x,	128,	0.000003891,	0.000000890,	256
+diagnostic: single kernel with grid and block size = x,	128,	0.000003302,	0.000000362,	512
+diagnostic: single kernel with grid and block size = x,	128,	0.000005405,	0.000063168,	1024
+diagnostic: single kernel with grid and block size = x,	128,	0.000005483,	0.000062996,	2048
+diagnostic: single kernel with grid and block size = x,	128,	0.000006031,	0.000070772,	4096
+diagnostic: single kernel with grid and block size = x,	128,	0.000005719,	0.000067098,	8192
+diagnostic: single kernel with grid and block size = x,	128,	0.000005959,	0.000070532,	16384
+diagnostic: single kernel with grid and block size = x,	128,	0.000005776,	0.000067920,	32768
+diagnostic: single kernel with grid and block size = x,	128,	0.000011281,	0.000122654,	65536
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: single kernel with grid and block size = x,	256,	0.000010295,	0.000004544,	2
+diagnostic: single kernel with grid and block size = x,	256,	0.000004138,	0.000001298,	4
+diagnostic: single kernel with grid and block size = x,	256,	0.000003383,	0.000000581,	8
+diagnostic: single kernel with grid and block size = x,	256,	0.000004127,	0.000000720,	16
+diagnostic: single kernel with grid and block size = x,	256,	0.000003944,	0.000000671,	32
+diagnostic: single kernel with grid and block size = x,	256,	0.000004704,	0.000001776,	64
+diagnostic: single kernel with grid and block size = x,	256,	0.000004623,	0.000001915,	128
+diagnostic: single kernel with grid and block size = x,	256,	0.000003868,	0.000000795,	256
+diagnostic: single kernel with grid and block size = x,	256,	0.000003351,	0.000000463,	512
+diagnostic: single kernel with grid and block size = x,	256,	0.000007396,	0.000090206,	1024
+diagnostic: single kernel with grid and block size = x,	256,	0.000007176,	0.000081167,	2048
+diagnostic: single kernel with grid and block size = x,	256,	0.000006751,	0.000079454,	4096
+diagnostic: single kernel with grid and block size = x,	256,	0.000006759,	0.000080613,	8192
+diagnostic: single kernel with grid and block size = x,	256,	0.000006509,	0.000077419,	16384
+diagnostic: single kernel with grid and block size = x,	256,	0.000006770,	0.000079495,	32768
+diagnostic: single kernel with grid and block size = x,	256,	0.000006524,	0.000077948,	65536
+diagnostic: single kernel with grid and block size = x,	256,	0.000006321,	0.000074943,	131072
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: single kernel with grid and block size = x,	512,	0.000012048,	0.000007379,	2
+diagnostic: single kernel with grid and block size = x,	512,	0.000004479,	0.000001385,	4
+diagnostic: single kernel with grid and block size = x,	512,	0.000003220,	0.000000435,	8
+diagnostic: single kernel with grid and block size = x,	512,	0.000003751,	0.000000678,	16
+diagnostic: single kernel with grid and block size = x,	512,	0.000003345,	0.000000505,	32
+diagnostic: single kernel with grid and block size = x,	512,	0.000003397,	0.000000535,	64
+diagnostic: single kernel with grid and block size = x,	512,	0.000003380,	0.000001312,	128
+diagnostic: single kernel with grid and block size = x,	512,	0.000003260,	0.000000392,	256
+diagnostic: single kernel with grid and block size = x,	512,	0.000011437,	0.000125907,	512
+diagnostic: single kernel with grid and block size = x,	512,	0.000011670,	0.000125943,	1024
+diagnostic: single kernel with grid and block size = x,	512,	0.000014258,	0.000142765,	2048
+diagnostic: single kernel with grid and block size = x,	512,	0.000014323,	0.000143538,	4096
+diagnostic: single kernel with grid and block size = x,	512,	0.000013017,	0.000137238,	8192
+diagnostic: single kernel with grid and block size = x,	512,	0.000013017,	0.000102035,	16384
+diagnostic: single kernel with grid and block size = x,	512,	0.000016674,	0.000073230,	32768
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: single kernel with grid and block size = x,	1024,	0.000038784,	0.000030939,	2
+diagnostic: single kernel with grid and block size = x,	1024,	0.000005272,	0.000001764,	4
+diagnostic: single kernel with grid and block size = x,	1024,	0.000004086,	0.000000881,	8
+diagnostic: single kernel with grid and block size = x,	1024,	0.000003465,	0.000000498,	16
+diagnostic: single kernel with grid and block size = x,	1024,	0.000003746,	0.000000663,	32
+diagnostic: single kernel with grid and block size = x,	1024,	0.000003428,	0.000000594,	64
+diagnostic: single kernel with grid and block size = x,	1024,	0.000003494,	0.000000628,	128
+diagnostic: single kernel with grid and block size = x,	1024,	0.000003200,	0.000000376,	256
+diagnostic: single kernel with grid and block size = x,	1024,	0.000010753,	0.000117825,	512
+diagnostic: single kernel with grid and block size = x,	1024,	0.000015009,	0.000146789,	1024
+diagnostic: single kernel with grid and block size = x,	1024,	0.000015446,	0.000147923,	2048
+diagnostic: single kernel with grid and block size = x,	1024,	0.000014892,	0.000150997,	4096
+diagnostic: single kernel with grid and block size = x,	1024,	0.000015131,	0.000151057,	8192
+diagnostic: single kernel with grid and block size = x,	1024,	0.000015181,	0.000151773,	16384
+diagnostic: single kernel with grid and block size = x,	1024,	0.000010628,	0.000117230,	32768
+diagnostic: single kernel with grid and block size = x,	1024,	0.000009526,	0.000107318,	65536
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc x floats,	2,	0.000565232,	0.000145466,	2
+diagnostic: cudaMalloc x floats,	2,	0.000442325,	0.000017464,	4
+diagnostic: cudaMalloc x floats,	2,	0.000340515,	0.000040704,	8
+diagnostic: cudaMalloc x floats,	2,	0.000351441,	0.000049368,	16
+diagnostic: cudaMalloc x floats,	2,	0.000319052,	0.000021075,	32
+diagnostic: cudaMalloc x floats,	2,	0.000388404,	0.000498757,	64
+diagnostic: cudaMalloc x floats,	2,	0.000355378,	0.000045598,	128
+diagnostic: cudaMalloc x floats,	2,	0.000365538,	0.000240062,	256
+diagnostic: cudaMalloc x floats,	2,	0.000370799,	0.000191737,	512
+diagnostic: cudaMalloc x floats,	2,	0.000343175,	0.000064873,	1024
+diagnostic: cudaMalloc x floats,	2,	0.000345093,	0.000048459,	2048
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc x floats,	4,	0.000455840,	0.000104393,	2
+diagnostic: cudaMalloc x floats,	4,	0.000313392,	0.000004630,	4
+diagnostic: cudaMalloc x floats,	4,	0.000330062,	0.000028987,	8
+diagnostic: cudaMalloc x floats,	4,	0.000323818,	0.000014222,	16
+diagnostic: cudaMalloc x floats,	4,	0.000321263,	0.000022464,	32
+diagnostic: cudaMalloc x floats,	4,	0.000329480,	0.000013942,	64
+diagnostic: cudaMalloc x floats,	4,	0.000359373,	0.000044047,	128
+diagnostic: cudaMalloc x floats,	4,	0.000363253,	0.000038282,	256
+diagnostic: cudaMalloc x floats,	4,	0.000346900,	0.000051887,	512
+diagnostic: cudaMalloc x floats,	4,	0.000357868,	0.000039165,	1024
+diagnostic: cudaMalloc x floats,	4,	0.000340719,	0.000040493,	2048
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc x floats,	8,	0.000547011,	0.000142473,	2
+diagnostic: cudaMalloc x floats,	8,	0.000359193,	0.000026369,	4
+diagnostic: cudaMalloc x floats,	8,	0.000389068,	0.000014430,	8
+diagnostic: cudaMalloc x floats,	8,	0.000357180,	0.000033156,	16
+diagnostic: cudaMalloc x floats,	8,	0.000359669,	0.000038409,	32
+diagnostic: cudaMalloc x floats,	8,	0.000348233,	0.000027099,	64
+diagnostic: cudaMalloc x floats,	8,	0.000372280,	0.000230585,	128
+diagnostic: cudaMalloc x floats,	8,	0.000364924,	0.000099914,	256
+diagnostic: cudaMalloc x floats,	8,	0.000360786,	0.000078877,	512
+diagnostic: cudaMalloc x floats,	8,	0.000364046,	0.000048680,	1024
+diagnostic: cudaMalloc x floats,	8,	0.000338789,	0.000034168,	2048
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc x floats,	16,	0.000507559,	0.000083954,	2
+diagnostic: cudaMalloc x floats,	16,	0.000346948,	0.000026270,	4
+diagnostic: cudaMalloc x floats,	16,	0.000348320,	0.000008192,	8
+diagnostic: cudaMalloc x floats,	16,	0.000348499,	0.000015181,	16
+diagnostic: cudaMalloc x floats,	16,	0.000347127,	0.000022272,	32
+diagnostic: cudaMalloc x floats,	16,	0.000352007,	0.000046364,	64
+diagnostic: cudaMalloc x floats,	16,	0.000356648,	0.000041268,	128
+diagnostic: cudaMalloc x floats,	16,	0.000349101,	0.000028694,	256
+diagnostic: cudaMalloc x floats,	16,	0.000356430,	0.000039684,	512
+diagnostic: cudaMalloc x floats,	16,	0.000354490,	0.000034243,	1024
+diagnostic: cudaMalloc x floats,	16,	0.000366301,	0.000050496,	2048
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc x floats,	32,	0.000507373,	0.000102234,	2
+diagnostic: cudaMalloc x floats,	32,	0.000375228,	0.000032807,	4
+diagnostic: cudaMalloc x floats,	32,	0.000369864,	0.000061611,	8
+diagnostic: cudaMalloc x floats,	32,	0.000341838,	0.000022702,	16
+diagnostic: cudaMalloc x floats,	32,	0.000335371,	0.000009090,	32
+diagnostic: cudaMalloc x floats,	32,	0.000343209,	0.000025471,	64
+diagnostic: cudaMalloc x floats,	32,	0.000371106,	0.000129651,	128
+diagnostic: cudaMalloc x floats,	32,	0.000373359,	0.000111754,	256
+diagnostic: cudaMalloc x floats,	32,	0.000359998,	0.000068800,	512
+diagnostic: cudaMalloc x floats,	32,	0.000361912,	0.000037895,	1024
+diagnostic: cudaMalloc x floats,	32,	0.000358268,	0.000061849,	2048
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc x floats,	64,	0.000493885,	0.000082254,	2
+diagnostic: cudaMalloc x floats,	64,	0.000359287,	0.000010839,	4
+diagnostic: cudaMalloc x floats,	64,	0.000352134,	0.000036797,	8
+diagnostic: cudaMalloc x floats,	64,	0.000397279,	0.000119361,	16
+diagnostic: cudaMalloc x floats,	64,	0.000350222,	0.000017103,	32
+diagnostic: cudaMalloc x floats,	64,	0.000344339,	0.000024184,	64
+diagnostic: cudaMalloc x floats,	64,	0.000345364,	0.000018554,	128
+diagnostic: cudaMalloc x floats,	64,	0.000350953,	0.000026661,	256
+diagnostic: cudaMalloc x floats,	64,	0.000355079,	0.000038780,	512
+diagnostic: cudaMalloc x floats,	64,	0.000362111,	0.000049315,	1024
+diagnostic: cudaMalloc x floats,	64,	0.000355317,	0.000043160,	2048
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc x floats,	128,	0.000561527,	0.000041206,	2
+diagnostic: cudaMalloc x floats,	128,	0.000366938,	0.000012763,	4
+diagnostic: cudaMalloc x floats,	128,	0.000346115,	0.000026373,	8
+diagnostic: cudaMalloc x floats,	128,	0.000346079,	0.000030106,	16
+diagnostic: cudaMalloc x floats,	128,	0.000339885,	0.000020725,	32
+diagnostic: cudaMalloc x floats,	128,	0.000339417,	0.000027596,	64
+diagnostic: cudaMalloc x floats,	128,	0.000358030,	0.000032452,	128
+diagnostic: cudaMalloc x floats,	128,	0.000399181,	0.000167015,	256
+diagnostic: cudaMalloc x floats,	128,	0.000367363,	0.000096820,	512
+diagnostic: cudaMalloc x floats,	128,	0.000356186,	0.000035683,	1024
+diagnostic: cudaMalloc x floats,	128,	0.000353879,	0.000038117,	2048
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc x floats,	256,	0.000494513,	0.000104123,	2
+diagnostic: cudaMalloc x floats,	256,	0.000352376,	0.000015807,	4
+diagnostic: cudaMalloc x floats,	256,	0.000343752,	0.000005587,	8
+diagnostic: cudaMalloc x floats,	256,	0.000347331,	0.000026663,	16
+diagnostic: cudaMalloc x floats,	256,	0.000337320,	0.000018276,	32
+diagnostic: cudaMalloc x floats,	256,	0.000345111,	0.000026174,	64
+diagnostic: cudaMalloc x floats,	256,	0.000358438,	0.000049338,	128
+diagnostic: cudaMalloc x floats,	256,	0.000359915,	0.000046103,	256
+diagnostic: cudaMalloc x floats,	256,	0.000359080,	0.000041097,	512
+diagnostic: cudaMalloc x floats,	256,	0.000373304,	0.000051983,	1024
+diagnostic: cudaMalloc x floats,	256,	0.000359284,	0.000041157,	2048
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc x floats,	512,	0.000574676,	0.000126345,	2
+diagnostic: cudaMalloc x floats,	512,	0.000367142,	0.000012291,	4
+diagnostic: cudaMalloc x floats,	512,	0.000367014,	0.000024576,	8
+diagnostic: cudaMalloc x floats,	512,	0.000379229,	0.000037523,	16
+diagnostic: cudaMalloc x floats,	512,	0.000469742,	0.000495287,	32
+diagnostic: cudaMalloc x floats,	512,	0.000365231,	0.000039223,	64
+diagnostic: cudaMalloc x floats,	512,	0.000364746,	0.000036250,	128
+diagnostic: cudaMalloc x floats,	512,	0.000362506,	0.000123654,	256
+diagnostic: cudaMalloc x floats,	512,	0.000357002,	0.000079548,	512
+diagnostic: cudaMalloc x floats,	512,	0.000354039,	0.000038174,	1024
+diagnostic: cudaMalloc x floats,	512,	0.000367572,	0.000047598,	2048
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc x floats,	1024,	0.000747519,	0.000205771,	2
+diagnostic: cudaMalloc x floats,	1024,	0.000437798,	0.000007983,	4
+diagnostic: cudaMalloc x floats,	1024,	0.000432774,	0.000012671,	8
+diagnostic: cudaMalloc x floats,	1024,	0.000436494,	0.000022488,	16
+diagnostic: cudaMalloc x floats,	1024,	0.000442568,	0.000029109,	32
+diagnostic: cudaMalloc x floats,	1024,	0.000434425,	0.000019567,	64
+diagnostic: cudaMalloc x floats,	1024,	0.000440631,	0.000027530,	128
+diagnostic: cudaMalloc x floats,	1024,	0.000437029,	0.000027775,	256
+diagnostic: cudaMalloc x floats,	1024,	0.000445572,	0.000044632,	512
+diagnostic: cudaMalloc x floats,	1024,	0.000444039,	0.000034646,	1024
+diagnostic: cudaMalloc x floats,	1024,	0.000454123,	0.000046473,	2048
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc & cudaMemcpy x floats,	2,	0.000672136,	0.000106131,	2
+diagnostic: cudaMalloc & cudaMemcpy x floats,	2,	0.000517733,	0.000004536,	4
+diagnostic: cudaMalloc & cudaMemcpy x floats,	2,	0.000517105,	0.000033785,	8
+diagnostic: cudaMalloc & cudaMemcpy x floats,	2,	0.000509965,	0.000024446,	16
+diagnostic: cudaMalloc & cudaMemcpy x floats,	2,	0.000501503,	0.000018010,	32
+diagnostic: cudaMalloc & cudaMemcpy x floats,	2,	0.000510915,	0.000022078,	64
+diagnostic: cudaMalloc & cudaMemcpy x floats,	2,	0.000518218,	0.000097085,	128
+diagnostic: cudaMalloc & cudaMemcpy x floats,	2,	0.000527122,	0.000045377,	256
+diagnostic: cudaMalloc & cudaMemcpy x floats,	2,	0.000522430,	0.000046075,	512
+diagnostic: cudaMalloc & cudaMemcpy x floats,	2,	0.000552137,	0.000043454,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc & cudaMemcpy x floats,	4,	0.000722506,	0.000125974,	2
+diagnostic: cudaMalloc & cudaMemcpy x floats,	4,	0.000515902,	0.000019319,	4
+diagnostic: cudaMalloc & cudaMemcpy x floats,	4,	0.000529648,	0.000045911,	8
+diagnostic: cudaMalloc & cudaMemcpy x floats,	4,	0.000528456,	0.000090581,	16
+diagnostic: cudaMalloc & cudaMemcpy x floats,	4,	0.000503780,	0.000020333,	32
+diagnostic: cudaMalloc & cudaMemcpy x floats,	4,	0.000513799,	0.000027296,	64
+diagnostic: cudaMalloc & cudaMemcpy x floats,	4,	0.000550727,	0.000054212,	128
+diagnostic: cudaMalloc & cudaMemcpy x floats,	4,	0.000549593,	0.000047478,	256
+diagnostic: cudaMalloc & cudaMemcpy x floats,	4,	0.000541633,	0.000038863,	512
+diagnostic: cudaMalloc & cudaMemcpy x floats,	4,	0.000522431,	0.000042631,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc & cudaMemcpy x floats,	8,	0.000663499,	0.000118094,	2
+diagnostic: cudaMalloc & cudaMemcpy x floats,	8,	0.000558550,	0.000036452,	4
+diagnostic: cudaMalloc & cudaMemcpy x floats,	8,	0.000513980,	0.000010969,	8
+diagnostic: cudaMalloc & cudaMemcpy x floats,	8,	0.000577777,	0.000125839,	16
+diagnostic: cudaMalloc & cudaMemcpy x floats,	8,	0.000534263,	0.000028229,	32
+diagnostic: cudaMalloc & cudaMemcpy x floats,	8,	0.000524790,	0.000023784,	64
+diagnostic: cudaMalloc & cudaMemcpy x floats,	8,	0.000559473,	0.000298187,	128
+diagnostic: cudaMalloc & cudaMemcpy x floats,	8,	0.000547313,	0.000202606,	256
+diagnostic: cudaMalloc & cudaMemcpy x floats,	8,	0.000538233,	0.000126782,	512
+diagnostic: cudaMalloc & cudaMemcpy x floats,	8,	0.000549838,	0.000056579,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc & cudaMemcpy x floats,	16,	0.000717557,	0.000108831,	2
+diagnostic: cudaMalloc & cudaMemcpy x floats,	16,	0.000560978,	0.000032856,	4
+diagnostic: cudaMalloc & cudaMemcpy x floats,	16,	0.000505814,	0.000010673,	8
+diagnostic: cudaMalloc & cudaMemcpy x floats,	16,	0.000544994,	0.000033497,	16
+diagnostic: cudaMalloc & cudaMemcpy x floats,	16,	0.000523790,	0.000037122,	32
+diagnostic: cudaMalloc & cudaMemcpy x floats,	16,	0.000546670,	0.000066802,	64
+diagnostic: cudaMalloc & cudaMemcpy x floats,	16,	0.000529941,	0.000035966,	128
+diagnostic: cudaMalloc & cudaMemcpy x floats,	16,	0.000533733,	0.000049091,	256
+diagnostic: cudaMalloc & cudaMemcpy x floats,	16,	0.000553585,	0.000062342,	512
+diagnostic: cudaMalloc & cudaMemcpy x floats,	16,	0.000549012,	0.000040860,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc & cudaMemcpy x floats,	32,	0.000661451,	0.000120413,	2
+diagnostic: cudaMalloc & cudaMemcpy x floats,	32,	0.000528976,	0.000019268,	4
+diagnostic: cudaMalloc & cudaMemcpy x floats,	32,	0.000517143,	0.000033270,	8
+diagnostic: cudaMalloc & cudaMemcpy x floats,	32,	0.000517953,	0.000039563,	16
+diagnostic: cudaMalloc & cudaMemcpy x floats,	32,	0.000522881,	0.000042836,	32
+diagnostic: cudaMalloc & cudaMemcpy x floats,	32,	0.000522196,	0.000030022,	64
+diagnostic: cudaMalloc & cudaMemcpy x floats,	32,	0.000536867,	0.000056133,	128
+diagnostic: cudaMalloc & cudaMemcpy x floats,	32,	0.000534896,	0.000045463,	256
+diagnostic: cudaMalloc & cudaMemcpy x floats,	32,	0.000572527,	0.000056523,	512
+diagnostic: cudaMalloc & cudaMemcpy x floats,	32,	0.000542340,	0.000103424,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc & cudaMemcpy x floats,	64,	0.000752753,	0.000064578,	2
+diagnostic: cudaMalloc & cudaMemcpy x floats,	64,	0.000579778,	0.000035620,	4
+diagnostic: cudaMalloc & cudaMemcpy x floats,	64,	0.000516198,	0.000011293,	8
+diagnostic: cudaMalloc & cudaMemcpy x floats,	64,	0.000635210,	0.000309271,	16
+diagnostic: cudaMalloc & cudaMemcpy x floats,	64,	0.000540199,	0.000036625,	32
+diagnostic: cudaMalloc & cudaMemcpy x floats,	64,	0.000546333,	0.000032213,	64
+diagnostic: cudaMalloc & cudaMemcpy x floats,	64,	0.000535246,	0.000100837,	128
+diagnostic: cudaMalloc & cudaMemcpy x floats,	64,	0.000535130,	0.000061854,	256
+diagnostic: cudaMalloc & cudaMemcpy x floats,	64,	0.000543914,	0.000053868,	512
+diagnostic: cudaMalloc & cudaMemcpy x floats,	64,	0.000543800,	0.000050518,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc & cudaMemcpy x floats,	128,	0.000671535,	0.000092616,	2
+diagnostic: cudaMalloc & cudaMemcpy x floats,	128,	0.000552146,	0.000014408,	4
+diagnostic: cudaMalloc & cudaMemcpy x floats,	128,	0.000570379,	0.000042110,	8
+diagnostic: cudaMalloc & cudaMemcpy x floats,	128,	0.000520802,	0.000016526,	16
+diagnostic: cudaMalloc & cudaMemcpy x floats,	128,	0.000525284,	0.000017715,	32
+diagnostic: cudaMalloc & cudaMemcpy x floats,	128,	0.000546897,	0.000048224,	64
+diagnostic: cudaMalloc & cudaMemcpy x floats,	128,	0.000556484,	0.000054520,	128
+diagnostic: cudaMalloc & cudaMemcpy x floats,	128,	0.000561756,	0.000061268,	256
+diagnostic: cudaMalloc & cudaMemcpy x floats,	128,	0.000557934,	0.000043456,	512
+diagnostic: cudaMalloc & cudaMemcpy x floats,	128,	0.000557726,	0.000045680,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc & cudaMemcpy x floats,	256,	0.000748936,	0.000077161,	2
+diagnostic: cudaMalloc & cudaMemcpy x floats,	256,	0.000636418,	0.000032756,	4
+diagnostic: cudaMalloc & cudaMemcpy x floats,	256,	0.000638943,	0.000020875,	8
+diagnostic: cudaMalloc & cudaMemcpy x floats,	256,	0.000616414,	0.000032380,	16
+diagnostic: cudaMalloc & cudaMemcpy x floats,	256,	0.000611799,	0.000031689,	32
+diagnostic: cudaMalloc & cudaMemcpy x floats,	256,	0.000626388,	0.000040862,	64
+diagnostic: cudaMalloc & cudaMemcpy x floats,	256,	0.000626577,	0.000033511,	128
+diagnostic: cudaMalloc & cudaMemcpy x floats,	256,	0.000625895,	0.000063990,	256
+diagnostic: cudaMalloc & cudaMemcpy x floats,	256,	0.000643867,	0.000185981,	512
+diagnostic: cudaMalloc & cudaMemcpy x floats,	256,	0.000627181,	0.000145328,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc & cudaMemcpy x floats,	512,	0.001054737,	0.000150661,	2
+diagnostic: cudaMalloc & cudaMemcpy x floats,	512,	0.000899957,	0.000027894,	4
+diagnostic: cudaMalloc & cudaMemcpy x floats,	512,	0.000871281,	0.000035281,	8
+diagnostic: cudaMalloc & cudaMemcpy x floats,	512,	0.000860113,	0.000033430,	16
+diagnostic: cudaMalloc & cudaMemcpy x floats,	512,	0.000872264,	0.000063027,	32
+diagnostic: cudaMalloc & cudaMemcpy x floats,	512,	0.000855188,	0.000028659,	64
+diagnostic: cudaMalloc & cudaMemcpy x floats,	512,	0.000868149,	0.000065493,	128
+diagnostic: cudaMalloc & cudaMemcpy x floats,	512,	0.000882119,	0.000054492,	256
+diagnostic: cudaMalloc & cudaMemcpy x floats,	512,	0.000877275,	0.000050910,	512
+diagnostic: cudaMalloc & cudaMemcpy x floats,	512,	0.000883344,	0.000070174,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: cudaMalloc & cudaMemcpy x floats,	1024,	0.002106452,	0.000191428,	2
+diagnostic: cudaMalloc & cudaMemcpy x floats,	1024,	0.001849868,	0.000010050,	4
+diagnostic: cudaMalloc & cudaMemcpy x floats,	1024,	0.001866413,	0.000032198,	8
+diagnostic: cudaMalloc & cudaMemcpy x floats,	1024,	0.001860583,	0.000038297,	16
+diagnostic: cudaMalloc & cudaMemcpy x floats,	1024,	0.001868237,	0.000076980,	32
+diagnostic: cudaMalloc & cudaMemcpy x floats,	1024,	0.001937885,	0.000151119,	64
+diagnostic: cudaMalloc & cudaMemcpy x floats,	1024,	0.001934024,	0.000232433,	128
+diagnostic: cudaMalloc & cudaMemcpy x floats,	1024,	0.001911085,	0.000066557,	256
+diagnostic: cudaMalloc & cudaMemcpy x floats,	1024,	0.001915570,	0.000105266,	512
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels,	2,	0.000012564,	0.000005200,	2
+diagnostic: launch x kernels,	2,	0.000007860,	0.000001095,	4
+diagnostic: launch x kernels,	2,	0.000007701,	0.000001217,	8
+diagnostic: launch x kernels,	2,	0.000007448,	0.000001015,	16
+diagnostic: launch x kernels,	2,	0.000008187,	0.000001339,	32
+diagnostic: launch x kernels,	2,	0.000007758,	0.000001259,	64
+diagnostic: launch x kernels,	2,	0.000007646,	0.000001391,	128
+diagnostic: launch x kernels,	2,	0.000006548,	0.000000589,	256
+diagnostic: launch x kernels,	2,	0.000013016,	0.000102990,	512
+diagnostic: launch x kernels,	2,	0.000012921,	0.000109468,	1024
+diagnostic: launch x kernels,	2,	0.000012585,	0.000104376,	2048
+diagnostic: launch x kernels,	2,	0.000012699,	0.000105048,	4096
+diagnostic: launch x kernels,	2,	0.000012815,	0.000107184,	8192
+diagnostic: launch x kernels,	2,	0.000013154,	0.000110041,	16384
+diagnostic: launch x kernels,	2,	0.000013069,	0.000110292,	32768
+diagnostic: launch x kernels,	2,	0.000012725,	0.000106545,	65536
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels,	4,	0.000019652,	0.000006187,	2
+diagnostic: launch x kernels,	4,	0.000014548,	0.000001811,	4
+diagnostic: launch x kernels,	4,	0.000014410,	0.000001900,	8
+diagnostic: launch x kernels,	4,	0.000014765,	0.000001339,	16
+diagnostic: launch x kernels,	4,	0.000014479,	0.000001961,	32
+diagnostic: launch x kernels,	4,	0.000013088,	0.000000723,	64
+diagnostic: launch x kernels,	4,	0.000045228,	0.000251555,	128
+diagnostic: launch x kernels,	4,	0.000047126,	0.000250706,	256
+diagnostic: launch x kernels,	4,	0.000050650,	0.000265497,	512
+diagnostic: launch x kernels,	4,	0.000054284,	0.000275498,	1024
+diagnostic: launch x kernels,	4,	0.000049958,	0.000261978,	2048
+diagnostic: launch x kernels,	4,	0.000054580,	0.000282748,	4096
+diagnostic: launch x kernels,	4,	0.000053394,	0.000232420,	8192
+diagnostic: launch x kernels,	4,	0.000051810,	0.000273195,	16384
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels,	8,	0.000041894,	0.000002490,	2
+diagnostic: launch x kernels,	8,	0.000033576,	0.000003911,	4
+diagnostic: launch x kernels,	8,	0.000030289,	0.000003353,	8
+diagnostic: launch x kernels,	8,	0.000032776,	0.000005915,	16
+diagnostic: launch x kernels,	8,	0.000029123,	0.000003203,	32
+diagnostic: launch x kernels,	8,	0.000027013,	0.000004248,	64
+diagnostic: launch x kernels,	8,	0.000058225,	0.000253413,	128
+diagnostic: launch x kernels,	8,	0.000051549,	0.000219908,	256
+diagnostic: launch x kernels,	8,	0.000050428,	0.000209564,	512
+diagnostic: launch x kernels,	8,	0.000050586,	0.000210310,	1024
+diagnostic: launch x kernels,	8,	0.000048494,	0.000202101,	2048
+diagnostic: launch x kernels,	8,	0.000049408,	0.000206997,	4096
+diagnostic: launch x kernels,	8,	0.000048828,	0.000203527,	8192
+diagnostic: launch x kernels,	8,	0.000052848,	0.000208634,	16384
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels,	16,	0.000082837,	0.000008606,	2
+diagnostic: launch x kernels,	16,	0.000074684,	0.000004518,	4
+diagnostic: launch x kernels,	16,	0.000064722,	0.000007549,	8
+diagnostic: launch x kernels,	16,	0.000060407,	0.000005498,	16
+diagnostic: launch x kernels,	16,	0.000055586,	0.000007513,	32
+diagnostic: launch x kernels,	16,	0.000086531,	0.000252686,	64
+diagnostic: launch x kernels,	16,	0.000102847,	0.000308665,	128
+diagnostic: launch x kernels,	16,	0.000101653,	0.000309057,	256
+diagnostic: launch x kernels,	16,	0.000106131,	0.000322501,	512
+diagnostic: launch x kernels,	16,	0.000100137,	0.000302376,	1024
+diagnostic: launch x kernels,	16,	0.000100616,	0.000299052,	2048
+diagnostic: launch x kernels,	16,	0.000096711,	0.000285871,	4096
+diagnostic: launch x kernels,	16,	0.000104277,	0.000299231,	8192
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels,	32,	0.000901671,	0.000069542,	2
+diagnostic: launch x kernels,	32,	0.000853928,	0.000012287,	4
+diagnostic: launch x kernels,	32,	0.000897476,	0.000054586,	8
+diagnostic: launch x kernels,	32,	0.000909629,	0.000068407,	16
+diagnostic: launch x kernels,	32,	0.000262001,	0.000299431,	32
+diagnostic: launch x kernels,	32,	0.000194660,	0.000398002,	64
+diagnostic: launch x kernels,	32,	0.000229361,	0.000472172,	128
+diagnostic: launch x kernels,	32,	0.000202538,	0.000428559,	256
+diagnostic: launch x kernels,	32,	0.000193766,	0.000404576,	512
+diagnostic: launch x kernels,	32,	0.000206188,	0.000437334,	1024
+diagnostic: launch x kernels,	32,	0.000377261,	0.000678533,	2048
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels,	64,	0.000448646,	0.000008772,	2
+diagnostic: launch x kernels,	64,	0.000409036,	0.000016234,	4
+diagnostic: launch x kernels,	64,	0.000608316,	0.000655543,	8
+diagnostic: launch x kernels,	64,	0.000819080,	0.000908044,	16
+diagnostic: launch x kernels,	64,	0.000814862,	0.000880389,	32
+diagnostic: launch x kernels,	64,	0.000833371,	0.000934267,	64
+diagnostic: launch x kernels,	64,	0.000813595,	0.000910245,	128
+diagnostic: launch x kernels,	64,	0.000826353,	0.000911127,	256
+diagnostic: launch x kernels,	64,	0.000793154,	0.000900870,	512
+diagnostic: launch x kernels,	64,	0.000422239,	0.000509538,	1024
+diagnostic: launch x kernels,	64,	0.000415804,	0.000506923,	2048
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels,	128,	0.000462708,	0.000016060,	2
+diagnostic: launch x kernels,	128,	0.000432556,	0.000008097,	4
+diagnostic: launch x kernels,	128,	0.001846274,	0.000824780,	8
+diagnostic: launch x kernels,	128,	0.001715114,	0.000970916,	16
+diagnostic: launch x kernels,	128,	0.001359859,	0.001002316,	32
+diagnostic: launch x kernels,	128,	0.000792311,	0.000772354,	64
+diagnostic: launch x kernels,	128,	0.000765912,	0.000743143,	128
+diagnostic: launch x kernels,	128,	0.000780377,	0.000749800,	256
+diagnostic: launch x kernels,	128,	0.000791656,	0.000766203,	512
+diagnostic: launch x kernels,	128,	0.000808522,	0.000830573,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels,	256,	0.000904160,	0.000034089,	2
+diagnostic: launch x kernels,	256,	0.003186517,	0.001546499,	4
+diagnostic: launch x kernels,	256,	0.003457489,	0.000845191,	8
+diagnostic: launch x kernels,	256,	0.002212988,	0.001370214,	16
+diagnostic: launch x kernels,	256,	0.001638784,	0.001005790,	32
+diagnostic: launch x kernels,	256,	0.001533439,	0.000950924,	64
+diagnostic: launch x kernels,	256,	0.001577113,	0.000959119,	128
+diagnostic: launch x kernels,	256,	0.001573494,	0.000964713,	256
+diagnostic: launch x kernels,	256,	0.001550236,	0.000963148,	512
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels,	512,	0.004688345,	0.001383645,	2
+diagnostic: launch x kernels,	512,	0.006614984,	0.000779075,	4
+diagnostic: launch x kernels,	512,	0.007686158,	0.001961732,	8
+diagnostic: launch x kernels,	512,	0.006913076,	0.000969146,	16
+diagnostic: launch x kernels,	512,	0.005744822,	0.001712297,	32
+diagnostic: launch x kernels,	512,	0.006452058,	0.000804808,	64
+diagnostic: launch x kernels,	512,	0.006630428,	0.000959308,	128
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels,	1024,	0.009577950,	0.004017919,	2
+diagnostic: launch x kernels,	1024,	0.012248589,	0.000946900,	4
+diagnostic: launch x kernels,	1024,	0.013502125,	0.001287289,	8
+diagnostic: launch x kernels,	1024,	0.012563430,	0.000973917,	16
+diagnostic: launch x kernels,	1024,	0.015797504,	0.006395043,	32
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels sequentially,	2,	0.000146499,	0.000018384,	2
+diagnostic: launch x kernels sequentially,	2,	0.000100972,	0.000006613,	4
+diagnostic: launch x kernels sequentially,	2,	0.000106148,	0.000007366,	8
+diagnostic: launch x kernels sequentially,	2,	0.000104638,	0.000005260,	16
+diagnostic: launch x kernels sequentially,	2,	0.000101999,	0.000002943,	32
+diagnostic: launch x kernels sequentially,	2,	0.000104153,	0.000005346,	64
+diagnostic: launch x kernels sequentially,	2,	0.000108408,	0.000010396,	128
+diagnostic: launch x kernels sequentially,	2,	0.000126622,	0.000020092,	256
+diagnostic: launch x kernels sequentially,	2,	0.000105734,	0.000014821,	512
+diagnostic: launch x kernels sequentially,	2,	0.000106180,	0.000010921,	1024
+diagnostic: launch x kernels sequentially,	2,	0.000104067,	0.000010930,	2048
+diagnostic: launch x kernels sequentially,	2,	0.000107719,	0.000012465,	4096
+diagnostic: launch x kernels sequentially,	2,	0.000106173,	0.000011490,	8192
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels sequentially,	4,	0.000236880,	0.000009949,	2
+diagnostic: launch x kernels sequentially,	4,	0.000219096,	0.000018464,	4
+diagnostic: launch x kernels sequentially,	4,	0.000204040,	0.000002993,	8
+diagnostic: launch x kernels sequentially,	4,	0.000212575,	0.000007640,	16
+diagnostic: launch x kernels sequentially,	4,	0.000211932,	0.000008340,	32
+diagnostic: launch x kernels sequentially,	4,	0.000209647,	0.000014729,	64
+diagnostic: launch x kernels sequentially,	4,	0.000211072,	0.000014594,	128
+diagnostic: launch x kernels sequentially,	4,	0.000212963,	0.000022522,	256
+diagnostic: launch x kernels sequentially,	4,	0.000211152,	0.000016397,	512
+diagnostic: launch x kernels sequentially,	4,	0.000220359,	0.000029868,	1024
+diagnostic: launch x kernels sequentially,	4,	0.000221971,	0.000029146,	2048
+diagnostic: launch x kernels sequentially,	4,	0.000214644,	0.000023717,	4096
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels sequentially,	8,	0.000449588,	0.000042916,	2
+diagnostic: launch x kernels sequentially,	8,	0.000401682,	0.000003068,	4
+diagnostic: launch x kernels sequentially,	8,	0.000405765,	0.000009096,	8
+diagnostic: launch x kernels sequentially,	8,	0.000421301,	0.000026746,	16
+diagnostic: launch x kernels sequentially,	8,	0.000415600,	0.000026173,	32
+diagnostic: launch x kernels sequentially,	8,	0.000421448,	0.000032768,	64
+diagnostic: launch x kernels sequentially,	8,	0.000411694,	0.000026685,	128
+diagnostic: launch x kernels sequentially,	8,	0.000413111,	0.000024643,	256
+diagnostic: launch x kernels sequentially,	8,	0.000416882,	0.000026864,	512
+diagnostic: launch x kernels sequentially,	8,	0.000423195,	0.000031463,	1024
+diagnostic: launch x kernels sequentially,	8,	0.000431826,	0.000039425,	2048
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels sequentially,	16,	0.000926067,	0.000024516,	2
+diagnostic: launch x kernels sequentially,	16,	0.000864676,	0.000019235,	4
+diagnostic: launch x kernels sequentially,	16,	0.000822327,	0.000005337,	8
+diagnostic: launch x kernels sequentially,	16,	0.000863510,	0.000031909,	16
+diagnostic: launch x kernels sequentially,	16,	0.000852593,	0.000051848,	32
+diagnostic: launch x kernels sequentially,	16,	0.000857521,	0.000045633,	64
+diagnostic: launch x kernels sequentially,	16,	0.000860090,	0.000052687,	128
+diagnostic: launch x kernels sequentially,	16,	0.000878879,	0.000092928,	256
+diagnostic: launch x kernels sequentially,	16,	0.000850066,	0.000044043,	512
+diagnostic: launch x kernels sequentially,	16,	0.000905290,	0.000117279,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels sequentially,	32,	0.001727503,	0.000028529,	2
+diagnostic: launch x kernels sequentially,	32,	0.001707608,	0.000053906,	4
+diagnostic: launch x kernels sequentially,	32,	0.001692724,	0.000047703,	8
+diagnostic: launch x kernels sequentially,	32,	0.001694520,	0.000094201,	16
+diagnostic: launch x kernels sequentially,	32,	0.001721549,	0.000078087,	32
+diagnostic: launch x kernels sequentially,	32,	0.001708227,	0.000061082,	64
+diagnostic: launch x kernels sequentially,	32,	0.001715926,	0.000080633,	128
+diagnostic: launch x kernels sequentially,	32,	0.001739994,	0.000135904,	256
+diagnostic: launch x kernels sequentially,	32,	0.001736069,	0.000161824,	512
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels sequentially,	64,	0.003311942,	0.000001072,	2
+diagnostic: launch x kernels sequentially,	64,	0.003442407,	0.000093881,	4
+diagnostic: launch x kernels sequentially,	64,	0.003391935,	0.000068374,	8
+diagnostic: launch x kernels sequentially,	64,	0.003358352,	0.000076383,	16
+diagnostic: launch x kernels sequentially,	64,	0.003406912,	0.000078884,	32
+diagnostic: launch x kernels sequentially,	64,	0.003418234,	0.000092273,	64
+diagnostic: launch x kernels sequentially,	64,	0.003600172,	0.000414629,	128
+diagnostic: launch x kernels sequentially,	64,	0.003535969,	0.000274450,	256
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels sequentially,	128,	0.008583828,	0.000026643,	2
+diagnostic: launch x kernels sequentially,	128,	0.006819980,	0.000100496,	4
+diagnostic: launch x kernels sequentially,	128,	0.006763793,	0.000068907,	8
+diagnostic: launch x kernels sequentially,	128,	0.006744790,	0.000145369,	16
+diagnostic: launch x kernels sequentially,	128,	0.007090340,	0.000667070,	32
+diagnostic: launch x kernels sequentially,	128,	0.006855400,	0.000222072,	64
+diagnostic: launch x kernels sequentially,	128,	0.007173011,	0.000671672,	128
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels sequentially,	256,	0.013582024,	0.000007442,	2
+diagnostic: launch x kernels sequentially,	256,	0.013487741,	0.000366117,	4
+diagnostic: launch x kernels sequentially,	256,	0.013272026,	0.000124531,	8
+diagnostic: launch x kernels sequentially,	256,	0.013385824,	0.000244037,	16
+diagnostic: launch x kernels sequentially,	256,	0.013628673,	0.000380713,	32
+diagnostic: launch x kernels sequentially,	256,	0.013923064,	0.000915861,	64
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels sequentially,	512,	0.027186000,	0.000018267,	2
+diagnostic: launch x kernels sequentially,	512,	0.027260527,	0.000627573,	4
+diagnostic: launch x kernels sequentially,	512,	0.026723430,	0.000240436,	8
+diagnostic: launch x kernels sequentially,	512,	0.026872429,	0.000444366,	16
+diagnostic: launch x kernels sequentially,	512,	0.027330476,	0.000714500,	32
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+diagnostic: launch x kernels sequentially,	1024,	0.054559397,	0.000195500,	2
+diagnostic: launch x kernels sequentially,	1024,	0.054543703,	0.000848748,	4
+diagnostic: launch x kernels sequentially,	1024,	0.056283483,	0.002581700,	8
+diagnostic: launch x kernels sequentially,	1024,	0.055592462,	0.003290530,	16
