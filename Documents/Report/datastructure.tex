@@ -55,7 +55,7 @@ Cycles per <CPU Indexing 1d>: 1.395017
 Cycles per <CPU Indexing 2d>: 1.306896
 \end{lstlisting}
 
-Something that \textit{can} impact performance, however, is locality \cite[Sect. 6.2]{computersystems}. As mentioned in \ref{background_gpu}, the CPU stores nearby data in the cache, and this enables us to get better performance in a program, since cache access at least 10x faster than main memory access. With a \texttt{float **} each row may be allocated in completely different places in memory, meaning when we access a new row, that row is likely not in the cache.
+Something that \textit{can} impact performance, however, is locality \cite[Sect. 6.2]{computersystems}. As mentioned in \ref{sect:background_gpu}, the CPU stores nearby data in the cache, and this enables us to get better performance in a program, since cache access at least 10x faster than main memory access. With a \texttt{float **} each row may be allocated in completely different places in memory, meaning when we access a new row, that row is likely not in the cache.
 
 With a \texttt{float *}, each row is allocated in continuation of the last, enabling us to utilize optimal spatial locality, when traversing the matrix row major order. When traversing the matrix column major order we run into the problem of bad locality in both implementations.\\
 
