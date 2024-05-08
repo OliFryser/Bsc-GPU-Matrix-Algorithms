@@ -1,0 +1,75 @@
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: qr gpu single core,	2,	0.001366669,	0.000753145,	2
+M1: qr gpu single core,	2,	0.000573988,	0.000010578,	4
+M1: qr gpu single core,	2,	0.000634954,	0.000054210,	8
+M1: qr gpu single core,	2,	0.000582655,	0.000058907,	16
+M1: qr gpu single core,	2,	0.000580271,	0.000083265,	32
+M1: qr gpu single core,	2,	0.000550370,	0.000033039,	64
+M1: qr gpu single core,	2,	0.000555653,	0.000025280,	128
+M1: qr gpu single core,	2,	0.000555882,	0.000037752,	256
+M1: qr gpu single core,	2,	0.000577355,	0.000051972,	512
+M1: qr gpu single core,	2,	0.000549520,	0.000045698,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: qr gpu single core,	4,	0.001509023,	0.000836798,	2
+M1: qr gpu single core,	4,	0.000654750,	0.000017895,	4
+M1: qr gpu single core,	4,	0.000641411,	0.000076387,	8
+M1: qr gpu single core,	4,	0.000602708,	0.000080665,	16
+M1: qr gpu single core,	4,	0.000617201,	0.000092171,	32
+M1: qr gpu single core,	4,	0.000653989,	0.000111884,	64
+M1: qr gpu single core,	4,	0.000613134,	0.000088265,	128
+M1: qr gpu single core,	4,	0.000615840,	0.000091890,	256
+M1: qr gpu single core,	4,	0.000596678,	0.000077405,	512
+M1: qr gpu single core,	4,	0.000567989,	0.000063144,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: qr gpu single core,	8,	0.001318090,	0.000737615,	2
+M1: qr gpu single core,	8,	0.000631210,	0.000076807,	4
+M1: qr gpu single core,	8,	0.000600009,	0.000087786,	8
+M1: qr gpu single core,	8,	0.000604212,	0.000080273,	16
+M1: qr gpu single core,	8,	0.000562089,	0.000065937,	32
+M1: qr gpu single core,	8,	0.000616007,	0.000092231,	64
+M1: qr gpu single core,	8,	0.000613354,	0.000083758,	128
+M1: qr gpu single core,	8,	0.000579440,	0.000068838,	256
+M1: qr gpu single core,	8,	0.000562901,	0.000047272,	512
+M1: qr gpu single core,	8,	0.000601316,	0.000083897,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: qr gpu single core,	16,	0.001411434,	0.000756090,	2
+M1: qr gpu single core,	16,	0.000656680,	0.000028034,	4
+M1: qr gpu single core,	16,	0.000625580,	0.000014090,	8
+M1: qr gpu single core,	16,	0.000645511,	0.000028954,	16
+M1: qr gpu single core,	16,	0.000616646,	0.000028007,	32
+M1: qr gpu single core,	16,	0.000699140,	0.000100042,	64
+M1: qr gpu single core,	16,	0.000726310,	0.000103579,	128
+M1: qr gpu single core,	16,	0.000721370,	0.000089067,	256
+M1: qr gpu single core,	16,	0.000639417,	0.000039020,	512
+M1: qr gpu single core,	16,	0.000620972,	0.000033960,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: qr gpu single core,	32,	0.001786232,	0.000691119,	2
+M1: qr gpu single core,	32,	0.001043152,	0.000019299,	4
+M1: qr gpu single core,	32,	0.001042004,	0.000014584,	8
+M1: qr gpu single core,	32,	0.001052809,	0.000025227,	16
+M1: qr gpu single core,	32,	0.001022815,	0.000020383,	32
+M1: qr gpu single core,	32,	0.001037697,	0.000032380,	64
+M1: qr gpu single core,	32,	0.001127034,	0.000047192,	128
+M1: qr gpu single core,	32,	0.001080420,	0.000050430,	256
+M1: qr gpu single core,	32,	0.001065741,	0.000046132,	512
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: qr gpu single core,	64,	0.004702080,	0.000795129,	2
+M1: qr gpu single core,	64,	0.004011124,	0.000066310,	4
+M1: qr gpu single core,	64,	0.003945332,	0.000056916,	8
+M1: qr gpu single core,	64,	0.003947584,	0.000050274,	16
+M1: qr gpu single core,	64,	0.003981308,	0.000082482,	32
+M1: qr gpu single core,	64,	0.003969677,	0.000110704,	64
+M1: qr gpu single core,	64,	0.004124875,	0.000070463,	128
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: qr gpu single core,	128,	0.026932005,	0.000986703,	2
+M1: qr gpu single core,	128,	0.026086178,	0.000164663,	4
+M1: qr gpu single core,	128,	0.025958282,	0.000083276,	8
+M1: qr gpu single core,	128,	0.026108246,	0.000211682,	16
+M1: qr gpu single core,	128,	0.026004249,	0.000123578,	32
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: qr gpu single core,	256,	0.234963319,	0.000366432,	2
+M1: qr gpu single core,	256,	0.234409372,	0.000518519,	4
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: qr gpu single core,	512,	5.307574859,	0.010911257,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: qr gpu single core,	1024,	66.915174498,	0.073731335,	2

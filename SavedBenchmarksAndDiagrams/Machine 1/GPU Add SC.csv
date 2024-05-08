@@ -1,0 +1,98 @@
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: addition gpu single core,	2,	0.001385044,	0.000819309,	2
+M1: addition gpu single core,	2,	0.000560593,	0.000018480,	4
+M1: addition gpu single core,	2,	0.000564750,	0.000073724,	8
+M1: addition gpu single core,	2,	0.000492740,	0.000030235,	16
+M1: addition gpu single core,	2,	0.000501692,	0.000042103,	32
+M1: addition gpu single core,	2,	0.000515652,	0.000048757,	64
+M1: addition gpu single core,	2,	0.000495834,	0.000021848,	128
+M1: addition gpu single core,	2,	0.000488056,	0.000047740,	256
+M1: addition gpu single core,	2,	0.000512015,	0.000047474,	512
+M1: addition gpu single core,	2,	0.000513834,	0.000050362,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: addition gpu single core,	4,	0.001300685,	0.000742279,	2
+M1: addition gpu single core,	4,	0.000613170,	0.000062379,	4
+M1: addition gpu single core,	4,	0.000517415,	0.000025040,	8
+M1: addition gpu single core,	4,	0.000552124,	0.000074373,	16
+M1: addition gpu single core,	4,	0.000509687,	0.000036481,	32
+M1: addition gpu single core,	4,	0.000527496,	0.000053465,	64
+M1: addition gpu single core,	4,	0.000535902,	0.000111167,	128
+M1: addition gpu single core,	4,	0.000521436,	0.000045966,	256
+M1: addition gpu single core,	4,	0.000514946,	0.000058820,	512
+M1: addition gpu single core,	4,	0.000478403,	0.000064590,	1024
+M1: addition gpu single core,	4,	0.000513257,	0.000063558,	2048
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: addition gpu single core,	8,	0.001271365,	0.000671629,	2
+M1: addition gpu single core,	8,	0.000519251,	0.000015585,	4
+M1: addition gpu single core,	8,	0.000506427,	0.000018081,	8
+M1: addition gpu single core,	8,	0.000514058,	0.000034940,	16
+M1: addition gpu single core,	8,	0.000505727,	0.000070425,	32
+M1: addition gpu single core,	8,	0.000483187,	0.000067235,	64
+M1: addition gpu single core,	8,	0.000436062,	0.000040137,	128
+M1: addition gpu single core,	8,	0.000430072,	0.000034141,	256
+M1: addition gpu single core,	8,	0.000455260,	0.000044644,	512
+M1: addition gpu single core,	8,	0.000503223,	0.000042702,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: addition gpu single core,	16,	0.001230061,	0.000711425,	2
+M1: addition gpu single core,	16,	0.000512244,	0.000014720,	4
+M1: addition gpu single core,	16,	0.000503513,	0.000012848,	8
+M1: addition gpu single core,	16,	0.000516281,	0.000065212,	16
+M1: addition gpu single core,	16,	0.000483209,	0.000020665,	32
+M1: addition gpu single core,	16,	0.000487704,	0.000027002,	64
+M1: addition gpu single core,	16,	0.000497875,	0.000033906,	128
+M1: addition gpu single core,	16,	0.000491788,	0.000023316,	256
+M1: addition gpu single core,	16,	0.000493628,	0.000046796,	512
+M1: addition gpu single core,	16,	0.000490899,	0.000077321,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: addition gpu single core,	32,	0.001223031,	0.000638445,	2
+M1: addition gpu single core,	32,	0.000545380,	0.000026860,	4
+M1: addition gpu single core,	32,	0.000538486,	0.000014041,	8
+M1: addition gpu single core,	32,	0.000537190,	0.000015919,	16
+M1: addition gpu single core,	32,	0.000518279,	0.000016860,	32
+M1: addition gpu single core,	32,	0.000549288,	0.000059914,	64
+M1: addition gpu single core,	32,	0.000540141,	0.000037567,	128
+M1: addition gpu single core,	32,	0.000541939,	0.000031054,	256
+M1: addition gpu single core,	32,	0.000538622,	0.000036103,	512
+M1: addition gpu single core,	32,	0.000515730,	0.000038520,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: addition gpu single core,	64,	0.001419708,	0.000704494,	2
+M1: addition gpu single core,	64,	0.000645755,	0.000022914,	4
+M1: addition gpu single core,	64,	0.000665632,	0.000030057,	8
+M1: addition gpu single core,	64,	0.000672537,	0.000066498,	16
+M1: addition gpu single core,	64,	0.000665325,	0.000086527,	32
+M1: addition gpu single core,	64,	0.000645411,	0.000048823,	64
+M1: addition gpu single core,	64,	0.000631409,	0.000058698,	128
+M1: addition gpu single core,	64,	0.000635607,	0.000064845,	256
+M1: addition gpu single core,	64,	0.000621795,	0.000040487,	512
+M1: addition gpu single core,	64,	0.000628919,	0.000055977,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: addition gpu single core,	128,	0.001894470,	0.000854208,	2
+M1: addition gpu single core,	128,	0.001044192,	0.000011894,	4
+M1: addition gpu single core,	128,	0.001105078,	0.000151197,	8
+M1: addition gpu single core,	128,	0.001099677,	0.000136615,	16
+M1: addition gpu single core,	128,	0.001044157,	0.000064728,	32
+M1: addition gpu single core,	128,	0.001050917,	0.000080958,	64
+M1: addition gpu single core,	128,	0.001064190,	0.000083108,	128
+M1: addition gpu single core,	128,	0.001026000,	0.000077751,	256
+M1: addition gpu single core,	128,	0.001015063,	0.000042502,	512
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: addition gpu single core,	256,	0.003214860,	0.000711710,	2
+M1: addition gpu single core,	256,	0.002504340,	0.000012774,	4
+M1: addition gpu single core,	256,	0.002483816,	0.000028776,	8
+M1: addition gpu single core,	256,	0.002508179,	0.000087193,	16
+M1: addition gpu single core,	256,	0.002493033,	0.000042330,	32
+M1: addition gpu single core,	256,	0.002485411,	0.000030269,	64
+M1: addition gpu single core,	256,	0.002522875,	0.000059304,	128
+M1: addition gpu single core,	256,	0.002512299,	0.000062767,	256
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: addition gpu single core,	512,	0.009774783,	0.000839572,	2
+M1: addition gpu single core,	512,	0.008626718,	0.000052139,	4
+M1: addition gpu single core,	512,	0.008663089,	0.000039009,	8
+M1: addition gpu single core,	512,	0.008720018,	0.000116615,	16
+M1: addition gpu single core,	512,	0.008743068,	0.000188608,	32
+M1: addition gpu single core,	512,	0.008733831,	0.000130295,	64
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M1: addition gpu single core,	1024,	0.038212180,	0.005662713,	2
+M1: addition gpu single core,	1024,	0.032495252,	0.000217003,	4
+M1: addition gpu single core,	1024,	0.033178336,	0.002177821,	8
+M1: addition gpu single core,	1024,	0.032514046,	0.000570316,	16

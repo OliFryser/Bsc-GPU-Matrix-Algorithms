@@ -76,7 +76,7 @@ timestamp = datetime.now().strftime("%m-%d %H:%M:%S")
 csv_path = "BenchmarkData/" + timestamp + ".csv"
 
 # TWEAK THESE
-algorithms_to_run = gpu_diagnostics #[addition_cpu, addition_cpu_2d, addition_gpu_single_core, addition_gpu_single_core_2d, addition_gpu_multi_core, addition_gpu_multi_core_2d] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
+algorithms_to_run = ["M1: " + qr_gpu_parallel_max] #[addition_cpu, addition_cpu_2d, addition_gpu_single_core, addition_gpu_single_core_2d, addition_gpu_multi_core, addition_gpu_multi_core_2d] # ["diagnostic: launch kernel 1 block 1 thread", "diagnostic: launch kernel scaling grid and blocks", "diagnostic: cudaMalloc", "diagnostic: cudaMemcpy", "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread", "diagnostic: cudaMemcpy & launch larger kernel"]
 additional_algorithms_to_compare = [] #[qr_gpu_single_core, qr_gpu_parallel_max]
 additional_csv_files_to_include = []
 

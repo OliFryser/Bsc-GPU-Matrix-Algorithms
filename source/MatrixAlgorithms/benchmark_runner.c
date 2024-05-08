@@ -96,42 +96,43 @@ int main(int argc, char *argv[]) {
     dimension = atoi(str_dimension);
     save_file_name = argv[3];
 
-    if (strcmp(algorithm, "addition cpu") == 0)
+    if (strcmp(algorithm, "M1: addition cpu") == 0)
         matrix_algorithm = &matrix_addition_adapter;
-    else if (strcmp(algorithm, "addition gpu single core") == 0)
+    else if (strcmp(algorithm, "M1: addition gpu single core") == 0)
         matrix_algorithm = &cuda_matrix_addition_single_core_adapter;
-    else if (strcmp(algorithm, "addition gpu multi core") == 0)
+    else if (strcmp(algorithm, "M1: addition gpu multi core") == 0)
         matrix_algorithm = &cuda_matrix_addition_multi_core_adapter;
-    else if (strcmp(algorithm, "addition gpu multi core 2") == 0)
+    else if (strcmp(algorithm, "M1: addition gpu multi core 2") == 0)
         matrix_algorithm = &cuda_matrix_addition_multi_core2_adapter;
-    else if (strcmp(algorithm, "addition gpu blocks") == 0)
+    else if (strcmp(algorithm, "M1: addition gpu blocks") == 0)
         matrix_algorithm = &cuda_matrix_addition_blocks_adapter;
-    else if (strcmp(algorithm, "multiplication cpu") == 0)
+    else if (strcmp(algorithm, "M1: multiplication cpu") == 0)
         matrix_algorithm = &matrix_multiplication_adapter;
-    else if (strcmp(algorithm, "multiplication gpu single core") == 0)
+    else if (strcmp(algorithm, "M1: multiplication gpu single core") == 0)
         matrix_algorithm = &cuda_matrix_multiplication_single_core_adapter;
-    else if (strcmp(algorithm, "multiplication gpu multi core unwrapping i") ==
-             0)
+    else if (strcmp(algorithm,
+                 "M1: multiplication gpu multi core unwrapping i") == 0)
         matrix_algorithm =
             &cuda_matrix_multiplication_multi_core_unwrapping_i_adapter;
     else if (strcmp(algorithm,
-                 "multiplication gpu multi core unwrapping i and j") == 0)
+                 "M1: multiplication gpu multi core unwrapping i and j") == 0)
         matrix_algorithm =
             &cuda_matrix_multiplication_multi_core_unwrapping_i_and_j_adapter;
-    else if (strcmp(algorithm, "shared memory multiplication") == 0)
+    else if (strcmp(algorithm, "M1: shared memory multiplication") == 0)
         matrix_algorithm =
             &cuda_matrix_multiplication_multi_core_shared_memory_adapter;
-    else if (strcmp(algorithm, "shared memory fewer accesses") == 0)
+    else if (strcmp(algorithm, "M1: shared memory fewer accesses") == 0)
         matrix_algorithm =
             &cuda_matrix_multiplication_multi_core_shared_memory_fewer_accesses_adapter;
-    else if (strcmp(algorithm, "qr cpu") == 0)
+    else if (strcmp(algorithm, "M1: qr cpu") == 0)
         matrix_algorithm = &matrix_qr_decomposition_adapter;
-    else if (strcmp(algorithm, "qr gpu parallel max") == 0)
+    else if (strcmp(algorithm, "M1: qr gpu parallel max") == 0)
         matrix_algorithm = &cuda_matrix_qr_decomposition_parallel_max_adapter;
-    else if (strcmp(algorithm, "qr gpu single core") == 0)
+    else if (strcmp(algorithm, "M1: qr gpu single core") == 0)
         matrix_algorithm = &cuda_matrix_qr_decomposition_single_core_adapter;
-    else if (strcmp(algorithm, "qr gpu multi core single kernel") == 0)
-        matrix_algorithm = &cuda_matrix_qr_decomposition_multi_core_single_kernel_adapter;
+    else if (strcmp(algorithm, "M1: qr gpu multi core single kernel") == 0)
+        matrix_algorithm =
+            &cuda_matrix_qr_decomposition_multi_core_single_kernel_adapter;
     else if (strcmp(algorithm, "diagnostic: launch kernel 1 block 1 thread") ==
              0)
         matrix_algorithm = &launch_kernel_1_block_1_thread_adapter;
@@ -140,7 +141,8 @@ int main(int argc, char *argv[]) {
         matrix_algorithm = &launch_kernel_scaling_with_dimension_adapter;
     else if (strcmp(algorithm, "diagnostic: cudaMalloc x floats") == 0)
         matrix_algorithm = &malloc_scaling_with_dimension_adapter;
-    else if (strcmp(algorithm, "diagnostic: cudaMalloc & cudaMemcpy x floats") == 0)
+    else if (strcmp(algorithm,
+                 "diagnostic: cudaMalloc & cudaMemcpy x floats") == 0)
         matrix_algorithm = &memcpy_scaling_with_dimension_adapter;
     else if (strcmp(algorithm,
                  "diagnostic: cudaMemcpy & launch kernel 1 block 1 thread") ==
@@ -151,7 +153,8 @@ int main(int argc, char *argv[]) {
         matrix_algorithm = &memcpy_and_larger_kernel_launch_adapter;
     else if (strcmp(algorithm, "diagnostic: launch x kernels") == 0)
         matrix_algorithm = &launch_x_kernels_adapter;
-    else if (strcmp(algorithm, "diagnostic: launch x kernels sequentially") == 0)
+    else if (strcmp(algorithm, "diagnostic: launch x kernels sequentially") ==
+             0)
         matrix_algorithm = &launch_x_kernels_sequentially_adapter;
     else if (strcmp(algorithm, "diagnostic: write managed") == 0)
         matrix_algorithm = &write_managed_vector_adapter;
