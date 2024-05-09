@@ -1,0 +1,758 @@
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition cpu,	2,	0.000000160,	0.000000061,	2
+M3: addition cpu,	2,	0.000000048,	0.000000031,	4
+M3: addition cpu,	2,	0.000000032,	0.000000007,	8
+M3: addition cpu,	2,	0.000000030,	0.000000000,	16
+M3: addition cpu,	2,	0.000000029,	0.000000004,	32
+M3: addition cpu,	2,	0.000000029,	0.000000003,	64
+M3: addition cpu,	2,	0.000000030,	0.000000004,	128
+M3: addition cpu,	2,	0.000000029,	0.000000003,	256
+M3: addition cpu,	2,	0.000000029,	0.000000003,	512
+M3: addition cpu,	2,	0.000000029,	0.000000003,	1024
+M3: addition cpu,	2,	0.000000029,	0.000000003,	2048
+M3: addition cpu,	2,	0.000000033,	0.000000227,	4096
+M3: addition cpu,	2,	0.000000029,	0.000000003,	8192
+M3: addition cpu,	2,	0.000000030,	0.000000078,	16384
+M3: addition cpu,	2,	0.000000029,	0.000000003,	32768
+M3: addition cpu,	2,	0.000000031,	0.000000005,	65536
+M3: addition cpu,	2,	0.000000029,	0.000000003,	131072
+M3: addition cpu,	2,	0.000000030,	0.000000117,	262144
+M3: addition cpu,	2,	0.000000030,	0.000000073,	524288
+M3: addition cpu,	2,	0.000000030,	0.000000073,	1048576
+M3: addition cpu,	2,	0.000000030,	0.000000057,	2097152
+M3: addition cpu,	2,	0.000000030,	0.000000053,	4194304
+M3: addition cpu,	2,	0.000000030,	0.000000044,	8388608
+M3: addition cpu,	2,	0.000000029,	0.000000036,	16777216
+M3: addition cpu,	2,	0.000000029,	0.000000036,	33554432
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition cpu,	4,	0.000000291,	0.000000201,	2
+M3: addition cpu,	4,	0.000000065,	0.000000021,	4
+M3: addition cpu,	4,	0.000000053,	0.000000004,	8
+M3: addition cpu,	4,	0.000000054,	0.000000005,	16
+M3: addition cpu,	4,	0.000000051,	0.000000003,	32
+M3: addition cpu,	4,	0.000000052,	0.000000004,	64
+M3: addition cpu,	4,	0.000000051,	0.000000003,	128
+M3: addition cpu,	4,	0.000000052,	0.000000004,	256
+M3: addition cpu,	4,	0.000000053,	0.000000004,	512
+M3: addition cpu,	4,	0.000000053,	0.000000004,	1024
+M3: addition cpu,	4,	0.000000052,	0.000000004,	2048
+M3: addition cpu,	4,	0.000000053,	0.000000004,	4096
+M3: addition cpu,	4,	0.000000051,	0.000000004,	8192
+M3: addition cpu,	4,	0.000000052,	0.000000062,	16384
+M3: addition cpu,	4,	0.000000052,	0.000000079,	32768
+M3: addition cpu,	4,	0.000000052,	0.000000038,	65536
+M3: addition cpu,	4,	0.000000053,	0.000000028,	131072
+M3: addition cpu,	4,	0.000000052,	0.000000067,	262144
+M3: addition cpu,	4,	0.000000052,	0.000000050,	524288
+M3: addition cpu,	4,	0.000000053,	0.000000028,	1048576
+M3: addition cpu,	4,	0.000000053,	0.000000039,	2097152
+M3: addition cpu,	4,	0.000000053,	0.000000054,	4194304
+M3: addition cpu,	4,	0.000000053,	0.000000059,	8388608
+M3: addition cpu,	4,	0.000000056,	0.000000074,	16777216
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition cpu,	8,	0.000000301,	0.000000111,	2
+M3: addition cpu,	8,	0.000000158,	0.000000008,	4
+M3: addition cpu,	8,	0.000000148,	0.000000004,	8
+M3: addition cpu,	8,	0.000000150,	0.000000006,	16
+M3: addition cpu,	8,	0.000000148,	0.000000006,	32
+M3: addition cpu,	8,	0.000000149,	0.000000008,	64
+M3: addition cpu,	8,	0.000000150,	0.000000006,	128
+M3: addition cpu,	8,	0.000000143,	0.000000005,	256
+M3: addition cpu,	8,	0.000000145,	0.000000006,	512
+M3: addition cpu,	8,	0.000000146,	0.000000006,	1024
+M3: addition cpu,	8,	0.000000147,	0.000000005,	2048
+M3: addition cpu,	8,	0.000000147,	0.000000006,	4096
+M3: addition cpu,	8,	0.000000142,	0.000000006,	8192
+M3: addition cpu,	8,	0.000000146,	0.000000062,	16384
+M3: addition cpu,	8,	0.000000146,	0.000000072,	32768
+M3: addition cpu,	8,	0.000000150,	0.000000187,	65536
+M3: addition cpu,	8,	0.000000145,	0.000000124,	131072
+M3: addition cpu,	8,	0.000000167,	0.000000140,	262144
+M3: addition cpu,	8,	0.000000163,	0.000000077,	524288
+M3: addition cpu,	8,	0.000000173,	0.000000150,	1048576
+M3: addition cpu,	8,	0.000000161,	0.000000097,	2097152
+M3: addition cpu,	8,	0.000000162,	0.000000098,	4194304
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition cpu,	16,	0.000000726,	0.000000135,	2
+M3: addition cpu,	16,	0.000000561,	0.000000019,	4
+M3: addition cpu,	16,	0.000000557,	0.000000007,	8
+M3: addition cpu,	16,	0.000000560,	0.000000007,	16
+M3: addition cpu,	16,	0.000000557,	0.000000013,	32
+M3: addition cpu,	16,	0.000000556,	0.000000009,	64
+M3: addition cpu,	16,	0.000000554,	0.000000007,	128
+M3: addition cpu,	16,	0.000000552,	0.000000008,	256
+M3: addition cpu,	16,	0.000000555,	0.000000007,	512
+M3: addition cpu,	16,	0.000000553,	0.000000009,	1024
+M3: addition cpu,	16,	0.000000543,	0.000000008,	2048
+M3: addition cpu,	16,	0.000000531,	0.000000355,	4096
+M3: addition cpu,	16,	0.000000534,	0.000000118,	8192
+M3: addition cpu,	16,	0.000000547,	0.000000229,	16384
+M3: addition cpu,	16,	0.000000565,	0.000000139,	32768
+M3: addition cpu,	16,	0.000000561,	0.000000210,	65536
+M3: addition cpu,	16,	0.000000564,	0.000000208,	131072
+M3: addition cpu,	16,	0.000000564,	0.000000123,	262144
+M3: addition cpu,	16,	0.000000566,	0.000000153,	524288
+M3: addition cpu,	16,	0.000000573,	0.000000146,	1048576
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition cpu,	32,	0.000002435,	0.000000401,	2
+M3: addition cpu,	32,	0.000002014,	0.000000019,	4
+M3: addition cpu,	32,	0.000002026,	0.000000028,	8
+M3: addition cpu,	32,	0.000002021,	0.000000013,	16
+M3: addition cpu,	32,	0.000002027,	0.000000018,	32
+M3: addition cpu,	32,	0.000002032,	0.000000009,	64
+M3: addition cpu,	32,	0.000002390,	0.000004126,	128
+M3: addition cpu,	32,	0.000002002,	0.000000013,	256
+M3: addition cpu,	32,	0.000001978,	0.000000015,	512
+M3: addition cpu,	32,	0.000001986,	0.000000158,	1024
+M3: addition cpu,	32,	0.000002042,	0.000000016,	2048
+M3: addition cpu,	32,	0.000002060,	0.000000376,	4096
+M3: addition cpu,	32,	0.000002150,	0.000000249,	8192
+M3: addition cpu,	32,	0.000002169,	0.000000332,	16384
+M3: addition cpu,	32,	0.000002159,	0.000000246,	32768
+M3: addition cpu,	32,	0.000002166,	0.000000223,	65536
+M3: addition cpu,	32,	0.000002167,	0.000000350,	131072
+M3: addition cpu,	32,	0.000002171,	0.000000228,	262144
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition cpu,	64,	0.000012083,	0.000002054,	2
+M3: addition cpu,	64,	0.000009899,	0.000000037,	4
+M3: addition cpu,	64,	0.000009910,	0.000000067,	8
+M3: addition cpu,	64,	0.000009901,	0.000000070,	16
+M3: addition cpu,	64,	0.000010279,	0.000002189,	32
+M3: addition cpu,	64,	0.000009835,	0.000000052,	64
+M3: addition cpu,	64,	0.000009687,	0.000000114,	128
+M3: addition cpu,	64,	0.000009820,	0.000000637,	256
+M3: addition cpu,	64,	0.000009951,	0.000000985,	512
+M3: addition cpu,	64,	0.000010165,	0.000000831,	1024
+M3: addition cpu,	64,	0.000010447,	0.000000891,	2048
+M3: addition cpu,	64,	0.000010413,	0.000000374,	4096
+M3: addition cpu,	64,	0.000010463,	0.000000502,	8192
+M3: addition cpu,	64,	0.000010476,	0.000000554,	16384
+M3: addition cpu,	64,	0.000010465,	0.000000597,	32768
+M3: addition cpu,	64,	0.000010466,	0.000000600,	65536
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition cpu,	128,	0.000038073,	0.000005771,	2
+M3: addition cpu,	128,	0.000032182,	0.000000060,	4
+M3: addition cpu,	128,	0.000032165,	0.000000053,	8
+M3: addition cpu,	128,	0.000033013,	0.000000465,	16
+M3: addition cpu,	128,	0.000032306,	0.000000403,	32
+M3: addition cpu,	128,	0.000033028,	0.000002353,	64
+M3: addition cpu,	128,	0.000032618,	0.000000899,	128
+M3: addition cpu,	128,	0.000033763,	0.000001955,	256
+M3: addition cpu,	128,	0.000034888,	0.000002214,	512
+M3: addition cpu,	128,	0.000035280,	0.000001722,	1024
+M3: addition cpu,	128,	0.000036260,	0.000001201,	2048
+M3: addition cpu,	128,	0.000036151,	0.000001413,	4096
+M3: addition cpu,	128,	0.000036080,	0.000001660,	8192
+M3: addition cpu,	128,	0.000035975,	0.000001476,	16384
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition cpu,	256,	0.000155863,	0.000022437,	2
+M3: addition cpu,	256,	0.000132140,	0.000001696,	4
+M3: addition cpu,	256,	0.000133716,	0.000003954,	8
+M3: addition cpu,	256,	0.000134570,	0.000003789,	16
+M3: addition cpu,	256,	0.000136077,	0.000001958,	32
+M3: addition cpu,	256,	0.000139374,	0.000004138,	64
+M3: addition cpu,	256,	0.000143041,	0.000004275,	128
+M3: addition cpu,	256,	0.000144066,	0.000003165,	256
+M3: addition cpu,	256,	0.000143849,	0.000004267,	512
+M3: addition cpu,	256,	0.000144668,	0.000005345,	1024
+M3: addition cpu,	256,	0.000143975,	0.000003771,	2048
+M3: addition cpu,	256,	0.000144343,	0.000003330,	4096
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition cpu,	512,	0.000625112,	0.000089440,	2
+M3: addition cpu,	512,	0.000543113,	0.000000981,	4
+M3: addition cpu,	512,	0.000554768,	0.000009833,	8
+M3: addition cpu,	512,	0.000573441,	0.000006409,	16
+M3: addition cpu,	512,	0.000575900,	0.000008027,	32
+M3: addition cpu,	512,	0.000578671,	0.000006433,	64
+M3: addition cpu,	512,	0.000580336,	0.000006172,	128
+M3: addition cpu,	512,	0.000578241,	0.000008956,	256
+M3: addition cpu,	512,	0.000579703,	0.000009724,	512
+M3: addition cpu,	512,	0.000578596,	0.000010745,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition cpu,	1024,	0.002826751,	0.000429239,	2
+M3: addition cpu,	1024,	0.002353559,	0.000030123,	4
+M3: addition cpu,	1024,	0.002335933,	0.000028722,	8
+M3: addition cpu,	1024,	0.002344478,	0.000019287,	16
+M3: addition cpu,	1024,	0.002346505,	0.000022099,	32
+M3: addition cpu,	1024,	0.002337607,	0.000024070,	64
+M3: addition cpu,	1024,	0.002344192,	0.000023670,	128
+M3: addition cpu,	1024,	0.002342984,	0.000037207,	256
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition gpu multi core 2,	2,	0.002659006,	0.002118891,	2
+M3: addition gpu multi core 2,	2,	0.000549723,	0.000026150,	4
+M3: addition gpu multi core 2,	2,	0.000507815,	0.000006751,	8
+M3: addition gpu multi core 2,	2,	0.000536142,	0.000046398,	16
+M3: addition gpu multi core 2,	2,	0.000507704,	0.000013354,	32
+M3: addition gpu multi core 2,	2,	0.000523453,	0.000047160,	64
+M3: addition gpu multi core 2,	2,	0.000531534,	0.000063301,	128
+M3: addition gpu multi core 2,	2,	0.000537586,	0.000044765,	256
+M3: addition gpu multi core 2,	2,	0.000532539,	0.000042057,	512
+M3: addition gpu multi core 2,	2,	0.000528327,	0.000063458,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition gpu multi core 2,	4,	0.000906656,	0.000361893,	2
+M3: addition gpu multi core 2,	4,	0.000508066,	0.000016841,	4
+M3: addition gpu multi core 2,	4,	0.000586272,	0.000087911,	8
+M3: addition gpu multi core 2,	4,	0.000513445,	0.000033469,	16
+M3: addition gpu multi core 2,	4,	0.000516112,	0.000017946,	32
+M3: addition gpu multi core 2,	4,	0.000536022,	0.000047642,	64
+M3: addition gpu multi core 2,	4,	0.000528211,	0.000033590,	128
+M3: addition gpu multi core 2,	4,	0.000527362,	0.000037864,	256
+M3: addition gpu multi core 2,	4,	0.000532202,	0.000074220,	512
+M3: addition gpu multi core 2,	4,	0.000528180,	0.000037343,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition gpu multi core 2,	8,	0.000939362,	0.000362966,	2
+M3: addition gpu multi core 2,	8,	0.000515419,	0.000005013,	4
+M3: addition gpu multi core 2,	8,	0.000524771,	0.000028079,	8
+M3: addition gpu multi core 2,	8,	0.000506794,	0.000007198,	16
+M3: addition gpu multi core 2,	8,	0.000517891,	0.000022507,	32
+M3: addition gpu multi core 2,	8,	0.000514617,	0.000020537,	64
+M3: addition gpu multi core 2,	8,	0.000524687,	0.000031838,	128
+M3: addition gpu multi core 2,	8,	0.000529082,	0.000035617,	256
+M3: addition gpu multi core 2,	8,	0.000530349,	0.000059176,	512
+M3: addition gpu multi core 2,	8,	0.000529710,	0.000061635,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition gpu multi core 2,	16,	0.000928641,	0.000383695,	2
+M3: addition gpu multi core 2,	16,	0.000561486,	0.000023007,	4
+M3: addition gpu multi core 2,	16,	0.000520787,	0.000011498,	8
+M3: addition gpu multi core 2,	16,	0.000517556,	0.000020073,	16
+M3: addition gpu multi core 2,	16,	0.000521240,	0.000036934,	32
+M3: addition gpu multi core 2,	16,	0.000545069,	0.000062098,	64
+M3: addition gpu multi core 2,	16,	0.000542472,	0.000045681,	128
+M3: addition gpu multi core 2,	16,	0.000541699,	0.000071424,	256
+M3: addition gpu multi core 2,	16,	0.000533932,	0.000040867,	512
+M3: addition gpu multi core 2,	16,	0.000552051,	0.000074797,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition gpu multi core 2,	32,	0.000915083,	0.000305515,	2
+M3: addition gpu multi core 2,	32,	0.000527813,	0.000022417,	4
+M3: addition gpu multi core 2,	32,	0.000521648,	0.000025228,	8
+M3: addition gpu multi core 2,	32,	0.000527916,	0.000036599,	16
+M3: addition gpu multi core 2,	32,	0.000540738,	0.000046705,	32
+M3: addition gpu multi core 2,	32,	0.000531271,	0.000056523,	64
+M3: addition gpu multi core 2,	32,	0.000545835,	0.000048064,	128
+M3: addition gpu multi core 2,	32,	0.000528160,	0.000032859,	256
+M3: addition gpu multi core 2,	32,	0.000528681,	0.000036531,	512
+M3: addition gpu multi core 2,	32,	0.000534456,	0.000061692,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition gpu multi core 2,	64,	0.001007101,	0.000450317,	2
+M3: addition gpu multi core 2,	64,	0.000537975,	0.000011100,	4
+M3: addition gpu multi core 2,	64,	0.000530406,	0.000014746,	8
+M3: addition gpu multi core 2,	64,	0.000556788,	0.000070617,	16
+M3: addition gpu multi core 2,	64,	0.000544239,	0.000035356,	32
+M3: addition gpu multi core 2,	64,	0.000539379,	0.000040345,	64
+M3: addition gpu multi core 2,	64,	0.000548346,	0.000042509,	128
+M3: addition gpu multi core 2,	64,	0.000549004,	0.000046342,	256
+M3: addition gpu multi core 2,	64,	0.000526828,	0.000066516,	512
+M3: addition gpu multi core 2,	64,	0.000519832,	0.000066410,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition gpu multi core 2,	128,	0.001020101,	0.000375060,	2
+M3: addition gpu multi core 2,	128,	0.000556488,	0.000013731,	4
+M3: addition gpu multi core 2,	128,	0.000570987,	0.000028106,	8
+M3: addition gpu multi core 2,	128,	0.000561448,	0.000035882,	16
+M3: addition gpu multi core 2,	128,	0.000580590,	0.000040787,	32
+M3: addition gpu multi core 2,	128,	0.000567969,	0.000040324,	64
+M3: addition gpu multi core 2,	128,	0.000575322,	0.000041105,	128
+M3: addition gpu multi core 2,	128,	0.000571343,	0.000067352,	256
+M3: addition gpu multi core 2,	128,	0.000577741,	0.000046251,	512
+M3: addition gpu multi core 2,	128,	0.000575348,	0.000064793,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition gpu multi core 2,	256,	0.001243969,	0.000392345,	2
+M3: addition gpu multi core 2,	256,	0.000843282,	0.000008022,	4
+M3: addition gpu multi core 2,	256,	0.000865075,	0.000042214,	8
+M3: addition gpu multi core 2,	256,	0.000856562,	0.000045022,	16
+M3: addition gpu multi core 2,	256,	0.000897917,	0.000173804,	32
+M3: addition gpu multi core 2,	256,	0.000866651,	0.000042581,	64
+M3: addition gpu multi core 2,	256,	0.000861384,	0.000051211,	128
+M3: addition gpu multi core 2,	256,	0.000858041,	0.000040004,	256
+M3: addition gpu multi core 2,	256,	0.000855269,	0.000040654,	512
+M3: addition gpu multi core 2,	256,	0.000835169,	0.000082523,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition gpu multi core 2,	512,	0.002791474,	0.000348585,	2
+M3: addition gpu multi core 2,	512,	0.002139882,	0.000099559,	4
+M3: addition gpu multi core 2,	512,	0.002121170,	0.000033933,	8
+M3: addition gpu multi core 2,	512,	0.002054426,	0.000033364,	16
+M3: addition gpu multi core 2,	512,	0.002093035,	0.000071565,	32
+M3: addition gpu multi core 2,	512,	0.002107930,	0.000077545,	64
+M3: addition gpu multi core 2,	512,	0.002101853,	0.000081816,	128
+M3: addition gpu multi core 2,	512,	0.002184972,	0.000892793,	256
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: addition gpu multi core 2,	1024,	0.006830143,	0.000890527,	2
+M3: addition gpu multi core 2,	1024,	0.005760071,	0.000049008,	4
+M3: addition gpu multi core 2,	1024,	0.005703332,	0.000172844,	8
+M3: addition gpu multi core 2,	1024,	0.005643925,	0.000079950,	16
+M3: addition gpu multi core 2,	1024,	0.005731482,	0.000157066,	32
+M3: addition gpu multi core 2,	1024,	0.005699164,	0.000163152,	64
+M3: addition gpu multi core 2,	1024,	0.005717623,	0.000112202,	128
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: multiplication cpu,	2,	0.000000211,	0.000000110,	2
+M3: multiplication cpu,	2,	0.000000057,	0.000000025,	4
+M3: multiplication cpu,	2,	0.000000048,	0.000000004,	8
+M3: multiplication cpu,	2,	0.000000048,	0.000000004,	16
+M3: multiplication cpu,	2,	0.000000046,	0.000000005,	32
+M3: multiplication cpu,	2,	0.000000047,	0.000000005,	64
+M3: multiplication cpu,	2,	0.000000047,	0.000000005,	128
+M3: multiplication cpu,	2,	0.000000047,	0.000000004,	256
+M3: multiplication cpu,	2,	0.000000048,	0.000000004,	512
+M3: multiplication cpu,	2,	0.000000047,	0.000000004,	1024
+M3: multiplication cpu,	2,	0.000000047,	0.000000005,	2048
+M3: multiplication cpu,	2,	0.000000051,	0.000000191,	4096
+M3: multiplication cpu,	2,	0.000000048,	0.000000004,	8192
+M3: multiplication cpu,	2,	0.000000047,	0.000000005,	16384
+M3: multiplication cpu,	2,	0.000000047,	0.000000005,	32768
+M3: multiplication cpu,	2,	0.000000047,	0.000000035,	65536
+M3: multiplication cpu,	2,	0.000000047,	0.000000047,	131072
+M3: multiplication cpu,	2,	0.000000049,	0.000000050,	262144
+M3: multiplication cpu,	2,	0.000000049,	0.000000067,	524288
+M3: multiplication cpu,	2,	0.000000049,	0.000000048,	1048576
+M3: multiplication cpu,	2,	0.000000049,	0.000000054,	2097152
+M3: multiplication cpu,	2,	0.000000049,	0.000000055,	4194304
+M3: multiplication cpu,	2,	0.000000049,	0.000000051,	8388608
+M3: multiplication cpu,	2,	0.000000049,	0.000000063,	16777216
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: multiplication cpu,	4,	0.000000325,	0.000000045,	2
+M3: multiplication cpu,	4,	0.000000208,	0.000000037,	4
+M3: multiplication cpu,	4,	0.000000187,	0.000000005,	8
+M3: multiplication cpu,	4,	0.000000186,	0.000000005,	16
+M3: multiplication cpu,	4,	0.000000187,	0.000000005,	32
+M3: multiplication cpu,	4,	0.000000184,	0.000000005,	64
+M3: multiplication cpu,	4,	0.000000188,	0.000000005,	128
+M3: multiplication cpu,	4,	0.000000188,	0.000000004,	256
+M3: multiplication cpu,	4,	0.000000184,	0.000000005,	512
+M3: multiplication cpu,	4,	0.000000185,	0.000000005,	1024
+M3: multiplication cpu,	4,	0.000000185,	0.000000005,	2048
+M3: multiplication cpu,	4,	0.000000186,	0.000000005,	4096
+M3: multiplication cpu,	4,	0.000000185,	0.000000089,	8192
+M3: multiplication cpu,	4,	0.000000184,	0.000000005,	16384
+M3: multiplication cpu,	4,	0.000000191,	0.000000134,	32768
+M3: multiplication cpu,	4,	0.000000199,	0.000000097,	65536
+M3: multiplication cpu,	4,	0.000000199,	0.000000217,	131072
+M3: multiplication cpu,	4,	0.000000200,	0.000000089,	262144
+M3: multiplication cpu,	4,	0.000000200,	0.000000075,	524288
+M3: multiplication cpu,	4,	0.000000200,	0.000000118,	1048576
+M3: multiplication cpu,	4,	0.000000201,	0.000000099,	2097152
+M3: multiplication cpu,	4,	0.000000204,	0.000003589,	4194304
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: multiplication cpu,	8,	0.000001653,	0.000000070,	2
+M3: multiplication cpu,	8,	0.000001493,	0.000000047,	4
+M3: multiplication cpu,	8,	0.000001472,	0.000000016,	8
+M3: multiplication cpu,	8,	0.000001468,	0.000000018,	16
+M3: multiplication cpu,	8,	0.000001445,	0.000000011,	32
+M3: multiplication cpu,	8,	0.000001671,	0.000001612,	64
+M3: multiplication cpu,	8,	0.000001468,	0.000000011,	128
+M3: multiplication cpu,	8,	0.000001468,	0.000000011,	256
+M3: multiplication cpu,	8,	0.000001439,	0.000000015,	512
+M3: multiplication cpu,	8,	0.000001440,	0.000000016,	1024
+M3: multiplication cpu,	8,	0.000001471,	0.000000113,	2048
+M3: multiplication cpu,	8,	0.000001478,	0.000000202,	4096
+M3: multiplication cpu,	8,	0.000001532,	0.000000210,	8192
+M3: multiplication cpu,	8,	0.000001555,	0.000000425,	16384
+M3: multiplication cpu,	8,	0.000001628,	0.000000231,	32768
+M3: multiplication cpu,	8,	0.000001624,	0.000000369,	65536
+M3: multiplication cpu,	8,	0.000001625,	0.000000212,	131072
+M3: multiplication cpu,	8,	0.000001619,	0.000000213,	262144
+M3: multiplication cpu,	8,	0.000001620,	0.000000269,	524288
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: multiplication cpu,	16,	0.000015905,	0.000003752,	2
+M3: multiplication cpu,	16,	0.000011855,	0.000000047,	4
+M3: multiplication cpu,	16,	0.000011888,	0.000000044,	8
+M3: multiplication cpu,	16,	0.000012609,	0.000002806,	16
+M3: multiplication cpu,	16,	0.000011878,	0.000000034,	32
+M3: multiplication cpu,	16,	0.000011676,	0.000000129,	64
+M3: multiplication cpu,	16,	0.000011651,	0.000000058,	128
+M3: multiplication cpu,	16,	0.000011946,	0.000002022,	256
+M3: multiplication cpu,	16,	0.000011962,	0.000000396,	512
+M3: multiplication cpu,	16,	0.000012586,	0.000002158,	1024
+M3: multiplication cpu,	16,	0.000012672,	0.000000674,	2048
+M3: multiplication cpu,	16,	0.000012738,	0.000000626,	4096
+M3: multiplication cpu,	16,	0.000012651,	0.000000548,	8192
+M3: multiplication cpu,	16,	0.000012700,	0.000000469,	16384
+M3: multiplication cpu,	16,	0.000012702,	0.000000748,	32768
+M3: multiplication cpu,	16,	0.000012931,	0.000000959,	65536
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: multiplication cpu,	32,	0.000095848,	0.000000637,	2
+M3: multiplication cpu,	32,	0.000098834,	0.000005546,	4
+M3: multiplication cpu,	32,	0.000097059,	0.000003537,	8
+M3: multiplication cpu,	32,	0.000092709,	0.000000252,	16
+M3: multiplication cpu,	32,	0.000095598,	0.000004195,	32
+M3: multiplication cpu,	32,	0.000095721,	0.000001665,	64
+M3: multiplication cpu,	32,	0.000099415,	0.000002830,	128
+M3: multiplication cpu,	32,	0.000101348,	0.000003012,	256
+M3: multiplication cpu,	32,	0.000101691,	0.000002482,	512
+M3: multiplication cpu,	32,	0.000101536,	0.000001715,	1024
+M3: multiplication cpu,	32,	0.000101211,	0.000002186,	2048
+M3: multiplication cpu,	32,	0.000101274,	0.000001994,	4096
+M3: multiplication cpu,	32,	0.000101595,	0.000038698,	8192
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: multiplication cpu,	64,	0.000820395,	0.000009137,	2
+M3: multiplication cpu,	64,	0.000810816,	0.000003356,	4
+M3: multiplication cpu,	64,	0.000823039,	0.000010367,	8
+M3: multiplication cpu,	64,	0.000832315,	0.000027344,	16
+M3: multiplication cpu,	64,	0.000817478,	0.000026133,	32
+M3: multiplication cpu,	64,	0.000843797,	0.000027852,	64
+M3: multiplication cpu,	64,	0.000827721,	0.000029646,	128
+M3: multiplication cpu,	64,	0.000851345,	0.000022565,	256
+M3: multiplication cpu,	64,	0.000826359,	0.000032730,	512
+M3: multiplication cpu,	64,	0.000827824,	0.000031978,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: multiplication cpu,	128,	0.006138857,	0.000054173,	2
+M3: multiplication cpu,	128,	0.006505584,	0.000060841,	4
+M3: multiplication cpu,	128,	0.006538675,	0.000015441,	8
+M3: multiplication cpu,	128,	0.006515110,	0.000028125,	16
+M3: multiplication cpu,	128,	0.006487809,	0.000140606,	32
+M3: multiplication cpu,	128,	0.006516525,	0.000040452,	64
+M3: multiplication cpu,	128,	0.006506777,	0.000050728,	128
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: multiplication cpu,	256,	0.051978450,	0.000599052,	2
+M3: multiplication cpu,	256,	0.052251828,	0.000053849,	4
+M3: multiplication cpu,	256,	0.053640166,	0.000880084,	8
+M3: multiplication cpu,	256,	0.054090485,	0.000440466,	16
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: multiplication cpu,	512,	0.420207097,	0.000572938,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: multiplication cpu,	1024,	3.845115772,	0.011232582,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: shared memory multiplication,	2,	0.000906952,	0.000388842,	2
+M3: shared memory multiplication,	2,	0.000525730,	0.000043113,	4
+M3: shared memory multiplication,	2,	0.000518945,	0.000018228,	8
+M3: shared memory multiplication,	2,	0.000550283,	0.000051605,	16
+M3: shared memory multiplication,	2,	0.000545522,	0.000058164,	32
+M3: shared memory multiplication,	2,	0.000541767,	0.000068019,	64
+M3: shared memory multiplication,	2,	0.000542942,	0.000041473,	128
+M3: shared memory multiplication,	2,	0.000536617,	0.000039371,	256
+M3: shared memory multiplication,	2,	0.000539135,	0.000044342,	512
+M3: shared memory multiplication,	2,	0.000536192,	0.000070703,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: shared memory multiplication,	4,	0.000882035,	0.000341364,	2
+M3: shared memory multiplication,	4,	0.000515756,	0.000007687,	4
+M3: shared memory multiplication,	4,	0.000519607,	0.000010687,	8
+M3: shared memory multiplication,	4,	0.000527286,	0.000037308,	16
+M3: shared memory multiplication,	4,	0.000521409,	0.000064361,	32
+M3: shared memory multiplication,	4,	0.000533001,	0.000038295,	64
+M3: shared memory multiplication,	4,	0.000526431,	0.000034156,	128
+M3: shared memory multiplication,	4,	0.000529474,	0.000041934,	256
+M3: shared memory multiplication,	4,	0.000532654,	0.000070794,	512
+M3: shared memory multiplication,	4,	0.000534932,	0.000065795,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: shared memory multiplication,	8,	0.000919792,	0.000384461,	2
+M3: shared memory multiplication,	8,	0.000553594,	0.000013092,	4
+M3: shared memory multiplication,	8,	0.000515189,	0.000019612,	8
+M3: shared memory multiplication,	8,	0.000518882,	0.000019646,	16
+M3: shared memory multiplication,	8,	0.000526359,	0.000024023,	32
+M3: shared memory multiplication,	8,	0.000548046,	0.000063852,	64
+M3: shared memory multiplication,	8,	0.000530448,	0.000026276,	128
+M3: shared memory multiplication,	8,	0.000533379,	0.000063388,	256
+M3: shared memory multiplication,	8,	0.000532447,	0.000040747,	512
+M3: shared memory multiplication,	8,	0.000532667,	0.000067217,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: shared memory multiplication,	16,	0.000892642,	0.000366539,	2
+M3: shared memory multiplication,	16,	0.000580379,	0.000039586,	4
+M3: shared memory multiplication,	16,	0.000531188,	0.000040667,	8
+M3: shared memory multiplication,	16,	0.000527372,	0.000024909,	16
+M3: shared memory multiplication,	16,	0.000528383,	0.000033389,	32
+M3: shared memory multiplication,	16,	0.000550508,	0.000115937,	64
+M3: shared memory multiplication,	16,	0.000535983,	0.000039677,	128
+M3: shared memory multiplication,	16,	0.000524602,	0.000056562,	256
+M3: shared memory multiplication,	16,	0.000510629,	0.000043614,	512
+M3: shared memory multiplication,	16,	0.000516083,	0.000070762,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: shared memory multiplication,	32,	0.000970005,	0.000379489,	2
+M3: shared memory multiplication,	32,	0.000531385,	0.000006161,	4
+M3: shared memory multiplication,	32,	0.000526705,	0.000023414,	8
+M3: shared memory multiplication,	32,	0.000508906,	0.000012430,	16
+M3: shared memory multiplication,	32,	0.000533015,	0.000031872,	32
+M3: shared memory multiplication,	32,	0.000512172,	0.000032459,	64
+M3: shared memory multiplication,	32,	0.000530925,	0.000066370,	128
+M3: shared memory multiplication,	32,	0.000506565,	0.000036167,	256
+M3: shared memory multiplication,	32,	0.000527211,	0.000072779,	512
+M3: shared memory multiplication,	32,	0.000537227,	0.000067416,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: shared memory multiplication,	64,	0.000952898,	0.000349979,	2
+M3: shared memory multiplication,	64,	0.000513126,	0.000017382,	4
+M3: shared memory multiplication,	64,	0.000499319,	0.000012076,	8
+M3: shared memory multiplication,	64,	0.000521823,	0.000034423,	16
+M3: shared memory multiplication,	64,	0.000513503,	0.000034221,	32
+M3: shared memory multiplication,	64,	0.000544537,	0.000033285,	64
+M3: shared memory multiplication,	64,	0.000541153,	0.000041098,	128
+M3: shared memory multiplication,	64,	0.000531017,	0.000062357,	256
+M3: shared memory multiplication,	64,	0.000534104,	0.000070633,	512
+M3: shared memory multiplication,	64,	0.000537368,	0.000076179,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: shared memory multiplication,	128,	0.000941198,	0.000334751,	2
+M3: shared memory multiplication,	128,	0.000597638,	0.000027503,	4
+M3: shared memory multiplication,	128,	0.000603263,	0.000025092,	8
+M3: shared memory multiplication,	128,	0.000609041,	0.000043544,	16
+M3: shared memory multiplication,	128,	0.000626552,	0.000038468,	32
+M3: shared memory multiplication,	128,	0.000621082,	0.000034633,	64
+M3: shared memory multiplication,	128,	0.000617013,	0.000088497,	128
+M3: shared memory multiplication,	128,	0.000618838,	0.000047594,	256
+M3: shared memory multiplication,	128,	0.000621291,	0.000042265,	512
+M3: shared memory multiplication,	128,	0.000623849,	0.000068443,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: shared memory multiplication,	256,	0.001321618,	0.000352485,	2
+M3: shared memory multiplication,	256,	0.000966757,	0.000019147,	4
+M3: shared memory multiplication,	256,	0.000957758,	0.000021717,	8
+M3: shared memory multiplication,	256,	0.000947867,	0.000019271,	16
+M3: shared memory multiplication,	256,	0.000951087,	0.000025909,	32
+M3: shared memory multiplication,	256,	0.000982042,	0.000056859,	64
+M3: shared memory multiplication,	256,	0.000967339,	0.000039524,	128
+M3: shared memory multiplication,	256,	0.000948181,	0.000040704,	256
+M3: shared memory multiplication,	256,	0.000931255,	0.000076305,	512
+M3: shared memory multiplication,	256,	0.000928074,	0.000072546,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: shared memory multiplication,	512,	0.003182298,	0.000315891,	2
+M3: shared memory multiplication,	512,	0.002915643,	0.000038065,	4
+M3: shared memory multiplication,	512,	0.002769843,	0.000036045,	8
+M3: shared memory multiplication,	512,	0.002824966,	0.000077432,	16
+M3: shared memory multiplication,	512,	0.002771278,	0.000047579,	32
+M3: shared memory multiplication,	512,	0.002787054,	0.000062797,	64
+M3: shared memory multiplication,	512,	0.002849045,	0.000148487,	128
+M3: shared memory multiplication,	512,	0.002790796,	0.000089491,	256
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: shared memory multiplication,	1024,	0.011994628,	0.000927115,	2
+M3: shared memory multiplication,	1024,	0.011087243,	0.000081579,	4
+M3: shared memory multiplication,	1024,	0.011175036,	0.000155544,	8
+M3: shared memory multiplication,	1024,	0.011040830,	0.000087081,	16
+M3: shared memory multiplication,	1024,	0.011073008,	0.000106599,	32
+M3: shared memory multiplication,	1024,	0.011072866,	0.000107552,	64
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr cpu,	2,	0.000000636,	0.000000506,	2
+M3: qr cpu,	2,	0.000000110,	0.000000012,	4
+M3: qr cpu,	2,	0.000000100,	0.000000000,	8
+M3: qr cpu,	2,	0.000000101,	0.000000006,	16
+M3: qr cpu,	2,	0.000000102,	0.000000005,	32
+M3: qr cpu,	2,	0.000000117,	0.000000009,	64
+M3: qr cpu,	2,	0.000000109,	0.000000015,	128
+M3: qr cpu,	2,	0.000000102,	0.000000007,	256
+M3: qr cpu,	2,	0.000000103,	0.000000006,	512
+M3: qr cpu,	2,	0.000000102,	0.000000005,	1024
+M3: qr cpu,	2,	0.000000101,	0.000000006,	2048
+M3: qr cpu,	2,	0.000000100,	0.000000006,	4096
+M3: qr cpu,	2,	0.000000101,	0.000000088,	8192
+M3: qr cpu,	2,	0.000000100,	0.000000007,	16384
+M3: qr cpu,	2,	0.000000102,	0.000000175,	32768
+M3: qr cpu,	2,	0.000000103,	0.000000034,	65536
+M3: qr cpu,	2,	0.000000107,	0.000000048,	131072
+M3: qr cpu,	2,	0.000000107,	0.000000098,	262144
+M3: qr cpu,	2,	0.000000107,	0.000000052,	524288
+M3: qr cpu,	2,	0.000000107,	0.000000066,	1048576
+M3: qr cpu,	2,	0.000000107,	0.000000054,	2097152
+M3: qr cpu,	2,	0.000000107,	0.000000057,	4194304
+M3: qr cpu,	2,	0.000000107,	0.000000067,	8388608
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr cpu,	4,	0.000001027,	0.000000556,	2
+M3: qr cpu,	4,	0.000000336,	0.000000047,	4
+M3: qr cpu,	4,	0.000000293,	0.000000004,	8
+M3: qr cpu,	4,	0.000000294,	0.000000005,	16
+M3: qr cpu,	4,	0.000000298,	0.000000016,	32
+M3: qr cpu,	4,	0.000000380,	0.000000017,	64
+M3: qr cpu,	4,	0.000000429,	0.000001157,	128
+M3: qr cpu,	4,	0.000000293,	0.000000005,	256
+M3: qr cpu,	4,	0.000000294,	0.000000005,	512
+M3: qr cpu,	4,	0.000000296,	0.000000005,	1024
+M3: qr cpu,	4,	0.000000297,	0.000000005,	2048
+M3: qr cpu,	4,	0.000000295,	0.000000006,	4096
+M3: qr cpu,	4,	0.000000306,	0.000000056,	8192
+M3: qr cpu,	4,	0.000000329,	0.000000186,	16384
+M3: qr cpu,	4,	0.000000339,	0.000000061,	32768
+M3: qr cpu,	4,	0.000000339,	0.000000144,	65536
+M3: qr cpu,	4,	0.000000335,	0.000000095,	131072
+M3: qr cpu,	4,	0.000000332,	0.000000127,	262144
+M3: qr cpu,	4,	0.000000331,	0.000000170,	524288
+M3: qr cpu,	4,	0.000000330,	0.000000128,	1048576
+M3: qr cpu,	4,	0.000000329,	0.000000107,	2097152
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr cpu,	8,	0.000002479,	0.000000636,	2
+M3: qr cpu,	8,	0.000001508,	0.000000063,	4
+M3: qr cpu,	8,	0.000001472,	0.000000036,	8
+M3: qr cpu,	8,	0.000001449,	0.000000017,	16
+M3: qr cpu,	8,	0.000001464,	0.000000043,	32
+M3: qr cpu,	8,	0.000001894,	0.000000059,	64
+M3: qr cpu,	8,	0.000001611,	0.000000287,	128
+M3: qr cpu,	8,	0.000001527,	0.000001244,	256
+M3: qr cpu,	8,	0.000001444,	0.000000011,	512
+M3: qr cpu,	8,	0.000001444,	0.000000157,	1024
+M3: qr cpu,	8,	0.000001473,	0.000001315,	2048
+M3: qr cpu,	8,	0.000001484,	0.000000454,	4096
+M3: qr cpu,	8,	0.000001573,	0.000000284,	8192
+M3: qr cpu,	8,	0.000001588,	0.000000342,	16384
+M3: qr cpu,	8,	0.000001587,	0.000000585,	32768
+M3: qr cpu,	8,	0.000001584,	0.000000484,	65536
+M3: qr cpu,	8,	0.000001600,	0.000000426,	131072
+M3: qr cpu,	8,	0.000001614,	0.000000292,	262144
+M3: qr cpu,	8,	0.000001632,	0.000000288,	524288
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr cpu,	16,	0.000010956,	0.000000646,	2
+M3: qr cpu,	16,	0.000009771,	0.000000069,	4
+M3: qr cpu,	16,	0.000009716,	0.000000040,	8
+M3: qr cpu,	16,	0.000009732,	0.000000024,	16
+M3: qr cpu,	16,	0.000010114,	0.000002220,	32
+M3: qr cpu,	16,	0.000011017,	0.000000409,	64
+M3: qr cpu,	16,	0.000010302,	0.000001172,	128
+M3: qr cpu,	16,	0.000009577,	0.000000296,	256
+M3: qr cpu,	16,	0.000009885,	0.000001070,	512
+M3: qr cpu,	16,	0.000010446,	0.000000772,	1024
+M3: qr cpu,	16,	0.000010676,	0.000001404,	2048
+M3: qr cpu,	16,	0.000010675,	0.000000741,	4096
+M3: qr cpu,	16,	0.000010665,	0.000000465,	8192
+M3: qr cpu,	16,	0.000010702,	0.000000496,	16384
+M3: qr cpu,	16,	0.000010694,	0.000000613,	32768
+M3: qr cpu,	16,	0.000010699,	0.000000583,	65536
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr cpu,	32,	0.000073155,	0.000000496,	2
+M3: qr cpu,	32,	0.000071456,	0.000000093,	4
+M3: qr cpu,	32,	0.000071475,	0.000000226,	8
+M3: qr cpu,	32,	0.000071823,	0.000000098,	16
+M3: qr cpu,	32,	0.000074005,	0.000001863,	32
+M3: qr cpu,	32,	0.000087224,	0.000005805,	64
+M3: qr cpu,	32,	0.000092060,	0.000010069,	128
+M3: qr cpu,	32,	0.000084785,	0.000003736,	256
+M3: qr cpu,	32,	0.000082044,	0.000002387,	512
+M3: qr cpu,	32,	0.000081309,	0.000001738,	1024
+M3: qr cpu,	32,	0.000080787,	0.000001619,	2048
+M3: qr cpu,	32,	0.000080573,	0.000001688,	4096
+M3: qr cpu,	32,	0.000080404,	0.000001606,	8192
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr cpu,	64,	0.000536849,	0.000000395,	2
+M3: qr cpu,	64,	0.000535501,	0.000011411,	4
+M3: qr cpu,	64,	0.000562146,	0.000016354,	8
+M3: qr cpu,	64,	0.000623257,	0.000011463,	16
+M3: qr cpu,	64,	0.000642993,	0.000016688,	32
+M3: qr cpu,	64,	0.000660383,	0.000020670,	64
+M3: qr cpu,	64,	0.000674865,	0.000056994,	128
+M3: qr cpu,	64,	0.000611676,	0.000005959,	256
+M3: qr cpu,	64,	0.000609279,	0.000005642,	512
+M3: qr cpu,	64,	0.000609037,	0.000009193,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr cpu,	128,	0.004309063,	0.000072082,	2
+M3: qr cpu,	128,	0.004715721,	0.000036899,	4
+M3: qr cpu,	128,	0.004772655,	0.000043922,	8
+M3: qr cpu,	128,	0.004746374,	0.000024601,	16
+M3: qr cpu,	128,	0.004736472,	0.000044094,	32
+M3: qr cpu,	128,	0.004972460,	0.000241030,	64
+M3: qr cpu,	128,	0.005476878,	0.000385650,	128
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr cpu,	256,	0.038154044,	0.000626666,	2
+M3: qr cpu,	256,	0.039626806,	0.000113170,	4
+M3: qr cpu,	256,	0.039477860,	0.000262665,	8
+M3: qr cpu,	256,	0.039392834,	0.000160358,	16
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr cpu,	512,	0.327670695,	0.000556910,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr cpu,	1024,	2.818455445,	0.013926054,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu single core,	2,	0.323785715,	0.323091421,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu single core,	4,	0.001209071,	0.000579470,	2
+M3: qr gpu single core,	4,	0.000605820,	0.000009805,	4
+M3: qr gpu single core,	4,	0.000590327,	0.000021464,	8
+M3: qr gpu single core,	4,	0.000610608,	0.000069195,	16
+M3: qr gpu single core,	4,	0.000606590,	0.000038569,	32
+M3: qr gpu single core,	4,	0.000608796,	0.000074365,	64
+M3: qr gpu single core,	4,	0.000613190,	0.000060935,	128
+M3: qr gpu single core,	4,	0.000609843,	0.000051961,	256
+M3: qr gpu single core,	4,	0.000610661,	0.000066564,	512
+M3: qr gpu single core,	4,	0.000618739,	0.000069772,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu single core,	8,	0.001151957,	0.000496401,	2
+M3: qr gpu single core,	8,	0.000604653,	0.000029901,	4
+M3: qr gpu single core,	8,	0.000586557,	0.000016055,	8
+M3: qr gpu single core,	8,	0.000596417,	0.000022644,	16
+M3: qr gpu single core,	8,	0.000621428,	0.000061242,	32
+M3: qr gpu single core,	8,	0.000627230,	0.000054385,	64
+M3: qr gpu single core,	8,	0.000638184,	0.000055314,	128
+M3: qr gpu single core,	8,	0.000626515,	0.000040654,	256
+M3: qr gpu single core,	8,	0.000630408,	0.000069924,	512
+M3: qr gpu single core,	8,	0.000632580,	0.000066931,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu single core,	16,	0.001230257,	0.000503050,	2
+M3: qr gpu single core,	16,	0.000698437,	0.000008449,	4
+M3: qr gpu single core,	16,	0.000734982,	0.000035628,	8
+M3: qr gpu single core,	16,	0.000714624,	0.000020615,	16
+M3: qr gpu single core,	16,	0.000719791,	0.000033902,	32
+M3: qr gpu single core,	16,	0.000719007,	0.000030061,	64
+M3: qr gpu single core,	16,	0.000740771,	0.000041548,	128
+M3: qr gpu single core,	16,	0.000742374,	0.000070892,	256
+M3: qr gpu single core,	16,	0.000735950,	0.000036052,	512
+M3: qr gpu single core,	16,	0.000746708,	0.000064326,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu single core,	32,	0.001956005,	0.000598135,	2
+M3: qr gpu single core,	32,	0.001350318,	0.000006401,	4
+M3: qr gpu single core,	32,	0.001414822,	0.000069376,	8
+M3: qr gpu single core,	32,	0.001398308,	0.000050869,	16
+M3: qr gpu single core,	32,	0.001409097,	0.000061855,	32
+M3: qr gpu single core,	32,	0.001388933,	0.000055395,	64
+M3: qr gpu single core,	32,	0.001261101,	0.000091292,	128
+M3: qr gpu single core,	32,	0.001222894,	0.000072515,	256
+M3: qr gpu single core,	32,	0.001226429,	0.000046967,	512
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu single core,	64,	0.005140937,	0.000427242,	2
+M3: qr gpu single core,	64,	0.004688459,	0.000058142,	4
+M3: qr gpu single core,	64,	0.004703162,	0.000062300,	8
+M3: qr gpu single core,	64,	0.004756668,	0.000111472,	16
+M3: qr gpu single core,	64,	0.004748892,	0.000103682,	32
+M3: qr gpu single core,	64,	0.004704453,	0.000044241,	64
+M3: qr gpu single core,	64,	0.005066475,	0.000137134,	128
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu single core,	128,	0.031670967,	0.000554398,	2
+M3: qr gpu single core,	128,	0.031046269,	0.000082524,	4
+M3: qr gpu single core,	128,	0.031180142,	0.000098856,	8
+M3: qr gpu single core,	128,	0.031142755,	0.000118830,	16
+M3: qr gpu single core,	128,	0.030977577,	0.000095314,	32
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu single core,	256,	0.313668651,	0.000510662,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu single core,	512,	5.581423744,	0.000497092,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu single core,	1024,	25.118937238,	24.176791185,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu parallel max,	2,	0.001416185,	0.000547524,	2
+M3: qr gpu parallel max,	2,	0.000831063,	0.000015377,	4
+M3: qr gpu parallel max,	2,	0.000821736,	0.000023315,	8
+M3: qr gpu parallel max,	2,	0.000878845,	0.000083770,	16
+M3: qr gpu parallel max,	2,	0.000847995,	0.000145895,	32
+M3: qr gpu parallel max,	2,	0.000821998,	0.000078214,	64
+M3: qr gpu parallel max,	2,	0.000818472,	0.000085296,	128
+M3: qr gpu parallel max,	2,	0.000820608,	0.000108208,	256
+M3: qr gpu parallel max,	2,	0.000821090,	0.000111541,	512
+M3: qr gpu parallel max,	2,	0.000832039,	0.000112328,	1024
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu parallel max,	4,	0.001974982,	0.000534865,	2
+M3: qr gpu parallel max,	4,	0.001344135,	0.000019345,	4
+M3: qr gpu parallel max,	4,	0.001482744,	0.000244011,	8
+M3: qr gpu parallel max,	4,	0.001451395,	0.000179527,	16
+M3: qr gpu parallel max,	4,	0.001428182,	0.000120454,	32
+M3: qr gpu parallel max,	4,	0.001403205,	0.000125733,	64
+M3: qr gpu parallel max,	4,	0.001390538,	0.000089756,	128
+M3: qr gpu parallel max,	4,	0.001402338,	0.000147212,	256
+M3: qr gpu parallel max,	4,	0.001405516,	0.000129921,	512
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu parallel max,	8,	0.003845584,	0.000476021,	2
+M3: qr gpu parallel max,	8,	0.003155916,	0.000161873,	4
+M3: qr gpu parallel max,	8,	0.003408719,	0.000339481,	8
+M3: qr gpu parallel max,	8,	0.003162566,	0.000215996,	16
+M3: qr gpu parallel max,	8,	0.003208955,	0.000216667,	32
+M3: qr gpu parallel max,	8,	0.003313204,	0.000436126,	64
+M3: qr gpu parallel max,	8,	0.003175670,	0.000202577,	128
+M3: qr gpu parallel max,	8,	0.003238058,	0.000246354,	256
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu parallel max,	16,	0.011307084,	0.000958449,	2
+M3: qr gpu parallel max,	16,	0.009942041,	0.000320636,	4
+M3: qr gpu parallel max,	16,	0.009784127,	0.000297568,	8
+M3: qr gpu parallel max,	16,	0.009388628,	0.000233480,	16
+M3: qr gpu parallel max,	16,	0.009650511,	0.000450086,	32
+M3: qr gpu parallel max,	16,	0.009818902,	0.000465309,	64
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu parallel max,	32,	0.038219661,	0.001942335,	2
+M3: qr gpu parallel max,	32,	0.036045677,	0.001253552,	4
+M3: qr gpu parallel max,	32,	0.034847719,	0.001108635,	8
+M3: qr gpu parallel max,	32,	0.034686511,	0.000905884,	16
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu parallel max,	64,	0.133554401,	0.005444860,	2
+M3: qr gpu parallel max,	64,	0.137351470,	0.003064091,	4
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu parallel max,	128,	0.527065131,	0.006229285,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu parallel max,	256,	2.102567731,	0.003582232,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu parallel max,	512,	9.332298721,	0.845895909,	2
+Algorithm,	Dimensions,	Mean,	Standard Deviation,	Iterations
+M3: qr gpu parallel max,	1024,	40.094180082,	0.632012778,	2
