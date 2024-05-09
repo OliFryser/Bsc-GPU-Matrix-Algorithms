@@ -31,3 +31,30 @@ Every SM has access to 128 cores on both machine 1 and machine 2.\footnote{Becau
 Machine 2 has about 4 times as many cores as machine 3, but only double the amount of SMs. So on machine 3, each SM has access to 64 cores. This is further reflected in the fact that the L1 cache for each of the 3 machines have exactly one KB per core an SM have access to. In theory, each SM on machine 1 and machine 2 can do double the amount of work that an SM can on machine 3. They have about the same clock speed. Further, machine 2 can do double the amount of work than machine 3, since it has double the amount of SMs. This means machine 2 can do 4 times as much work as machine 3. By transitivity machine 1 can do double that, so 16 times as much work as machine 3.
 
 These performance gains all rely on code that is \textit{highly} optimized for each machine. In contrast, we strive to write portable code that runs well on all our machines. This goal also aligns with the purpose of CUDA as stated in \cite[Section 1.3]{nvidia:cudadoc}.
+
+To see if our code achieves near these potential performance increases, we ran the benchmarks for the fastest parallel implementations of each algorithm. Figure \ref{fig:diagrams for all three algorithms} shows the running times of all three machines compared to each other for the largest matrix we benchmark on. The full benchmarks for all sizes can be seen in figures 
+
+\begin{figure}[ht]
+     \centering
+     \begin{subfigure}[b]{0.32\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Documents/Report/Figures/Addition.png}
+         \label{fig:addition diagram}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.32\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Documents/Report/Figures/Multiplication.png}
+         \label{fig:multiplication diagram}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.32\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Documents/Report/Figures/QR.png}
+         \label{fig:}
+     \end{subfigure}
+        \caption{Running times for matrices with side length 1024 on our three machines.}
+        \label{fig:diagrams for all three algorithms}
+\end{figure}
+
+ With addition, it can be seen that machine 1 has about

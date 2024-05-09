@@ -1,9 +1,5 @@
 \section{Background} \label{sect:backgroundw}
 
-In this project, we will study the performance benefits of running algorithms on the GPU in parallel. To do this we will implement three linear algebra algorithms in increasing degrees of complexity, namely: Matrix addition, matrix multiplication, and QR decomposition.
-
-First, we will implement these on the CPU to establish a baseline implementation. Next, we will implement them on the GPU, and hopefully see a performance increase.
-
 This section will outline the mathematical formulas we will implement as algorithms, and the basics of CPU and GPU architecture.
 
 \subsection{Linear Algebra}
@@ -44,8 +40,33 @@ In matrix multiplication, element \(c_{i,j}\) is calculated from the $i^{th}$ ro
 
 An appealing way to understand matrix multiplication is to interpret it geometrically. Assume a vector space where the basis vectors can be represented as a matrix $\mathbf{A}$. To multiply this matrix with another matrix $\mathbf{B}$ can be interpreted such that the basis vectors are linearly transformed to new positions. For example, all vectors might be stretched by a factor of 2 and rotated clockwise by 10 degrees. 
 
-\subsubsection{QR Decomposition}
-The final algebraic algorithm we want to implement is QR decomposition. This algorithm takes in a matrix \(\mathbf{A}\) and factorizes it into matrices \(\mathbf{Q}\) and \(\mathbf{R}\).
+\subsubsection{Linear Algebraic Equations and Matrix Inversion}
+
+A set of equations might be arranged as a set of linear algebraic equations. If so, they can take the form of:
+
+\[a_{11}x_1+a_{12}x_2+\cdots+a_{1N}x_N = b_1\]
+\[a_{21}x_1+a_{22}x_2+\cdots+a_{2N}x_N = b_2\]
+\[\cdots\]
+\[a_{N1}x_1+a_{N2}x_2+\cdots+a_{NN}x_N = b_N\]
+
+This set can also be written in the form:
+
+\[\mathbf{A} \cdot \mathbf{x} = \mathbf{b}\]
+
+where $\mathbf{A}$ is the matrix of coefficients, $\mathbf{x}$ is a vector representing $x_1, x_2, \cdots, x_N$ and $\mathbf{b}$ is a vector, representing all b values. 
+
+We wish to find this vector $\mathbf{x}$. To do so, we could find the inversion of $\mathbf{A}$, called $\mathbf{A^{-1}}$, where 
+
+\[\mathbf{A}\cdot\mathbf{A^{-1}} = \mathbf{I}\]
+
+where $\mathbf{I}$ is the identity matrix \cite[Sect. 2.0]{numericalrecipes}.\\
+
+\noindent Geometrically, if $\mathbf{A}$ is a transformation of a vector space, $\mathbf{A^{-1}}$ is the reverse transformation of a vector space. If one applies $\mathbf{A\cdot A^{-1}}$, the resulting transformation will be no transformation, also described as the identity matrix.
+
+There are a number of algorithms one can use to get this inverse matrix and solve linear algebraic equations. The following section will describe one of them. 
+
+\subsection*{QR Decomposition} 
+The final linear algebraic algorithm we want to implement is QR decomposition. This algorithm takes in a matrix \(\mathbf{A}\) and factorizes it into matrices \(\mathbf{Q}\) and \(\mathbf{R}\).
 
 \[\mathbf{A} = \mathbf{Q} \cdot \mathbf{R}\]
 
@@ -55,20 +76,15 @@ The final algebraic algorithm we want to implement is QR decomposition. This alg
 
 where \(\mathbf{Q^T}\) is the transpose of \(\mathbf{Q}\) and \(\mathbf{I}\) is the identity matrix. This property also means that \(\mathbf{Q}\) is symmetrical along the diagonal. \(\mathbf{R}\) is an upper triangular matrix, where all elements below the diagonal are 0. 
 
-% Explain why this is useful. I.e. linear algebraic equations and how to solve them with this.
+The QR-decomposition of a matrix \(\mathbf{A = QR}\) is useful for efficiently solving systems of linear equations. Solving $n$ many equations of the form \(\mathbf{Ax = b}\) becomes trivial to solve when it becomes \(\mathbf{Rx = Q^Tb}\), especially for larger matrices.\cite[Sect. 2.10]{numericalrecipes} We will not go into more detail on this as solving systems of linear equations is out of scope for this project. \\
 
-We use the Householder method to compute the QR decomposition as it is more numerically stable than other methods. It works by applying many transformations to the matrix, one iteration for each of its columns. Unfortunately, each iteration depends on the previous iteration. This makes the algorithm fundamentally non-parallelizable. Other less numerically stable methods exist like Givens Rotations algorithm that are more easily parallelizable \cite[Sect. 2.10.4]{numericalrecipes}. However, \cite[Sect. 11.2]{numericalrecipes} describes the Householder method in detail, and so we chose it. 
+\noindent We use the Householder method to compute the QR decomposition as it is more numerically stable than other methods. It works by applying many transformations to the matrix, one iteration for each of its columns. Unfortunately, each iteration depends on the previous iteration. This makes the algorithm fundamentally non-parallelizable. Other less numerically stable methods exist like Givens Rotations algorithm that are more easily parallelizable \cite[Sect. 2.10.4]{numericalrecipes}. However, \cite[Sect. 11.2]{numericalrecipes} describes the Householder method in detail, and so we chose it. 
 
 The Householder matrices \(\mathbf{Q_i}\) for \(\mathbf{Q_1 \ldots Q_{n}}\) are computed for each column in our matrix \(\mathbf{A}\). This leaves us with a way to calculate \(\mathbf{Q}\) if we need it.\cite[Sect. 2.13, 11.2]{numericalrecipes}
 
 \[\mathbf{Q = Q_1 \cdot Q_1 \cdot \ldots \cdot Q_{n}}\]
 
 Geometrically, \(\mathbf{Q}\) can be interpreted as a linear transformation that rotates and reflects the basis vectors. Likewise, \(\mathbf{R}\) can be interpreted as a linear transformation that scales and shears the basis vectors. Therefore, by computing the QR decomposition, we factorize a matrix into these two kinds of linear transformations. 
-
-% What else we can include in this section on what the algorithm does
-
-\subsection*{Applications}
-The QR-decomposition of a matrix \(\mathbf{A = QR}\) is useful for efficiently solving systems of linear equations. Solving $n$ many equations of the form \(\mathbf{Ax = b}\) becomes trivial to solve when it becomes \(\mathbf{Rx = Q^Tb}\), especially for larger matrices.\cite[Sect. 2.10]{numericalrecipes} We will not go into more detail on this as solving systems of linear equations is out of scope for this project. 
 
 \newpage
 \subsection{CPU and GPU Architecture}
@@ -156,7 +172,3 @@ Annoyingly, it seems that the our GPUs' floating point arithmetic \textit{slight
 \noindent If a floating point number grows too large (i.e. by squaring it), it results in overflow. The way the IEEE 754 standard handles overflow, is by turning it into infinity. If a floating point number grows too small (i.e. by dividing it by a large number), it turns into zero. 
 
 It is much preferable to have underflow rather than overflow in most computations, since such a small value can usually be considered zero without too many harmful effects. Therefore, one can scale all numbers in a computation by dividing them with the largest number in that computation, then multiply with it as the very last computation, rescaling it. This way we eliminate overflow, at the cost of negligible underflows \cite{afternotes}. This will be useful in our QR decomposition implementation.
-
-% Afsnit om vores hypoteser. Hvorfor vi skriver denne rapport. 
-% Altså at addition ikke vil få en speedup, og hvorfor vi tror det
-% at multiplication vil få en speedup, og hvorfor vi tror det

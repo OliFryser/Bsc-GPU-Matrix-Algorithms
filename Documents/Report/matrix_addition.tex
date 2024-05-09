@@ -99,13 +99,6 @@ Our implementation is, however, not faster than our CPU implementation. We suspe
 
 \subsection{Addition: GPU Multi Core 2}
 
-\begin{wrapfigure}{R}{0.5\textwidth}
-    \centering
-    \includegraphics[width=0.5\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/Addition/CPU, GPU SC, GPU MC 1, GPU MC 2.png}
-    \caption{Addition: GPU Multi Core 2 Benchmark}
-    \label{fig:addition_gpu_mc_2_bench}
-\end{wrapfigure}
-
 With this implementation, we will hardcode the number of threads in each block to be 16 x 16. This way, we hope to better take advantage of each multiprocessor and solve the major limitation of the previous algorithm.
 
 Because each SM is responsible for scheduling the execution of blocks, it would not make sense for each block to have 1024 threads that all have to finish before the multiprocessor can schedule a new block. Also, as discussed in \ref{sect:background_gpu}, small blocks allow our algorithm to scale better on a plethora of devices with different SM counts.
@@ -132,7 +125,13 @@ In figure \ref{fig:addition_gpu_mc_2_bench}, it can be seen that there is no per
 
 Other than fixing our previous limitation of only allowing matrices of up to side length of 1024, this implementation gives no performance benefits.
 
-\subsection{Addition: GPU Multi Core - Larger Kernels}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/Addition/CPU, GPU SC, GPU MC 1, GPU MC 2.png}
+    \caption{Addition: GPU Multi Core 2 Benchmark}
+    \label{fig:addition_gpu_mc_2_bench}
+\end{figure}
+
 
 \subsection{A note about the choice of data structure}
 
@@ -142,7 +141,7 @@ We suspected that this translation between the two representations might have in
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.65\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/2D vs 1D.png}
-    \caption{CPU Addition Benchmark}
+    \includegraphics[width=\textwidth]{SavedBenchmarksAndDiagrams/Machine 2/2D vs 1D.png}
+    \caption{1D vs 2D Benchmark.}
     \label{fig:1d_vs_2d_bench}
 \end{figure}
