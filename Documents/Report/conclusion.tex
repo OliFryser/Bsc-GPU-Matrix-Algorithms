@@ -1,0 +1,19 @@
+\section{Conclusion}
+
+% svar på problemstillingen
+% formuler hvad vi har lært
+% samlede konklusioner og take aways på analyser
+
+With this project we have learned to use the CUDA C programming language to perform calculations in parallel on the GPU. 
+
+We have compared performance metrics of matrix algorithms using the CPU and GPU and discovered that communication between the two is often the bottleneck of performance. Specifically the allocation and moving of memory between the CPU and GPU hinters performance, as well as launching kernels from the CPU to execute on the GPU. 
+
+Further, we have discovered that algorithms such as matrix addition, where only a constant amount of work per element is required, can hardly be improved by GPU parallelization, due to the aforementioned metrics. However, other algorithms with a scaling amount of work required across independent computations, like matrix multiplication, are heavily parallelizable. This is done by utilizing the multi-core architecture of the GPU, such that many independent calculations can be done in parallel on many threads. Some algorithms are fundamentally sequential such as the QR decomposition algorithm. This makes it very hard to take proper advantage of the capabilities of parallelization on the GPU, because some computations depend on previous results of the algorithm. 
+
+We have deepened our understanding of how memory is structured into different hierarchies on the GPU and how to best take advantage those. We have learned appropriate abstractions and terminology such as threads, blocks, grids, streaming multiprocessors, kernels, shared memory and acquired the skills to use these.
+
+We have learned the differences between various GPU architectures and how algorithms can be programmed to scale efficiently between a range of hardware. A key take away is to make sure every streaming multiprocessor is kept busy with processing blocks, regardless of the amount and power of the multiprocessors of a machine.
+
+In this project we have also learned how to build tools for automated processes including compiling, testing, benchmarking and visualizing results. We have improved our ability to program a reliable and efficient library through test driven development, and critically reflect on all findings of our benchmark analysis.
+
+To conclude, we have learned how utilizing the GPU can, if used correctly, bring significant performance to a system. 
